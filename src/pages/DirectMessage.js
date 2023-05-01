@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "./DirectMessage.css";
+import "../css/DirectMessage.css";
 
 function DirectMessage() {
   const [slide, setSlide] = useState(false);
