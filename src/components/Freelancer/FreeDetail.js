@@ -1,12 +1,12 @@
-import "../css/FreeDetail.css";
+import "../../css/FreeDetail.css";
 import { Link } from "react-router-dom";
 import { AiFillGithub } from "react-icons/ai";
 import { AiFillStar } from "react-icons/ai";
 import { AiOutlineStar } from "react-icons/ai";
 import { FaHashtag } from "react-icons/fa";
 import React, { useState } from "react";
-import Modal from "./Modal";
-import EvalForm from "./Review/ReviewForm";
+import ReviewModal from "../Review/ReviewModal";
+import ReviewForm from "../Review/ReviewForm";
 
 const FreeDetail = (props) => {
   const [evalForm, setEvalForm] = useState(false);
@@ -75,9 +75,9 @@ const FreeDetail = (props) => {
                 onClick={() => setEvalForm(!evalForm)}
               />
               {evalForm && (
-                <Modal closeModal={() => setEvalForm(!evalForm)}>
-                  <EvalForm />
-                </Modal>
+                <ReviewModal closeModal={() => setEvalForm(!evalForm)}>
+                  <ReviewForm />
+                </ReviewModal>
               )}
             </div>
             <div class="tpt">
@@ -96,7 +96,28 @@ const FreeDetail = (props) => {
                 </tr>
                 <tr>
                   <td colSpan={4} id="word">
-                    멀티캠퍼스와 함께 하는 동안 많이 배우고 성장했습니다!
+                    {/* 멀티캠퍼스와 함께 하는 동안 많이 배우고 성장했습니다! */}
+                  </td>
+                </tr>
+              </table>
+            </div>
+            <div class="tpt">
+              <table>
+                <tr height="50px">
+                  <td width="30px">작성자</td>
+                  <td width="100px">멀티캠퍼스</td>
+                  <td width="30px">평점</td>
+                  <td width="60px">
+                    <AiFillStar />
+                    <AiFillStar />
+                    <AiFillStar />
+                    <AiFillStar />
+                    <AiFillStar /> 5.0
+                  </td>
+                </tr>
+                <tr>
+                  <td colSpan={4} id="word">
+                    {/* 멀티캠퍼스와 함께 하는 동안 많이 배우고 성장했습니다! */}
                   </td>
                 </tr>
               </table>

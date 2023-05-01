@@ -3,11 +3,11 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 import Layout from "./components/Layout";
 import Home from "./components/Home";
-import FreeList from "./components/FreeList";
-import FreeDetail from "./components/FreeDetail";
-import PjList from "./components/PjList";
-import PjDetail from "./components/PjDetail";
-import PjRegistration from "./components/PjRegistration";
+import FreeList from "./components/Freelancer/FreeList";
+import FreeDetail from "./components/Freelancer/FreeDetail";
+import PjList from "./components/Project/PjList";
+import PjDetail from "./components/Project/PjDetail";
+import PjRegistration from "./components/Project/PjRegistration";
 import "./css/Layout.css";
 
 function App() {

@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import "../css/List.css";
+import "../../css/List.css";
 
 const FreeList = () => {
   return (

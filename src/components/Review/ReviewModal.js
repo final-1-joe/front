@@ -1,7 +1,7 @@
 import React from "react";
-import "../css/Modal.css";
+import "../../css/ReviewModal.css";
 
-function Modal(props) {
+function ReviewModal(props) {
   function closeModal() {
     props.closeModal();
   }
@@ -18,4 +18,4 @@ function Modal(props) {
   );
 }
 
-export default Modal;
+export default ReviewModal;

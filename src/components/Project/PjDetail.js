@@ -1,12 +1,12 @@
-import "../css/PjDetail.css";
+import "../../css/PjDetail.css";
 import { Link } from "react-router-dom";
 import { AiFillGithub } from "react-icons/ai";
 import { AiFillStar } from "react-icons/ai";
 import { AiOutlineStar } from "react-icons/ai";
 import { FaHashtag } from "react-icons/fa";
 import React, { useState } from "react";
-import Modal from "./Modal";
-import ReviewForm from "./Review/ReviewForm";
+import ReviewModal from "../Review/ReviewModal";
+import ReviewForm from "../Review/ReviewForm";
 
 const PjDetail = () => {
   const [reviewForm, setReviewForm] = useState(false);
@@ -60,9 +60,9 @@ const PjDetail = () => {
                 onClick={() => setReviewForm(!reviewForm)}
               />
               {reviewForm && (
-                <Modal closeModal={() => setReviewForm(!reviewForm)}>
+                <ReviewModal closeModal={() => setReviewForm(!reviewForm)}>
                   <ReviewForm />
-                </Modal>
+                </ReviewModal>
               )}
             </div>
             <div class="tpt">
