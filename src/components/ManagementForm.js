@@ -36,16 +36,16 @@ const ManagementForm = ({ listData, Mode }) => {
                         <li>
                             <div className='index'>
                                 <span>프리랜서명</span>
-                                <span>내용</span>
-                                <span>진행상황</span>
+                                <span></span>
+                                <span>진행상태</span>
                             </div>
                         </li>
                         {activeTab === 'all' && (
                             <>
                                 {allSchedules.map((schedule) => (
-                                    <li key={schedule.id} className="list-item" onClick={() => navigate(schedule.link)}>
-                                        <span>{schedule.project}</span>
-                                        <span>{schedule.content}</span>
+                                    <li key={schedule.id} className="list-item">
+                                        <span onClick={() => navigate(schedule.link)}>{schedule.project}</span>
+                                        <span onClick={() => navigate(schedule.dmlink)}>DM보내기 / 연락하기</span>
                                         <span>{schedule.status === 'completed' ? '승낙' : '미승낙'}</span>
                                     </li>
                                 ))}
@@ -54,11 +54,11 @@ const ManagementForm = ({ listData, Mode }) => {
 
                         {activeTab === 'inProgress' && (
                             <>
-                                {inProgressSchedules.map((schedule) => (
-                                    <li key={schedule.id} className="list-item" onClick={() => navigate(schedule.link)}>
-                                        <span>{schedule.project}</span>
-                                        <span>{schedule.content}</span>
-                                        <span>미승낙</span>
+                                {allSchedules.map((schedule) => (
+                                    <li key={schedule.id} className="list-item">
+                                        <span onClick={() => navigate(schedule.link)}>{schedule.project}</span>
+                                        <span onClick={() => navigate(schedule.dmlink)}>DM보내기 / 연락하기</span>
+                                        <span>{schedule.status === 'completed' ? '승낙' : '미승낙'}</span>
                                     </li>
                                 ))}
                             </>
@@ -66,11 +66,11 @@ const ManagementForm = ({ listData, Mode }) => {
 
                         {activeTab === 'completed' && (
                             <>
-                                {completedSchedules.map((schedule) => (
-                                    <li key={schedule.id} className="list-item completed" onClick={() => navigate(schedule.link)}>
-                                        <span>{schedule.project}</span>
-                                        <span>{schedule.content}</span>
-                                        <span>승낙</span>
+                                {allSchedules.map((schedule) => (
+                                    <li key={schedule.id} className="list-item">
+                                        <span onClick={() => navigate(schedule.link)}>{schedule.project}</span>
+                                        <span onClick={() => navigate(schedule.dmlink)}>DM보내기 / 연락하기</span>
+                                        <span>{schedule.status === 'completed' ? '승낙' : '미승낙'}</span>
                                     </li>
                                 ))}
                             </>
@@ -91,8 +91,8 @@ const ManagementForm = ({ listData, Mode }) => {
                         <li>
                             <div className='index'>
                                 <span>프로젝트</span>
-                                <span>내용</span>
-                                <span>진행상황</span>
+                                <span></span>
+                                <span>진행상태</span>
                             </div>
                         </li>
                         {activeTab === 'all' && (

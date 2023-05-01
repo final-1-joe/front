@@ -13,8 +13,9 @@ function App() {
       {/* <ManagementForm /> */}
       <Router>
         <Routes>
-          <Route path='/' element={<ProjectManagement />} />
-          <Route path='/1' element={<RecruitmentManagement />} />
+          <Route path='/calendar' element={<FullCalendar />} />
+          <Route path='/project' element={<ProjectManagement />} />
+          <Route path='/recruit' element={<RecruitmentManagement />} />
         </Routes>
       </Router>
 

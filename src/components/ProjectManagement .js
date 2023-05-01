@@ -12,9 +12,9 @@ const ProjectManagement = () => {
             status: 'inProgress',
             link: '/hello'
         },
-        { id: 2, project: 'Project A', content: 'Schedule 2', status: 'completed' },
-        { id: 3, project: 'Project B', content: 'Schedule 3', status: 'inProgress' },
-        { id: 4, project: 'Project B', content: 'Schedule 4', status: 'completed' },
+        { id: 2, project: 'Project B', content: 'Schedule 2', status: 'completed' },
+        { id: 3, project: 'Project C', content: 'Schedule 3', status: 'inProgress' },
+        { id: 4, project: 'Project D', content: 'Schedule 4', status: 'completed' },
     ];
 
     return (

@@ -94,7 +94,6 @@ body {
     padding-right: 0.5rem;
     width: 33.33%;
     box-sizing: border-box;
-    pointer-events: none;
 }
 
 .list li:last-child {
