@@ -1,27 +1,16 @@
 import "../../css/bootstrap.css";
 import "../../css/Resume.css";
 import Select from "react-select";
-import React, { useState, useRef } from "react";
-import { occupation, occupations } from "./OccupationData";
+import React, { useState } from "react";
+import { asd, colourOptions } from "./data.ts";
 import Tag from "./Tag";
 
 const Resume = () => {
-  const nameRef = useRef();
-  const [Selected, setSelected] = useState("");
-
-  const handleSelect = (e) => {
-    setSelected(e.target.value);
-  };
-  const birthRef = useRef();
-  const emailRef = useRef();
-  const telRef = useRef();
-
-  const [selectedoccupation, setSelectedOccupation] = useState("");
   return (
     <div className="resume">
       <div id="basic" className="resume_section">
         <div className="area_title">
-          <h3 className="title">이력서</h3>
+          <h3 className="title">이력서 수정</h3>
         </div>
 
         <div className="resume_write">
@@ -38,18 +27,13 @@ const Resume = () => {
                 maxLength="20"
                 data-only-word="true"
                 placeholder="이름 입력"
-                ref={nameRef}
               />
             </span>
             <span className="sri_select resume_select resume_right">
-              <select
-                className="ico_arr selected size_type3"
-                onChange={handleSelect}
-                value={Selected}
-              >
+              <select className="ico_arr selected size_type3">
                 <option>구직상태 선택</option>
-                <option value={1}>구직중</option>
-                <option value={0}>비구직중</option>
+                <option>구직중</option>
+                <option>비구직중</option>
               </select>
             </span>
           </div>
@@ -64,7 +48,6 @@ const Resume = () => {
                 name="birth_dt"
                 className="box_input"
                 data-only-word="true"
-                ref={birthRef}
               />
             </span>
             <span className="inpRdoSw sizeXL resume_right focus">
@@ -91,7 +74,6 @@ const Resume = () => {
                 type="email"
                 id="email"
                 name="email"
-                ref={emailRef}
                 className="box_input max_length"
                 placeholder="이메일 입력"
                 autoComplete="on"
@@ -111,60 +93,31 @@ const Resume = () => {
                 className="box_input max_length"
                 maxLength="11"
                 placeholder="ex)01012345678"
-                ref={telRef}
               />
             </div>
           </div>
-          <div className="resume_row">
-            <div className="input_title">직군/직무</div>
-            <div className="resume_input">
-              <Select
-                className="basic-single"
-                classNamePrefix="select"
-                placeholder="직군을 선택하세요"
-                name="color"
-                options={occupations}
-                onChange={(e) => {
-                  console.log(e);
-                  setSelectedOccupation(e.value);
-                }}
-              />
-            </div>
-            <p className="txt_error"></p>
-            <div className="input_title"></div>
 
-            {selectedoccupation && (
-              <div className="resume_input">
-                <Select
-                  isMulti
-                  name="colors"
-                  placeholder="직무를 선택하세요"
-                  options={occupation[selectedoccupation]}
-                  className="basic-multi-select"
-                  classNamePrefix="select"
-                />
-              </div>
-            )}
-          </div>
           <div className="resume_row">
             <span className="input_title">프리랜서 경력</span>
             <span className="resume_input">
               <input
                 type="number"
                 min={0}
-                id="user_fre_ca"
-                name="user_fre_ca"
-                className="box_input fre_ca_size"
+                id="user_url"
+                name="user_url"
+                className="box_input max_length"
               />
             </span>
             <span className="sri_select resume_select resume_right">
-              <select className="ico_arr selected size_fre_ca">
+              <select className="ico_arr selected size_type3">
                 <option>프리랜서 경험</option>
-                <option value={1}>있음</option>
-                <option value={0}>없음</option>asdfasasfgit
+                <option>있음</option>
+                <option>없음</option>asdfasasfgit
               </select>
             </span>
           </div>
+
+          <Tag></Tag>
           <div className="resume_row">
             <div className="input_title">포트 폴리오</div>
             <div className="resume_input">
@@ -191,7 +144,7 @@ const Resume = () => {
           </div>
         </div>
         <div class="btns-area">
-          <a class="btn-m02 btn-color03 depth2">등록</a>
+          <a class="btn-m02 btn-color03 depth2">수정</a>
           <a class="btn-m02 btn-color06 depth2">취소</a>
         </div>
       </div>

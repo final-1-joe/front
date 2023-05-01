@@ -8,6 +8,8 @@ import SupportBoardWrite from "./components/supportcenter/SupportBoardWrite";
 import SupportBoardDetail from "./components/supportcenter/SupportBoardDetail";
 import SupportBoardModify from "./components/supportcenter/SupportBoardModify";
 import SupportCenter from "./components/supportcenter/SupportCenter";
+import Tag from "./components/ksm/Tag";
+import TagConfigFree from "./components/ksm/TagConfigFree";
 //import Test from "./components/ksm/Test";
 
 function App() {
@@ -15,6 +17,7 @@ function App() {
     <Routes>
       <Route path="/" element={<Layout />}>
         <Route index element={<Resume />} />
+        <Route path="/tag" element={<TagConfigFree />} />
         <Route path="/resume" element={<Resume />} />
         <Route path="/support" element={<SupportCenter />} />
         <Route path="/support/supportboard" element={<SupportBoard />} />
