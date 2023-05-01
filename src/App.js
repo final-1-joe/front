@@ -1,4 +1,13 @@
-
+import React from "react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import Layout from "./components/Layout";
+import Home from "./components/Home";
+import FreeList from "./components/Freelancer/FreeList";
+import FreeDetail from "./components/Freelancer/FreeDetail";
+import PjList from "./components/Project/PjList";
+import PjDetail from "./components/Project/PjDetail";
+import PjRegistration from "./components/Project/PjRegistration";
+import "./css/Layout.css";
 import MyCalendar from './components/MyCalendar';
 import ProjectManagement from './components/ProjectManagement ';
 import RecruitmentManagement from './components/RecruitmentManagement ';
@@ -8,6 +17,9 @@ import ClientMypage from './pages/ClientMypage';
 import FreeMypage from './pages/FreeMypage';
 import FreeMyInfo from './components/my/FreeMyInfo';
 import ClientMyInfo from './components/my/ClientMyInfo'
+
+
+
 function App() {
   return (
     <div>
