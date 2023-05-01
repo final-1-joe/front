@@ -1,22 +1,24 @@
-import React from "react";
-import FreeMypage from "./pages/FreeMypage";
-import MyInfo from "./components/my/FreeMyInfo";
-import MyProject from "./components/my/FreeMyProject";
-import { Route, Routes } from "react-router-dom";
-import ClientMypage from "./pages/ClientMypage";
-import ClientMyInfo from "./components/my/ClientMyInfo";
+
+import MyCalendar from './components/MyCalendar';
+import ProjectManagement from './components/ProjectManagement ';
+import RecruitmentManagement from './components/RecruitmentManagement ';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import DirectMessage from './pages/DirectMessage';
 
 function App() {
   return (
-    <Routes>
-      <Route path="/freelancer/mypage" element={<FreeMypage />} />
-      <Route path="/freelancer/myinfo" element={<MyInfo />} />
-      <Route path="/freelancer/myproject" element={<MyProject />} />
+    <div>
+      <Router>
+        <Routes>
+          <Route path='/calendar' element={<MyCalendar />} />
+          <Route path='/project' element={<ProjectManagement />} />
+          <Route path='/recruit' element={<RecruitmentManagement />} />
+          <Route path='/direct' element={<DirectMessage />} />
+        </Routes>
+      </Router>
 
-      <Route path="/client/mypage" element={<ClientMypage />} />
-      <Route path="/client/myinfo" element={<ClientMyInfo />} />
-    </Routes>
+    </div>
   );
-}
+};
 
 export default App;
