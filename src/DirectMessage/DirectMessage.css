@@ -1,0 +1,651 @@
+.Content-div {
+  display : table;
+  margin : 0 auto;
+}
+
+.Lft-div {
+  height: 1000px;
+  width: 500px;
+  border-radius: 20px;
+  background: #FFFBEB;
+  margin : 40px 60px 40px 20px; 
+  float : left;
+  animation: 0.6s ease-in-out loadEffect2;
+}
+
+@keyframes loadEffect2 {
+  0%{
+      opacity: 0;
+      transform: translateX(-30px);
+  }
+  50%{
+      opacity: 0.5;
+      transform: translateX(30px);
+  }
+  100%{
+      opacity: 1;
+      transform: translateX(0px);
+  }
+}
+
+.Lft-div2 {
+  height: 1000px;
+  width: 500px;
+  border-radius: 20px;
+  background: #FFFBEB;
+  margin : 40px 60px 40px 20px; 
+  float : left;
+  animation: 0.6s ease-in-out loadEffect3;
+}
+
+@keyframes loadEffect1 {
+  0%{
+      opacity: 0;
+  }
+  100%{
+      opacity: 1;
+  }
+}
+
+@keyframes loadEffect3 {
+  0%{
+      opacity: 0;
+      transform: scale(0.7);
+  }
+  65%{
+      opacity: 0.65;
+      transform: scale(1.01);
+  }
+  85%{
+      opacity: 0.85;
+      transform: scale(0.97);
+  }
+  100%{
+      opacity: 1;
+      transform: scale(1);
+  }
+}
+
+.Rgt-div-top { 
+  height: 140px;
+  width: 1275px;
+  margin-right: 12px;
+  float: left;
+  /*background: #D9D9D9;*/  /* 자리 잡으면 없앨 것 */
+}
+
+.Rgt-div-bottom {
+  min-height: 780px;
+  max-height: 780px;
+  width: 1275px;
+  margin-top: 30px;
+  margin-right: 12px;
+  float: left;
+  overflow-y: auto;
+  overflow-x:hidden;
+  /*background: #D9D9D9; */ /* 자리 잡으면 없앨 것 */
+}
+
+.Rgt-div-input {
+  height: 80px;
+  width: 1275px;
+  margin-top: 10px;
+  margin-right: 12px;
+  float: left;
+  /*background: #D9D9D9;*/ /* 자리 잡으면 없앨 것 */
+}
+
+.chat-room-select{
+height: 115px;
+width: 456px;
+border-radius: 15px;
+background-color: white;
+margin: 0 auto;
+margin-top: 22px;
+position: relative;
+overflow: hidden;
+}
+
+.chat-room-select:hover{
+  cursor: pointer;
+  background-color: #FBDB6A;
+  transition: 0.8s;
+}
+  
+.profile-photo {
+height: 95px;
+width: 95px;
+border-radius: 90px;
+margin: 10px;
+margin-left: 43px;
+float:left;
+background-size: cover;
+background-image: url(/public/DirectMessage/freelancer1.png);
+}
+
+.profile-photo-tmp {
+  height: 95px;
+  width: 95px;
+  border-radius: 90px;
+  margin: 10px;
+  margin-left: 43px;
+  float:left;
+  background-size: cover;
+  background-image: url(/public/DirectMessage/enterprise1.png);
+  }
+
+.profile-name {
+height: 48px;
+width: 200px;
+font-family: 'Inter';
+font-style: normal;
+font-weight: 400;
+font-size: 40px;
+line-height: 48px;
+margin-left:27px;
+float: left;
+margin-top: 10px;
+}
+
+.profile-notify {
+  height: 39px;
+  width: 39px;
+  left: 462px;
+  top: 86px;
+  border-radius: 90px;
+  background-color: #FF6D6D;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 30px;
+  line-height: 36px;
+  text-align: center;
+  color: #FFFFFF;
+  margin-top:17px;
+  margin-left:22px;
+  float : left;
+}
+
+.profile-content {
+height: 36px;
+width: 246px;
+border-radius: nullpx;
+font-family: 'Inter';
+font-style: normal;
+font-weight: 400;
+font-size: 30px;
+line-height: 36px;
+color : rgba(0, 0, 0, 0.5);
+float: left;
+margin-left: 27px;
+margin-top: 6px;
+overflow: hidden;
+text-overflow: ellipsis;
+white-space:nowrap;
+}
+
+.profile-line {
+height: 85px;
+width: 0px;
+border-radius: 90px;
+border: 10px solid #FBDB6A;
+margin-top: 5px; 
+float: right;
+}
+
+.undo-button {
+width: 64px;
+height: 64px;
+border-radius: 50%;
+float: left;
+background: url(/public/DirectMessage/new-undo-button.png);
+background-color: #FFC700;
+background-size: cover;
+margin-top:40px;
+}
+
+.undo-button:hover {
+  cursor:pointer;
+  background-color: #ffa600;
+  transition: 0.7s;
+}
+
+.Rgt-center-div {
+height: 95px;
+width: 239px;
+float:left;
+margin-left: 449px;
+margin-top:15px;
+/*background: #FF6D6D;*/
+}
+
+.Rgt-center-div-profile {
+height: 95px;
+width: 95px;
+float:left;
+background: url(/public/DirectMessage/enterprise1.png);
+background-size: cover;
+}
+
+.Rgt-center-div-name {
+  height: 95px;
+  width: 144px;
+  float:left;
+  font-family: Inter;
+  font-size: 40px;
+  font-weight: 400;
+  line-height: 48px;
+  letter-spacing: 0em;
+  text-align: center;
+  margin-top: 24px;
+  }
+
+
+.information-button {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  float:left;
+  margin-left: 449px;
+  background: url(/public/DirectMessage/new-information-button.png);
+  background-color:#FFC700;
+  background-size: cover;
+  margin-top:40px;
+  }
+
+  .information-button:hover{
+    cursor:pointer;
+    background-color:#ffa600;
+    transition: 0.7s;
+  }
+
+.dvide-line {
+width: 1270px;
+height: 8px;
+background: #FFC700;
+border-radius: 15px;
+margin-top:125px;
+}
+
+.detail-profile {
+height: 420px;
+width: 420px;
+float:left;
+margin-top : 30px;
+margin-left : 40px;
+border-radius: 90px;
+background: url(/public/DirectMessage/enterprise1.png);
+background-size: cover;
+}
+
+.detail-profile:hover {
+  cursor:pointer;
+}
+
+.detail-bottom {
+height: 550px;
+width: 500px;
+float:left;
+background-color: white;
+}
+
+.detail-name {
+height: 85px;
+width: auto;
+font-family: Inter;
+font-size: 70px;
+font-weight: 700;
+line-height: 85px;
+letter-spacing: 0em;
+text-align: left;
+margin-top : 20px;
+margin-left: 33px;
+}
+
+.detail-email {
+height: 36px;
+width: auto;
+font-family: Inter;
+font-size: 30px;
+font-weight: 400;
+line-height: 36px;
+letter-spacing: 0em;
+text-align: left;
+margin-left: 33px;
+}
+
+.detail-telephone{
+  height: 36px;
+  width: auto;
+  font-family: Inter;
+  font-size: 30px;
+  font-weight: 400;
+  line-height: 36px;
+  letter-spacing: 0em;
+  text-align: left;
+  margin-left: 33px;  
+}
+
+.detail-score{
+  height: 61px;
+  width: auto;
+  font-family: Inter;
+  font-size: 50px;
+  font-weight: 400;
+  line-height: 61px;
+  letter-spacing: 0em;
+  text-align: center;
+  margin-top:28px; 
+}
+
+.detail-score-image {
+height: 64.81199645996094px;
+width: 396px;
+margin-top: 15px;
+margin-left :52px;
+background-size: cover;
+}
+
+.detail-line {
+height: 0px;
+width: 400px;
+margin-top: 30px;
+margin-left: 50px;
+border: 1px solid #FFC700
+}
+
+.corporation-img {
+height: 164px;
+width: 164px;
+background-image: url(/public/DirectMessage/pngegg.png);
+background-size: cover;
+margin-left: 50px;
+float:left;
+}
+
+.corporation-text {
+height: 61px;
+width: auto;
+font-family: Inter;
+font-size: 50px;
+font-weight: 100;
+line-height: 61px;
+letter-spacing: 0em;
+text-align: center;
+margin-top: 50px;
+color: blue;
+}
+
+.not-cooperate {
+height: 48px;
+width: auto;
+text-align: center;
+font-family: Inter;
+font-size: 40px;
+font-weight: 400;
+line-height: 48px;
+margin-top: 50px;
+color: gray;
+}
+
+.input-something {
+  height: 64px;
+  width: 64px;
+  border-radius: 50%;
+  float: left;
+  background-image: url(/public/DirectMessage/new-information-button3.png);  /* 자리 잡으면 없앨 것 */
+  background-color: #FFC700;
+  background-size: cover;
+  margin-top : 8px;
+}
+
+.input-something:hover {
+ cursor: pointer;
+ transform: rotate( 135deg );
+ background-color: #FFa600;
+ transition: 1s;
+}
+
+.input-text {
+height: 48px;
+width: 990px;
+
+font-family: 'Inter';
+font-style: normal;
+font-weight: 400;
+font-size: 40px;
+line-height: 48px;
+margin-left: 40px;
+margin-top : 16px;
+text-align: left;
+float: left;
+border: 0;
+}
+
+.input-text::placeholder {
+  color: gray;
+  }
+
+.input-text:focus{
+  outline: none;
+  color:black;
+}  
+
+.input-line {
+height: 0px;
+width: 1000px;
+border: 1px solid #000000;
+margin-top: 78px;
+margin-left : 90px;
+}
+
+.input-button {
+height: 88.64302062988281px;
+width: 127.89102935791016px;
+border-radius: 20px;
+float:left;
+
+background: #FFC700;
+border-radius: 20px;
+font-family: 'Inter';
+font-style: normal;
+font-weight: 700;
+font-size: 40px;
+line-height: 88.64302062988281px;
+text-align: center;
+vertical-align: middle;
+color: #FFFFFF;
+margin-left : 48px;
+}
+
+.input-button:hover {
+ cursor: pointer;
+ background: #ffa600;
+ transition: 0.7s;
+  }
+
+.attach-pic {
+  position: absolute;
+  height: 64px;
+  width: 64px;
+  border-radius: 50%;
+  left: 540px;
+  top: 900px;
+  background-image: url(/public/DirectMessage/new-information-button1.png);
+  background-color: #FFC700;
+  background-size: cover;
+  animation: 0.7s ease-in-out loadEffect1;
+}
+
+.attach-pic:hover {
+  cursor: pointer;
+  transform: scale(1.3);
+  background-color: #FFa600;
+  transition: 0.4s;
+}
+
+.attach-file {
+  position: absolute;
+  height: 64px;
+  width: 64px;
+  border-radius: 50%;
+  left: 620px;
+  top: 900px;
+  background-image: url(/public/DirectMessage/new-information-button2.png);
+  background-color: #FFC700;
+  background-size: cover;
+  animation: 0.7s ease-in-out loadEffect1;
+}
+
+.attach-file:hover {
+  cursor: pointer;
+  transform: scale(1.3);
+  background-color: #FFa600;
+  transition: 0.4s;
+}
+
+.Rgt-chat-profile {
+  height: 95px;
+  width: 95px;
+  margin-left: 45px;
+  background-size: cover;  
+  float: left;
+}
+
+.Rgt-chat-name {
+height: 45px;
+width: calc(100% - 200px);
+font-family: Inter;
+font-size: 40px;
+font-weight: 400;
+line-height: 48px;
+letter-spacing: 0em;
+margin:30px;
+margin-top:25px;
+text-align: left;
+float:left;
+}
+
+.Rgt-chat-content {
+height: auto;
+width: auto;
+border-radius: 15px;
+max-width: 800px;
+background: #FFFBEB;
+float:left;
+
+font-family: 'Inter';
+font-style: normal;
+font-weight: 100;
+font-size: 40px;
+line-height: 48px;
+text-align: left;
+padding-top : 45px;
+padding-left: 60px;
+padding-right: 60px;
+padding-bottom : 45px;
+color: #000000;
+word-wrap: break-word;
+/*display : table;*/
+}
+
+.Rgt-chat-arrow {
+height: 0px;
+width: 0px;
+border-bottom: 30px solid transparent;
+border-top: 30px solid transparent;
+border-right: 30px solid  #FFFBEB;
+float:left;
+margin-left : 108px;
+}
+
+.Rgt-chat-time {
+font-family: Inter;
+font-size: 30px;
+font-weight: 400;
+line-height: 36px;
+letter-spacing: 0em;
+text-align: right;
+height: 36px;
+margin-right: 20px;
+}
+
+.combine {
+  display: table;
+  margin-bottom: 46px;
+}
+
+.Rgt-chat-profile-me {
+  height: 95px;
+  width: 95px;
+  margin-right: 45px;
+  background-size: cover;  
+  float: right;
+}
+
+.Rgt-chat-name-me {
+height: 45px;
+width: calc(100% - 200px);
+font-family: Inter;
+font-size: 40px;
+font-weight: 400;
+line-height: 48px;
+letter-spacing: 0em;
+margin:30px;
+margin-top:25px;
+text-align: right;
+float:right;
+}
+
+.Rgt-chat-content-me {
+height: auto;
+width: auto;
+border-radius: 15px;
+max-width: 800px;
+background: #FFFBEB;
+float: right;
+word-wrap: break-word;
+
+font-family: 'Inter';
+font-style: normal;
+font-weight: 100;
+font-size: 40px;
+line-height: 48px;
+text-align: left;
+padding-top : 45px;
+padding-left: 60px;
+padding-right: 60px;
+padding-bottom : 45px;
+color: #000000;
+/*display : table;*/
+
+}
+
+.Rgt-chat-arrow-me {
+height: 0px;
+width: 0px;
+border-bottom: 30px solid transparent;
+border-top: 30px solid transparent;
+border-left: 30px solid  #FFFBEB;
+float:right;
+margin-right : 108px;
+}
+
+.Rgt-chat-time-me {
+font-family: Inter;
+font-size: 30px;
+font-weight: 400;
+line-height: 36px;
+letter-spacing: 0em;
+text-align: right;
+height: 36px;
+margin-right: 20px;
+margin-left : 1000px;
+}
+
+.combine-me {
+  display: table;
+  margin-bottom: 46px;
+  float:right;
+  width:calc( 100% - 138px );
+}
