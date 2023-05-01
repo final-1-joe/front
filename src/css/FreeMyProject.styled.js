@@ -12,9 +12,10 @@ const Contact = styled.div`
 const ContactProject = styled.div`
   display: flex;
   position: relative;
-  width: 600px;
+  width: 720px;
   height: 50px;
   align-items: center;
+  text-align: center;
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
@@ -28,12 +29,12 @@ const ContactProject = styled.div`
 `;
 
 const ContactButton = styled.button`
-  width: 80px;
+  width: 90px;
   height: 60px;
   background-color: #ffebb4;
   border: none;
   border-radius: 20px;
-  padding: 17.5px;
+  padding: 17.8px;
   align-items: center;
   font-size: 17px;
   display: flex;
