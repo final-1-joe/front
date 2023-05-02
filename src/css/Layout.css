@@ -19,7 +19,7 @@ header {
 
 #logo {
     position: absolute;
-    margin: 15px 30px 0px 20px;
+    margin: 10px 30px 0px 20px;
 }
 
 #bell {
@@ -37,48 +37,32 @@ header .menubar {
     background: #FFF5D3;
 }
 
-li.menu span {
+.menubar span {
+    margin: 30px;
     color:rgb(63, 63, 63);
     font-size: 17px;
     font-weight: bolder;
-    display: block;
     height: 60px;
-    text-align: center;
-    padding: 5px 30px 0px;
     text-decoration: none;    
 }
 
-li.menu span:hover {
-    color: black;
-}
+.menubar span:hover {  color: black; }
 
-li.menu {
-    text-align: left;
-    display: inline-block;
-    text-decoration: none;  
-}
-
-div .memberbtn {
+.member {
     position: absolute;
     right: 0px;
-    top: 10px;
+    top: 20px;
 }
 
-li.member a {
+.member span {
     color:rgb(97, 97, 97);
     display: block;
-    text-align: right;
     padding: 0px 20px 0px;
     text-decoration: none;
 }
 
-li.member a:hover {
+.member span:hover {
     color: black;
-}
-
-li.member {
-    display: inline-block;
-    text-align: right;
 }
 
 .posts {

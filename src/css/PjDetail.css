@@ -21,16 +21,18 @@ aside {
     text-align: left;
 }
 
+.detailbox1 td {
+    padding: 0 5px;
+}
+
 .detailbox2 {
-    /* border: 1px solid gray; */
-    border-radius: 20px;
     padding: 3%;
     margin: 10px;
     text-align: left;
 }
 
 .info {
-    font-weight: bold;
+    font-weight: bold; font-size: smaller;
     color: rgb(134, 134, 134);
 }
 

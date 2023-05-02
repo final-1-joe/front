@@ -1,0 +1,26 @@
+.registertbl { text-align: left; margin: 0 auto; }
+
+.registertbl td { padding: 0 5px; border: 3px solid white; }
+
+.registertbl .info { background-color: #f5f5f5; text-align: center;}
+
+input { outline: 1px solid #9c9c9c; height: 25px;}
+
+.register {
+    margin: 0 auto; padding: 20px;
+}
+
+.content {
+    width: 800px; height: 300px;
+    resize: none; margin: 10px;
+}
+
+.pjbtn {
+    background-color: #444; color: white;
+    padding: 4px 15px; margin: 10px;
+    border-radius: 20px; border: none;
+}
+
+.pjbtn:hover {
+    background-color: #5a5a5a;
+}
