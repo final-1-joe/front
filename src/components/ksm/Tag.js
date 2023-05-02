@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import "../../css/bootstrap.css";
 import "../../css/Resume.css";
 const wholeTextArray = [
   "영업기획",
