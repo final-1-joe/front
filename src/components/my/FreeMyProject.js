@@ -41,27 +41,33 @@ function MyProject() {
         <h4>진행중인 프로젝트</h4>
         {ongoingProject.map((ongoingProject) => (
           <div className="project">
-            <p>
-              {ongoingProject.project_name}
-              <br />
-              {ongoingProject.project_content}
-            </p>
+            {ongoingProject.project_name}
+            <br />
+            {ongoingProject.project_content}
           </div>
         ))}
         <h4>제안받은 프로젝트</h4>
         {offeredProject.map((offeredProject) => (
-          <div className="offered">
+          <form className="offered">
             <div className="offeredProject">
-              {offeredProject.project_name}
-              <br />
-              {offeredProject.project_content?.length > 28
-                ? `${offeredProject.project_content.slice(0, 28)}...`
-                : offeredProject.project_content}
+              <p>
+                {offeredProject.project_name}
+                <br />
+                {offeredProject.project_content?.length > 28
+                  ? `${offeredProject.project_content.slice(0, 28)}...`
+                  : offeredProject.project_content}
+              </p>
             </div>
-            <button className="offeredButton">DM</button>
-            <button className="offeredButton">승낙</button>
-            <button className="offeredButton">거부</button>
-          </div>
+            <button className="DMButton" type="button">
+              DM
+            </button>
+            <button className="offeredButton" type="submit">
+              승낙
+            </button>
+            <button className="offeredButton" type="submit">
+              거부
+            </button>
+          </form>
         ))}
         <h4>완료된 프로젝트</h4>
         {finishedProject.map((finishedProject) => (

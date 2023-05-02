@@ -7,14 +7,14 @@ function FreeMyInfo() {
   return (
     <div className="mypageLayout">
       <MySidebar />
-      <div className="wrapper">
+      <form className="wrapper">
         <h2 className="title">회원정보수정</h2>
         <ul className="myInfoList">
           <li className="listGroup">
             <label for="id">아이디</label>
             <p>test01</p>
           </li>
-          <li className="listGroup" tGroup>
+          <li className="listGroup">
             <label for="password">패스워드</label>
             <input type="text" id="newPassword" placeholder="새 비밀번호" />
           </li>
@@ -42,7 +42,7 @@ function FreeMyInfo() {
         <button className="editInfo" type="submit">
           수정하기
         </button>
-      </div>
+      </form>
     </div>
   );
 }

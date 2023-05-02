@@ -18,7 +18,7 @@ const MySidebar = () => {
   ];
 
   const clientTabs = [
-    { name: "메뉴", path: "/client/mypage" },
+    { name: "마이페이지 홈", path: "/client/mypage" },
     { name: "프로젝트관리", path: "/client/myproject" },
     { name: "모집현황", path: "/client/recruit" },
     { name: "회원정보수정", path: "/client/myinfo" },
