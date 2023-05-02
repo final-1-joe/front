@@ -1,12 +1,6 @@
 import React from "react";
 import MySidebar from "../components/my/mySidebar/MySidebar.js";
-import {
-  MypageLayout,
-  Wrapper,
-  Project,
-  H4,
-  WithdrawalButton,
-} from "../css/MyLayout.js";
+import "../css/MyLayout.css";
 
 function FreeMypage() {
   const ongoingProject = [
@@ -37,28 +31,30 @@ function FreeMypage() {
   ];
 
   return (
-    <MypageLayout>
+    <div className="mypageLayout">
       <MySidebar />
-      <Wrapper>
-        <H4>진행중인 프로젝트</H4>
+      <div className="wrapper">
+        <h4>진행중인 프로젝트</h4>
         {ongoingProject.map((ongoingProject) => (
-          <Project>
+          <div className="project">
             {ongoingProject.project_name}
             <br />
             {ongoingProject.project_content}
-          </Project>
+          </div>
         ))}
-        <H4>관심 프로젝트</H4>
+        <h4>관심 프로젝트</h4>
         {bookmarkProject.map((bookmarkProject) => (
-          <Project>
+          <div className="project">
             {bookmarkProject.project_name}
             <br />
             {bookmarkProject.project_content}
-          </Project>
+          </div>
         ))}
-        <WithdrawalButton type="submit">탈퇴하기</WithdrawalButton>
-      </Wrapper>
-    </MypageLayout>
+        <button className="withdrawal" type="submit">
+          탈퇴하기
+        </button>
+      </div>
+    </div>
   );
 }
 

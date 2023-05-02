@@ -1,42 +1,40 @@
-import styled from "styled-components";
-
-const Title = styled.h2`
+.title {
   font-size: 36px;
   text-align: left;
   flex-direction: column;
   display: flex;
   font-style: bold;
   margin-bottom: 40px;
-`;
+}
 
-const MyInfoList = styled.ul`
+.myInfoList {
   list-style: none;
   margin: 0px;
   padding: 0px;
   flex-direction: column;
   display: flex;
-`;
+}
 
-const ListGroup = styled.li`
+.listGroup {
   margin-bottom: 10px;
   flex-direction: column;
   display: inline-block;
-`;
+}
 
-const Label = styled.label`
+.listGroup label {
   width: 180px;
   margin-right: 10vh;
   font-size: 20px;
   display: inline-block;
-`;
+}
 
-const InputId = styled.p`
+.listGroup p {
   font-size: 20px;
   display: inline-block;
   margin-left: 10px;
-`;
+}
 
-const Input = styled.input`
+.listGroup input {
   margin-bottom: 10px;
   display: inline-block;
   width: 500px;
@@ -44,9 +42,10 @@ const Input = styled.input`
   border-bottom: 2px solid #d9d9d9;
   padding: 10px;
   font-size: 20px;
-`;
+  border-radius: 2px;
+}
 
-const EditButton = styled.button`
+button.editInfo {
   width: 110px;
   height: 55px;
   font-size: 18px;
@@ -58,13 +57,12 @@ const EditButton = styled.button`
   background-color: #fbdb6a;
   border-radius: 20px;
   border: none;
-  margin-left: 50vh;
+  margin-left: 670px;
   cursor: pointer;
-  &:hover {
-    background-color: #ffebb4;
-    color: #bf9b30;
-    font-weight: bold;
-  }
-`;
+}
 
-export { Title, MyInfoList, ListGroup, Label, InputId, Input, EditButton };
+button.editInfo:hover {
+  background-color: #ffebb4;
+  color: #bf9b30;
+  font-weight: bold;
+}
