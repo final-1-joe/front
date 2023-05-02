@@ -1,4 +1,3 @@
-import "../../css/bootstrap.css";
 import "../../css/Resume.css";
 import Select from "react-select";
 import React, { useState, useRef } from "react";
