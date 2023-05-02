@@ -1,5 +1,9 @@
+table {
+    border-collapse: collapse;
+}
 #sc{
-    
+    margin:0px;
+    padding: 0 px;
     width: 1080px;
 }
 #sc h1{
@@ -30,6 +34,7 @@
     border-top: 1px solid rgb(238, 238, 238);
 }
 .sc_lis-0{
+    text-align: left;
     position: relative;
     padding: 25px 34px;
     cursor: pointer;
@@ -56,7 +61,7 @@
 }
 .sc_an-0 {
     padding: 25px 34px;
-    background-color: rgb(250, 250, 250);
+    background-color: #faf9db;
 }
 .sc_an-1 {
     display: inline-block;
@@ -67,12 +72,19 @@
 .sc_an-2 {
     position: relative;
     display: inline-block;
-    width: 100%;
     word-break: break-all;
+    text-align: left !important;
+    width: 890px;
     font-size: 13px;
     font-weight: normal;
     color: rgb(17, 17, 17);
     line-height: 1.62;
+}
+.sc_an-3 {
+    float: right !important;
+    width:50px;
+height: auto;
+
 }
 .sc_bl{
     clear: both;
@@ -157,6 +169,7 @@
 }
 .sc_vi .title-area {
     position: relative;
+    text-align: left;
     padding: 24px 30px 0 30px;
 }
 .sc_an .title-area>h4{
@@ -203,7 +216,8 @@
     float: right !important;
 }
 .sc_vi .sc_vi-contents {
-    padding: 30px;
+    text-align: left;
+    margin: 30px;
     min-height: 300px;
 }
 .sc_an .sc_vi-contents {
@@ -324,17 +338,33 @@
 .btn-m02 {
     display: inline-block;
     vertical-align: middle;
-    width: 6.154rem;
-    height: 2.692rem;
+    width: 100px;
+    height: 30px;
     line-height: 2.692rem;
-    font-size: 1rem;
+    font-size: 16px;
     color: #000;
     margin: 0 0.1154rem;
     padding: 0 1.071rem;
     text-align: center;
-    border: 1px solid #1354a4;
-    font-weight: 500;
+    font-weight: 1000;
     background: #fff;
+}
+.btn-m03 {
+    display: inline-block;
+    vertical-align: middle;
+    width: 50px;
+    padding: 0;
+    height: 30px;
+    line-height: 2.692rem;
+    font-size: 16px;
+    color: #000;
+    margin: 0 0.1154rem;
+    text-align: center;
+    font-weight: 1000;
+    background: #fff;
+    color: #000 !important;
+    background: #ffd43b !important;
+    border: 1px solid #e1e1e1 !important;
 }
 .btns-area a, .btns-area button {
     transition: all 0.3s ease-in-out;

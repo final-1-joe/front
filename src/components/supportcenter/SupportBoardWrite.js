@@ -68,67 +68,63 @@ const SupportBoardWrite = () => {
             ref={writerRef}
             value={window.sessionStorage.getItem("id")}
           />
-          <fieldset>
-            <div class="sc_bl_wr">
-              <div class="one-box">
-                <dl>
-                  <dt>
-                    <label for="title">제목</label>
-                  </dt>
-                  <dd>
-                    <input
-                      type="text"
-                      id="title"
-                      name="title"
-                      ref={titleRef}
-                      placeholder="제목을 입력하세요."
-                      class="w100"
-                    />
-                  </dd>
-                </dl>
-              </div>
-              <input
-                type="hidden"
-                name="usernm"
-                value={window.sessionStorage.getItem("name")}
-              />
-              <input
-                type="hidden"
-                name="insertuser"
-                value={window.sessionStorage.getItem("id")}
-              />
-              <div class="one-box">
-                <dl>
-                  <dt>
-                    <label for="content">내용</label>
-                  </dt>
-                  <dd>
-                    <div class="editer-wrapper">
-                      <textarea
-                        id="content"
-                        ref={contentRef}
-                        name="content"
-                        cols="50"
-                        rows="50"
-                        placeholder="내용을 입력하세요."
-                      ></textarea>
-                    </div>
-                  </dd>
-                </dl>
-              </div>
+
+          <div class="sc_bl_wr">
+            <div class="one-box">
+              <dl>
+                <dt>
+                  <label for="title">제목</label>
+                </dt>
+                <dd>
+                  <input
+                    type="text"
+                    id="title"
+                    name="title"
+                    ref={titleRef}
+                    placeholder="제목을 입력하세요."
+                    class="w100"
+                  />
+                </dd>
+              </dl>
             </div>
-            <div class="btns-area">
-              <a onclick={handleInsert} class="btn-m02 btn-color01 depth2">
-                등록
-              </a>
-              <a
-                onClick={() => navigate(-1)}
-                class="btn-m02 btn-color06 depth2"
-              >
-                취소
-              </a>
+            <input
+              type="hidden"
+              name="usernm"
+              value={window.sessionStorage.getItem("name")}
+            />
+            <input
+              type="hidden"
+              name="insertuser"
+              value={window.sessionStorage.getItem("id")}
+            />
+            <div class="one-box">
+              <dl>
+                <dt>
+                  <label for="content">내용</label>
+                </dt>
+                <dd>
+                  <div class="editer-wrapper">
+                    <textarea
+                      id="content"
+                      ref={contentRef}
+                      name="content"
+                      cols="50"
+                      rows="50"
+                      placeholder="내용을 입력하세요."
+                    ></textarea>
+                  </div>
+                </dd>
+              </dl>
             </div>
-          </fieldset>
+          </div>
+          <div class="btns-area">
+            <a onclick={handleInsert} class="btn-m02 btn-color01 depth2">
+              등록
+            </a>
+            <a onClick={() => navigate(-1)} class="btn-m02 btn-color06 depth2">
+              취소
+            </a>
+          </div>
         </form>
       </div>
     </div>

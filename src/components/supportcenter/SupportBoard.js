@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import axios from "axios";
 import pdata from "./pdata";
 import bldata from "./bldata";
+
 const SupportBoard = () => {
   const [boardlist, setBoardlist] = useState(bldata);
   const navigate = useNavigate();

@@ -1,16 +1,6 @@
 import React, { useEffect, useState } from "react";
-import "../../css/bootstrap.css";
+import TagList from "./TagList";
 import "../../css/Resume.css";
-const wholeTextArray = [
-  "영업기획",
-  "banana",
-  "coding",
-  "javascript",
-  "원티드",
-  "원티드ds",
-  "프리온보딩",
-  "프론트엔드",
-];
 
 const Tag = () => {
   const [tagItem, setTagItem] = useState("");
@@ -38,7 +28,7 @@ const Tag = () => {
   };
 
   const [isHavetagItem, setIsHavetagItem] = useState(false);
-  const [dropDownList, setDropDownList] = useState(wholeTextArray);
+  const [dropDownList, setDropDownList] = useState(TagList);
   const [dropDownItemIndex, setDropDownItemIndex] = useState(-1);
 
   const showDropDownList = () => {
@@ -46,7 +36,7 @@ const Tag = () => {
       setIsHavetagItem(false);
       setDropDownList([]);
     } else {
-      const choosenTextList = wholeTextArray.filter((textItem) =>
+      const choosenTextList = TagList.filter((textItem) =>
         textItem.includes(tagItem)
       );
       setDropDownList(choosenTextList);

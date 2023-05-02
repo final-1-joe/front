@@ -64,7 +64,7 @@ const Layout = () => {
                 </Link>
               </li>
               <li className="menu">
-                <Link to="/" style={{ textDecoration: "none" }}>
+                <Link to="/support" style={{ textDecoration: "none" }}>
                   <span className="menu">FAQ</span>
                 </Link>
               </li>

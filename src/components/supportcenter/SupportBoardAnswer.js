@@ -42,6 +42,9 @@ const SupportBoardAnswer = () => {
             <dd>2023-04-25</dd>
           </dl>
         </div>
+        <div class="btns-area sc_an_wr_btn">
+          <a class="btn-m02 btn-color01 depth2">삭제</a>
+        </div>
       </div>
       <div>
         <form>
@@ -56,35 +59,33 @@ const SupportBoardAnswer = () => {
               ref={writerRef}
               value={window.sessionStorage.getItem("id")}
             />
-            <fieldset>
-              <div class="sc_bl_wr sc_an_wr">
-                <input
-                  type="hidden"
-                  name="usernm"
-                  value={window.sessionStorage.getItem("name")}
-                />
-                <input
-                  type="hidden"
-                  name="insertuser"
-                  value={window.sessionStorage.getItem("id")}
-                />
-                <div className="sc_vi-contents">
-                  <div class="editer-wrapper">
-                    <textarea
-                      id="content"
-                      ref={contentRef}
-                      name="content"
-                      cols="50"
-                      rows="50"
-                      placeholder="내용을 입력하세요."
-                    ></textarea>
-                  </div>
+            <div class="sc_bl_wr sc_an_wr">
+              <input
+                type="hidden"
+                name="usernm"
+                value={window.sessionStorage.getItem("name")}
+              />
+              <input
+                type="hidden"
+                name="insertuser"
+                value={window.sessionStorage.getItem("id")}
+              />
+              <div className="sc_vi-contents">
+                <div class="editer-wrapper">
+                  <textarea
+                    id="content"
+                    ref={contentRef}
+                    name="content"
+                    cols="50"
+                    rows="50"
+                    placeholder="내용을 입력하세요."
+                  ></textarea>
                 </div>
               </div>
-              <div class="btns-area sc_an_wr_btn">
-                <a class="btn-m02 btn-color01 depth2">등록</a>
-              </div>
-            </fieldset>
+            </div>
+            <div class="btns-area sc_an_wr_btn">
+              <a class="btn-m02 btn-color01 depth2">등록</a>
+            </div>
           </div>
         </form>
       </div>

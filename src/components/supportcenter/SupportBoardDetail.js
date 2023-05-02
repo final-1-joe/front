@@ -59,10 +59,10 @@ const SupportBoardDetail = () => {
         </Link>
       </div>
       <div className="sc_vi">
-        <div class="title-area">
+        <div className="title-area">
           <h4>문의글 1</h4>
         </div>
-        <div class="sc_vi-information">
+        <div className="sc_vi-information">
           <dl>
             <dt>작성자</dt>
             <dd>김성만</dd>
@@ -72,25 +72,28 @@ const SupportBoardDetail = () => {
             <dd>2023-04-25</dd>
           </dl>
         </div>
-        <div class="sc_vi-contents">
-          <pre>.</pre>
+        <div className="sc_vi-contents">
+          <pre>
+            글내용입니다.글내용입니다.글내용입니다.글내용입니다.글내용입니다.글내용입니다.글내용입니다.
+            글내용입니다.글내용입니다.글내용입니다.글내용입니다.글내용입니다.글내용입니다.글내용입니다.글내용입니다.
+          </pre>
         </div>
       </div>
       <SupportBoardAnswer />
-      <div class="btns-area mt60">
+      <div className="btns-area mt60">
         <Link
           to="/support/supportboard/modify"
-          class="btn-m02 btn-color02 depth3"
+          className="btn-m02 btn-color02 depth3"
         >
           수정
         </Link>
         <a
           onClick={handleDelete}
-          class="btn-m02 btn-color02 depth3 open-password"
+          className="btn-m02 btn-color02 depth3 open-password"
         >
           삭제
         </a>
-        <Link to="/support/supportboard" class="btn-m02 btn-color01 depth3">
+        <Link to="/support/supportboard" className="btn-m02 btn-color01 depth3">
           목록
         </Link>
       </div>

@@ -1,10 +1,10 @@
-import "../../css/bootstrap.css";
 import "../../css/Resume.css";
 import Select from "react-select";
 import React, { useState, useRef } from "react";
 import { occupation, occupations } from "./OccupationData";
 import Tag from "./Tag";
-
+import InputWon from "./InputWon";
+import InputCareer from "./InputCareer";
 const Resume = () => {
   const nameRef = useRef();
   const [Selected, setSelected] = useState("");
@@ -146,17 +146,34 @@ const Resume = () => {
               </div>
             )}
           </div>
+          <Tag></Tag>
+          <div className="resume_row">
+            <div className="input_title">근무방식</div>
+            <div className="resume_input">
+              <select className="box_input">
+                <option>상관없음</option>
+                <option>상주근무</option>
+                <option>원격근무</option>
+              </select>
+            </div>
+          </div>
+          <div className="resume_row">
+            <div className="input_title">근무형태</div>
+            <div className="resume_input">
+              <select className="box_input">
+                <option>상관없음</option>
+                <option>풀타임</option>
+                <option>파트타임</option>
+              </select>
+            </div>
+          </div>
+          <div className="resume_row">
+            <div className="input_title">희망 금액(월)</div>
+            <InputWon />
+          </div>
           <div className="resume_row">
             <span className="input_title">프리랜서 경력</span>
-            <span className="resume_input">
-              <input
-                type="number"
-                min={0}
-                id="user_fre_ca"
-                name="user_fre_ca"
-                className="box_input fre_ca_size"
-              />
-            </span>
+            <InputCareer></InputCareer>
             <span className="sri_select resume_select resume_right">
               <select className="ico_arr selected size_fre_ca">
                 <option>프리랜서 경험</option>

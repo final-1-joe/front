@@ -8,14 +8,14 @@ import PjList from "./components/Project/PjList";
 import PjDetail from "./components/Project/PjDetail";
 import PjRegistration from "./components/Project/PjRegistration";
 import "./css/Layout.css";
-import MyCalendar from './components/MyCalendar';
-import ProjectManagement from './components/ProjectManagement ';
-import RecruitmentManagement from './components/RecruitmentManagement ';
-import DirectMessage from './pages/DirectMessage';
-import ClientMypage from './pages/ClientMypage';
-import FreeMypage from './pages/FreeMypage';
-import FreeMyInfo from './components/my/FreeMyInfo';
-import ClientMyInfo from './components/my/ClientMyInfo'
+import MyCalendar from "./components/MyCalendar";
+import ProjectManagement from "./components/ProjectManagement ";
+import RecruitmentManagement from "./components/RecruitmentManagement ";
+import DirectMessage from "./pages/DirectMessage";
+import ClientMypage from "./pages/ClientMypage";
+import FreeMypage from "./pages/FreeMypage";
+import FreeMyInfo from "./components/my/FreeMyInfo";
+import ClientMyInfo from "./components/my/ClientMyInfo";
 import Resume from "./components/ksm/Resume";
 import SupportBoard from "./components/supportcenter/SupportBoard";
 import SupportBoardWrite from "./components/supportcenter/SupportBoardWrite";
@@ -23,7 +23,8 @@ import SupportBoardDetail from "./components/supportcenter/SupportBoardDetail";
 import SupportBoardModify from "./components/supportcenter/SupportBoardModify";
 import SupportCenter from "./components/supportcenter/SupportCenter";
 import Notfound from "./components/Notfound";
-
+import TagConfigFree from "./components/ksm/TagConfigFree";
+import TagConfigClient from "./components/ksm/TagConfigClient";
 
 function App() {
   return (
@@ -38,6 +39,8 @@ function App() {
             <Route path="/pjdetail" element={<PjDetail />} />
             <Route path="/pjregistration" element={<PjRegistration />} />
             <Route path="/resume" element={<Resume />} />
+            <Route path="/tag" element={<TagConfigFree />} />
+            <Route path="/tag2" element={<TagConfigClient />} />
             <Route path="/support" element={<SupportCenter />} />
             <Route path="/support/supportboard" element={<SupportBoard />} />
             <Route
@@ -53,21 +56,19 @@ function App() {
               element={<SupportBoardModify />}
             />
           </Route>
-          <Route path='/calendar' element={<MyCalendar />} />
-          <Route path='/project' element={<ProjectManagement />} />
-          <Route path='/recruit' element={<RecruitmentManagement />} />
-          <Route path='/direct' element={<DirectMessage />} />
-          <Route path='/clientmypage' element={<ClientMypage />} />
-          <Route path='/freemypage' element={<FreeMypage />} />
-          <Route path='/freemyinfo' element={<FreeMyInfo />} />
-          <Route path='/clientmyinfo' element={<ClientMyInfo />} />
+          <Route path="/calendar" element={<MyCalendar />} />
+          <Route path="/project" element={<ProjectManagement />} />
+          <Route path="/recruit" element={<RecruitmentManagement />} />
+          <Route path="/direct" element={<DirectMessage />} />
+          <Route path="/clientmypage" element={<ClientMypage />} />
+          <Route path="/freemypage" element={<FreeMypage />} />
+          <Route path="/freemyinfo" element={<FreeMyInfo />} />
+          <Route path="/clientmyinfo" element={<ClientMyInfo />} />
           <Route path="*" element={<Notfound />} />
         </Routes>
       </Router>
-
-    </div >
-
+    </div>
   );
-};
+}
 
 export default App;
