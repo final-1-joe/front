@@ -1,11 +1,7 @@
 import React from "react";
 import MySidebar from "./mySidebar/MySidebar";
-import { Wrapper, H4, MypageLayout, Project } from "../../css/MyLayout.js";
-import {
-  Contact,
-  ContactProject,
-  ContactButton,
-} from "../../css/FreeMyProject.styled";
+import "../../css/MyLayout.css";
+import "../../css/FreeMyProject.css";
 
 function MyProject() {
   const ongoingProject = [
@@ -39,42 +35,44 @@ function MyProject() {
   ];
 
   return (
-    <MypageLayout>
+    <div className="mypageLayout">
       <MySidebar />
-      <Wrapper>
-        <H4>진행중인 프로젝트</H4>
+      <div className="wrapper">
+        <h4>진행중인 프로젝트</h4>
         {ongoingProject.map((ongoingProject) => (
-          <Project>
-            {ongoingProject.project_name}
-            <br />
-            {ongoingProject.project_content}
-          </Project>
+          <div className="project">
+            <p>
+              {ongoingProject.project_name}
+              <br />
+              {ongoingProject.project_content}
+            </p>
+          </div>
         ))}
-        <H4>제안받은 프로젝트</H4>
+        <h4>제안받은 프로젝트</h4>
         {offeredProject.map((offeredProject) => (
-          <Contact>
-            <ContactProject>
+          <div className="offered">
+            <div className="offeredProject">
               {offeredProject.project_name}
               <br />
-              {offeredProject.project_content?.length > 30
-                ? `${offeredProject.project_content.slice(0, 30)}...`
+              {offeredProject.project_content?.length > 28
+                ? `${offeredProject.project_content.slice(0, 28)}...`
                 : offeredProject.project_content}
-            </ContactProject>
-            <ContactButton>DM</ContactButton>
-            <ContactButton type="submit">승낙</ContactButton>
-            <ContactButton type="submit">거부</ContactButton>
-          </Contact>
+            </div>
+            <button className="offeredButton">DM</button>
+            <button className="offeredButton">승낙</button>
+            <button className="offeredButton">거부</button>
+          </div>
         ))}
-        <H4>완료된 프로젝트</H4>
+        <h4>완료된 프로젝트</h4>
         {finishedProject.map((finishedProject) => (
-          <Project>
+          <div className="project">
             {finishedProject.project_name}
             <br />
             {finishedProject.project_content}
-          </Project>
+          </div>
         ))}
-      </Wrapper>
-    </MypageLayout>
+      </div>
+    </div>
   );
 }
 

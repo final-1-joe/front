@@ -1,55 +1,49 @@
 import React from "react";
 import MySidebar from "./mySidebar/MySidebar";
-import { MypageLayout, Wrapper } from "../../css/MyLayout.js";
-import {
-  Title,
-  MyInfoList,
-  ListGroup,
-  Label,
-  InputId,
-  Input,
-  EditButton,
-} from "../../css/MyInfoStyle";
+import "../../css/MyLayout.css";
+import "../../css/MyInfoStyle.css";
 
 function ClientMyInfo() {
   return (
-    <MypageLayout>
+    <div className="mypageLayout">
       <MySidebar />
-      <Wrapper>
-        <Title>회원정보수정</Title>
-        <MyInfoList>
-          <ListGroup>
-            <Label for="id">아이디</Label>
-            <InputId>test01</InputId>
-          </ListGroup>
-          <ListGroup>
-            <Label for="password">패스워드</Label>
-            <Input type="text" id="newPassword" placeholder="새 비밀번호" />
-          </ListGroup>
-          <ListGroup>
-            <Label for="password">패스워드 확인</Label>
-            <Input
+      <div className="wrapper">
+        <h2 className="title">회원정보수정</h2>
+        <ul className="myInfoList">
+          <li className="listGroup">
+            <label for="id">아이디</label>
+            <p>test01</p>
+          </li>
+          <li className="listGroup">
+            <label for="password">패스워드</label>
+            <input type="text" id="newPassword" placeholder="새 비밀번호" />
+          </li>
+          <li className="listGroup">
+            <label for="password">패스워드 확인</label>
+            <input
               type="text"
               id="newPasswordCheck"
               placeholder="비밀번호 확인"
             />
-          </ListGroup>
-          <ListGroup>
-            <Label for="name">상호명</Label>
-            <Input type="text" id="clientname" placeholder="상호명" />
-          </ListGroup>
-          <ListGroup>
-            <Label for="email">이메일</Label>
-            <Input type="email" id="email" placeholder="이메일" />
-          </ListGroup>
-          <ListGroup>
-            <Label for="phone">전화번호</Label>
-            <Input type="phone" id="phone" placeholder="전화번호" />
-          </ListGroup>
-        </MyInfoList>
-        <EditButton type="submit">수정하기</EditButton>
-      </Wrapper>
-    </MypageLayout>
+          </li>
+          <li className="listGroup">
+            <label for="name">상호명</label>
+            <input type="text" id="clientname" placeholder="상호명" />
+          </li>
+          <li className="listGroup">
+            <label for="email">이메일</label>
+            <input type="email" id="email" placeholder="이메일" />
+          </li>
+          <li className="listGroup">
+            <label for="phone">전화번호</label>
+            <input type="phone" id="phone" placeholder="전화번호" />
+          </li>
+        </ul>
+        <button className="editInfo" type="submit">
+          수정하기
+        </button>
+      </div>
+    </div>
   );
 }
 

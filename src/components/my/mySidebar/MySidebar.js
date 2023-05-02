@@ -1,20 +1,20 @@
 import React from "react";
 import { NavLink, useLocation } from "react-router-dom";
-import { Side, Menu } from "./MySidebar.styled";
 import MySidebarItem from "./MySidebarItem";
+import "../../../css/MySidebarStyle.css";
 
 const MySidebar = () => {
-  const paths = useLocation().pathname;
+  const paths = useLocation().path;
   //const user_code = localStorage.getItem("user_code");
   const pathName = useLocation().pathname.split("/")[1];
 
   const freeTabs = [
     //Menus
-    { name: "마이페이지 홈", path: "/freelancer/mypage" }, //freelancer/mypage
-    { name: "일정관리", path: "/freelancer/schedule" },
-    { name: "이력서관리", path: "/freelancer/manageResume" },
-    { name: "프로젝트목록", path: "/freelancer/myproject" },
-    { name: "회원정보수정", path: "/freelancer/myinfo" },
+    { name: "마이페이지 홈", path: "/free/mypage" }, //freelancer/mypage
+    { name: "일정관리", path: "/free/schedule" },
+    { name: "이력서관리", path: "/free/manageResume" },
+    { name: "프로젝트목록", path: "/free/myproject" },
+    { name: "회원정보수정", path: "/free/myinfo" },
   ];
 
   const clientTabs = [
@@ -26,7 +26,7 @@ const MySidebar = () => {
 
   const Tabs = {
     client: clientTabs,
-    freelancer: freeTabs,
+    free: freeTabs, //freelancer
   };
 
   // let sidebarTitle = "";
@@ -39,15 +39,15 @@ const MySidebar = () => {
   // }
 
   return (
-    <Side>
-      <Menu>
-        {Tabs[pathName].map((tab, index) => {
+    <div className="side">
+      <div className="menu">
+        {Tabs[pathName].map((tab, idx) => {
           return (
             <NavLink
               style={{ color: "gray", textDecoration: "none" }}
               to={tab.path}
-              key={index}
-              activeStyle={{ color: "black" }}
+              key={idx}
+              activestyle={{ color: "black" }}
             >
               <MySidebarItem
                 tab={tab}
@@ -56,8 +56,8 @@ const MySidebar = () => {
             </NavLink>
           );
         })}
-      </Menu>
-    </Side>
+      </div>
+    </div>
   );
 };
 

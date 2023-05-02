@@ -1,13 +1,6 @@
 import React from "react";
 import MySidebar from "../components/my/mySidebar/MySidebar.js";
-import {
-  MypageLayout,
-  Wrapper,
-  Project,
-  H4,
-  WithdrawalButton,
-} from "../css/MyLayout.js";
-import { Freelancer } from "../css/ClientMypageStyle.js";
+import "../css/MyLayout.css";
 
 function ClientMypage() {
   const recruitProject = [
@@ -24,28 +17,30 @@ function ClientMypage() {
   ];
 
   return (
-    <MypageLayout>
+    <div className="mypageLayout">
       <MySidebar />
-      <Wrapper>
-        <H4>모집중인 프로젝트</H4>
+      <div className="wrapper">
+        <h4>모집중인 프로젝트</h4>
         {recruitProject.map((recruitProject) => (
-          <Project>
+          <div className="project">
             {recruitProject.project_name}
             <br />
             {recruitProject.project_content}
-          </Project>
+          </div>
         ))}
-        <H4>관심 프리랜서</H4>
+        <h4>관심 프리랜서</h4>
         {bookmarkFreelancer.map((bookmarkFreelancer) => (
-          <Freelancer>
+          <div className="freelancer">
             {bookmarkFreelancer.free_name}
             <br />
             {bookmarkFreelancer.free_skills}
-          </Freelancer>
+          </div>
         ))}
-        <WithdrawalButton type="submit">탈퇴하기</WithdrawalButton>
-      </Wrapper>
-    </MypageLayout>
+        <button className="withdrawal" type="submit">
+          탈퇴하기
+        </button>
+      </div>
+    </div>
   );
 }
 
