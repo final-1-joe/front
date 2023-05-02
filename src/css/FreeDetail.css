@@ -1,0 +1,43 @@
+#container {
+    width: 80%;
+    margin: 0 auto;
+}
+
+.detailbox1 {
+    background-color: #fdfaf0;
+    border-radius: 20px;
+    padding: 3%;
+    margin: 10px;
+    text-align: left;
+}
+
+.bar { color:#cfcfcf; width: 10px;}
+
+.detailbox1 table {
+    margin: 0 auto;
+}
+
+#portfolio {
+    color: white;
+    background-color: rgb(59, 59, 59); font-size: smaller;
+    padding: 7px 10px; margin: 10px; border-radius: 20px;
+}
+
+#portfolio:hover {
+    color: rgb(232, 232, 232);
+}
+
+#schedule {
+    background-color: #FBDB6A; font-weight: bold; color:black;
+    padding: 15px 30px; margin: 10px; border-radius: 20px;
+}
+
+.likebtn {
+    margin: 10px; font-size: smaller;
+}
+
+.dm {
+    background-color: #e0e0e0;
+    border-radius: 20px; font-size: smaller;
+    text-align: center; padding: 7px 10px;
+}
