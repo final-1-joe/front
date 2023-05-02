@@ -131,6 +131,13 @@ function DirectMessage() {
           <div className="Rgt-chat-content">안녕하세요</div>
           <div className="Rgt-chat-time">15:39</div>
         </div>
+        <div className="Rgt-chat-arrow"></div>
+        <div className="combine">
+          <div className="Rgt-chat-content">
+            연속으로써도 css 안무너지는지 테스트
+          </div>
+          <div className="Rgt-chat-time">15:39</div>
+        </div>
         <img
           src="DirectMessage/freelancer1.png"
           alt="profile2"
@@ -144,6 +151,26 @@ function DirectMessage() {
             어떤식으로 결정이 되었나요?
           </div>
           <div className="Rgt-chat-time-me">15:39</div>
+        </div>
+        <div className="Rgt-chat-arrow-me"></div>
+        <div className="combine-me">
+          <div className="Rgt-chat-content-me">
+            여기도 연속으로 썼을때 무너지는지 테스트
+          </div>
+          <div className="Rgt-chat-time-me">15:39</div>
+        </div>
+        <img
+          src="DirectMessage/enterprise1.png"
+          alt="profile1"
+          className="Rgt-chat-profile"
+        ></img>
+        <div className="Rgt-chat-name">기업 1</div>
+        <div className="Rgt-chat-arrow"></div>
+        <div className="combine">
+          <div className="Rgt-chat-content">
+            테스트줄바꿈한글몇글자까지들어가는지
+          </div>
+          <div className="Rgt-chat-time">15:39</div>
         </div>
       </div>
 

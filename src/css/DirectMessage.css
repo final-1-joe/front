@@ -98,7 +98,7 @@
 .chat-room-select{
 height: 5.9896vw;
 width: 23.7500vw;
-border-radius: 0.7813vw;
+border-radius: 1.0417vw;
 background-color: white;
 margin: 0 auto;
 margin-top: 1.1458vw;
@@ -184,11 +184,11 @@ white-space:nowrap;
 }
 
 .profile-line {
-height: 4.4271vw;
+height: 5.0271vw;
 width: 0.000vw;
 border-radius: 4.6875vw;
 border: 0.5208vw solid #FBDB6A;
-margin-top: 0.2604vw;
+margin-top: 0.4813vw;
 float: right;
 }
 
@@ -469,8 +469,8 @@ margin-left : 1.5000vw;
   height: 3.3333vw;
   width: 3.3333vw;
   border-radius: 50%;
-  left: 27.396vw;
-  top: 42.5750vw;
+  left: 26.996vw;
+  top: 42.1750vw;
   background-image: url(/public/DirectMessage/new-information-button1.png);
   background-color: #FFC700;
   background-size: cover;
@@ -489,8 +489,8 @@ margin-left : 1.5000vw;
   height: 3.3333vw;
   width: 3.3333vw;
   border-radius: 50%;
-  left: 31.7563vw;
-  top: 42.5750vw;
+  left: 31.3563vw;
+  top: 42.1750vw;
   background-image: url(/public/DirectMessage/new-information-button2.png);
   background-color: #FFC700;
   background-size: cover;
@@ -532,7 +532,7 @@ width: auto;
 border-radius: 0.7813vw;
 max-width: 41.6667vw;
 background: #FFFBEB;
-float:left;
+/*float:left;*/
 
 font-family: 'Inter';
 font-style: normal;
@@ -547,6 +547,9 @@ padding-bottom : 2.3438vw;
 color: #000000;
 word-wrap: break-word;
 /*display : table;*/
+white-space: normal;
+word-wrap: break-word;
+word-break: break-all;
 }
 
 .Rgt-chat-arrow {
@@ -565,9 +568,10 @@ font-size: 1.5625vw;
 font-weight: 400;
 line-height: 1.8750vw;
 letter-spacing: 0em;
+/*float:left;*/
 text-align: right;
 height: 1.8750vw;
-margin-right: 1.0417vw
+margin-right: 1.0417vw;
 }
 
 .combine {
@@ -604,8 +608,6 @@ border-radius: 0.7813vw;
 max-width: 41.6667vw;
 background: #FFFBEB;
 float: right;
-word-wrap: break-word;
-
 font-family: 'Inter';
 font-style: normal;
 font-weight: 100;
@@ -618,7 +620,9 @@ padding-right: 3.1250vw;
 padding-bottom : 2.3438vw;
 color: #000000;
 /*display : table;*/
-
+white-space: normal;
+word-wrap: break-word;
+word-break: break-all;
 }
 
 .Rgt-chat-arrow-me {
@@ -641,6 +645,7 @@ text-align: right;
 height: 1.8750vw;
 margin-right: 1.0417vw;
 margin-left : 52.0833vw;
+float: right;
 }
 
 .combine-me {
