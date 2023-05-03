@@ -13,7 +13,7 @@ const CalModal = (props) => {
     };
 
     return (
-        <div className={open ? 'openModal modal' : 'modal'}>
+        <div className={open ? 'openModal modal-cal' : 'modal-cal'}>
             {open ? (
                 <section>
                     <header>

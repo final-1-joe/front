@@ -1,27 +1,14 @@
 /* ManagementForm.css */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
 
-html {
-    font-size: 62.5%;
-}
-
-body {
-    font-family: 'Roboto', sans-serif;
-    font-size: 1.6rem;
-}
-
-.container {
+.container-manageform {
     border: 1;
     max-width: 80rem;
     margin: 0 auto;
     padding: 5rem;
 }
 
-.button {
+
+.button-manageform {
     display: inline-block;
     font-size: 1.6rem;
     font-weight: 700;
@@ -35,27 +22,27 @@ body {
     transition: background-color 0.2s ease-in-out;
 }
 
-.button:hover {
+.button-manageform:hover {
     background-color: #dbbd83;
 }
 
 /* 이 탭의 width에 따라 버튼모양이 피그마처럼 나오는지 안나오는지 보여줄수있음 */
-.tab {
+.tab-manageform {
     display: flex;
     justify-content: space-between;
     width: 50%;
 }
 
-.tab button {
+.tab-manageform button {
     flex: 1;
 
 }
 
-.tab button:last-child {
+.tab-manageform button:last-child {
     margin-right: 0;
 }
 
-.tab button.active {
+.tab-manageform button.active {
     background-color: tomato;
     color: #fff;
     border: solid;
@@ -65,56 +52,68 @@ body {
 
 
 
-.listcontainer {
+.listcontainer-manageform {
     border-width: 1px;
     border-style: solid;
     border-top-style: none;
+    border-color: gray;
     min-height: 30vh;
     height: 100%;
+    width: 100%;
+}
+
+.listcontainer-manageform ul {
+    padding-inline-start: 0;
+    margin-top: 0;
 
 }
 
 
-.list {
-    list-style: none;
+.list-manageform {
     margin-bottom: 5rem;
+    list-style: none;
 }
 
-.list li {
-    font-size: 1.6rem;
+.list-manageform ul {
+    padding-inline-start: 0;
+}
+
+.list-manageform li {
+    font-size: 1.5rem;
     line-height: 2.4rem;
 }
 
-.list-item:hover {
+.list-item-manageform:hover {
     background-color: aliceblue;
 }
 
-.list-item>span {
+.list-item-manageform>span {
     display: inline-block;
     padding-right: 0.5rem;
     width: 33.33%;
     box-sizing: border-box;
 }
 
-.list li:last-child {
+.list-manageform li:last-child {
     margin-bottom: 0;
 }
 
-.list li span {
+.list-manageform li span {
     font-weight: 700;
 }
 
-.index {
+.index-manageform {
     display: flex;
     background-color: #FBDB6A;
-    padding: 1rem;
+    height: 5vh;
+    width: 100%;
 }
 
-.index span {
+.index-manageform span {
     flex: 1;
 }
 
-.index>span {
+.index-manageform>span {
     width: 33.33%;
 }
 
