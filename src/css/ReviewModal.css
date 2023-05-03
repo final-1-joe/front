@@ -1,5 +1,5 @@
 /* modal창 외부화면 */
-.Modal {
+.ReivewModal {
     position: fixed;
     top: 0;
     left: 0;
@@ -12,7 +12,7 @@
   }
    
   /* modal창 */
-  .modalBody {
+  .ReivewModalBody {
     position: absolute;
     width: 500px;
     height: 200px;
@@ -23,7 +23,7 @@
     box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
   }
    
-  #modalCloseBtn {
+  #ReivewModalCloseBtn {
     position: absolute;
     top: 15px;
     right: 15px;
@@ -33,10 +33,10 @@
     font-size: 20px;
   }
    
-  #modalCloseBtn:hover {
+  #ReivewModalCloseBtn:hover {
     cursor: pointer;
   }
    
- select {
+ /* select {
   width: 80px;
-}
+} */

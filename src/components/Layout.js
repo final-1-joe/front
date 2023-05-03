@@ -19,16 +19,16 @@ const Layout = () => {
   //     navigate("/");
   //   };
   return (
-    <div id="layout">
-      <div id="wrapper">
-        <header>
-          <div id="logo">
+    <div>
+      <div id="LayoutWrapper">
+        <header id="LayoutHeader">
+          <div id="logoImg">
             <Link to="/">
               <img src="/images/logo.png" width="200" alt="메인" />
             </Link>
           </div>
 
-          <div className="member">
+          <div className="LayoutMember">
             <table align="center">
               <tr>
                 <td width="40px">
@@ -45,14 +45,14 @@ const Layout = () => {
                 </td>
                 <td width="80px">
                   <Link to="/" style={{ textDecoration: "none" }}>
-                    <span>회원가입</span>
+                    <span>로그아웃</span>
                   </Link>
                 </td>
               </tr>
             </table>
           </div>
 
-          <div className="menubar">
+          <div className="HeaderMenubar">
             <table height="60px" align="center">
               <tr>
                 <td>
@@ -78,39 +78,14 @@ const Layout = () => {
               </tr>
             </table>
           </div>
-
-          {/* <div className="menubar">
-            <ul>
-              <li className="menu">
-                <Link to="/" style={{ textDecoration: "none" }}>
-                  <span className="menu">홈</span>
-                </Link>
-              </li>
-              <li className="menu">
-                <Link to="/pjlist" style={{ textDecoration: "none" }}>
-                  <span className="menu">프로젝트 찾기</span>
-                </Link>
-              </li>
-              <li className="menu">
-                <Link to="/freelist" style={{ textDecoration: "none" }}>
-                  <span className="menu">프리랜서 찾기</span>
-                </Link>
-              </li>
-              <li className="menu">
-                <Link to="/" style={{ textDecoration: "none" }}>
-                  <span className="menu">FAQ</span>
-                </Link>
-              </li>
-            </ul>
-          </div> */}
         </header>
-        <section className="posts" align="center">
+        <section className="LayoutPosts" align="center">
           <Outlet />
         </section>
       </div>
       {/* id=wrapper */}
-      {/* <footer>
-        <p id="footertext" align="center">
+      {/* <footer id="LayoutFooter">
+        <p id="LayoutFootertext" align="center">
           피플랜서 | 서울특별시 강남구 멀티로 111 | 02-1111-1111
           <br />
           Copyright © PEOPLANCER all right reserved.

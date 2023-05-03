@@ -4,8 +4,8 @@ import "../../css/PjRegi.css";
 const PjRegistration = () => {
   return (
     <div>
-      <div className="register">
-        <table className="registertbl" width="900px">
+      <div className="PjRegister">
+        <table className="PjRegisterTbl" width="900px">
           <tr>
             <td className="info">프로젝트명</td>
             <td>
@@ -29,7 +29,7 @@ const PjRegistration = () => {
             <td className="info">프로젝트 내용</td>
             <td colSpan={3}>
               <textarea
-                className="content"
+                className="PjContent"
                 placeholder="내용을 입력하세요"
               ></textarea>
             </td>
@@ -89,8 +89,8 @@ const PjRegistration = () => {
           </tr>
         </table>
         <br />
-        <input type="submit" value="등록" className="pjbtn"></input>&nbsp;&nbsp;
-        <input type="reset" value="취소" className="pjbtn"></input>
+        <input type="submit" value="등록" className="PjBtn"></input>&nbsp;&nbsp;
+        <input type="reset" value="취소" className="PjBtn"></input>
       </div>
     </div>
   );

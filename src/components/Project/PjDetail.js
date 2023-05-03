@@ -7,6 +7,7 @@ import { FaHashtag } from "react-icons/fa";
 import React, { useState } from "react";
 import ReviewModal from "../Review/ReviewModal";
 import ReviewWrite from "../Review/ReviewWrite";
+import dummy from "./PjData.json";
 
 const PjDetail = () => {
   const [reviewForm, setReviewForm] = useState(false);
@@ -25,11 +26,11 @@ const PjDetail = () => {
   };
 
   return (
-    <div id="container">
-      <div className="detail">
+    <div id="PjContainer">
+      <div className="PjDetail">
         <h1>{dummy.projectName}</h1>
 
-        <div className="detailbox1">
+        <div className="PjDetailBox1">
           <table width="450px">
             <tr>
               <td width="60px" className="info">
@@ -52,7 +53,7 @@ const PjDetail = () => {
           </table>
         </div>
 
-        <div className="detailbox2">
+        <div className="PjDetailBox2">
           <table>
             <tr>
               <td className="info" width="80px">
@@ -86,14 +87,14 @@ const PjDetail = () => {
             <input type="button" value="프로젝트 등록"></input>
           </Link>
         </div>
-        <div className="corpgrade">
+        <div className="PjReview">
           <details open>
             <summary>회사 평가</summary>
             <div className="evaluate">
               <input
                 type="button"
                 value="작성"
-                className="evalbtn"
+                className="PjWriteBtn"
                 onClick={() => setReviewForm(!reviewForm)}
               />
               {reviewForm && (
@@ -111,7 +112,7 @@ const PjDetail = () => {
                   <td width="60px">5.0 / 5.0</td>
                 </tr>
                 <tr>
-                  <td colSpan={4} id="word">
+                  <td colSpan={4}>
                     멀티캠퍼스와 함께 하는 동안 많이 배우고 성장했습니다!
                   </td>
                 </tr>
@@ -126,7 +127,7 @@ const PjDetail = () => {
                   <td width="60px">5.0 / 5.0</td>
                 </tr>
                 <tr>
-                  <td colSpan={4} id="word">
+                  <td colSpan={4}>
                     멀티캠퍼스와 함께 하는 동안 많이 배우고 성장했습니다!
                   </td>
                 </tr>
@@ -135,31 +136,32 @@ const PjDetail = () => {
           </details>
         </div>
       </div>
-      <aside>
-        <div className="contact">
-          <span className="likebtn">♡&nbsp;관심 프로젝트</span>
+
+      <aside id="PjAside">
+        <div className="PjContact">
+          <span className="PjLikeBtn">♡&nbsp;관심 프로젝트</span>
           <Link to="/" style={{ textDecoration: "none", color: "black" }}>
-            <span className="dm">DM</span>
+            <span className="PjDM">DM</span>
           </Link>
-          <div className="applybtn">지원하기</div>
+          <div className="PjApplyBtn">지원하기</div>
         </div>
         <br />
         <div>
           <h3>유사 프로젝트</h3>
           <Link to="/" style={{ textDecoration: "none", color: "black" }}>
-            <div className="similarpj">
+            <div className="PjSimilar">
               <p>프로젝트명</p>
               <p>프로젝트 내용</p>
             </div>
           </Link>
           <Link to="/" style={{ textDecoration: "none", color: "black" }}>
-            <div className="similarpj">
+            <div className="PjSimilar">
               <p>프로젝트명</p>
               <p>프로젝트 내용</p>
             </div>
           </Link>
           <Link to="/" style={{ textDecoration: "none", color: "black" }}>
-            <div className="similarpj">
+            <div className="PjSimilar">
               <p>프로젝트명</p>
               <p>프로젝트 내용</p>
             </div>
