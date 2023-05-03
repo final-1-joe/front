@@ -33,24 +33,24 @@ function FreeMypage() {
   return (
     <div className="mypageLayout">
       <MySidebar />
-      <div className="wrapper">
-        <h4>진행중인 프로젝트</h4>
+      <div className="mywrapper">
+        <h4 className="myh4">진행중인 프로젝트</h4>
         {ongoingProject.map((ongoingProject) => (
-          <div className="project">
+          <div className="myproject">
             {ongoingProject.project_name}
             <br />
             {ongoingProject.project_content}
           </div>
         ))}
-        <h4>관심 프로젝트</h4>
+        <h4 className="myh4">관심 프로젝트</h4>
         {bookmarkProject.map((bookmarkProject) => (
-          <div className="project">
+          <div className="myproject">
             {bookmarkProject.project_name}
             <br />
             {bookmarkProject.project_content}
           </div>
         ))}
-        <button className="withdrawal" type="submit">
+        <button className="mywithdrawal" type="submit">
           탈퇴하기
         </button>
       </div>

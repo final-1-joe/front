@@ -39,8 +39,8 @@ const MySidebar = () => {
   // }
 
   return (
-    <div className="side">
-      <div className="menu">
+    <div className="myside">
+      <div className="mymenu">
         {Tabs[pathName].map((tab, idx) => {
           return (
             <NavLink

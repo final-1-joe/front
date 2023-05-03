@@ -1,4 +1,4 @@
-.title {
+.mytitle {
   font-size: 36px;
   text-align: left;
   flex-direction: column;
@@ -15,26 +15,26 @@
   display: flex;
 }
 
-.listGroup {
+.mylistGroup {
   margin-bottom: 10px;
   flex-direction: column;
   display: inline-block;
 }
 
-.listGroup label {
+.mylistGroup label {
   width: 180px;
   margin-right: 10vh;
   font-size: 20px;
   display: inline-block;
 }
 
-.listGroup p {
+.mylistGroup p {
   font-size: 20px;
   display: inline-block;
   margin-left: 10px;
 }
 
-.listGroup input {
+.mylistGroup input {
   margin-bottom: 10px;
   display: inline-block;
   width: 500px;
@@ -45,7 +45,7 @@
   border-radius: 2px;
 }
 
-button.editInfo {
+button.myeditInfo {
   width: 110px;
   height: 55px;
   font-size: 18px;
@@ -61,7 +61,7 @@ button.editInfo {
   cursor: pointer;
 }
 
-button.editInfo:hover {
+button.myeditInfo:hover {
   background-color: #ffebb4;
   color: #bf9b30;
   font-weight: bold;

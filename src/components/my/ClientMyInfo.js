@@ -7,18 +7,18 @@ function ClientMyInfo() {
   return (
     <div className="mypageLayout">
       <MySidebar />
-      <div className="wrapper">
-        <h2 className="title">회원정보수정</h2>
+      <div className="mywrapper">
+        <h2 className="mytitle">회원정보수정</h2>
         <ul className="myInfoList">
-          <li className="listGroup">
+          <li className="mylistGroup">
             <label for="id">아이디</label>
             <p>test01</p>
           </li>
-          <li className="listGroup">
+          <li className="mylistGroup">
             <label for="password">패스워드</label>
             <input type="text" id="newPassword" placeholder="새 비밀번호" />
           </li>
-          <li className="listGroup">
+          <li className="mylistGroup">
             <label for="password">패스워드 확인</label>
             <input
               type="text"
@@ -26,20 +26,20 @@ function ClientMyInfo() {
               placeholder="비밀번호 확인"
             />
           </li>
-          <li className="listGroup">
+          <li className="mylistGroup">
             <label for="name">상호명</label>
             <input type="text" id="clientname" placeholder="상호명" />
           </li>
-          <li className="listGroup">
+          <li className="mylistGroup">
             <label for="email">이메일</label>
             <input type="email" id="email" placeholder="이메일" />
           </li>
-          <li className="listGroup">
+          <li className="mylistGroup">
             <label for="phone">전화번호</label>
             <input type="phone" id="phone" placeholder="전화번호" />
           </li>
         </ul>
-        <button className="editInfo" type="submit">
+        <button className="myeditInfo" type="submit">
           수정하기
         </button>
       </div>

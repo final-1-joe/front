@@ -19,24 +19,24 @@ function ClientMypage() {
   return (
     <div className="mypageLayout">
       <MySidebar />
-      <div className="wrapper">
-        <h4>모집중인 프로젝트</h4>
+      <div className="mywrapper">
+        <h4 className="myh4">모집중인 프로젝트</h4>
         {recruitProject.map((recruitProject) => (
-          <div className="project">
+          <div className="myproject">
             {recruitProject.project_name}
             <br />
             {recruitProject.project_content}
           </div>
         ))}
-        <h4>관심 프리랜서</h4>
+        <h4 className="myh4">관심 프리랜서</h4>
         {bookmarkFreelancer.map((bookmarkFreelancer) => (
-          <div className="freelancer">
+          <div className="myfreelancer">
             {bookmarkFreelancer.free_name}
             <br />
             {bookmarkFreelancer.free_skills}
           </div>
         ))}
-        <button className="withdrawal" type="submit">
+        <button className="mywithdrawal" type="submit">
           탈퇴하기
         </button>
       </div>
