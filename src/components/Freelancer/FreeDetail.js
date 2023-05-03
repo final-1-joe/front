@@ -6,22 +6,22 @@ import { AiOutlineStar } from "react-icons/ai";
 import { FaHashtag } from "react-icons/fa";
 import React, { useState } from "react";
 import ReviewModal from "../Review/ReviewModal";
-import ReviewForm from "../Review/ReviewForm";
+import ReviewWrite from "../Review/ReviewWrite";
 
 const FreeDetail = (props) => {
   const [evalForm, setEvalForm] = useState(false);
 
   return (
-    <div id="container">
+    <div id="FreeContainer">
       <div>
         <h1>" 끈기와 열정이 있는 개발자 김멀티입니다. "</h1>
-        <div className="detailbox1">
+        <div className="FreeDetailBox1">
           <table align="center">
             <tr>
               <td>김멀티</td>
-              <td className="bar">|</td>
+              <td className="FreeBar">|</td>
               <td>개발</td>
-              <td className="bar">|</td>
+              <td className="FreeBar">|</td>
               <td>경력 0년</td>
               <td rowSpan={2} width="300px" align="center">
                 <FaHashtag />
@@ -32,10 +32,10 @@ const FreeDetail = (props) => {
               <td colSpan={5} align="center" width="300px">
                 <a href="#" style={{ textDecoration: "none" }}>
                   {/* 첨부한 포트폴리오 파일, 깃 주소로 이동 */}
-                  <span id="portfolio">포트폴리오</span>
+                  <span id="FreePortfolio">포트폴리오</span>
                 </a>
                 <a href="#" style={{ textDecoration: "none" }}>
-                  <span id="portfolio">
+                  <span id="FreePortfolio">
                     <AiFillGithub />
                     &nbsp; GitHub
                   </span>
@@ -45,42 +45,43 @@ const FreeDetail = (props) => {
           </table>
         </div>
 
-        <div className="detailbox2">
+        <div className="FreeDetailBox2">
           <table align="center">
             <tr>
               <td>희망 급여</td>
-              <td className="bar">|</td>
+              <td className="FreeBar">|</td>
               <td>월 000만원 ~ </td>
               <td width="50px"></td>
               <td>희망 근무방식</td>
-              <td className="bar">|</td>
+              <td className="FreeBar">|</td>
               <td>원격(재택)</td>
               <td width="100px"></td>
               <td align="center">
                 <Link to="/" style={{ textDecoration: "none" }}>
-                  <span id="schedule">일정 보기</span>
+                  <span id="FreeSchedule">일정 보기</span>
                 </Link>
               </td>
             </tr>
           </table>
         </div>
-        <div className="corpgrade">
+        <br />
+        <div className="FreeReview">
           <details open>
             <summary>프리랜서 평가</summary>
-            <div className="evaluate">
+            <div>
               <input
                 type="button"
                 value="작성"
-                className="evalbtn"
+                className="FreeWriteBtn"
                 onClick={() => setEvalForm(!evalForm)}
               />
               {evalForm && (
                 <ReviewModal closeModal={() => setEvalForm(!evalForm)}>
-                  <ReviewForm />
+                  <ReviewWrite />
                 </ReviewModal>
               )}
             </div>
-            <div class="tpt">
+            <div className="tpt">
               <table>
                 <tr height="50px">
                   <td width="30px">작성자</td>
@@ -101,7 +102,7 @@ const FreeDetail = (props) => {
                 </tr>
               </table>
             </div>
-            <div class="tpt">
+            <div className="tpt">
               <table>
                 <tr height="50px">
                   <td width="30px">작성자</td>
@@ -116,7 +117,7 @@ const FreeDetail = (props) => {
                   </td>
                 </tr>
                 <tr>
-                  <td colSpan={4} id="word">
+                  <td colSpan={4}>
                     {/* 멀티캠퍼스와 함께 하는 동안 많이 배우고 성장했습니다! */}
                   </td>
                 </tr>
@@ -125,9 +126,9 @@ const FreeDetail = (props) => {
           </details>
         </div>
         <div>
-          <span className="likebtn">♡&nbsp;관심 프리랜서</span>
+          <span className="FreeLikeBtn">♡&nbsp;관심 프리랜서</span>
           <Link to="/" style={{ textDecoration: "none", color: "black" }}>
-            <span className="dm">DM</span>
+            <span className="FreeDM">DM</span>
           </Link>
         </div>
       </div>

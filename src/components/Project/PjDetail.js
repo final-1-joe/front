@@ -6,62 +6,100 @@ import { AiOutlineStar } from "react-icons/ai";
 import { FaHashtag } from "react-icons/fa";
 import React, { useState } from "react";
 import ReviewModal from "../Review/ReviewModal";
-import ReviewForm from "../Review/ReviewForm";
+import ReviewWrite from "../Review/ReviewWrite";
+import dummy from "./PjData.json";
 
 const PjDetail = () => {
   const [reviewForm, setReviewForm] = useState(false);
 
-  return (
-    <div id="container">
-      <div className="detail">
-        <h1>프로젝트명</h1>
+  const dummy = {
+    projectName: "삼성카드 쇼핑몰 사이트 개발(백엔드)",
+    corpName: "삼성카드",
+    workForm: "상주",
+    startDate: "2023년 6월 1일",
+    pjPeriod: "3개월",
+    salary: "월 500만원",
+    jobGroup: "개발",
+    personnel: "1명",
+    requiredSkills: "Java, Spring boot",
+    pjContent: "프로젝트 내용 프로젝트 내용 프로젝트 내용",
+  };
 
-        <div className="detailbox1">
-          <table>
+  return (
+    <div id="PjContainer">
+      <div className="PjDetail">
+        <h1>{dummy.projectName}</h1>
+
+        <div className="PjDetailBox1">
+          <table width="450px">
             <tr>
-              <td width="100px" className="info">
+              <td width="60px" className="info">
                 회사명
               </td>
-              <td width="500px">(주)멀티캠퍼스</td>
+              <td>(주){dummy.corpName}</td>
+              <td width="60px" className="info">
+                근무 형태
+              </td>
+              <td>{dummy.workForm}</td>
             </tr>
             <tr>
-              <td className="info">모집기간</td>
-              <td>2023.4.20 ~ 2023.5.1</td>
-            </tr>
-            <tr>
-              <td className="info">업무</td>
-              <td>Back-End 개발</td>
+              <td className="info">시작 예정일</td>
+              <td>{dummy.startDate}</td>
+              <td className="info" width="100px">
+                프로젝트 기간
+              </td>
+              <td>{dummy.pjPeriod}</td>
             </tr>
           </table>
         </div>
 
-        <div className="detailbox2">
+        <div className="PjDetailBox2">
           <table>
             <tr>
-              <td style={{ fontWeight: "bold", fontSize: "20px" }}>
-                프로젝트 세부 내용
+              <td className="info" width="80px">
+                예상 급여
               </td>
+              <td>{dummy.salary}</td>
             </tr>
             <tr>
-              <td>
-                프로젝트 세부 내용(인원, 업무 내용, 급여, 기간, 필요 기술 등)
-              </td>
+              <td className="info">직군</td>
+              <td>{dummy.jobGroup}</td>
+            </tr>
+            <tr>
+              <td className="info">고용 인원</td>
+              <td>{dummy.personnel}</td>
+            </tr>
+            <tr>
+              <td className="info">필요 스킬</td>
+              <td>{dummy.requiredSkills}</td>
             </tr>
           </table>
+          <br />
+          <table>
+            <tr>
+              <td>{dummy.pjContent}</td>
+            </tr>
+          </table>
+          <Link
+            to="/pjregistration"
+            style={{ textDecoration: "none", color: "black" }}
+          >
+            <input type="button" value="프로젝트 등록"></input>
+          </Link>
         </div>
-        <div className="corpgrade">
+        <div className="PjReview">
           <details open>
             <summary>회사 평가</summary>
             <div className="evaluate">
               <input
                 type="button"
                 value="작성"
-                className="evalbtn"
+                className="PjWriteBtn"
                 onClick={() => setReviewForm(!reviewForm)}
               />
               {reviewForm && (
                 <ReviewModal closeModal={() => setReviewForm(!reviewForm)}>
-                  <ReviewForm />
+                  <ReviewWrite />
                 </ReviewModal>
               )}
             </div>
@@ -74,7 +112,7 @@ const PjDetail = () => {
                   <td width="60px">5.0 / 5.0</td>
                 </tr>
                 <tr>
-                  <td colSpan={4} id="word">
+                  <td colSpan={4}>
                     멀티캠퍼스와 함께 하는 동안 많이 배우고 성장했습니다!
                   </td>
                 </tr>
@@ -89,7 +127,7 @@ const PjDetail = () => {
                   <td width="60px">5.0 / 5.0</td>
                 </tr>
                 <tr>
-                  <td colSpan={4} id="word">
+                  <td colSpan={4}>
                     멀티캠퍼스와 함께 하는 동안 많이 배우고 성장했습니다!
                   </td>
                 </tr>
@@ -98,31 +136,32 @@ const PjDetail = () => {
           </details>
         </div>
       </div>
-      <aside>
-        <div className="contact">
-          <span className="likebtn">♡&nbsp;관심 프로젝트</span>
+
+      <aside id="PjAside">
+        <div className="PjContact">
+          <span className="PjLikeBtn">♡&nbsp;관심 프로젝트</span>
           <Link to="/" style={{ textDecoration: "none", color: "black" }}>
-            <span className="dm">DM</span>
+            <span className="PjDM">DM</span>
           </Link>
-          <div className="applybtn">지원하기</div>
+          <div className="PjApplyBtn">지원하기</div>
         </div>
         <br />
         <div>
           <h3>유사 프로젝트</h3>
           <Link to="/" style={{ textDecoration: "none", color: "black" }}>
-            <div className="similarpj">
+            <div className="PjSimilar">
               <p>프로젝트명</p>
               <p>프로젝트 내용</p>
             </div>
           </Link>
           <Link to="/" style={{ textDecoration: "none", color: "black" }}>
-            <div className="similarpj">
+            <div className="PjSimilar">
               <p>프로젝트명</p>
               <p>프로젝트 내용</p>
             </div>
           </Link>
           <Link to="/" style={{ textDecoration: "none", color: "black" }}>
-            <div className="similarpj">
+            <div className="PjSimilar">
               <p>프로젝트명</p>
               <p>프로젝트 내용</p>
             </div>

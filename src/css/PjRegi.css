@@ -1,0 +1,26 @@
+.PjRegisterTbl { text-align: left; margin: 0 auto; }
+
+.PjRegisterTbl td { padding: 0 5px; border: 3px solid white; }
+
+.PjRegisterTbl .info { background-color: #f5f5f5; text-align: center;}
+
+.PjRegisterTbl input { outline: 1px solid #9c9c9c; height: 25px;}
+
+.PjRegister {
+    margin: 0 auto; padding: 20px;
+}
+
+.PjContent {
+    width: 800px; height: 300px;
+    resize: none; margin: 10px;
+}
+
+.PjBtn {
+    background-color: #444; color: white;
+    padding: 4px 15px; margin: 10px;
+    border-radius: 20px; border: none;
+}
+
+.PjBtn:hover {
+    background-color: #5a5a5a;
+}

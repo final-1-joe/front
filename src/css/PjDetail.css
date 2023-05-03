@@ -1,19 +1,19 @@
-#container {
+#PjContainer {
     width: 80%;     
     margin: 0 auto;
 }
 
-.detail {
+.PjDetail {
     float: left;
     width: 70%;
 }
 
-aside {
+#PjAside {
     float: right; width: 25%; padding: 10px;
     background-color: #ffffff; border-radius: 10px;
 }
 
-.detailbox1 {
+.PjDetailBox1 {
     background-color: #fdfaf0;
     border-radius: 20px;
     padding: 3%;
@@ -21,78 +21,79 @@ aside {
     text-align: left;
 }
 
-.detailbox2 {
-    /* border: 1px solid gray; */
-    border-radius: 20px;
+.PjDetailBox1 td {
+    padding: 0 5px;
+}
+
+.PjDetailBox2 {
     padding: 3%;
     margin: 10px;
     text-align: left;
 }
 
 .info {
-    font-weight: bold;
+    font-weight: bold; font-size: smaller;
     color: rgb(134, 134, 134);
 }
 
-.corpgrade {
+.PjReview {
     padding: 3%;
     margin: 10px;
 }
 
-.contact {
+.PjContact {
     box-shadow: 0px 0px 5px #cfcfcf;
     border-radius: 20px; padding: 15px;
 }
 
-.likebtn {
+.PjLikeBtn {
     margin: 10px; font-size: smaller;
 }
 
-.dm {
+.PjDM {
     background-color: #e0e0e0;
     border-radius: 20px; font-size: smaller;
     text-align: center; padding: 7px 10px;
 }
 
-.applybtn {
+.PjApplyBtn {
     background-color: #FBDB6A;
     border-radius: 20px; 
     margin: 10px 0 10px; padding: 0 5px;
 }
 
-.applybtn:hover {
+.PjApplyBtn:hover {
     background-color: #ffe68b;
 }
 
-.similarpj {
+.PjSimilar {
     box-shadow: 0px 0px 5px #cfcfcf;
     border-radius: 20px; 
     margin: 10px 0 10px;
 }
 
-.similarpj:hover {
+.PjSimilar:hover {
     box-shadow: 0px 0px 5px #bababa;
 }
 
 /* 회사 평가 folding */
-details { margin:5px 0 10px; }
-details > summary { 
+.PjReview details { margin:5px 0 10px; }
+.PjReview details > summary { 
     background:#444; color:#fff; padding:10px; 
     outline:0; cursor:pointer; transition:background 0.5s; 
     text-align:center;
 }
-details > summary::-webkit-details-marker { 
+.PjReview details > summary::-webkit-details-marker { 
     background:#ffffff; color:#494949; background-size:contain; 
     transform:rotate3d(0, 0, 1, 90deg); transition:transform 0.25s;
 }
-details[open] > summary::-webkit-details-marker { transform:rotate3d(0, 0, 1, 180deg);}
-details[open] > summary { background:#ffffff; color: #494949;}
-details[open] > summary ~ * { animation:reveal 0.5s;}
+.PjReview details[open] > summary::-webkit-details-marker { transform:rotate3d(0, 0, 1, 180deg);}
+.PjReview details[open] > summary { background:#ffffff; color: #494949;}
+.PjReview details[open] > summary ~ * { animation:reveal 0.5s;}
 .tpt { 
     border: 1px gray; border-style: solid hidden hidden; color:#000000; margin:5px 0 10px; 
     padding:5px 10px; line-height:25px; text-align: left;
 }
-#word {padding: auto;}
 @keyframes reveal {
     from { opacity:0; transform:translate3d(0, -30px, 0); }
     to { opacity:1; transform:translate3d(0, 0, 0); }

@@ -1,9 +1,9 @@
-#container {
+#FreeContainer {
     width: 80%;
     margin: 0 auto;
 }
 
-.detailbox1 {
+.FreeDetailBox1 {
     background-color: #fdfaf0;
     border-radius: 20px;
     padding: 3%;
@@ -11,33 +11,60 @@
     text-align: left;
 }
 
-.bar { color:#cfcfcf; width: 10px;}
+.FreeDetailBox2 {
+    padding: 5%;
+    margin: 10px;
+}
 
-.detailbox1 table {
+.FreeBar { color:#cfcfcf; width: 10px;}
+
+.FreeDetailBox1 table, .FreeDetailBox2 table {
     margin: 0 auto;
 }
 
-#portfolio {
+#FreePortfolio {
     color: white;
     background-color: rgb(59, 59, 59); font-size: smaller;
     padding: 7px 10px; margin: 10px; border-radius: 20px;
 }
 
-#portfolio:hover {
+#FreePortfolio:hover {
     color: rgb(232, 232, 232);
 }
 
-#schedule {
+#FreeSchedule {
     background-color: #FBDB6A; font-weight: bold; color:black;
     padding: 15px 30px; margin: 10px; border-radius: 20px;
 }
 
-.likebtn {
+.FreeLikeBtn {
     margin: 10px; font-size: smaller;
 }
 
-.dm {
+.FreeDM {
     background-color: #e0e0e0;
     border-radius: 20px; font-size: smaller;
     text-align: center; padding: 7px 10px;
+}
+
+.FreeReview details { margin:5px 0 10px; }
+.FreeReview details > summary { 
+    background:#444; color:#fff; padding:10px; 
+    outline:0; cursor:pointer; transition:background 0.5s; 
+    text-align:center;
+}
+.FreeReview details > summary::-webkit-details-marker { 
+    background:#ffffff; color:#494949; background-size:contain; 
+    transform:rotate3d(0, 0, 1, 90deg); transition:transform 0.25s;
+}
+.FreeReview details[open] > summary::-webkit-details-marker { transform:rotate3d(0, 0, 1, 180deg);}
+.FreeReview details[open] > summary { background:#ffffff; color: #494949;}
+.FreeReview details[open] > summary ~ * { animation:reveal 0.5s;}
+.tpt { 
+    border: 1px gray; border-style: solid hidden hidden; color:#000000; margin:5px 0 10px; 
+    padding:5px 10px; line-height:25px; text-align: left;
+}
+@keyframes reveal {
+    from { opacity:0; transform:translate3d(0, -30px, 0); }
+    to { opacity:1; transform:translate3d(0, 0, 0); }
 }
