@@ -37,19 +37,19 @@ function MyProject() {
   return (
     <div className="mypageLayout">
       <MySidebar />
-      <div className="wrapper">
-        <h4>진행중인 프로젝트</h4>
+      <div className="mywrapper">
+        <h4 className="myh4">진행중인 프로젝트</h4>
         {ongoingProject.map((ongoingProject) => (
-          <div className="project">
+          <div className="myproject">
             {ongoingProject.project_name}
             <br />
             {ongoingProject.project_content}
           </div>
         ))}
-        <h4>제안받은 프로젝트</h4>
+        <h4 className="myh4">제안받은 프로젝트</h4>
         {offeredProject.map((offeredProject) => (
-          <form className="offered">
-            <div className="offeredProject">
+          <form className="myoffered">
+            <div className="myofferedProject">
               <p>
                 {offeredProject.project_name}
                 <br />
@@ -58,20 +58,20 @@ function MyProject() {
                   : offeredProject.project_content}
               </p>
             </div>
-            <button className="DMButton" type="button">
+            <button className="myDMButton" type="button">
               DM
             </button>
-            <button className="offeredButton" type="submit">
+            <button className="myofferedButton" type="submit">
               승낙
             </button>
-            <button className="offeredButton" type="submit">
+            <button className="myofferedButton" type="submit">
               거부
             </button>
           </form>
         ))}
-        <h4>완료된 프로젝트</h4>
+        <h4 className="myh4">완료된 프로젝트</h4>
         {finishedProject.map((finishedProject) => (
-          <div className="project">
+          <div className="myproject">
             {finishedProject.project_name}
             <br />
             {finishedProject.project_content}

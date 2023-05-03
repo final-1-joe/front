@@ -6,7 +6,7 @@
   width: 190vh;
 }
 
-.wrapper {
+.mywrapper {
   display: flex;
   position: relative;
   width: 80%;
@@ -15,7 +15,7 @@
   margin-left: 30vh;
 }
 
-.project {
+.myproject {
   width: 800px;
   height: 100px;
   margin-bottom: 20px;
@@ -30,7 +30,7 @@
   text-align: center;
 }
 
-.freelancer {
+.myfreelancer {
   width: 800px;
   height: 100px;
   margin-bottom: 20px;
@@ -45,7 +45,7 @@
   text-align: center;
 }
 
-.wrapper h4 {
+.myh4 {
   text-align: left;
   font-size: 24px;
   flex-direction: column;
@@ -53,7 +53,7 @@
   margin-bottom: 20px;
 }
 
-button.withdrawal {
+button.mywithdrawal {
   box-sizing: border-box;
   text-decoration-style: bold;
   position: relative;
@@ -71,7 +71,7 @@ button.withdrawal {
   margin-left: 650px;
   cursor: pointer;
 }
-button.withdrawal:hover {
+button.mywithdrawal:hover {
   background-color: #ffebb4;
   color: #bf9b30;
   font-weight: bold;

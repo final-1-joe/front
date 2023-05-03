@@ -1,4 +1,4 @@
-.offered {
+.myoffered {
   display: flex;
   position: relative;
   width: 800px;
@@ -7,7 +7,7 @@
   margin: 20px 0px;
 }
 
-.offeredProject {
+.myofferedProject {
   display: flex;
   position: relative;
   width: 720px;
@@ -23,11 +23,11 @@
   margin-bottom: 20px;
 }
 
-.offeredProject p {
+.myofferedProject p {
   font-size: 20px;
 }
 
-button.offeredButton {
+button.myofferedButton {
   width: 90px;
   height: 60px;
   background-color: #ffebb4;
@@ -43,7 +43,7 @@ button.offeredButton {
   cursor: pointer;
 }
 
-button.DMButton {
+button.myDMButton {
   width: 90px;
   height: 60px;
   background-color: #ffebb4;
@@ -59,13 +59,13 @@ button.DMButton {
   cursor: pointer;
 }
 
-button.offeredButton:hover {
+button.myofferedButton:hover {
   background-color: #ffebb4;
   color: #bf9b30;
   font-weight: bold;
 }
 
-button.DMButton:hover {
+button.myDMButton:hover {
   background-color: #ffebb4;
   color: #bf9b30;
   font-weight: bold;

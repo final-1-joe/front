@@ -1,4 +1,4 @@
-.side {
+.myside {
   display: flex;
   border-right: 1px solid #d9d9d9;
   flex-direction: column;
@@ -7,8 +7,7 @@
   width: 20%;
 }
 
-.menu {
-  margin-top: 30px;
+.mymenu {
   width: 100%;
   height: 100%;
   display: flex;
