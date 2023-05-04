@@ -126,7 +126,7 @@ const SupportBoard = () => {
                   </td>
                   <td className="date">{article.writer}</td>
                   <td className="date">{article.date}</td>
-                  <td className="answer">답변</td>
+                  <td className="answer">{article.answer}</td>
                 </tr>
               </tbody>
             ))}
@@ -142,7 +142,10 @@ const SupportBoard = () => {
         </div>
         <div className="sc_bl_btn">
           <div className="sc_bl_btn-right">
-            <Link to="/support/supportboard/write" className="sc_bl_btn-btn">
+            <Link
+              to="/support/supportboard/write"
+              className="btn-m02 btn-color04 depth2"
+            >
               글쓰기
             </Link>
           </div>

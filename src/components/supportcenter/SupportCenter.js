@@ -59,10 +59,10 @@ const SupportCenter = ({ title, info }) => {
                     placeholder="답변을 입력하세요."
                   ></textarea>
                 </div>
+                <div className="btns-area sc_qu_btn">
+                  <a className="btn-m02 btn-color01">등록</a>
+                </div>
               </div>
-            </div>
-            <div className="btns-area sc_qu_btn">
-              <a className="btn-m02 btn-color01">등록</a>
             </div>
           </div>
         </form>

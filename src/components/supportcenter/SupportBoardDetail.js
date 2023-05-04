@@ -4,13 +4,15 @@ import "../../css/SupportCenter.css";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useRef, useState, useEffect } from "react";
 import SupportBoardAnswer from "./SupportBoardAnswer";
+import SupportBoardAnswerWrite from "./SupportBoardAnswerWrite";
 const SupportBoardDetail = () => {
   const location = useLocation();
   const ctg = location.state.ctg;
   const num = location.state.num;
   const navigate = useNavigate();
   const [boarddetail, setBoarddetail] = useState([]);
-
+  const writerRef = useRef();
+  const contentRef = useRef();
   const getDetail = () => {
     // console.log("handleUpdate =>", article);
     axios
@@ -80,6 +82,7 @@ const SupportBoardDetail = () => {
         </div>
       </div>
       <SupportBoardAnswer />
+      <SupportBoardAnswerWrite></SupportBoardAnswerWrite>
       <div className="btns-area mt60">
         <Link
           to="/support/supportboard/modify"

@@ -1,11 +1,17 @@
-const article = [
+const ResumeData = [
   {
-    num: 1,
-    ctg: 1,
-    title: "문의 글 1",
-    writer: "아무개",
-    date: "2023-04-30",
-    answer: "미답변",
+    name: "홍길동",
+    jobsearch: "1",
+    birth_day: "2020-01-01",
+    gender: "male",
+    email: "hong123@gmail.com",
+    user_tel: "010-1234-5678",
+    user_job: ["자바 개발자", "웹 개발자"],
+    user_skill: ["자바 개발자", "웹 개발자"],
+    work_st: "allok",
+    work_ty: "allok",
+    user_pay: 100,
+    user_car: 3,
   },
   {
     num: 2,
@@ -32,4 +38,4 @@ const article = [
     answer: "미답변",
   },
 ];
-export default article;
+export default ResumeData;

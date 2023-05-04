@@ -1,6 +1,7 @@
 import "../../css/Resume.css";
 import Select from "react-select";
-import React, { useState, useRef } from "react";
+import { useNavigate } from "react-router-dom";
+import React, { useState, useRef, useEffect } from "react";
 import { occupation, occupations } from "./OccupationData";
 import Tag from "./Tag";
 import InputWon from "./InputWon";
@@ -8,15 +9,49 @@ import InputCareer from "./InputCareer";
 const ResumeMypage = () => {
   const nameRef = useRef();
   const [Selected, setSelected] = useState("");
-
+  const navigate = useNavigate();
   const handleSelect = (e) => {
     setSelected(e.target.value);
   };
+
   const birthRef = useRef();
   const emailRef = useRef();
   const telRef = useRef();
+  const [telvalue, setTelValue] = useState("");
+  function handleValueChange(event) {
+    let val = event.target.value;
+    val = val.replace(/[^-\.0-9]/gi, "");
+    val = val.replace(/^(\d{3})(\d{4})(\d{4})$/, `$1-$2-$3`);
+    setTelValue(val);
+  }
 
+  const ResumeData = {
+    user_nm: "홍길동",
+    jobsearch: "1",
+    birth_day: "2020-01-01",
+    gender: "male",
+    email: "hong123@gmail.com",
+    user_tel: "010-1234-5678",
+    user_jg: "개발",
+    user_job: ["자바 개발자", "웹 개발자"],
+    user_skill: ["자바 개발자", "웹 개발자"],
+    work_st: "allok",
+    work_ty: "allok",
+    user_pay: 100,
+    user_car: 3,
+  };
+
+  const selectInputRef = useRef(null);
+  const onClearSelect = () => {
+    if (selectInputRef.current) {
+      selectInputRef.current.clearValue();
+    }
+  };
   const [selectedoccupation, setSelectedOccupation] = useState("");
+  useEffect(() => {
+    setSelectedOccupation(ResumeData.user_jg);
+  }, []);
+
   return (
     <div className="resume">
       <div id="basic" className="resume_section">
@@ -36,6 +71,7 @@ const ResumeMypage = () => {
                 name="user_nm"
                 className="box_input"
                 maxLength="20"
+                defaultValue={ResumeData.user_nm}
                 data-only-word="true"
                 placeholder="이름 입력"
                 ref={nameRef}
@@ -46,6 +82,7 @@ const ResumeMypage = () => {
                 className="ico_arr selected size_type3"
                 onChange={handleSelect}
                 value={Selected}
+                defaultValue={ResumeData.jobsearch}
               >
                 <option>구직상태 선택</option>
                 <option value={1}>구직중</option>
@@ -60,27 +97,61 @@ const ResumeMypage = () => {
             <span className="resume_input focus">
               <input
                 type="date"
-                id="birth_dt"
-                name="birth_dt"
+                id="birth_day"
+                name="birth_day"
                 className="box_input"
                 data-only-word="true"
                 ref={birthRef}
+                defaultValue={ResumeData.birth_day}
               />
             </span>
-            <span className="inpRdoSw sizeXL resume_right focus">
-              <span className="inOption">
-                <input name="sex" id="male" type="radio" value="male" />
-                <label htmlFor="male" name="male" className="lbl">
-                  남
-                </label>
+            {ResumeData.gender === "male" ? (
+              <span className="inpRdoSw sizeXL resume_right focus">
+                <span className="inOption">
+                  <input
+                    name="gender"
+                    id="male"
+                    type="radio"
+                    value="male"
+                    checked
+                  />
+                  <label htmlFor="male" name="male" className="lbl">
+                    남
+                  </label>
+                </span>
+                <span className="inOption">
+                  <input
+                    name="gender"
+                    id="female"
+                    type="radio"
+                    value="female"
+                  />
+                  <label htmlFor="female" name="female" className="lbl">
+                    여
+                  </label>
+                </span>
               </span>
-              <span className="inOption">
-                <input name="sex" id="female" type="radio" value="female" />
-                <label htmlFor="female" name="female" className="lbl">
-                  여
-                </label>
+            ) : (
+              <span className="inpRdoSw sizeXL resume_right focus">
+                <span className="inOption">
+                  <input name="gender" id="male" type="radio" value="male" />
+                  <label htmlFor="male" name="male" className="lbl">
+                    남
+                  </label>
+                </span>
+                <span className="inOption">
+                  <input
+                    name="gender"
+                    id="female"
+                    type="radio"
+                    value="female"
+                  />
+                  <label htmlFor="female" name="female" className="lbl" checked>
+                    여
+                  </label>
+                </span>
               </span>
-            </span>
+            )}
           </div>
           <div className="resume_row">
             <div className="input_title">
@@ -95,6 +166,7 @@ const ResumeMypage = () => {
                 className="box_input max_length"
                 placeholder="이메일 입력"
                 autoComplete="on"
+                defaultValue={ResumeData.email}
               />
             </div>
           </div>
@@ -106,12 +178,14 @@ const ResumeMypage = () => {
               <input
                 type="tel"
                 id="user_tel"
-                pattern="[0-9]{11}"
                 name="user_tel"
+                onChange={handleValueChange}
+                value={telvalue}
                 className="box_input max_length"
-                maxLength="11"
+                maxLength="13"
                 placeholder="ex)01012345678"
                 ref={telRef}
+                defaultValue={ResumeData.user_tel}
               />
             </div>
           </div>
@@ -124,46 +198,56 @@ const ResumeMypage = () => {
                 placeholder="직군을 선택하세요"
                 name="color"
                 options={occupations}
+                defaultValue={occupations.filter(function (option) {
+                  return option.value === ResumeData.user_jg;
+                })}
                 onChange={(e) => {
-                  console.log(e);
-                  setSelectedOccupation(e.value);
+                  console.log("e", e);
+                  if (e) {
+                    setSelectedOccupation(e.value);
+                  } else {
+                    setSelectedOccupation("");
+                  }
+                  onClearSelect();
                 }}
               />
             </div>
-            <p className="txt_error"></p>
             <div className="input_title"></div>
-
-            {selectedoccupation && (
-              <div className="resume_input">
-                <Select
-                  isMulti
-                  name="colors"
-                  placeholder="직무를 선택하세요"
-                  options={occupation[selectedoccupation]}
-                  className="basic-multi-select"
-                  classNamePrefix="select"
-                />
-              </div>
-            )}
+            <div className="resume_input">
+              <Select
+                ref={selectInputRef}
+                isMulti
+                name="colors"
+                placeholder="직무를 선택하세요"
+                options={occupation[selectedoccupation]}
+                className="basic-multi-select"
+                classNamePrefix="select"
+                defaultvalue={() => {
+                  occupation[selectedoccupation].find((option) =>
+                    ResumeData.user_job.includes(option.value)
+                  );
+                }}
+              />
+            </div>
           </div>
           <Tag></Tag>
           <div className="resume_row">
             <div className="input_title">근무방식</div>
             <div className="resume_input">
-              <select className="box_input">
-                <option>상관없음</option>
-                <option>상주근무</option>
-                <option>원격근무</option>
+              <select className="box_input" name="work_st">
+                <option value="allok">상관없음</option>
+                <option value="offline">상주근무</option>
+                <option value="online">원격근무</option>
               </select>
             </div>
           </div>
           <div className="resume_row">
             <div className="input_title">근무형태</div>
             <div className="resume_input">
-              <select className="box_input">
-                <option>상관없음</option>
-                <option>풀타임</option>
-                <option>파트타임</option>
+              <select className="box_input" name="work_ty">
+                <option value="allok">상관없음</option>
+                <option value="fulltime">풀타임</option>
+                <option value="parttime">파트타임</option>
               </select>
             </div>
           </div>
@@ -174,13 +258,6 @@ const ResumeMypage = () => {
           <div className="resume_row">
             <span className="input_title">프리랜서 경력</span>
             <InputCareer></InputCareer>
-            <span className="sri_select resume_select resume_right">
-              <select className="ico_arr selected size_fre_ca">
-                <option>프리랜서 경험</option>
-                <option value={1}>있음</option>
-                <option value={0}>없음</option>asdfasasfgit
-              </select>
-            </span>
           </div>
           <div className="resume_row">
             <div className="input_title">포트 폴리오</div>
@@ -208,8 +285,10 @@ const ResumeMypage = () => {
           </div>
         </div>
         <div class="btns-area">
-          <a class="btn-m02 btn-color03 depth2">등록</a>
-          <a class="btn-m02 btn-color06 depth2">취소</a>
+          <a class="btn-m02 btn-color03 depth2">수정</a>
+          <a class="btn-m02 btn-color06 depth2" onClick={() => navigate(-1)}>
+            취소
+          </a>
         </div>
       </div>
     </div>

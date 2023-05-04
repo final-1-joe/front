@@ -2,7 +2,7 @@ const questions = [
   {
     id: 1,
     title: "자주하는 질문 1",
-    info: "답문12345678912334543254364353245634643",
+    info: "답문123456789123345432543643532456ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss34643",
   },
   {
     id: 2,

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import TagList from "./TagList";
+import TagList from "./TagListData";
 import "../../css/Resume.css";
 
 const Tag = () => {
@@ -49,7 +49,10 @@ const Tag = () => {
   };
 
   const clickDropDownItem = (clickedItem) => {
-    setTagItem(clickedItem);
+    let updatedTagList = [...tagList];
+    updatedTagList.push(clickedItem);
+    setTagList(updatedTagList);
+
     setIsHavetagItem(false);
   };
 
@@ -71,8 +74,21 @@ const Tag = () => {
       }
     }
   };
-
   useEffect(showDropDownList, [tagItem]);
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      const tagInput = document.querySelector(".tag_div");
+      if (tagInput && !tagInput.contains(event.target)) {
+        setIsHavetagItem(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   return (
     <div>
@@ -82,10 +98,11 @@ const Tag = () => {
           <div className="tag_input">
             <input
               type="text"
-              placeholder="Press enter to add tags"
+              placeholder="스킬을 입력하세요"
               className="box_input"
               autoComplete="off"
               value={tagItem}
+              name="taginput"
               onKeyUp={handleDropDownKey}
               tabIndex={2}
               onChange={(e) => {
@@ -93,13 +110,14 @@ const Tag = () => {
                 changeInputValue(e);
               }}
               onKeyDown={onKeyPress}
+              onFocus={() => setIsHavetagItem(true)}
             />
             <span className="tag_delbtn" onClick={() => setTagItem("")}>
               &times;
             </span>
           </div>
           {isHavetagItem && (
-            <ul>
+            <ul className="listul">
               {dropDownList.length === 0 && <li>해당하는 단어가 없습니다</li>}
               {dropDownList.map((dropDownItem, dropDownIndex) => {
                 return (
@@ -124,7 +142,9 @@ const Tag = () => {
             return (
               <span key={index} className="tag_item">
                 <span>{tagItem}</span>
-                <button onClick={deleteTagItem}>X</button>
+                <button onClick={deleteTagItem} className="tag_item_del">
+                  X
+                </button>
               </span>
             );
           })}

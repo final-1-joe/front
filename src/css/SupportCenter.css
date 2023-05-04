@@ -2,11 +2,15 @@ table {
     border-collapse: collapse;
 }
 #sc{
-    margin:0px;
-    padding: 0 px;
+
+    padding: 0px;
     width: 1080px;
+    
 }
 #sc h1{
+    font-size: 50px;
+    height: auto;
+    margin: 10px;
     text-align: center;
 }
 
@@ -16,10 +20,11 @@ table {
     margin-left: 15px;
 }
 #sc_tt a {
+    width: 100px;
     display: inline-block;
     margin: 0px 15px;
-    padding: 23px 0px;
-    font-size: 14px;
+    padding-top: 15px;
+    font-size: 18px;
     font-weight: bold;
     letter-spacing: -1px;
     color: rgb(51, 51, 51);
@@ -27,7 +32,7 @@ table {
 }
 .sccolor{
     color: #FFD2B4 !important;
-    font-size:medium !important;
+
 }
 .sc_lis{
     width: 100%;
@@ -74,17 +79,28 @@ table {
     display: inline-block;
     word-break: break-all;
     text-align: left !important;
-    width: 890px;
-    font-size: 13px;
-    font-weight: normal;
+    width: 860px;
+    font-size: 16px;
+    font-weight: 500;
     color: rgb(17, 17, 17);
     line-height: 1.62;
+    white-space: normal;
+}
+.sc_an-2 p{
+
+    white-space: normal;
 }
 .sc_an-3 {
+    margin-left: 10px;
     float: right !important;
-    width:50px;
-height: auto;
+    display: flex;
+    width:70px;
+    height: auto;
 
+}
+.btn_an{
+    cursor: pointer;
+    color:#FBDB6A;
 }
 .sc_bl{
     clear: both;
@@ -95,7 +111,7 @@ height: auto;
     color: #333333;
     font-size: 18px;
     line-height: 24px;
-    padding: 22px 15px 22px 15px;
+    padding: 10px 15px 10px 15px;
     font-weight: 400;
     text-align: center;
     letter-spacing: -0.25px;
@@ -127,7 +143,7 @@ height: auto;
 .sc_bl_btn-btn{
     display: inline-block;
     vertical-align: middle;
-    width: 6.154rem;
+    width: 100px;
     height: 2.692rem;
     line-height: 2.692rem;
     font-size: 1rem;
@@ -160,7 +176,7 @@ height: auto;
 }
 .sc_vi {
     position: relative;
-    margin-bottom: 40px;
+    margin-bottom: 10px;
     background: #fff;
     border-top: 2px solid #66747e;
 }
@@ -192,8 +208,9 @@ height: auto;
 }
 .sc_vi .sc_vi-information {
     border-bottom: 1px solid #e0e0e0;
-    padding: 20px 30px 0px 30px !important;
-    height: 60px;
+    margin: 0px 30px 0px 30px;
+    
+    height: 30px;
 }
 .sc_vi .sc_vi-information>dl {
     padding-right: 21px;
@@ -217,9 +234,11 @@ height: auto;
 }
 .sc_vi .sc_vi-contents {
     text-align: left;
-    margin: 30px;
+    margin: 10px 30px 0px 30px;
     min-height: 300px;
+    
 }
+
 .sc_an .sc_vi-contents {
     padding-top: 0px !important;
     padding-bottom: 0px !important;
@@ -234,6 +253,7 @@ height: auto;
     padding: 0;
     margin: 0;
     color: #424242;
+    white-space: normal;
     font-weight: 400;
     font-family: 'Noto Sans KR', 'Nanum Gothic', 'Helvetica', sans-serif;
     word-break: keep-all;
@@ -253,7 +273,7 @@ height: auto;
     height: 50px !important;
     padding: 20px;
     color: #555555;
-    font-size: 1rem;
+    font-size: 16px;
     line-height: 1.5rem;
     border: 1px solid #e8e8e8;
 }
@@ -262,10 +282,11 @@ height: auto;
     height: 150px !important;
     padding: 20px;
     margin: 10px 0;
+    white-space: normal;
 }
 .sc_qu_btn{
-    margin-right: 30px;
-    float: right !important;
+    margin-right: 0px;
+    float: center !important;
 }
 .sc_an_wr{
     margin-bottom: 0px !important;
@@ -275,12 +296,13 @@ height: auto;
     width: 1020px !important;
     height: 150px !important;
     padding: 20px;
-    margin: 10px 0;
+    white-space: normal;
 }
 .sc_an_wr_btn{
     margin-right: 30px;
-    float: right !important;
+text-align: right !important;
 }
+
 .one-box {
     
     display: block;
@@ -290,9 +312,9 @@ height: auto;
     height: 410px;
     padding: 20px;
     color: #555555;
-    font-size: 1rem;
+    font-size: 16px;
     line-height: 1.5rem;
-    margin: 10px 0;
+    white-space: normal;
     border: 1px solid #e8e8e8;
 }
 .sc_bl_wr dl {
@@ -329,15 +351,15 @@ height: auto;
     height: 45px;
     line-height: 45px;
     color: #555555;
-    font-size: 1rem;
+    font-size: 16px;
     border: 1px solid #ebebeb;
 }
 .btns-area {
+    width: auto;
     text-align: center;
 }
 .btn-m02 {
     display: inline-block;
-    vertical-align: middle;
     width: 100px;
     height: 30px;
     line-height: 2.692rem;
@@ -386,4 +408,7 @@ height: auto;
     background: #FFEBB4 !important;
     color: #000 !important;
     border: 1px solid #e1e1e1 !important;
+}
+.w100{
+    padding: 20px !important;
 }

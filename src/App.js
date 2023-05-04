@@ -25,6 +25,7 @@ import SupportCenter from "./components/supportcenter/SupportCenter";
 import Notfound from "./components/Notfound";
 import TagConfigFree from "./components/ksm/TagConfigFree";
 import TagConfigClient from "./components/ksm/TagConfigClient";
+import ResumeMypage from "./components/ksm/ResumeMypage";
 
 function App() {
   return (
@@ -39,6 +40,7 @@ function App() {
             <Route path="/pjdetail" element={<PjDetail />} />
             <Route path="/pjregistration" element={<PjRegistration />} />
             <Route path="/resume" element={<Resume />} />
+            <Route path="/resume2" element={<ResumeMypage />} />
             <Route path="/tag" element={<TagConfigFree />} />
             <Route path="/tag2" element={<TagConfigClient />} />
             <Route path="/support" element={<SupportCenter />} />

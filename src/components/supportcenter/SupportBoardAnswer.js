@@ -6,6 +6,7 @@ import { useRef, useState, useEffect } from "react";
 const SupportBoardAnswer = () => {
   const navigate = useNavigate();
   const [boarddetail, setBoarddetail] = useState([]);
+  const [boardmodify, setBoardModify] = useState(false);
   const writerRef = useRef();
   const contentRef = useRef();
   const handleDelete = () => {
@@ -27,8 +28,58 @@ const SupportBoardAnswer = () => {
     } else alert("삭제 권한이 없습니다!!!");
   };
 
-  return (
-    <div id="sc">
+  if (boardmodify) {
+    return (
+      <form>
+        <div className="sc_an sc_vi">
+          <div class="title-area">
+            <h4>답변 수정</h4>
+          </div>
+          <input
+            type="hidden"
+            name="writer"
+            id="id"
+            ref={writerRef}
+            value={window.sessionStorage.getItem("id")}
+          />
+          <div class="sc_bl_wr sc_an_wr">
+            <input
+              type="hidden"
+              name="usernm"
+              value={window.sessionStorage.getItem("name")}
+            />
+            <input
+              type="hidden"
+              name="insertuser"
+              value={window.sessionStorage.getItem("id")}
+            />
+            <div className="sc_vi-contents">
+              <div class="editer-wrapper">
+                <textarea
+                  id="content"
+                  ref={contentRef}
+                  name="content"
+                  cols="50"
+                  rows="50"
+                  placeholder="내용을 입력하세요."
+                ></textarea>
+              </div>
+            </div>
+            <div class="btns-area sc_an_wr_btn">
+              <a class="btn-m02 btn-color01 depth2">수정</a>
+              <a
+                class="btn-m02 btn-color01 depth2"
+                onClick={() => setBoardModify(false)}
+              >
+                취소
+              </a>
+            </div>
+          </div>
+        </div>
+      </form>
+    );
+  } else {
+    return (
       <div className="sc_an sc_vi">
         <div class="title-area">
           <h4>답변</h4>
@@ -42,55 +93,18 @@ const SupportBoardAnswer = () => {
             <dd>2023-04-25</dd>
           </dl>
         </div>
-        <div class="btns-area sc_an_wr_btn">
-          <a class="btn-m02 btn-color01 depth2">삭제</a>
+        <div className="btns-area sc_an_wr_btn">
+          <a
+            className="btn-m02 btn-color01 depth2"
+            onClick={() => setBoardModify(true)}
+          >
+            수정
+          </a>
+          <a className="btn-m02 btn-color01 depth2">삭제</a>
         </div>
       </div>
-      <div>
-        <form>
-          <div className="sc_an sc_vi">
-            <div class="title-area">
-              <h4>답변 등록</h4>
-            </div>
-            <input
-              type="hidden"
-              name="writer"
-              id="id"
-              ref={writerRef}
-              value={window.sessionStorage.getItem("id")}
-            />
-            <div class="sc_bl_wr sc_an_wr">
-              <input
-                type="hidden"
-                name="usernm"
-                value={window.sessionStorage.getItem("name")}
-              />
-              <input
-                type="hidden"
-                name="insertuser"
-                value={window.sessionStorage.getItem("id")}
-              />
-              <div className="sc_vi-contents">
-                <div class="editer-wrapper">
-                  <textarea
-                    id="content"
-                    ref={contentRef}
-                    name="content"
-                    cols="50"
-                    rows="50"
-                    placeholder="내용을 입력하세요."
-                  ></textarea>
-                </div>
-              </div>
-            </div>
-            <div class="btns-area sc_an_wr_btn">
-              <a class="btn-m02 btn-color01 depth2">등록</a>
-            </div>
-          </div>
-        </form>
-      </div>
-    </div>
-  );
+    );
+  }
 };
 
 export default SupportBoardAnswer;

@@ -44,19 +44,16 @@ const TagConfigFree = () => {
                 />
               </span>
               <div className="input_title"></div>
-
-              {selectedoccupation && (
-                <div className="resume_input">
-                  <Select
-                    isMulti
-                    name="colors"
-                    placeholder="직무를 선택하세요"
-                    options={occupation[selectedoccupation]}
-                    className="basic-multi-select"
-                    classNamePrefix="select"
-                  />
-                </div>
-              )}
+              <div className="resume_input">
+                <Select
+                  isMulti
+                  name="colors"
+                  placeholder="직무를 선택하세요"
+                  options={occupation[selectedoccupation]}
+                  className="basic-multi-select"
+                  classNamePrefix="select"
+                />
+              </div>
             </div>
 
             <div className="resume_row">

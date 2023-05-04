@@ -65,7 +65,7 @@ const InputCareer = () => {
         onBlur={handleInputBlur}
         onFocus={handleInputFocus}
         onKeyDown={handleInputChange}
-        className="box_input fre_ca_size"
+        className="box_input "
       />
     </span>
   );

@@ -10,10 +10,11 @@
 .resume_section .area_title {
     position: relative;
     padding-bottom: 15px;
+    
     min-height: 33px;
 }
 .resume_section .area_title h3.title {
-    float: left;
+    text-align: center;
     color: #222;
     font-size: 26px;
     font-weight: bold;
@@ -173,9 +174,15 @@ input[type="radio" i] {
     margin-left: 150px !important;
 }
 
-
-.tag_div ul{
+.tag_div:focus-within .listul {
     display: block;
+  }
+  .resume_input.tag_div:focus-within .listul,
+  .resume_input.tag_div .listul li:hover {
+    display: block;
+  }
+.tag_div ul{
+
     margin: 0 auto;
     padding: 8px 0;
     background-color: white;
@@ -183,7 +190,7 @@ input[type="radio" i] {
     border-top: none;
     border-radius: 0 0 16px 16px;
     height: 200px !important;
-    
+    display: block;
     list-style-type: none;
     z-index: 3;
     width: 357px;
@@ -202,6 +209,7 @@ input[type="radio" i] {
     cursor: pointer;
 }
 .tagbox{
+
     margin-top: 10px;
     width: 357px;
     margin-left: 150px;
@@ -239,6 +247,11 @@ input[type="radio" i] {
     color: black;
     border: none;
     outline: 0;
+}
+.tag_item_del{
+    margin-left: 5px;
+    font-weight: 900;
+    color:#ff4e75 !important;
 }
 
 .resume_input .size_type5, .resume_select .selected.size_type5 {
