@@ -30,8 +30,8 @@
 button.myofferedButton {
   width: 90px;
   height: 60px;
-  background-color: #ffebb4;
-  color: white;
+  background-color: #fbdb6a;
+  color: #a98600;
   border: none;
   border-radius: 20px;
   padding: 17.8px;
@@ -46,8 +46,8 @@ button.myofferedButton {
 button.myDMButton {
   width: 90px;
   height: 60px;
-  background-color: #ffebb4;
-  color: white;
+  background-color: #fbdb6a;
+  color: #a98600;
   border: none;
   border-radius: 20px;
   padding: 17.8px;

@@ -34,19 +34,19 @@ const MySidebar = () => {
   // if (user_code === "client") {
   //   sidebarTitle = clientTabs;
   // }
-  // else if(user_code === "frelancer") {
+  // else if(user_code === "freelancer") {
   //   sidebarTitle = freeTabs;
   // }
 
   return (
     <div className="myside">
       <div className="mymenu">
-        {Tabs[pathName].map((tab, idx) => {
+        {Tabs[pathName].map((tab, index) => {
           return (
             <NavLink
               style={{ color: "gray", textDecoration: "none" }}
               to={tab.path}
-              key={idx}
+              key={index}
               activestyle={{ color: "black" }}
             >
               <MySidebarItem

@@ -1,14 +1,23 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import MySidebar from "./mySidebar/MySidebar";
 import "../../css/MyLayout.css";
 import "../../css/FreeMyProject.css";
 
 function MyProject() {
+  const navigate = useNavigate();
+  const goDM = () => {
+    navigate("/direct/:pj_user_id");
+  };
+  /*DB구성에 따라서 바로 DM으로 넘길지 
+  아니면 해당 프로젝트 상세페이지로 넘어가게 해서 DM으로 연결할지 추후 결정 */
+
   const ongoingProject = [
     {
       project_id: 1,
       project_name: "프로젝트1",
       project_content: "온라인몰 리뉴얼 프로젝트 개발자 - React, Java",
+      //path: "/pjdetail/:pj_id"
     },
   ];
 
@@ -40,11 +49,13 @@ function MyProject() {
       <div className="mywrapper">
         <h4 className="myh4">진행중인 프로젝트</h4>
         {ongoingProject.map((ongoingProject) => (
+          //<Link to = "/pjlist:project_id" style={{textDecoration: "none"}}>
           <div className="myproject">
             {ongoingProject.project_name}
             <br />
             {ongoingProject.project_content}
           </div>
+          //</Link>
         ))}
         <h4 className="myh4">제안받은 프로젝트</h4>
         {offeredProject.map((offeredProject) => (
@@ -58,7 +69,7 @@ function MyProject() {
                   : offeredProject.project_content}
               </p>
             </div>
-            <button className="myDMButton" type="button">
+            <button className="myDMButton" type="button" onClick={goDM}>
               DM
             </button>
             <button className="myofferedButton" type="submit">

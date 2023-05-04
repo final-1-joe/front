@@ -57,9 +57,13 @@ function App() {
           <Route path="/project" element={<ProjectManagement />} />
           <Route path="/recruit" element={<RecruitmentManagement />} />
           <Route path="/direct" element={<DirectMessage />} />
+
           <Route path="/client/mypage" element={<ClientMypage />} />
           <Route path="/client/myinfo" element={<ClientMyInfo />} />
-
+          {/* <Route path="/free/schedule" element={<MyCalendar />} />
+              <Route path="/free/manageResume" element={<이력서관리/>} /> 
+              <Route path="/client/myproject" element={<프로젝트관리/>} />
+              <Route path="/client/recruit" element={<모집현황/>} />*/}
           <Route path="/free/mypage" element={<FreeMypage />} />
           <Route path="/free/myinfo" element={<FreeMyInfo />} />
           <Route path="/free/myproject" element={<FreeMyProject />} />
