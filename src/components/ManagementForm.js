@@ -25,16 +25,16 @@ const ManagementForm = ({ listData, Mode }) => {
     return (
         Mode === 'Recruit' ?
             //Recruit일 경우
-            <div className="container">
-                <div className="tab">
-                    <button className={`button ${activeTab === 'all' ? 'active' : ''}`} onClick={() => handleTabClick('all')}>전체</button>
-                    <button className={`button ${activeTab === 'inProgress' ? 'active' : ''}`} onClick={() => handleTabClick('inProgress')}>승낙</button>
-                    <button className={`button ${activeTab === 'completed' ? 'active' : ''}`} onClick={() => handleTabClick('completed')}>미승낙</button>
+            <div className="container-manageform">
+                <div className="tab-manageform">
+                    <button className={`button-manageform ${activeTab === 'all' ? 'active' : ''}`} onClick={() => handleTabClick('all')}>전체</button>
+                    <button className={`button-manageform ${activeTab === 'inProgress' ? 'active' : ''}`} onClick={() => handleTabClick('inProgress')}>승낙</button>
+                    <button className={`button-manageform ${activeTab === 'completed' ? 'active' : ''}`} onClick={() => handleTabClick('completed')}>미승낙</button>
                 </div>
-                <div className='listcontainer'>
-                    <ul className="list">
+                <div className='listcontainer-manageform'>
+                    <ul className="list-manageform">
                         <li>
-                            <div className='index'>
+                            <div className='index-manageform'>
                                 <span>프리랜서명</span>
                                 <span></span>
                                 <span>진행상태</span>
@@ -43,7 +43,7 @@ const ManagementForm = ({ listData, Mode }) => {
                         {activeTab === 'all' && (
                             <>
                                 {allSchedules.map((schedule) => (
-                                    <li key={schedule.id} className="list-item">
+                                    <li key={schedule.id} className="list-item-manageform">
                                         <span onClick={() => navigate(schedule.link)}>{schedule.project}</span>
                                         <span onClick={() => navigate(schedule.dmlink)}>DM보내기 / 연락하기</span>
                                         <span>{schedule.status === 'completed' ? '승낙' : '미승낙'}</span>
@@ -55,7 +55,7 @@ const ManagementForm = ({ listData, Mode }) => {
                         {activeTab === 'inProgress' && (
                             <>
                                 {allSchedules.map((schedule) => (
-                                    <li key={schedule.id} className="list-item">
+                                    <li key={schedule.id} className="list-item-manageform">
                                         <span onClick={() => navigate(schedule.link)}>{schedule.project}</span>
                                         <span onClick={() => navigate(schedule.dmlink)}>DM보내기 / 연락하기</span>
                                         <span>{schedule.status === 'completed' ? '승낙' : '미승낙'}</span>
@@ -67,7 +67,7 @@ const ManagementForm = ({ listData, Mode }) => {
                         {activeTab === 'completed' && (
                             <>
                                 {allSchedules.map((schedule) => (
-                                    <li key={schedule.id} className="list-item">
+                                    <li key={schedule.id} className="list-item-manageform">
                                         <span onClick={() => navigate(schedule.link)}>{schedule.project}</span>
                                         <span onClick={() => navigate(schedule.dmlink)}>DM보내기 / 연락하기</span>
                                         <span>{schedule.status === 'completed' ? '승낙' : '미승낙'}</span>
@@ -80,16 +80,16 @@ const ManagementForm = ({ listData, Mode }) => {
             </div>
             :
             //Project일 경우
-            <div className="container">
-                <div className="tab">
-                    <button className={`button ${activeTab === 'all' ? 'active' : ''}`} onClick={() => handleTabClick('all')}>전체</button>
-                    <button className={`button ${activeTab === 'inProgress' ? 'active' : ''}`} onClick={() => handleTabClick('inProgress')}>진행중</button>
-                    <button className={`button ${activeTab === 'completed' ? 'active' : ''}`} onClick={() => handleTabClick('completed')}>완료</button>
+            <div className="container-manageform">
+                <div className="tab-manageform">
+                    <button className={`button-manageform ${activeTab === 'all' ? 'active' : ''}`} onClick={() => handleTabClick('all')}>전체</button>
+                    <button className={`button-manageform ${activeTab === 'inProgress' ? 'active' : ''}`} onClick={() => handleTabClick('inProgress')}>진행중</button>
+                    <button className={`button-manageform ${activeTab === 'completed' ? 'active' : ''}`} onClick={() => handleTabClick('completed')}>완료</button>
                 </div>
-                <div className='listcontainer'>
-                    <ul className="list">
+                <div className='listcontainer-manageform'>
+                    <ul className="list-manageform">
                         <li>
-                            <div className='index'>
+                            <div className='index-manageform'>
                                 <span>프로젝트</span>
                                 <span></span>
                                 <span>진행상태</span>
@@ -98,7 +98,7 @@ const ManagementForm = ({ listData, Mode }) => {
                         {activeTab === 'all' && (
                             <>
                                 {allSchedules.map((schedule) => (
-                                    <li key={schedule.id} className="list-item" onClick={() => navigate(schedule.link)}>
+                                    <li key={schedule.id} className="list-item-manageform" onClick={() => navigate(schedule.link)}>
                                         <span>{schedule.project}</span>
                                         <span>{schedule.content}</span>
                                         <span>{schedule.status === 'completed' ? '완료' : '진행중'}</span>
@@ -110,7 +110,7 @@ const ManagementForm = ({ listData, Mode }) => {
                         {activeTab === 'inProgress' && (
                             <>
                                 {inProgressSchedules.map((schedule) => (
-                                    <li key={schedule.id} className="list-item" onClick={() => navigate(schedule.link)}>
+                                    <li key={schedule.id} className="list-item-manageform" onClick={() => navigate(schedule.link)}>
                                         <span>{schedule.project}</span>
                                         <span>{schedule.content}</span>
                                         <span>진행중</span>
@@ -122,7 +122,7 @@ const ManagementForm = ({ listData, Mode }) => {
                         {activeTab === 'completed' && (
                             <>
                                 {completedSchedules.map((schedule) => (
-                                    <li key={schedule.id} className="list-item completed" onClick={() => navigate(schedule.link)}>
+                                    <li key={schedule.id} className="list-item-manageform completed" onClick={() => navigate(schedule.link)}>
                                         <span>{schedule.project}</span>
                                         <span>{schedule.content}</span>
                                         <span>완료</span>

@@ -8,14 +8,14 @@ import PjList from "./components/Project/PjList";
 import PjDetail from "./components/Project/PjDetail";
 import PjRegistration from "./components/Project/PjRegistration";
 import "./css/Layout.css";
-import MyCalendar from "./components/MyCalendar";
-import ProjectManagement from "./components/ProjectManagement ";
-import RecruitmentManagement from "./components/RecruitmentManagement ";
-import DirectMessage from "./pages/DirectMessage";
-import ClientMypage from "./pages/ClientMypage";
-import FreeMypage from "./pages/FreeMypage";
-import FreeMyInfo from "./components/my/FreeMyInfo";
-import ClientMyInfo from "./components/my/ClientMyInfo";
+import MyCalendar from './components/MyCalendar';
+import ProjectManagement from './components/ProjectManagement ';
+import RecruitmentManagement from './components/RecruitmentManagement ';
+import DirectMessage from './pages/DirectMessage';
+import ClientMypage from './pages/ClientMypage';
+import FreeMypage from './pages/FreeMypage';
+import FreeMyInfo from './components/my/FreeMyInfo';
+import ClientMyInfo from './components/my/ClientMyInfo'
 import Resume from "./components/ksm/Resume";
 import SupportBoard from "./components/supportcenter/SupportBoard";
 import SupportBoardWrite from "./components/supportcenter/SupportBoardWrite";
@@ -23,7 +23,7 @@ import SupportBoardDetail from "./components/supportcenter/SupportBoardDetail";
 import SupportBoardModify from "./components/supportcenter/SupportBoardModify";
 import SupportCenter from "./components/supportcenter/SupportCenter";
 import Notfound from "./components/Notfound";
-import FreeMyProject from "./components/my/FreeMyProject";
+
 
 function App() {
   return (
@@ -53,25 +53,30 @@ function App() {
               element={<SupportBoardModify />}
             />
           </Route>
+
           <Route path="/calendar" element={<MyCalendar />} />
           <Route path="/project" element={<ProjectManagement />} />
           <Route path="/recruit" element={<RecruitmentManagement />} />
           <Route path="/direct" element={<DirectMessage />} />
-
           <Route path="/client/mypage" element={<ClientMypage />} />
           <Route path="/client/myinfo" element={<ClientMyInfo />} />
+          
           {/* <Route path="/free/schedule" element={<MyCalendar />} />
               <Route path="/free/manageResume" element={<이력서관리/>} /> 
               <Route path="/client/myproject" element={<프로젝트관리/>} />
               <Route path="/client/recruit" element={<모집현황/>} />*/}
+              
           <Route path="/free/mypage" element={<FreeMypage />} />
           <Route path="/free/myinfo" element={<FreeMyInfo />} />
           <Route path="/free/myproject" element={<FreeMyProject />} />
+
           <Route path="*" element={<Notfound />} />
         </Routes>
       </Router>
-    </div>
+
+    </div >
+
   );
-}
+};
 
 export default App;

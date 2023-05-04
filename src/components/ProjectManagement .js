@@ -21,7 +21,7 @@ const ProjectManagement = () => {
         <div>
             <h1>프로젝트 페이지</h1>
             <ManagementForm listData={scheduleData} />
-            <button>프로젝트 등록</button>
+            <button className='cal-button-gj'>프로젝트 등록</button>
             {/* 프로젝트 등록 버튼은 차후 css 통일예정 */}
         </div>
     );

@@ -7,7 +7,6 @@ import CalModal from './Modals/CalModal';
 
 
 const MyCalendar = () => {
-    const [events, setEvents] = useState([]);
     const [title, setTitle] = useState('');
     const [start, setStart] = useState('');
     const [end, setEnd] = useState('');
@@ -53,6 +52,7 @@ const MyCalendar = () => {
             }
         }
     };
+
 
     const handleReset = () => {
         setStart('');
@@ -113,14 +113,14 @@ const MyCalendar = () => {
                     eventClick={handleEventClick}
                     events={[ //여기 부분을 axios 데이터로 받아와야함
                         {
-                            title: 'event ', start: '2023-04-02',
+                            title: 'event ', date: '2023-05-02',
                             extendedProps: {
                                 memo: '이러저러한 일정'
                             }
                         },
                         {
-                            title: 'event 2', start: '2023-04-03'
-                            , end: '2023-04-14', color: 'green',
+                            title: 'event 2', start: '2023-05-03'
+                            , end: '2023-05-14', color: 'green',
                             extendedProps: {
                                 memo: '이러저러한 좀 긴 일정'
                             }
@@ -128,14 +128,14 @@ const MyCalendar = () => {
                     ]}
                 />
             </div>
-            <div className="form-wrapper">
+            <div className="form-wrapper-gj">
                 <form onSubmit={handleSubmit}>
-                    <label>
+                    <label className='label-gj'>
                         제목:
-                        <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} />
+                        <input className='calinput-gj' type="text" value={title} onChange={(e) => setTitle(e.target.value)} />
                     </label>
                     <hr />
-                    <label>
+                    <label className='label-gj'>
                         시작 시간:
                         <input type="datetime-local"
                             id="start-time" value={start}
@@ -145,7 +145,7 @@ const MyCalendar = () => {
                         />
                     </label>
                     <br />
-                    <label>
+                    <label className='label-gj'>
                         종료 시간:
                         <input
                             type="datetime-local"
@@ -154,20 +154,20 @@ const MyCalendar = () => {
                             min="2023-01-01T00:00"
                             max="2100-12-31T23:59" />
                     </label>
-                    <button onClick={handleReset} >
+                    <button className='cal-button-gj' onClick={handleReset} >
                         리셋
                     </button>
                     <hr />
-                    <label>
+                    <label className='label-gj'>
                         내용:
-                        <textarea maxLength="100" placeholder='최대 150자까지 가능합니다' value={content} onChange={(e) => setContent(e.target.value)}></textarea>
+                        <textarea className='cal-textarea' maxLength="100" placeholder='최대 150자까지 가능합니다' value={content} onChange={(e) => setContent(e.target.value)}></textarea>
 
 
                     </label>
                     <hr />
-                    <label>
+                    <label className='label-gj'>
                         색깔 :
-                        <select value={color} onChange={handleColorChange}>
+                        <select className='cal-gj' value={color} onChange={handleColorChange}>
                             <option value="">선택하세요</option>
                             {colorList.map((item) => (
                                 <option key={item.value} value={item.value}>
@@ -176,7 +176,7 @@ const MyCalendar = () => {
                             ))}
                         </select>
                     </label>
-                    <button type="submit">추가</button>
+                    <button className='cal-button-gj' >추가</button>
                 </form>
             </div>
             <CalModal open={modalOpen} close={closeModal} event={selectedEvent}>
