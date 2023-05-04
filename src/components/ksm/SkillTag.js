@@ -2,10 +2,10 @@ import React, { useEffect, useState } from "react";
 import TagList from "./TagListData";
 import "../../css/Resume.css";
 
-const Tag = () => {
+const SkillTag = (data) => {
   const [tagItem, setTagItem] = useState("");
-  const [tagList, setTagList] = useState([]);
-
+  const [tagList, setTagList] = useState(data.skill);
+  console.log(data);
   const onKeyPress = (e) => {
     if (e.target.value.length !== 0 && e.key === "Enter") {
       submitTagItem();
@@ -57,7 +57,6 @@ const Tag = () => {
   };
 
   const handleDropDownKey = (event) => {
-    //input에 값이 있을때만 작동
     if (isHavetagItem) {
       if (
         event.key === "ArrowDown" &&
@@ -154,4 +153,4 @@ const Tag = () => {
   );
 };
 
-export default Tag;
+export default SkillTag;

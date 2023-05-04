@@ -2,7 +2,7 @@ import "../../css/Resume.css";
 import Select from "react-select";
 import React, { useState, useRef } from "react";
 import { occupation, occupations } from "./OccupationData";
-import Tag from "./Tag";
+import SkillTag from "./SkillTag";
 import InputWon from "./InputWon";
 import InputCareer from "./InputCareer";
 const Resume = () => {
@@ -163,7 +163,7 @@ const Resume = () => {
               />
             </div>
           </div>
-          <Tag></Tag>
+          <SkillTag skill={[]}></SkillTag>
           <div className="resume_row">
             <div className="input_title">근무방식</div>
             <div className="resume_input">
@@ -186,11 +186,11 @@ const Resume = () => {
           </div>
           <div className="resume_row">
             <div className="input_title">희망 금액(월)</div>
-            <InputWon />
+            <InputWon pay={0} />
           </div>
           <div className="resume_row">
             <span className="input_title">프리랜서 경력</span>
-            <InputCareer></InputCareer>
+            <InputCareer career={0}></InputCareer>
           </div>
           <div className="resume_row">
             <div className="input_title">포트 폴리오</div>

@@ -1,10 +1,16 @@
 import "../../css/Resume.css";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
-const InputMonth = () => {
+const InputMonth = (data) => {
   const [value, setValue] = useState("");
-
+  useEffect(() => {
+    let val = data.month;
+    if (val !== "") {
+      val = val + "개월";
+    }
+    setValue(val);
+  }, []);
   function handleInputChange(event) {
     const strVal = event.target.value;
     let keyID = event.which || event.keyCode;

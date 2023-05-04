@@ -1,10 +1,16 @@
 import "../../css/Resume.css";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
-const InputCareer = () => {
+const InputCareer = (data) => {
   const [value, setValue] = useState("");
-
+  useEffect(() => {
+    let val = data.career;
+    if (val !== "") {
+      val = val + "년";
+    }
+    setValue(val);
+  }, []);
   function handleInputChange(event) {
     const strVal = event.target.value;
     let keyID = event.which || event.keyCode;

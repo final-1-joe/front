@@ -40,7 +40,7 @@ function App() {
             <Route path="/pjdetail" element={<PjDetail />} />
             <Route path="/pjregistration" element={<PjRegistration />} />
             <Route path="/resume" element={<Resume />} />
-            <Route path="/resume2" element={<ResumeMypage />} />
+            <Route path="/resumemypage" element={<ResumeMypage />} />
             <Route path="/tag" element={<TagConfigFree />} />
             <Route path="/tag2" element={<TagConfigClient />} />
             <Route path="/support" element={<SupportCenter />} />

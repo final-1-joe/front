@@ -1,5 +1,6 @@
 .resume {
     width: 830px;
+    margin: 0 auto;
     text-align: left !important;
 }
 
@@ -311,4 +312,51 @@ input[type="radio" i] {
 .size_fre_ca{
     padding: 0 10px 0 10px !important;
     width: 140px !important;
+}
+.file_input_hidden {
+    position: absolute !important;
+    width: 0 !important;
+    height: 0 !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+    border: 0 !important;
+}
+.filebox label {
+    display: inline-block;
+    padding: 10px 20px;
+    color: #fff;
+    vertical-align: middle;
+    background-color: #999999;
+    cursor: pointer;
+    height: 40px;
+    margin-left: 10px;
+}
+.filebox .upload-name {
+    display: inline-block;
+    height: 40px;
+    padding: 0 10px;
+    vertical-align: middle;
+    border: 1px solid #dddddd;
+    width: 78%;
+    color: #999999;
+}
+.file_label{
+    display: inline-block !important;
+    width: 95px;
+    line-height: 48px;
+    font-size: 18px;
+    margin-bottom: 0px;
+    margin-right: 10px;
+    color: #000;
+    background: #FFC700 !important;
+
+    border: 1px solid #e1e1e1 !important;
+    text-align: center;
+    font-weight: 1000;
+    background: #fff;
+
+}
+.file_input_size{
+    text-overflow: ellipsis;
+    width: 252px !important;
 }

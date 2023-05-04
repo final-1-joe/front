@@ -80,7 +80,7 @@ const TagConfigFree = () => {
             </div>
             <div className="resume_row">
               <div className="input_title">예상 금액(월)</div>
-              <InputWon></InputWon>
+              <InputWon pay={0}></InputWon>
             </div>
             <div className="resume_row">
               <span className="input_title">시작 예정일</span>
@@ -96,7 +96,7 @@ const TagConfigFree = () => {
             </div>
             <div className="resume_row">
               <span className="input_title">예상 기간</span>
-              <InputMonth></InputMonth>
+              <InputMonth month={0}></InputMonth>
             </div>
 
             <div class="btns-area">

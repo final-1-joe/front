@@ -2,7 +2,7 @@ import "../../css/Resume.css";
 import Select from "react-select";
 import React, { useState } from "react";
 import { occupation, occupations } from "./OccupationData";
-import Tag from "./Tag";
+import SkillTag from "./SkillTag";
 import Modal from "../supportcenter/modal";
 import InputWon from "./InputWon";
 
@@ -54,11 +54,12 @@ const TagConfigClient = () => {
                 />
               </div>
             </div>
-            <Tag></Tag>
+            <SkillTag skill={[]}></SkillTag>
             <div className="resume_row">
               <div className="input_title">구직여부</div>
               <div className="resume_input">
                 <select className="box_input">
+                  <option>상관없음</option>
                   <option>구직중</option>
                   <option>비구직중</option>
                 </select>
@@ -86,7 +87,7 @@ const TagConfigClient = () => {
             </div>
             <div className="resume_row">
               <div className="input_title">희망 금액</div>
-              <InputWon></InputWon>
+              <InputWon pay={0}></InputWon>
             </div>
 
             <div class="btns-area">
