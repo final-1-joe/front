@@ -1,5 +1,6 @@
 import React from 'react';
 import ManagementForm from './ManagementForm';
+import MySidebar from './my/mySidebar/MySidebar';
 
 const RecruitmentManagement = () => {
     // 스케줄데이터를 axios로 전환 예정
@@ -19,12 +20,11 @@ const RecruitmentManagement = () => {
         { id: 4, project: 'Freelancer 4', content: 'Schedule 4', status: 'completed' },
     ];
     return (
-        <div>
-            <h1>모집현황 리스트 페이지</h1>
+        <div className='flex'>
+            <MySidebar />
             <ManagementForm
                 listData={FreelancerData}
                 Mode='Recruit' />
-           
         </div>
     );
 };

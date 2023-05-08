@@ -2,7 +2,7 @@
     z-index: 0;
     font-family: 'LINE Seed Sans KR', sans-serif;
     white-space: nowrap;
-  }
+}
 
 #LayoutWrapper {
     /* min-height: 100%;
@@ -33,14 +33,16 @@
 
 .HeaderMenubar span {
     margin: 30px;
-    color:rgb(63, 63, 63);
+    color: rgb(63, 63, 63);
     font-size: 17px;
     font-weight: bolder;
     height: 60px;
-    text-decoration: none;    
+    text-decoration: none;
 }
 
-.HeaderMenubar span:hover {  color: black; }
+.HeaderMenubar span:hover {
+    color: black;
+}
 
 .LayoutMember {
     position: absolute;
@@ -49,7 +51,7 @@
 }
 
 .LayoutMember span {
-    color:rgb(97, 97, 97);
+    color: rgb(97, 97, 97);
     display: block;
     padding: 0px 20px 0px;
     text-decoration: none;
@@ -60,19 +62,17 @@
 }
 
 .LayoutPosts {
-    position: absolute;
-    width: 75%;
+    display: inline-block;
+    width: 100%;
     height: 100%;
-    float: left;
     line-height: 40px;
-    margin: 0 12% 0 12%;
     padding: 20px 0 20px 0;
 }
 
 #LayoutFooter {
     width: 100%;
     height: 150px;
-    background: #FBDB6A; 
+    background: #FBDB6A;
     /* position : absolute;
     transform : translateY(-100%);
     bottom: 0; */
@@ -80,5 +80,5 @@
 
 #LayoutFootertext {
     padding-top: 40px;
-    color:rgb(84, 84, 84);
+    color: rgb(84, 84, 84);
 }

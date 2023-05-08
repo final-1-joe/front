@@ -79,7 +79,7 @@ const Layout = () => {
             </table>
           </div>
         </header>
-        <section className="LayoutPosts" align="center">
+        <section className="LayoutPosts">
           <Outlet />
         </section>
       </div>

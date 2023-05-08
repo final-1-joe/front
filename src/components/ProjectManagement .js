@@ -1,5 +1,6 @@
 import React from 'react';
 import ManagementForm from './ManagementForm';
+import MySidebar from './my/mySidebar/MySidebar';
 
 const ProjectManagement = () => {
     // 스케줄데이터를 axios로 전환 예정
@@ -19,10 +20,10 @@ const ProjectManagement = () => {
 
     return (
         <div>
-            <h1>프로젝트 페이지</h1>
-            <ManagementForm listData={scheduleData} />
-            <button className='cal-button-gj'>프로젝트 등록</button>
-            {/* 프로젝트 등록 버튼은 차후 css 통일예정 */}
+            <div className='flex'>
+                <MySidebar />
+                <ManagementForm listData={scheduleData} />
+            </div>
         </div>
     );
 };

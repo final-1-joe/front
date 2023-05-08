@@ -15,14 +15,13 @@
 }
 
 .calendar-container {
-    width: 50%;
-    height: 50%;
+    width: 800px;
+    height: 800px;
     padding-right: 3vh;
 }
 
 .calendar-wrapper {
     display: flex;
-    height: 100vh;
 }
 
 
@@ -49,6 +48,9 @@ select.cal-gj {
     box-shadow: none;
 }
 
+div.flex {
+    display: flex;
+}
 
 button.cal-button-gj {
     margin-top: 1em;
