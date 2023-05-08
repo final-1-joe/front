@@ -2,9 +2,9 @@
 
 .container-manageform {
     border: 1;
-    max-width: 80rem;
+    height: 100%;
     margin: 0 auto;
-    padding: 5rem;
+    padding-left: 1rem;
 }
 
 
@@ -30,7 +30,7 @@
 .tab-manageform {
     display: flex;
     justify-content: space-between;
-    width: 50%;
+    width: 30%;
 }
 
 .tab-manageform button {
@@ -59,7 +59,7 @@
     border-color: gray;
     min-height: 30vh;
     height: 100%;
-    width: 100%;
+    width: 100vh;
 }
 
 .listcontainer-manageform ul {
@@ -79,7 +79,7 @@
 }
 
 .list-manageform li {
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     line-height: 2.4rem;
 }
 
