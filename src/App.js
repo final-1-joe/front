@@ -43,18 +43,19 @@ function App() {
             <Route path="/resumemypage" element={<ResumeMypage />} />
             <Route path="/tag" element={<TagConfigFree />} />
             <Route path="/tag2" element={<TagConfigClient />} />
+
             <Route path="/support" element={<SupportCenter />} />
-            <Route path="/support/supportboard" element={<SupportBoard />} />
+            <Route path="/support/board" element={<SupportBoard />} />
             <Route
-              path="/support/supportboard/write"
+              path="/support/board/write"
               element={<SupportBoardWrite />}
             />
             <Route
-              path="/support/supportboard/detail"
+              path="/support/board/detail/:id"
               element={<SupportBoardDetail />}
             />
             <Route
-              path="/support/supportboard/modify"
+              path="/support/board/modify"
               element={<SupportBoardModify />}
             />
           </Route>

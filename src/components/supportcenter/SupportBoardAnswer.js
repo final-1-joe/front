@@ -32,7 +32,7 @@ const SupportBoardAnswer = () => {
     return (
       <form>
         <div className="sc_an sc_vi">
-          <div class="title-area">
+          <div className="title-area">
             <h4>답변 수정</h4>
           </div>
           <input
@@ -42,7 +42,7 @@ const SupportBoardAnswer = () => {
             ref={writerRef}
             value={window.sessionStorage.getItem("id")}
           />
-          <div class="sc_bl_wr sc_an_wr">
+          <div className="sc_bl_wr sc_an_wr">
             <input
               type="hidden"
               name="usernm"
@@ -54,7 +54,7 @@ const SupportBoardAnswer = () => {
               value={window.sessionStorage.getItem("id")}
             />
             <div className="sc_vi-contents">
-              <div class="editer-wrapper">
+              <div className="editer-wrapper">
                 <textarea
                   id="content"
                   ref={contentRef}
@@ -65,10 +65,10 @@ const SupportBoardAnswer = () => {
                 ></textarea>
               </div>
             </div>
-            <div class="btns-area sc_an_wr_btn">
-              <a class="btn-m02 btn-color01 depth2">수정</a>
+            <div className="btns-area sc_an_wr_btn">
+              <a className="btn-m02 btn-color01 depth2">수정</a>
               <a
-                class="btn-m02 btn-color01 depth2"
+                className="btn-m02 btn-color01 depth2"
                 onClick={() => setBoardModify(false)}
               >
                 취소

@@ -55,7 +55,7 @@ const SupportBoardWrite = () => {
       <hr></hr>
       <div id="sc_tt">
         <Link to="/support">자주하는 질문</Link>
-        <Link to="/support/supportboard" className="sccolor">
+        <Link to="/support/board" className="sccolor">
           문의 내역
         </Link>
       </div>

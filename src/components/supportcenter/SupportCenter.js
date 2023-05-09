@@ -26,7 +26,7 @@ const SupportCenter = ({ title, info }) => {
         <Link to="/support" className="sccolor">
           자주하는 질문
         </Link>
-        <Link to="/support/supportboard">문의 내역</Link>
+        <Link to="/support/board">문의 내역</Link>
       </div>
       {questions.map((question) => {
         return <SupportQuesion key={question.id} {...question} />;
