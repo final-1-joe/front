@@ -3,108 +3,201 @@ import axios from "axios";
 import "../../css/SupportCenter.css";
 import { Link, useNavigate } from "react-router-dom";
 import { useRef, useState, useEffect } from "react";
-const SupportBoardAnswer = () => {
+const SupportBoardAnswer = (props) => {
   const navigate = useNavigate();
-  const [boarddetail, setBoarddetail] = useState([]);
-  const [boardmodify, setBoardModify] = useState(false);
+  const sbqnum = props.sbqnum;
+  const [answerlist, setAnswerlist] = useState([]);
+  const [answermodify, setAnswermodify] = useState();
   const writerRef = useRef();
   const contentRef = useRef();
-  const handleDelete = () => {
-    if (
-      boarddetail.board_writer === window.sessionStorage.getItem("id") ||
-      window.sessionStorage.getItem("id") === "admin"
-    ) {
-      axios
-        .post("/delete", {
-          board_num: boarddetail.board_num,
-          ctg: boarddetail.ctg,
-        })
-        .then((res) => {
-          navigate("/reviewboard");
-        })
-        .catch((e) => {
-          console.error(e);
-        });
-    } else alert("삭제 권한이 없습니다!!!");
+  const mocontentRef = useRef();
+  useEffect(() => {
+    getAnswer();
+  }, []);
+
+  const getAnswer = () => {
+    axios
+      .post("/support/board/comment", {
+        sbqnum: sbqnum,
+      })
+      .then((res) => {
+        setAnswerlist(res.data.answerList);
+      })
+      .catch((e) => {
+        console.error(e);
+      });
+  };
+  const deleteAnswer = (data) => {
+    axios
+      .post("/support/answer/delete", {
+        sbanum: data,
+      })
+      .then((res) => {
+        getAnswer();
+      })
+      .catch((e) => {
+        console.error(e);
+      });
   };
 
-  if (boardmodify) {
-    return (
-      <form>
-        <div className="sc_an sc_vi">
-          <div className="title-area">
-            <h4>답변 수정</h4>
-          </div>
-          <input
-            type="hidden"
-            name="writer"
-            id="id"
-            ref={writerRef}
-            value={window.sessionStorage.getItem("id")}
-          />
-          <div className="sc_bl_wr sc_an_wr">
-            <input
-              type="hidden"
-              name="usernm"
-              value={window.sessionStorage.getItem("name")}
-            />
-            <input
-              type="hidden"
-              name="insertuser"
-              value={window.sessionStorage.getItem("id")}
-            />
-            <div className="sc_vi-contents">
-              <div className="editer-wrapper">
-                <textarea
-                  id="content"
-                  ref={contentRef}
-                  name="content"
-                  cols="50"
-                  rows="50"
-                  placeholder="내용을 입력하세요."
-                ></textarea>
-              </div>
-            </div>
-            <div className="btns-area sc_an_wr_btn">
-              <a className="btn-m02 btn-color01 depth2">수정</a>
-              <a
-                className="btn-m02 btn-color01 depth2"
-                onClick={() => setBoardModify(false)}
-              >
-                취소
-              </a>
-            </div>
-          </div>
-        </div>
-      </form>
-    );
-  } else {
-    return (
-      <div className="sc_an sc_vi">
-        <div class="title-area">
+  const updateAnswer = (data) => {
+    axios
+      .post("/support/answer/update", {
+        sbanum: data,
+        sbaanswer: mocontentRef.current.value,
+      })
+      .then((res) => {
+        getAnswer();
+        setAnswermodify("");
+        mocontentRef.current.value = "";
+      })
+      .catch((e) => {
+        console.error(e);
+      });
+  };
+
+  const insertAnswer = () => {
+    if (
+      contentRef.current.value === "" ||
+      contentRef.current.value === undefined
+    ) {
+      alert("내용을 입력하세요!!!");
+      contentRef.current.focus();
+      return false;
+    }
+
+    axios
+      .post("/support/answer/insert", {
+        sbaanswer: contentRef.current.value,
+        sbawriter: "admin",
+        sbquestion_id: sbqnum,
+      })
+      .then((res) => {
+        contentRef.current.value = "";
+        getAnswer();
+      })
+      .catch((e) => {
+        console.error(e);
+      });
+  };
+
+  return (
+    <div className="sc_an sc_vi">
+      {answerlist === null ||
+      answerlist === undefined ||
+      answerlist.length === 0 ? (
+        <></>
+      ) : (
+        <div className="title-area">
           <h4>답변</h4>
         </div>
+      )}
+
+      {answerlist === null ||
+        answerlist === undefined ||
+        answerlist.map((data) => (
+          <>
+            {answermodify === data.sbanum ? (
+              <>
+                <div className="sc_bl_wr sc_an_wr">
+                  <div className="sc_vi-contents">
+                    <input type="hidden" value={data.sbanum}></input>
+                    <div className="editer-wrapper mo_an_ta">
+                      <textarea
+                        id="content"
+                        ref={mocontentRef}
+                        name="content"
+                        cols="50"
+                        rows="50"
+                        className="modi_an"
+                        placeholder="내용을 입력하세요."
+                        defaultValue={data.sbaanswer}
+                      ></textarea>
+                    </div>
+                  </div>
+                  <div className="btns-area sc_an_wr_btn">
+                    <Link
+                      className="btn-m02 btn-color01 depth2"
+                      onClick={() => updateAnswer(data.sbanum)}
+                    >
+                      수정
+                    </Link>
+                    <Link
+                      className="btn-m02 btn-color01 depth2"
+                      onClick={() => setAnswermodify("")}
+                    >
+                      취소
+                    </Link>
+                  </div>
+                </div>
+              </>
+            ) : (
+              <>
+                <div className="sc_vi-contentarea">
+                  <div className="sc_vi-contents sc_vi_list">
+                    <pre>{data.sbaanswer}</pre>
+                  </div>
+                  <div className="sc_vi-information">
+                    <dl className="sc_right">
+                      <dt>등록일</dt>
+                      <dd>{data.sbacreateDate}</dd>
+                    </dl>
+                  </div>
+                </div>
+                <div className="btns-area sc_an_wr_btn">
+                  <Link
+                    className="btn-m02 btn-color01 depth2"
+                    onClick={() => setAnswermodify(data.sbanum)}
+                  >
+                    수정
+                  </Link>
+                  <Link
+                    className="btn-m02 btn-color01 depth2"
+                    onClick={() => deleteAnswer(data.sbanum)}
+                  >
+                    삭제
+                  </Link>
+                </div>
+              </>
+            )}
+          </>
+        ))}
+
+      <div className="title-area">
+        <h4>답변 등록</h4>
+      </div>
+      <input type="hidden" name="id" id="id" value={sbqnum} />
+      <input
+        type="hidden"
+        name="writer"
+        id="writer"
+        ref={writerRef}
+        value="admin"
+      />
+      <div className="sc_bl_wr sc_an_wr">
         <div className="sc_vi-contents">
-          <pre>답변 123129421412421</pre>
-        </div>
-        <div className="sc_vi-information">
-          <dl className="sc_right">
-            <dt>등록일</dt>
-            <dd>2023-04-25</dd>
-          </dl>
+          <div className="editer-wrapper">
+            <textarea
+              id="content"
+              ref={contentRef}
+              name="content"
+              cols="50"
+              rows="50"
+              placeholder="내용을 입력하세요."
+            ></textarea>
+          </div>
         </div>
         <div className="btns-area sc_an_wr_btn">
-          <a
+          <Link
             className="btn-m02 btn-color01 depth2"
-            onClick={() => setBoardModify(true)}
+            onClick={() => insertAnswer()}
           >
-            수정
-          </a>
-          <a className="btn-m02 btn-color01 depth2">삭제</a>
+            등록
+          </Link>
         </div>
       </div>
-    );
-  }
+    </div>
+  );
 };
 
 export default SupportBoardAnswer;

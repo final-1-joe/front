@@ -4,7 +4,6 @@ import axios from "axios";
 import "../../css/SupportCenter.css";
 const SupportBoardWrite = () => {
   const titleRef = useRef();
-  const writerRef = useRef();
   const contentRef = useRef();
   const navigate = useNavigate();
   const handleInsert = () => {
@@ -12,14 +11,6 @@ const SupportBoardWrite = () => {
     if (titleRef.current.value === "" || titleRef.current.value === undefined) {
       alert("제목을 입력하세요!!!");
       titleRef.current.focus();
-      return false;
-    }
-    if (
-      writerRef.current.value === "" ||
-      writerRef.current.value === undefined
-    ) {
-      alert("글쓴이를 입력하세요!!!");
-      writerRef.current.focus();
       return false;
     }
     if (
@@ -32,17 +23,13 @@ const SupportBoardWrite = () => {
     }
 
     axios
-      .post("/insert", {
-        ctg: 1,
-        board_title: titleRef.current.value,
-        board_writer: writerRef.current.value,
-        board_content: contentRef.current.value,
+      .post("/support/board/insert", {
+        sbqwriter: "admin",
+        sbqsubject: titleRef.current.value,
+        sbqcontent: contentRef.current.value,
       })
       .then((res) => {
-        titleRef.current.value = "";
-        writerRef.current.value = "";
-        contentRef.current.value = "";
-        navigate("/reviewboard");
+        navigate("/support/board");
       })
       .catch((e) => {
         console.error(e);
@@ -60,72 +47,62 @@ const SupportBoardWrite = () => {
         </Link>
       </div>
       <div>
-        <form>
-          <input
-            type="hidden"
-            name="writer"
-            id="id"
-            ref={writerRef}
-            value={window.sessionStorage.getItem("id")}
-          />
+        <input type="hidden" name="writer" id="writer" />
 
-          <div class="sc_bl_wr">
-            <div class="one-box">
-              <dl>
-                <dt>
-                  <label for="title">제목</label>
-                </dt>
-                <dd>
-                  <input
-                    type="text"
-                    id="title"
-                    name="title"
-                    ref={titleRef}
-                    placeholder="제목을 입력하세요."
-                    class="w100"
-                  />
-                </dd>
-              </dl>
-            </div>
-            <input
-              type="hidden"
-              name="usernm"
-              value={window.sessionStorage.getItem("name")}
-            />
-            <input
-              type="hidden"
-              name="insertuser"
-              value={window.sessionStorage.getItem("id")}
-            />
-            <div class="one-box">
-              <dl>
-                <dt>
-                  <label for="content">내용</label>
-                </dt>
-                <dd>
-                  <div class="editer-wrapper">
-                    <textarea
-                      id="content"
-                      ref={contentRef}
-                      name="content"
-                      cols="50"
-                      rows="50"
-                      placeholder="내용을 입력하세요."
-                    ></textarea>
-                  </div>
-                </dd>
-              </dl>
-            </div>
+        <div className="sc_bl_wr">
+          <div className="one-box">
+            <dl>
+              <dt>
+                <label htmlFor="title">제목</label>
+              </dt>
+              <dd>
+                <input
+                  type="text"
+                  id="title"
+                  name="title"
+                  ref={titleRef}
+                  placeholder="제목을 입력하세요."
+                  className="w100"
+                />
+              </dd>
+            </dl>
           </div>
-          <div class="btns-area">
-            <a onclick={handleInsert} class="btn-m02 btn-color01 depth2">
-              등록
-            </a>
-            <a onClick={() => navigate(-1)} class="btn-m02 btn-color06 depth2">
-              취소
-            </a>
+          <input type="hidden" name="usernm" />
+          <input type="hidden" name="insertuser" />
+          <div className="one-box">
+            <dl>
+              <dt>
+                <label htmlFor="content">내용</label>
+              </dt>
+              <dd>
+                <div className="editer-wrapper">
+                  <textarea
+                    id="content"
+                    ref={contentRef}
+                    name="content"
+                    cols="50"
+                    rows="50"
+                    placeholder="내용을 입력하세요."
+                  ></textarea>
+                </div>
+              </dd>
+            </dl>
           </div>
-        </form>
+        </div>
+        <div className="btns-area">
+          <Link
+            onClick={() => handleInsert()}
+            className="btn-m02 btn-color01 depth2"
+          >
+            등록
+          </Link>
+          <Link
+            onClick={() => navigate(-1)}
+            className="btn-m02 btn-color06 depth2"
+          >
+            취소
+          </Link>
+        </div>
       </div>
     </div>
   );

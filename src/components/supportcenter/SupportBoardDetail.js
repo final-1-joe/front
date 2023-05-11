@@ -4,22 +4,21 @@ import "../../css/SupportCenter.css";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useRef, useState, useEffect } from "react";
 import SupportBoardAnswer from "./SupportBoardAnswer";
-import SupportBoardAnswerWrite from "./SupportBoardAnswerWrite";
 const SupportBoardDetail = () => {
   const navigate = useNavigate();
   const { id } = useParams();
+  const sbqnum = parseInt(id);
   const [boarddetail, setBoarddetail] = useState([]);
-
   useEffect(() => {
     getDetail();
   }, []);
 
   const getDetail = () => {
-    // console.log("handleUpdate =>", article);
     axios
-      .get(`/support/board/detail?id=${id}`)
+      .post("/support/board/detail", {
+        sbqnum: sbqnum,
+      })
       .then((res) => {
-        console.log("res", res);
         setBoarddetail(res.data);
       })
       .catch((e) => {
@@ -29,7 +28,9 @@ const SupportBoardDetail = () => {
 
   const handleDelete = () => {
     axios
-      .post(`/support/board/delete?id=${id}`)
+      .post("/support/board/delete", {
+        sbqnum: sbqnum,
+      })
       .then((res) => {
         navigate("/support/board/");
       })
@@ -49,29 +50,28 @@ const SupportBoardDetail = () => {
         </Link>
       </div>
       <div className="sc_vi">
-        <div className="title-area">
-          <h4>{boarddetail.subject}</h4>
+        <div className="title-area ">
+          <h4>{boarddetail.sbqsubject}</h4>
         </div>
-        <div className="sc_vi-information">
+        <div className="sc_vi-information board_detail">
           <dl>
             <dt>작성자</dt>
-            <dd>{boarddetail.writer}</dd>
+            <dd>{boarddetail.sbqwriter}</dd>
           </dl>
           <dl>
             <dt>등록일</dt>
-            <dd>{boarddetail.createDate}</dd>
+            <dd>{boarddetail.sbqcreateDate}</dd>
           </dl>
         </div>
         <div className="sc_vi-contents">
-          <pre>{boarddetail.content}</pre>
+          <pre>{boarddetail.sbqcontent}</pre>
         </div>
       </div>
-      <SupportBoardAnswer />
-      <SupportBoardAnswerWrite></SupportBoardAnswerWrite>
+      <SupportBoardAnswer sbqnum={sbqnum} />
       <div className="btns-area mt60">
         <Link
           to={`/support/board/modify`}
-          state={id}
+          state={boarddetail.sbqnum}
           className="btn-m02 btn-color02 depth3"
         >
           수정
@@ -82,7 +82,7 @@ const SupportBoardDetail = () => {
         >
           삭제
         </Link>
-        <Link to="/support/supportboard" className="btn-m02 btn-color01 depth3">
+        <Link to="/support/board" className="btn-m02 btn-color01 depth3">
           목록
         </Link>
       </div>

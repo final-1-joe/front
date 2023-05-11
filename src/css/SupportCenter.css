@@ -1,6 +1,10 @@
 table {
     border-collapse: collapse;
 }
+    a:link { color: black; text-decoration: none;}
+    a:visited { color: black; text-decoration: none;}
+    a:hover { color: black; text-decoration: none;}
+
 #sc{
     margin: 0 auto;
     padding: 0px;
@@ -186,10 +190,14 @@ table {
 .sc_vi .title-area {
     position: relative;
     text-align: left;
-    padding: 24px 30px 0 30px;
+    padding: 15px 10px 0 10px;
+}
+.board_detail{
+    border-bottom:1px solid #ffd43b !important;
 }
 .sc_an .title-area>h4{
-    border-bottom:1px solid #66747e !important;
+    border-bottom:1px solid #ffc800 !important;
+    padding-bottom: 5px;
     color: #424242;
     font-size: 24px;
     line-height: 34px;
@@ -201,16 +209,14 @@ table {
 }
 .sc_vi .title-area>h4 {
     color: #424242;
-    font-size: 24px;
+    font-size: 34px;
     line-height: 34px;
     margin-bottom: 7px;
     font-weight: 500;
 }
 .sc_vi .sc_vi-information {
-    border-bottom: 1px solid #e0e0e0;
-    margin: 0px 30px 0px 30px;
-    
     height: 30px;
+    margin: 0px 10px 0px 10px;
 }
 .sc_vi .sc_vi-information>dl {
     padding-right: 21px;
@@ -231,14 +237,35 @@ table {
 }
 .sc_right{
     float: right !important;
+    padding-right: 0px !important;
+    margin-right: 0px !important;
 }
 .sc_vi .sc_vi-contents {
     text-align: left;
     margin: 10px 30px 0px 30px;
+   
     min-height: 300px;
     
 }
-
+.sc_vi_list{
+    margin: 5px 10px 0px 10px !important;
+}
+.sc_vi-contentarea{
+    border: 1px double #ffd43b !important;
+    
+    border-radius: 10px;
+    margin: 10px 30px 0px 30px;
+}
+.modi_an{
+    border: 0px;
+    border-radius: 10px;
+    height: 130px !important;
+    padding: 10px !important;
+    margin: 0px 10px 0px 10px;
+}
+.mo_an_ta{
+    height: 137px;
+}
 .sc_an .sc_vi-contents {
     padding-top: 0px !important;
     padding-bottom: 0px !important;
@@ -294,7 +321,7 @@ table {
 }
 .sc_an_wr textarea{
     width: 1020px !important;
-    height: 150px !important;
+    height: 137px !important;
     padding: 20px;
     white-space: normal;
 }
@@ -315,7 +342,7 @@ text-align: right !important;
     font-size: 16px;
     line-height: 1.5rem;
     white-space: normal;
-    border: 1px solid #e8e8e8;
+    border: 1px solid #ffd43b;
 }
 .sc_bl_wr dl {
     position: relative;

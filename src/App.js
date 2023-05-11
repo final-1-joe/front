@@ -16,16 +16,16 @@ import ClientMypage from "./pages/ClientMypage";
 import FreeMypage from "./pages/FreeMypage";
 import FreeMyInfo from "./components/my/FreeMyInfo";
 import ClientMyInfo from "./components/my/ClientMyInfo";
-import Resume from "./components/ksm/Resume";
+import Resume from "./components/ResumeTag/Resume";
 import SupportBoard from "./components/supportcenter/SupportBoard";
 import SupportBoardWrite from "./components/supportcenter/SupportBoardWrite";
 import SupportBoardDetail from "./components/supportcenter/SupportBoardDetail";
 import SupportBoardModify from "./components/supportcenter/SupportBoardModify";
 import SupportCenter from "./components/supportcenter/SupportCenter";
 import Notfound from "./components/Notfound";
-import TagConfigFree from "./components/ksm/TagConfigFree";
-import TagConfigClient from "./components/ksm/TagConfigClient";
-import ResumeMypage from "./components/ksm/ResumeMypage";
+import TagConfigFree from "./components/ResumeTag/TagConfigFree";
+import TagConfigClient from "./components/ResumeTag/TagConfigClient";
+import ResumeMypage from "./components/ResumeTag/ResumeMypage";
 
 function App() {
   return (

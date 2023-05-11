@@ -5,20 +5,21 @@ import { Link, useNavigate, useParams, useLocation } from "react-router-dom";
 import { useRef, useState, useEffect } from "react";
 const SupportBoardModify = () => {
   const location = useLocation();
-  const id = location.state;
+  const sbqnum = location.state;
   const titleRef = useRef();
   const navigate = useNavigate();
   const contentRef = useRef();
   const [boarddetail, setBoarddetail] = useState([]);
   useEffect(() => {
     getDetail();
-    console.log("id", id);
   }, []);
 
   const getDetail = () => {
     // console.log("handleUpdate =>", article);
     axios
-      .get(`/support/board/detail?id=${id}`)
+      .post("/support/board/detail", {
+        sbqnum: sbqnum,
+      })
       .then((res) => {
         console.log("res", res);
         setBoarddetail(res.data);
@@ -27,16 +28,17 @@ const SupportBoardModify = () => {
         console.error(e);
       });
   };
+
   const handleUpdate = () => {
-    // console.log("handleUpdate =>", article);
     axios
-      .post("/update", {
-        ctg: boarddetail.ctg,
-        board_num: boarddetail.board_num,
-        board_title: titleRef.current.value,
-        board_content: contentRef.current.value,
+      .post("/support/board/update", {
+        sbqnum: sbqnum,
+        subject: titleRef.current.value,
+        content: contentRef.current.value,
       })
-      .then((res) => {})
+      .then((res) => {
+        navigate(`/support/board/detail/${boarddetail.id}`);
+      })
       .catch((e) => {
         console.error(e);
       });
@@ -54,12 +56,17 @@ const SupportBoardModify = () => {
       </div>
       <div>
         <form>
-          <input type="hidden" name="id" id="id" value={id} />
+          <input
+            type="hidden"
+            name="id"
+            id="id"
+            defaultValue={boarddetail.sbqnum}
+          />
           <div className="sc_bl_wr">
             <div className="one-box">
               <dl>
                 <dt>
-                  <label for="title">제목</label>
+                  <label htmlFor="title">제목</label>
                 </dt>
                 <dd>
                   <input
@@ -69,23 +76,23 @@ const SupportBoardModify = () => {
                     ref={titleRef}
                     placeholder="제목을 입력하세요."
                     className="w100"
-                    defaultValue={boarddetail.subject}
+                    defaultValue={boarddetail.sbqsubject}
                   />
                 </dd>
               </dl>
             </div>
-            <input type="hidden" name="writer" value={boarddetail.writer} />
+            <input type="hidden" name="writer" value={boarddetail.sbqwriter} />
 
             <div className="one-box">
               <dl>
                 <dt>
-                  <label for="content">내용</label>
+                  <label htmlFor="content">내용</label>
                 </dt>
                 <dd>
                   <div className="editer-wrapper">
                     <textarea
                       id="content"
-                      defaultValue={boarddetail.content}
+                      defaultValue={boarddetail.sbqcontent}
                       ref={contentRef}
                       name="content"
                       cols="50"
@@ -98,15 +105,18 @@ const SupportBoardModify = () => {
             </div>
           </div>
           <div className="btns-area">
-            <a onclick={handleUpdate} className="btn-m02 btn-color01 depth2">
+            <Link
+              onClick={() => handleUpdate()}
+              className="btn-m02 btn-color01 depth2"
+            >
               수정
-            </a>
-            <a
+            </Link>
+            <Link
               onClick={() => navigate(-1)}
               className="btn-m02 btn-color06 depth2"
             >
               취소
-            </a>
+            </Link>
           </div>
         </form>
       </div>
