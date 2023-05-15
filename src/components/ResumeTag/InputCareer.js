@@ -6,6 +6,7 @@ const InputCareer = (data) => {
   const [value, setValue] = useState("");
   useEffect(() => {
     let val = data.career;
+    data.onData(data.career);
     if (val !== "") {
       val = val + "년";
     }
@@ -39,8 +40,11 @@ const InputCareer = (data) => {
     let val = value;
     val = val.replace(",", "");
     val = val.replace(/[^-\.0-9]/gi, "");
-    val = val.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
     if (val !== "") {
+      if (val.charAt(0) === "0" && val.length > 1) {
+        val = val.substr(1);
+      }
+      data.onData(val);
       val = val + "년";
     }
     setValue(val);
@@ -54,7 +58,6 @@ const InputCareer = (data) => {
   function handleValueChange(event) {
     let val = event.target.value;
     val = val.replace(/[^-\.0-9]/gi, "");
-    val = val.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
     setValue(val);
   }
 

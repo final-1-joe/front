@@ -1,35 +1,168 @@
 import "../../css/Resume.css";
+import axios from "axios";
 import Select from "react-select";
 import React, { useState, useRef } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { occupation, occupations } from "./OccupationData";
 import SkillTag from "./SkillTag";
 import InputWon from "./InputWon";
 import InputCareer from "./InputCareer";
 const Resume = () => {
-  const nameRef = useRef();
-  const [Selected, setSelected] = useState("");
-
-  const handleSelect = (e) => {
-    setSelected(e.target.value);
-  };
-  const birthRef = useRef();
+  const [selectedoccupation, setSelectedOccupation] = useState("");
+  const [telvalue, setTelValue] = useState("");
+  const us_id = "admin";
+  const nmRef = useRef();
+  const jsRef = useRef();
+  const bdRef = useRef();
+  const maleRef = useRef();
+  const femaleRef = useRef();
   const emailRef = useRef();
   const telRef = useRef();
-  const [telvalue, setTelValue] = useState("");
-  function handleValueChange(event) {
+  const jgRef = useRef();
+  const jobRef = useRef();
+  const [skills, setSkills] = useState([]);
+  const skill = (data) => {
+    setSkills(data);
+  };
+  const wsRef = useRef();
+  const wtRef = useRef();
+  const [pays, setPays] = useState(0);
+  const pay = (data) => {
+    setPays(data);
+  };
+  const [careers, setCareers] = useState(0);
+  const career = (data) => {
+    setCareers(data);
+  };
+  const fileRef = useRef();
+  const [fileName, setFileName] = useState("");
+  const [fileList, setFileList] = useState();
+  const githubRef = useRef();
+
+  const handleFileChange = (e) => {
+    const uploadFiles = Array.prototype.slice.call(e.target.files);
+    uploadFiles.forEach((uploadFile) => {
+      setFileList(uploadFile);
+    });
+    const file = e.target.value.split(/(\\|\/)/g).pop(); // 파일 이름 추출
+    setFileName(file);
+  };
+
+  const handleValueChange = (event) => {
     let val = event.target.value;
     val = val.replace(/[^-\.0-9]/gi, "");
     val = val.replace(/^(\d{3})(\d{4})(\d{4})$/, `$1-$2-$3`);
     setTelValue(val);
-  }
-  const selectInputRef = useRef(null);
+  };
   const onClearSelect = () => {
-    if (selectInputRef.current) {
-      selectInputRef.current.clearValue();
+    if (jobRef.current) {
+      jobRef.current.clearValue();
+    }
+  };
+  const insertResume = () => {
+    if (nmRef.current.value === "" || nmRef.current.value === undefined) {
+      alert("이름을 입력하세요!!!");
+      nmRef.current.focus();
+      return false;
+    }
+    if (bdRef.current.value === "" || bdRef.current.value === undefined) {
+      alert("생년월일을 입력하세요!!!");
+      bdRef.current.focus();
+      return false;
+    }
+    if (emailRef.current.value === "" || emailRef.current.value === undefined) {
+      alert("이메일을 입력하세요!!!");
+      emailRef.current.focus();
+      return false;
+    }
+    if (telRef.current.value === "" || telRef.current.value === undefined) {
+      alert("전화번호를 입력하세요!!!");
+      telRef.current.focus();
+      return false;
+    }
+    const formData = new FormData();
+    formData.append("uploadfiles", fileList);
+    console.log("fileList", fileList);
+    if (fileList === undefined || fileList === null) {
+      axios
+        .post("/resume/insert", {
+          user_id: us_id,
+          user_nm: nmRef.current.value || null,
+          user_js: jsRef.current.value || null,
+          user_bd: bdRef.current.value || null,
+          user_gen: maleRef.current.checked
+            ? maleRef.current.value
+            : femaleRef.current.checked
+            ? femaleRef.current.value
+            : null,
+          user_email: emailRef.current.value || null,
+          user_tel: telRef.current.value || null,
+          user_jg: jgRef.current.value ? jgRef.current.props.value.value : null,
+          user_job: jobRef.current.props.value
+            ? JSON.stringify(
+                jobRef.current.props.value.map((option) => option.value)
+              )
+            : null,
+          user_skill: skills ? JSON.stringify(skills) : null,
+          user_ws: wsRef.current.value || null,
+          user_wt: wtRef.current.value || null,
+          user_pay: pays || null,
+          user_career: careers || null,
+          user_orfile: null,
+          user_stfile: null,
+          user_github: githubRef.current.value || null,
+        })
+        .then((res) => {})
+        .catch((e) => {
+          console.error(e);
+        });
+    } else {
+      axios
+        .post("/resume/upload", formData)
+        .then((res) => {
+          console.log(res.data);
+          console.log(res.data[0].originfilename);
+          axios
+            .post("/resume/insert", {
+              user_id: us_id,
+              user_nm: nmRef.current.value || null,
+              user_js: jsRef.current.value || null,
+              user_bd: bdRef.current.value || null,
+              user_gen: maleRef.current.checked
+                ? maleRef.current.value
+                : femaleRef.current.checked
+                ? femaleRef.current.value
+                : null,
+              user_email: emailRef.current.value || null,
+              user_tel: telRef.current.value || null,
+              user_jg: jgRef.current.value
+                ? jgRef.current.props.value.value
+                : null,
+              user_job: jobRef.current.props.value
+                ? JSON.stringify(
+                    jobRef.current.props.value.map((option) => option.value)
+                  )
+                : null,
+              user_skill: skills ? JSON.stringify(skills) : null,
+              user_ws: wsRef.current.value || null,
+              user_wt: wtRef.current.value || null,
+              user_pay: pays || null,
+              user_career: careers || null,
+              user_orfile: res.data[0].originfilename || null,
+              user_stfile: res.data[0].storedfilename || null,
+              user_github: githubRef.current.value || null,
+            })
+            .then((res) => {})
+            .catch((e) => {
+              console.error(e);
+            });
+        })
+        .catch((e) => {
+          console.error(e);
+        });
     }
   };
 
-  const [selectedoccupation, setSelectedOccupation] = useState("");
   return (
     <div className="resume">
       <div id="basic" className="resume_section">
@@ -51,18 +184,13 @@ const Resume = () => {
                 maxLength="20"
                 data-only-word="true"
                 placeholder="이름 입력"
-                ref={nameRef}
+                ref={nmRef}
               />
             </span>
             <span className="sri_select resume_select resume_right">
-              <select
-                className="ico_arr selected size_type3"
-                onChange={handleSelect}
-                value={Selected}
-              >
-                <option>구직상태 선택</option>
-                <option value={1}>구직중</option>
-                <option value={0}>비구직중</option>
+              <select className="ico_arr selected size_type3" ref={jsRef}>
+                <option value="work">구직중</option>
+                <option value="notwork">비구직중</option>
               </select>
             </span>
           </div>
@@ -77,18 +205,31 @@ const Resume = () => {
                 name="birth_day"
                 className="box_input"
                 data-only-word="true"
-                ref={birthRef}
+                ref={bdRef}
               />
             </span>
             <span className="inpRdoSw sizeXL resume_right focus">
               <span className="inOption">
-                <input name="gender" id="male" type="radio" value="male" />
+                <input
+                  name="gender"
+                  id="male"
+                  type="radio"
+                  value="male"
+                  ref={maleRef}
+                  checked
+                />
                 <label htmlFor="male" name="male" className="lbl">
                   남
                 </label>
               </span>
               <span className="inOption">
-                <input name="gender" id="female" type="radio" value="female" />
+                <input
+                  name="gender"
+                  id="female"
+                  type="radio"
+                  value="female"
+                  ref={femaleRef}
+                />
                 <label htmlFor="female" name="female" className="lbl">
                   여
                 </label>
@@ -139,7 +280,6 @@ const Resume = () => {
                 name="color"
                 options={occupations}
                 onChange={(e) => {
-                  console.log(e);
                   if (e) {
                     setSelectedOccupation(e.value);
                   } else {
@@ -147,13 +287,13 @@ const Resume = () => {
                   }
                   onClearSelect();
                 }}
+                ref={jgRef}
               />
             </div>
-            <p className="txt_error"></p>
             <div className="input_title"></div>
             <div className="resume_input">
               <Select
-                ref={selectInputRef}
+                ref={jobRef}
                 isMulti
                 name="colors"
                 placeholder="직무를 선택하세요"
@@ -163,11 +303,11 @@ const Resume = () => {
               />
             </div>
           </div>
-          <SkillTag skill={[]}></SkillTag>
+          <SkillTag skill={[]} onData={skill}></SkillTag>
           <div className="resume_row">
             <div className="input_title">근무방식</div>
             <div className="resume_input">
-              <select className="box_input" name="work_st">
+              <select className="box_input" name="work_st" ref={wsRef}>
                 <option value="allok">상관없음</option>
                 <option value="offline">상주근무</option>
                 <option value="online">원격근무</option>
@@ -177,7 +317,7 @@ const Resume = () => {
           <div className="resume_row">
             <div className="input_title">근무형태</div>
             <div className="resume_input">
-              <select className="box_input" name="work_ty">
+              <select className="box_input" name="work_ty" ref={wtRef}>
                 <option value="allok">상관없음</option>
                 <option value="fulltime">풀타임</option>
                 <option value="parttime">파트타임</option>
@@ -186,21 +326,30 @@ const Resume = () => {
           </div>
           <div className="resume_row">
             <div className="input_title">희망 금액(월)</div>
-            <InputWon pay={0} />
+            <InputWon pay={0} onData={pay} />
           </div>
           <div className="resume_row">
             <span className="input_title">프리랜서 경력</span>
-            <InputCareer career={0}></InputCareer>
+            <InputCareer career={0} onData={career}></InputCareer>
           </div>
           <div className="resume_row">
             <div className="input_title">포트 폴리오</div>
             <div className="resume_input">
+              <label for="user_file" className="file_label">
+                파일등록
+              </label>
+              <input
+                className="box_input file_input_size upload-name"
+                value={fileName}
+                placeholder="첨부파일"
+              />
               <input
                 type="file"
-                id="user_url"
-                name="user_url"
-                multiple
-                className="file_input max_length"
+                id="user_file"
+                name="user_file"
+                className="file_input_hidden"
+                onChange={handleFileChange}
+                ref={fileRef}
               />
             </div>
           </div>
@@ -213,13 +362,16 @@ const Resume = () => {
                 name="user_url"
                 className="box_input max_length"
                 placeholder="ex) https://github.com"
+                ref={githubRef}
               />
             </div>
           </div>
         </div>
         <div class="btns-area">
-          <a class="btn-m02 btn-color03 depth2">등록</a>
-          <a class="btn-m02 btn-color06 depth2">넘기기</a>
+          <Link class="btn-m02 btn-color03 depth2" onClick={insertResume}>
+            등록
+          </Link>
+          <Link class="btn-m02 btn-color06 depth2">넘기기</Link>
         </div>
       </div>
     </div>

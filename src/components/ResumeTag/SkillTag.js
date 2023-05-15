@@ -5,17 +5,28 @@ import "../../css/Resume.css";
 const SkillTag = (data) => {
   const [tagItem, setTagItem] = useState("");
   const [tagList, setTagList] = useState(data.skill);
-  console.log(data);
   const onKeyPress = (e) => {
     if (e.target.value.length !== 0 && e.key === "Enter") {
       submitTagItem();
     }
   };
-
+  useEffect(() => {
+    if (data.skill !== []) {
+      let updatedTagList = [...tagList];
+      setTagList(updatedTagList);
+      data.onData(tagList);
+    }
+  }, []);
+  useEffect(() => {
+    if (data.skill !== []) {
+      data.onData(tagList);
+    }
+  }, [tagList]);
   const submitTagItem = () => {
     let updatedTagList = [...tagList];
     updatedTagList.push(tagItem);
     setTagList(updatedTagList);
+    data.onData(tagList);
     setTagItem("");
   };
 

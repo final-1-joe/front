@@ -6,9 +6,11 @@ const InputWon = (data) => {
   const [value, setValue] = useState("");
   useEffect(() => {
     let val = data.pay;
+    data.onData(data.pay);
     if (val !== "") {
       val = val + "만원";
     }
+
     setValue(val);
   }, []);
   function handleInputChange(event) {
@@ -39,6 +41,12 @@ const InputWon = (data) => {
     let val = value;
     val = val.replace(",", "");
     val = val.replace(/[^-\.0-9]/gi, "");
+    if (val !== "") {
+      if (val.charAt(0) === "0" && val.length > 1) {
+        val = val.substr(1);
+      }
+      data.onData(val);
+    }
     val = val.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
     if (val !== "") {
       val = val + "만원";
@@ -48,6 +56,7 @@ const InputWon = (data) => {
 
   function handleInputFocus() {
     let val = value;
+    val = val.replace(/[^-\.0-9]/gi, "");
     val = val.replace("만원", "");
     setValue(val);
   }
@@ -55,7 +64,7 @@ const InputWon = (data) => {
   function handleValueChange(event) {
     let val = event.target.value;
     val = val.replace(/[^-\.0-9]/gi, "");
-    val = val.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
+
     setValue(val);
   }
 
