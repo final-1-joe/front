@@ -8,23 +8,24 @@ import PjList from "./components/Project/PjList";
 import PjDetail from "./components/Project/PjDetail";
 import PjRegistration from "./components/Project/PjRegistration";
 import "./css/Layout.css";
-import MyCalendar from './components/MyCalendar';
-import ProjectManagement from './components/ProjectManagement ';
-import RecruitmentManagement from './components/RecruitmentManagement ';
-import DirectMessage from './pages/DirectMessage';
-import ClientMypage from './pages/ClientMypage';
-import FreeMypage from './pages/FreeMypage';
-import FreeMyInfo from './components/my/FreeMyInfo';
-import MyProject from './components/my/FreeMyProject'
-import ClientMyInfo from './components/my/ClientMyInfo'
-import Resume from "./components/ksm/Resume";
+import MyCalendar from "./components/MyCalendar";
+import ProjectManagement from "./components/ProjectManagement ";
+import RecruitmentManagement from "./components/RecruitmentManagement ";
+import DirectMessage from "./pages/DirectMessage";
+import ClientMypage from "./pages/ClientMypage";
+import FreeMypage from "./pages/FreeMypage";
+import FreeMyInfo from "./components/my/FreeMyInfo";
+import ClientMyInfo from "./components/my/ClientMyInfo";
+import Resume from "./components/ResumeTag/Resume";
 import SupportBoard from "./components/supportcenter/SupportBoard";
 import SupportBoardWrite from "./components/supportcenter/SupportBoardWrite";
 import SupportBoardDetail from "./components/supportcenter/SupportBoardDetail";
 import SupportBoardModify from "./components/supportcenter/SupportBoardModify";
 import SupportCenter from "./components/supportcenter/SupportCenter";
 import Notfound from "./components/Notfound";
-
+import TagConfigFree from "./components/ResumeTag/TagConfigFree";
+import TagConfigClient from "./components/ResumeTag/TagConfigClient";
+import ResumeMypage from "./components/ResumeTag/ResumeMypage";
 
 function App() {
   return (
@@ -39,39 +40,38 @@ function App() {
             <Route path="/pjdetail" element={<PjDetail />} />
             <Route path="/pjregistration" element={<PjRegistration />} />
             <Route path="/resume" element={<Resume />} />
+            <Route path="/resumemypage" element={<ResumeMypage />} />
+            <Route path="/tag" element={<TagConfigFree />} />
+            <Route path="/tag2" element={<TagConfigClient />} />
+
             <Route path="/support" element={<SupportCenter />} />
-            <Route path="/support/supportboard" element={<SupportBoard />} />
-            <Route path="/free/schedule" element={<MyCalendar />} />
-            <Route path="/client/myproject" element={<ProjectManagement />} />
-            <Route path="/client/recruit" element={<RecruitmentManagement />} />
+            <Route path="/support/board" element={<SupportBoard />} />
             <Route
-              path="/support/supportboard/write"
+              path="/support/board/write"
               element={<SupportBoardWrite />}
             />
             <Route
-              path="/support/supportboard/detail"
+              path="/support/board/detail/:id"
               element={<SupportBoardDetail />}
             />
             <Route
-              path="/support/supportboard/modify"
+              path="/support/board/modify"
               element={<SupportBoardModify />}
             />
           </Route>
+          <Route path="/calendar" element={<MyCalendar />} />
+          <Route path="/project" element={<ProjectManagement />} />
+          <Route path="/recruit" element={<RecruitmentManagement />} />
           <Route path="/direct" element={<DirectMessage />} />
-          <Route path="/client/mypage" element={<ClientMypage />} />
-          <Route path="/client/myinfo" element={<ClientMyInfo />} />
-          {/* <Route path="/free/manageResume" element={<이력서관리 />} /> */}
-          <Route path="/free/mypage" element={<FreeMypage />} />
-          <Route path="/free/myinfo" element={<FreeMyInfo />} />
-          <Route path="/free/myproject" element={<MyProject />} />
-
+          <Route path="/clientmypage" element={<ClientMypage />} />
+          <Route path="/freemypage" element={<FreeMypage />} />
+          <Route path="/freemyinfo" element={<FreeMyInfo />} />
+          <Route path="/clientmyinfo" element={<ClientMyInfo />} />
           <Route path="*" element={<Notfound />} />
         </Routes>
       </Router>
-
-    </div >
-
+    </div>
   );
-};
+}
 
 export default App;

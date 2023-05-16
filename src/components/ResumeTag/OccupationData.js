@@ -9,6 +9,7 @@ export const occupations = [
 ];
 
 export const occupation = {
+  "": [],
   개발: [
     { value: "웹 개발자", label: "웹 개발자" },
     { value: "서버 개발자", label: "서버 개발자" },
