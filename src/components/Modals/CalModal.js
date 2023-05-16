@@ -45,6 +45,7 @@ const CalModal = (props) => {
             })
             .then(() => {
                 setEdit(false);
+                close();
             })
             .catch((e) => {
                 console.error(e);
@@ -55,6 +56,7 @@ const CalModal = (props) => {
         axios
             .delete(`http://localhost:8080/schedule/delete/${id}`)
             .then(() => {
+                setEdit(false);
                 close();
             })
             .catch((e) => {
