@@ -649,7 +649,7 @@ float: right;
 }
 
 .dmcombine-me {
-  display: table;
+  /*display: table;*/
   margin-bottom: 2.3958vw;
   float:right;
   width:calc( 100% - 7.1875vw );
