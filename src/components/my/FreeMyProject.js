@@ -14,32 +14,32 @@ function MyProject() {
 
   const ongoingProject = [
     {
-      project_id: 1,
-      project_name: "프로젝트1",
-      project_content: "온라인몰 리뉴얼 프로젝트 개발자 - React, Java",
-      //path: "/pjdetail/:pj_id"
+      pj_num: 1,
+      pj_title: "프로젝트1",
+      pj_content: "온라인몰 리뉴얼 프로젝트 개발자 - React, Java",
+      //path: "/pjdetail/:pj_num"
     },
   ];
 
   const offeredProject = [
+    //axios.get
     {
-      project_id: 2,
-      project_name: "프로젝트2",
-      project_content:
-        "카페24 관리자에 연동되는 별도의 Admin 페이지 설계 및 개발",
+      pj_num: 2,
+      pj_title: "프로젝트2",
+      pj_content: "카페24 관리자에 연동되는 별도의 Admin 페이지 설계 및 개발",
     },
     {
-      project_id: 3,
-      project_name: "프로젝트3",
-      project_content: "공간관리 플랫폼 React 프론트엔드 개발",
+      pj_num: 3,
+      pj_title: "프로젝트3",
+      pj_content: "공간관리 플랫폼 React 프론트엔드 개발",
     },
   ];
 
   const finishedProject = [
     {
-      project_id: 5,
-      project_name: "프로젝트4",
-      project_content: "반응형 및 모바일 서브페이지 퍼블리싱",
+      pj_num: 5,
+      pj_title: "프로젝트4",
+      pj_content: "반응형 및 모바일 서브페이지 퍼블리싱",
     },
   ];
 
@@ -49,11 +49,11 @@ function MyProject() {
       <div className="mywrapper">
         <h4 className="myh4">진행중인 프로젝트</h4>
         {ongoingProject.map((ongoingProject) => (
-          //<Link to = "/pjlist:project_id" style={{textDecoration: "none"}}>
+          //<Link to = "/pjdetail:pj_num" style={{textDecoration: "none"}}>
           <div className="myproject">
-            {ongoingProject.project_name}
+            {ongoingProject.pj_title}
             <br />
-            {ongoingProject.project_content}
+            {ongoingProject.pj_content}
           </div>
           //</Link>
         ))}
@@ -62,11 +62,11 @@ function MyProject() {
           <form className="myoffered">
             <div className="myofferedProject">
               <p>
-                {offeredProject.project_name}
+                {offeredProject.pj_title}
                 <br />
-                {offeredProject.project_content?.length > 28
-                  ? `${offeredProject.project_content.slice(0, 28)}...`
-                  : offeredProject.project_content}
+                {offeredProject.pj_content?.length > 28
+                  ? `${offeredProject.pj_content.slice(0, 28)}...`
+                  : offeredProject.pj_content}
               </p>
             </div>
             <button className="myDMButton" type="button" onClick={goDM}>
@@ -83,9 +83,9 @@ function MyProject() {
         <h4 className="myh4">완료된 프로젝트</h4>
         {finishedProject.map((finishedProject) => (
           <div className="myproject">
-            {finishedProject.project_name}
+            {finishedProject.pj_title}
             <br />
-            {finishedProject.project_content}
+            {finishedProject.pj_content}
           </div>
         ))}
       </div>

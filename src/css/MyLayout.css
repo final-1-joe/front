@@ -17,7 +17,7 @@
 
 .myproject {
   width: 800px;
-  height: 100px;
+  height: 80px;
   margin-bottom: 20px;
   border: 5px solid #ffebb4;
   border-radius: 20px;
@@ -32,7 +32,7 @@
 
 .myfreelancer {
   width: 800px;
-  height: 100px;
+  height: 80px;
   margin-bottom: 20px;
   border: 5px solid #ffd2b4;
   border-radius: 20px;
@@ -69,7 +69,7 @@ button.mywithdrawal {
   border-radius: 20px;
   border: none;
   padding: 13px;
-  margin-left: 650px;
+  margin-left: 700px;
   cursor: pointer;
 }
 button.mywithdrawal:hover {
