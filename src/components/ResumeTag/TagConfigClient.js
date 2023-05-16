@@ -62,7 +62,7 @@ const TagConfigClient = () => {
   }, [redata]);
   const getTag = () => {
     axios
-      .post("/clitag/select", {
+      .post("http://localhost:8080/clitag/select", {
         user_id: user_id,
       })
       .then((res) => {
@@ -74,14 +74,14 @@ const TagConfigClient = () => {
   };
   const insertTag = () => {
     axios
-      .post("/clitag/select", {
+      .post("http://localhost:8080/clitag/select", {
         user_id: user_id,
       })
       .then((res) => {
         const count = res.data;
         if (count === "" || count === null) {
           axios
-            .post("/clitag/insert", {
+            .post("http://localhost:8080/clitag/insert", {
               user_id: user_id,
               cli_jg: jgRef.current.props
                 ? jgRef.current.props.value.value
@@ -106,7 +106,7 @@ const TagConfigClient = () => {
             });
         } else {
           axios
-            .post("/clitag/update", {
+            .post("http://localhost:8080/clitag/update", {
               user_id: user_id,
               cli_jg: jgRef.current.props
                 ? jgRef.current.props.value.value

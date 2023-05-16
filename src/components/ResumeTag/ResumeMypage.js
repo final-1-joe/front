@@ -93,7 +93,7 @@ const ResumeMypage = () => {
 
   const getResume = () => {
     axios
-      .post("/resume/select", {
+      .post("http://localhost:8080/resume/select", {
         user_id: us_id,
       })
       .then((res) => {
@@ -129,7 +129,7 @@ const ResumeMypage = () => {
     formData.append("uploadfiles", fileList);
     if (fileList === undefined || fileList === null) {
       axios
-        .post("/resume/update", {
+        .post("http://localhost:8080/resume/update", {
           user_id: us_id,
           user_nm: nmRef.current.value || null,
           user_js: jsRef.current.value || null,
@@ -162,10 +162,10 @@ const ResumeMypage = () => {
         });
     } else {
       axios
-        .post("/resume/upload", formData)
+        .post("http://localhost:8080/resume/upload", formData)
         .then((res) => {
           axios
-            .post("/resume/update", {
+            .post("http://localhost:8080/resume/update", {
               user_id: us_id,
               user_nm: nmRef.current.value || null,
               user_js: jsRef.current.value || null,

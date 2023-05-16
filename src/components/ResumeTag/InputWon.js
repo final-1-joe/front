@@ -68,36 +68,21 @@ const InputWon = (data) => {
     setValue(val);
   }
 
-  function handleSubmit(event) {
-    event.preventDefault();
-    const intValue = parseInt(value.replace(/[^\d]/g, ""));
-    axios
-      .post("/api/data", { value: intValue })
-      .then((response) => {
-        console.log(response);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  }
-
   return (
     <div className="resume_input">
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          id="user_pay"
-          name="user_pay"
-          maxLength={4}
-          value={value}
-          placeholder="0만원"
-          onChange={handleValueChange}
-          onBlur={handleInputBlur}
-          onFocus={handleInputFocus}
-          onKeyDown={handleInputChange}
-          className="box_input"
-        />
-      </form>
+      <input
+        type="text"
+        id="user_pay"
+        name="user_pay"
+        maxLength={4}
+        value={value}
+        placeholder="0만원"
+        onChange={handleValueChange}
+        onBlur={handleInputBlur}
+        onFocus={handleInputFocus}
+        onKeyDown={handleInputChange}
+        className="box_input"
+      />
     </div>
   );
 };

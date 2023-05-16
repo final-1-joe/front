@@ -17,7 +17,7 @@ const SupportBoardAnswer = (props) => {
 
   const getAnswer = () => {
     axios
-      .post("/support/board/comment", {
+      .post("http://localhost:8080/support/board/comment", {
         sbqnum: sbqnum,
       })
       .then((res) => {
@@ -29,7 +29,7 @@ const SupportBoardAnswer = (props) => {
   };
   const deleteAnswer = (data) => {
     axios
-      .post("/support/answer/delete", {
+      .post("http://localhost:8080/support/answer/delete", {
         sbanum: data,
       })
       .then((res) => {
@@ -42,7 +42,7 @@ const SupportBoardAnswer = (props) => {
 
   const updateAnswer = (data) => {
     axios
-      .post("/support/answer/update", {
+      .post("http://localhost:8080/support/answer/update", {
         sbanum: data,
         sbaanswer: mocontentRef.current.value,
       })
@@ -67,7 +67,7 @@ const SupportBoardAnswer = (props) => {
     }
 
     axios
-      .post("/support/answer/insert", {
+      .post("http://localhost:8080/support/answer/insert", {
         sbaanswer: contentRef.current.value,
         sbawriter: "admin",
         sbquestion_id: sbqnum,
