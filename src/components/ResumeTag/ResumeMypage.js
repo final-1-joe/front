@@ -10,7 +10,7 @@ import InputCareer from "./InputCareer";
 const ResumeMypage = () => {
   const [selectedoccupation, setSelectedOccupation] = useState("");
   const [telvalue, setTelValue] = useState("");
-  const us_id = "admin";
+  const us_id = "admin2";
   const nmRef = useRef();
   const jsRef = useRef();
   const bdRef = useRef();
@@ -71,28 +71,32 @@ const ResumeMypage = () => {
   useEffect(() => {
     if (redata) {
       setSelectedOccupation(redata.user_jg);
+      setSelectedJobs(
+        occupation[redata.user_jg].filter((option) =>
+          redata.user_job.includes(option.value)
+        )
+      );
       setFileName(redata.user_orfile);
       setTelValue(redata.user_tel);
     }
   }, [redata]);
 
-  useEffect(() => {
-    if (occupation[selectedoccupation]) {
-      setSelectedJobs(
-        occupation[selectedoccupation].filter((option) =>
-          redata.user_job.includes(option.value)
-        )
-      );
-    }
-  }, [selectedoccupation]);
+  // useEffect(() => {
+  //   if (occupation[selectedoccupation]) {
+  //     setSelectedJobs(
+  //       occupation[selectedoccupation].filter((option) =>
+  //         redata.user_job.includes(option.value)
+  //       )
+  //     );
+  //   }
+  // }, [selectedoccupation]);
 
   const getResume = () => {
     axios
       .post("/resume/select", {
-        user_id: "admin",
+        user_id: us_id,
       })
       .then((res) => {
-        console.log("res", res.data);
         setRedata(res.data);
       })
       .catch((e) => {
@@ -123,8 +127,6 @@ const ResumeMypage = () => {
     }
     const formData = new FormData();
     formData.append("uploadfiles", fileList);
-    console.log("fileList", fileList);
-    console.log("jgRef.current.value", jgRef);
     if (fileList === undefined || fileList === null) {
       axios
         .post("/resume/update", {
@@ -162,8 +164,6 @@ const ResumeMypage = () => {
       axios
         .post("/resume/upload", formData)
         .then((res) => {
-          console.log(res.data);
-          console.log(res.data[0].originfilename);
           axios
             .post("/resume/update", {
               user_id: us_id,
@@ -363,7 +363,6 @@ const ResumeMypage = () => {
                     (option) => option.value === selectedoccupation
                   )}
                   onChange={(e) => {
-                    console.log("e", e);
                     if (e) {
                       setSelectedOccupation(e.value);
                     } else {

@@ -6,6 +6,7 @@ const InputMonth = (data) => {
   const [value, setValue] = useState("");
   useEffect(() => {
     let val = data.month;
+    data.onData(data.month);
     if (val !== "") {
       val = val + "개월";
     }
@@ -40,7 +41,12 @@ const InputMonth = (data) => {
     val = val.replace(",", "");
     val = val.replace(/[^-\.0-9]/gi, "");
     val = val.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
+
     if (val !== "") {
+      if (val.charAt(0) === "0" && val.length > 1) {
+        val = val.substr(1);
+      }
+      data.onData(val);
       val = val + "개월";
     }
     setValue(val);

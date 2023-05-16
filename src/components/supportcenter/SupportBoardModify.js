@@ -33,11 +33,11 @@ const SupportBoardModify = () => {
     axios
       .post("/support/board/update", {
         sbqnum: sbqnum,
-        subject: titleRef.current.value,
-        content: contentRef.current.value,
+        sbqsubject: titleRef.current.value,
+        sbqcontent: contentRef.current.value,
       })
       .then((res) => {
-        navigate(`/support/board/detail/${boarddetail.id}`);
+        navigate(`/support/board/detail/${sbqnum}`);
       })
       .catch((e) => {
         console.error(e);

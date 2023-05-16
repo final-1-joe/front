@@ -14,8 +14,8 @@ const Resume = () => {
   const nmRef = useRef();
   const jsRef = useRef();
   const bdRef = useRef();
-  const maleRef = useRef();
-  const femaleRef = useRef();
+  const maleRef = useRef(null);
+  const femaleRef = useRef(null);
   const emailRef = useRef();
   const telRef = useRef();
   const jgRef = useRef();
@@ -70,6 +70,12 @@ const Resume = () => {
       bdRef.current.focus();
       return false;
     }
+    if (!maleRef.current.checked) {
+      if (!femaleRef.current.checked) {
+        alert("성별을 선택하세요!!!");
+        return false;
+      }
+    }
     if (emailRef.current.value === "" || emailRef.current.value === undefined) {
       alert("이메일을 입력하세요!!!");
       emailRef.current.focus();
@@ -82,7 +88,6 @@ const Resume = () => {
     }
     const formData = new FormData();
     formData.append("uploadfiles", fileList);
-    console.log("fileList", fileList);
     if (fileList === undefined || fileList === null) {
       axios
         .post("/resume/insert", {
@@ -92,12 +97,10 @@ const Resume = () => {
           user_bd: bdRef.current.value || null,
           user_gen: maleRef.current.checked
             ? maleRef.current.value
-            : femaleRef.current.checked
-            ? femaleRef.current.value
-            : null,
+            : femaleRef.current.value,
           user_email: emailRef.current.value || null,
           user_tel: telRef.current.value || null,
-          user_jg: jgRef.current.value ? jgRef.current.props.value.value : null,
+          user_jg: jgRef.current.props ? jgRef.current.props.value.value : null,
           user_job: jobRef.current.props.value
             ? JSON.stringify(
                 jobRef.current.props.value.map((option) => option.value)
@@ -120,8 +123,6 @@ const Resume = () => {
       axios
         .post("/resume/upload", formData)
         .then((res) => {
-          console.log(res.data);
-          console.log(res.data[0].originfilename);
           axios
             .post("/resume/insert", {
               user_id: us_id,
@@ -130,12 +131,10 @@ const Resume = () => {
               user_bd: bdRef.current.value || null,
               user_gen: maleRef.current.checked
                 ? maleRef.current.value
-                : femaleRef.current.checked
-                ? femaleRef.current.value
-                : null,
+                : femaleRef.current.value,
               user_email: emailRef.current.value || null,
               user_tel: telRef.current.value || null,
-              user_jg: jgRef.current.value
+              user_jg: jgRef.current.props
                 ? jgRef.current.props.value.value
                 : null,
               user_job: jobRef.current.props.value
@@ -216,7 +215,6 @@ const Resume = () => {
                   type="radio"
                   value="male"
                   ref={maleRef}
-                  checked
                 />
                 <label htmlFor="male" name="male" className="lbl">
                   남
@@ -335,7 +333,7 @@ const Resume = () => {
           <div className="resume_row">
             <div className="input_title">포트 폴리오</div>
             <div className="resume_input">
-              <label for="user_file" className="file_label">
+              <label htmlFor="user_file" className="file_label">
                 파일등록
               </label>
               <input
@@ -367,11 +365,11 @@ const Resume = () => {
             </div>
           </div>
         </div>
-        <div class="btns-area">
-          <Link class="btn-m02 btn-color03 depth2" onClick={insertResume}>
+        <div className="btns-area">
+          <Link className="btn-m02 btn-color03 depth2" onClick={insertResume}>
             등록
           </Link>
-          <Link class="btn-m02 btn-color06 depth2">넘기기</Link>
+          <Link className="btn-m02 btn-color06 depth2">넘기기</Link>
         </div>
       </div>
     </div>
