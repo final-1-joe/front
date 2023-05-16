@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import '../css/MyCalendar.css';
 import CalModal from './Modals/CalModal';
 import MySidebar from './my/mySidebar/MySidebar';
+import axios from "axios";
 
 
 const MyCalendar = () => {
@@ -16,6 +17,8 @@ const MyCalendar = () => {
     const [modalOpen, setModalOpen] = useState(false);
     const [selectedEvent, setSelectedEvent] = useState(null);
     const [isStartDateSelected, setIsStartDateSelected] = useState(false);
+    const [events, setEvents] = useState([]);
+    const [render, setRender] = useState(false);
 
 
 
@@ -43,7 +46,7 @@ const MyCalendar = () => {
             setIsStartDateSelected(true);
             alert('시작 날짜가 저장되었습니다.');
         } else {
-            const selectedEndDate = arg.dateStr + 'T09:00';
+            const selectedEndDate = arg.dateStr + 'T09:01';
             if (selectedEndDate <= start) {
                 alert('종료 날짜가 시작 날짜보다 이전입니다.');
             } else {
@@ -62,45 +65,96 @@ const MyCalendar = () => {
     }
 
 
-    const handleEventClick = (arg) => {
-        setSelectedEvent(arg.event);
+    const handleEventClick = (clickInfo) => {
+        const clickedEventId = clickInfo.event.id;
+        const clickedEvent = events.find((event) => event.id.toString() === clickedEventId);
+        setSelectedEvent(clickedEvent);
         setModalOpen(true);
     };
 
+
+
+    const handleColorChange = (e) => {
+        setColor(e.target.value);
+    };
+
+    //axios 시작
+
+    const getEvent = () => {
+        axios
+            .get("http://localhost:8080/schedule/get?user_id=admin", {})
+            // .get(`http://localhost8080/schedule/list?user_id=${userid}`, {}) 아이디 생기면 변경해야함
+            // httpsession이용하고싶긴한데..
+            .then((res) => {
+                const { data } = res;
+                const events = data.map((event) => {
+                    const { schedule_key, schedule_title, schedule_content, schedule_start, schedule_end, schedule_color } = event;
+                    const eventObject = {
+                        id: schedule_key,
+                        title: schedule_title,
+                        color: schedule_color,
+                        extendedProps: {
+                            memo: schedule_content,
+                        },
+                    };
+                    if (schedule_end === null) {
+                        eventObject.date = schedule_start;
+                    } else {
+                        eventObject.start = schedule_start;
+                        eventObject.end = schedule_end;
+                    }
+                    return eventObject;
+                });
+                setEvents(events);
+            })
+            .catch((e) => {
+                console.error(e);
+            });
+    };
+
+    useEffect(() => {
+        getEvent();
+    }, [render]);
 
 
     const handleSubmit = (event) => {
         event.preventDefault();
 
         // 유효성 검사
-        if (!title || !start || !end || !color || !content) {
-            alert('모든 필드를 입력하세요.');
+        if (!title || !start || !color || !content) {
+            alert('필수 입력 필드를 입력하세요.');
             return;
         }
-        if (end <= start) {
+        if (end != null && end < start) {
             alert('종료 날짜가 시작 날짜보다 이전입니다.');
             return;
         }
+        axios
+            .post(`http://localhost:8080/schedule/insert`, {
+                user_id: 'admin',
+                // user_id : httpsession.user_id,
+                schedule_title: title,
+                schedule_content: content,
+                schedule_start: start,
+                schedule_end: end,
+                schedule_color: color,
+            })
+            .then(() => {
+                setRender(!render);
+            })
+            .catch((e) => {
+                console.error(e);
+            })
 
-        // // ...
 
-        // // 캘린더 이벤트 업데이트
-        //const newEvent = { title, start, end, color, content };
-        // const updatedEvents = [...events, newEvent];
-        // setEvents(updatedEvents);
 
-        // 폼 입력값 초기화
         setTitle('');
         setStart('');
         setEnd('');
         setColor('');
     };
 
-    const handleColorChange = (e) => {
-        setColor(e.target.value);
-    };
 
-    // 캘린더에 사용할 색상 목록입니다.
 
 
     return (
@@ -114,21 +168,8 @@ const MyCalendar = () => {
                         initialView="dayGridMonth"
                         dateClick={handleDateClick}
                         eventClick={handleEventClick}
-                        events={[ //여기 부분을 axios 데이터로 받아와야함
-                            {
-                                title: 'event ', date: '2023-05-02',
-                                extendedProps: {
-                                    memo: '이러저러한 일정'
-                                }
-                            },
-                            {
-                                title: 'event 2', start: '2023-05-03'
-                                , end: '2023-05-14', color: 'green',
-                                extendedProps: {
-                                    memo: '이러저러한 좀 긴 일정'
-                                }
-                            },
-                        ]}
+                        events={events}
+                        displayEventTime={false}
                     />
                 </div>
                 <div className="form-wrapper-gj">
@@ -182,8 +223,7 @@ const MyCalendar = () => {
                         <button className='cal-button-gj' >추가</button>
                     </form>
                 </div>
-                <CalModal open={modalOpen} close={closeModal} event={selectedEvent}>
-                </CalModal>
+                <CalModal open={modalOpen} close={closeModal} event={selectedEvent} render={render} setRender={setRender} />
             </div>
         </div>
     );
