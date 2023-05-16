@@ -114,7 +114,7 @@ const MyCalendar = () => {
 
     useEffect(() => {
         getEvent();
-    }, [modalOpen, render]);
+    }, [render]);
 
 
     const handleSubmit = (event) => {
@@ -223,7 +223,7 @@ const MyCalendar = () => {
                         <button className='cal-button-gj' >추가</button>
                     </form>
                 </div>
-                <CalModal open={modalOpen} close={closeModal} event={selectedEvent} />
+                <CalModal open={modalOpen} close={closeModal} event={selectedEvent} render={render} setRender={setRender} />
             </div>
         </div>
     );

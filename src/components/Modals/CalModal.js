@@ -4,7 +4,7 @@ import axios from 'axios';
 import '../../css/CalModal.css';
 
 const CalModal = (props) => {
-    const { open, close, event } = props;
+    const { open, close, event, render, setRender } = props;
     const [edit, setEdit] = useState(false);
     const [id, setId] = useState('');
     const [title, setTitle] = useState('');
@@ -45,6 +45,7 @@ const CalModal = (props) => {
             })
             .then(() => {
                 setEdit(false);
+                setRender(!render);
                 close();
             })
             .catch((e) => {
@@ -57,6 +58,7 @@ const CalModal = (props) => {
             .delete(`http://localhost:8080/schedule/delete/${id}`)
             .then(() => {
                 setEdit(false);
+                setRender(!render);
                 close();
             })
             .catch((e) => {
