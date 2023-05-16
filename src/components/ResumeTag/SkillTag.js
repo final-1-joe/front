@@ -1,30 +1,32 @@
 import React, { useEffect, useState } from "react";
+import TagList from "./TagListData";
 import "../../css/Resume.css";
-const wholeTextArray = [
-  "영업기획",
-  "banana",
-  "coding",
-  "javascript",
-  "원티드",
-  "원티드ds",
-  "프리온보딩",
-  "프론트엔드",
-];
 
-const Tag = () => {
+const SkillTag = (data) => {
   const [tagItem, setTagItem] = useState("");
-  const [tagList, setTagList] = useState([]);
-
+  const [tagList, setTagList] = useState(data.skill);
   const onKeyPress = (e) => {
     if (e.target.value.length !== 0 && e.key === "Enter") {
       submitTagItem();
     }
   };
-
+  useEffect(() => {
+    if (data.skill !== []) {
+      let updatedTagList = [...tagList];
+      setTagList(updatedTagList);
+      data.onData(tagList);
+    }
+  }, []);
+  useEffect(() => {
+    if (data.skill !== []) {
+      data.onData(tagList);
+    }
+  }, [tagList]);
   const submitTagItem = () => {
     let updatedTagList = [...tagList];
     updatedTagList.push(tagItem);
     setTagList(updatedTagList);
+    data.onData(tagList);
     setTagItem("");
   };
 
@@ -37,7 +39,7 @@ const Tag = () => {
   };
 
   const [isHavetagItem, setIsHavetagItem] = useState(false);
-  const [dropDownList, setDropDownList] = useState(wholeTextArray);
+  const [dropDownList, setDropDownList] = useState(TagList);
   const [dropDownItemIndex, setDropDownItemIndex] = useState(-1);
 
   const showDropDownList = () => {
@@ -45,7 +47,7 @@ const Tag = () => {
       setIsHavetagItem(false);
       setDropDownList([]);
     } else {
-      const choosenTextList = wholeTextArray.filter((textItem) =>
+      const choosenTextList = TagList.filter((textItem) =>
         textItem.includes(tagItem)
       );
       setDropDownList(choosenTextList);
@@ -58,12 +60,14 @@ const Tag = () => {
   };
 
   const clickDropDownItem = (clickedItem) => {
-    setTagItem(clickedItem);
+    let updatedTagList = [...tagList];
+    updatedTagList.push(clickedItem);
+    setTagList(updatedTagList);
+
     setIsHavetagItem(false);
   };
 
   const handleDropDownKey = (event) => {
-    //input에 값이 있을때만 작동
     if (isHavetagItem) {
       if (
         event.key === "ArrowDown" &&
@@ -80,8 +84,21 @@ const Tag = () => {
       }
     }
   };
-
   useEffect(showDropDownList, [tagItem]);
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      const tagInput = document.querySelector(".tag_div");
+      if (tagInput && !tagInput.contains(event.target)) {
+        setIsHavetagItem(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   return (
     <div>
@@ -91,10 +108,11 @@ const Tag = () => {
           <div className="tag_input">
             <input
               type="text"
-              placeholder="Press enter to add tags"
+              placeholder="스킬을 입력하세요"
               className="box_input"
               autoComplete="off"
               value={tagItem}
+              name="taginput"
               onKeyUp={handleDropDownKey}
               tabIndex={2}
               onChange={(e) => {
@@ -102,13 +120,14 @@ const Tag = () => {
                 changeInputValue(e);
               }}
               onKeyDown={onKeyPress}
+              onFocus={() => setIsHavetagItem(true)}
             />
             <span className="tag_delbtn" onClick={() => setTagItem("")}>
               &times;
             </span>
           </div>
           {isHavetagItem && (
-            <ul>
+            <ul className="listul">
               {dropDownList.length === 0 && <li>해당하는 단어가 없습니다</li>}
               {dropDownList.map((dropDownItem, dropDownIndex) => {
                 return (
@@ -133,7 +152,9 @@ const Tag = () => {
             return (
               <span key={index} className="tag_item">
                 <span>{tagItem}</span>
-                <button onClick={deleteTagItem}>X</button>
+                <button onClick={deleteTagItem} className="tag_item_del">
+                  X
+                </button>
               </span>
             );
           })}
@@ -143,4 +164,4 @@ const Tag = () => {
   );
 };
 
-export default Tag;
+export default SkillTag;
