@@ -26,7 +26,7 @@ const SupportCenter = () => {
   };
   const getFaq = () => {
     axios
-      .post("/support/faq/select", {})
+      .post("http://localhost:8080/support/faq/select", {})
       .then((res) => {
         setFaqs(res.data);
       })
@@ -55,7 +55,7 @@ const SupportCenter = () => {
     }
 
     axios
-      .post("/support/faq/insert", {
+      .post("http://localhost:8080/support/faq/insert", {
         scquestion: questionRef.current.value,
         scanswer: answerRef.current.value,
         scwriter: "admin",

@@ -39,7 +39,7 @@ const SupportQuesion = ({ scnum, scquestion, scanswer, getFaq }) => {
     }
 
     axios
-      .post("/support/faq/update", {
+      .post("http://localhost:8080/support/faq/update", {
         scquestion: questionRef.current.value,
         scanswer: answerRef.current.value,
         scnum: scnum,
@@ -56,7 +56,7 @@ const SupportQuesion = ({ scnum, scquestion, scanswer, getFaq }) => {
 
   const deleteFaq = (scnum) => {
     axios
-      .post("/support/faq/delete", {
+      .post("http://localhost:8080/support/faq/delete", {
         scnum: scnum,
       })
       .then((res) => {

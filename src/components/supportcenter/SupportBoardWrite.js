@@ -23,7 +23,7 @@ const SupportBoardWrite = () => {
     }
 
     axios
-      .post("/support/board/insert", {
+      .post("http://localhost:8080/support/board/insert", {
         sbqwriter: "admin",
         sbqsubject: titleRef.current.value,
         sbqcontent: contentRef.current.value,

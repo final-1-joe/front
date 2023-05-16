@@ -90,7 +90,7 @@ const Resume = () => {
     formData.append("uploadfiles", fileList);
     if (fileList === undefined || fileList === null) {
       axios
-        .post("/resume/insert", {
+        .post("http://localhost:8080/resume/insert", {
           user_id: us_id,
           user_nm: nmRef.current.value || null,
           user_js: jsRef.current.value || null,
@@ -121,10 +121,10 @@ const Resume = () => {
         });
     } else {
       axios
-        .post("/resume/upload", formData)
+        .post("http://localhost:8080/resume/upload", formData)
         .then((res) => {
           axios
-            .post("/resume/insert", {
+            .post("http://localhost:8080/resume/insert", {
               user_id: us_id,
               user_nm: nmRef.current.value || null,
               user_js: jsRef.current.value || null,

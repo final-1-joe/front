@@ -15,7 +15,7 @@ const SupportBoardDetail = () => {
 
   const getDetail = () => {
     axios
-      .post("/support/board/detail", {
+      .post("http://localhost:8080/support/board/detail", {
         sbqnum: sbqnum,
       })
       .then((res) => {
@@ -28,7 +28,7 @@ const SupportBoardDetail = () => {
 
   const handleDelete = () => {
     axios
-      .post("/support/board/delete", {
+      .post("http://localhost:8080/support/board/delete", {
         sbqnum: sbqnum,
       })
       .then((res) => {

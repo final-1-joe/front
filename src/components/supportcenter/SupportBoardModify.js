@@ -17,7 +17,7 @@ const SupportBoardModify = () => {
   const getDetail = () => {
     // console.log("handleUpdate =>", article);
     axios
-      .post("/support/board/detail", {
+      .post("http://localhost:8080/support/board/detail", {
         sbqnum: sbqnum,
       })
       .then((res) => {
@@ -31,7 +31,7 @@ const SupportBoardModify = () => {
 
   const handleUpdate = () => {
     axios
-      .post("/support/board/update", {
+      .post("http://localhost:8080/support/board/update", {
         sbqnum: sbqnum,
         sbqsubject: titleRef.current.value,
         sbqcontent: contentRef.current.value,

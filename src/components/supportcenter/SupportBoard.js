@@ -26,7 +26,7 @@ const SupportBoard = () => {
 
   const getCount = () => {
     axios
-      .get("/support/board/count", {})
+      .get("http://localhost:8080/support/board/count", {})
       .then((res) => {
         const max = Math.ceil(res.data / 10);
         setPage_maxnum(max);
@@ -42,7 +42,7 @@ const SupportBoard = () => {
   };
   const getList = () => {
     axios
-      .post("/support/board/list", {
+      .post("http://localhost:8080/support/board/list", {
         page: page_num,
         limit: page_size,
       })

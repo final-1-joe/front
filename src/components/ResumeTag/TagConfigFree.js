@@ -65,7 +65,7 @@ const TagConfigFree = () => {
 
   const getTag = () => {
     axios
-      .post("/fretag/select", {
+      .post("http://localhost:8080/fretag/select", {
         user_id: user_id,
       })
       .then((res) => {
@@ -78,14 +78,14 @@ const TagConfigFree = () => {
 
   const insertTag = () => {
     axios
-      .post("/fretag/select", {
+      .post("http://localhost:8080/fretag/select", {
         user_id: user_id,
       })
       .then((res) => {
         const count = res.data;
         if (count === "" || count === null) {
           axios
-            .post("/fretag/insert", {
+            .post("http://localhost:8080/fretag/insert", {
               user_id: user_id,
               fre_jg: jgRef.current.props
                 ? jgRef.current.props.value.value
@@ -110,7 +110,7 @@ const TagConfigFree = () => {
             });
         } else {
           axios
-            .post("/fretag/update", {
+            .post("http://localhost:8080/fretag/update", {
               user_id: user_id,
               fre_jg: jgRef.current.props
                 ? jgRef.current.props.value.value
