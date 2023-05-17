@@ -1,10 +1,9 @@
 * {
-
     font-family: 'LINE Seed Sans KR', sans-serif;
     white-space: nowrap;
   }
 
-#wrapper {
+#LayoutWrapper {
     /* min-height: 100%;
     position: relative;
     padding-bottom: 150px; */
@@ -13,11 +12,11 @@
     min-height: calc(100vh - 150px);
 }
 
-header {
+#LayoutHeader {
     height: 150px;
 }
 
-#logo {
+#LayoutLogo {
     position: absolute;
     margin: 15px 30px 0px 20px;
 }
@@ -28,7 +27,7 @@ header {
     top: 15px;
 }
 
-header .menubar {
+#LayoutHeader .menubar {
     position: absolute;
     width: 100%;
     height: 60px;
@@ -93,7 +92,7 @@ li.member {
     z-index: 1;
 }
 
-footer {
+#LayoutFooter {
     width: 100%;
     height: 150px;
     background: #FBDB6A; 
@@ -102,7 +101,7 @@ footer {
     bottom: 0; */
 }
 
-#footertext {
+#LayoutFooterText {
     padding-top: 40px;
     color:rgb(84, 84, 84);
 }
