@@ -18,10 +18,10 @@ const Layout = () => {
   //     navigate("/");
   //   };
   return (
-    <div id="layout">
-      <div id="wrapper">
-        <header>
-          <div id="logo">
+    <div>
+      <div id="LayoutWrapper">
+        <header id="LayoutHeader">
+          <div id="LayoutLogo">
             <Link to="/">
               <img src="/images/logo.png" width="200" alt="메인" />
             </Link>
@@ -74,34 +74,36 @@ const Layout = () => {
         <section className="posts" align="center">
           <Outlet />
         </section>
-        </div> 
+      </div>
       <center>
-      <footer>
-        <table>
-          <tr>
-            <td>
-              <div class="logo">
-                <Link to="/">
-                  <img src="/images/logo2.PNG" width="200" alt="프리랜서" />
-                </Link>
-              </div>
-            </td>
-            <h1>&nbsp;&nbsp;</h1>
-            <td>
-              <p>&nbsp;</p>
-              <div class="footertext">
-                <h4>대표: 김성만</h4>
-                <p></p>
-                <h4>피플랜서 | 서울특별시 강남구 멀티로 111</h4>
-                <p></p>
-                <h4>고객센터 02-2244-7272(평일 09:00~18:00, 주말·공휴일 휴무)</h4>
-                <p></p>
-                <h4>Copyright © PEOPLANCER all right reserved.</h4>
-              </div>
-            </td>
-          </tr>
-        </table>
-      </footer>
+        <footer id="LayoutFooter">
+          <table>
+            <tr>
+              <td>
+                <div class="logo">
+                  <Link to="/">
+                    <img src="/images/logo2.PNG" width="200" alt="프리랜서" />
+                  </Link>
+                </div>
+              </td>
+              <h1>&nbsp;&nbsp;</h1>
+              <td>
+                <p>&nbsp;</p>
+                <div id="LayoutFooterText">
+                  <h4>대표: 김성만</h4>
+                  <p></p>
+                  <h4>피플랜서 | 서울특별시 강남구 멀티로 111</h4>
+                  <p></p>
+                  <h4>
+                    고객센터 02-2244-7272(평일 09:00~18:00, 주말·공휴일 휴무)
+                  </h4>
+                  <p></p>
+                  <h4>Copyright © PEOPLANCER all right reserved.</h4>
+                </div>
+              </td>
+            </tr>
+          </table>
+        </footer>
       </center>
     </div>
   );
