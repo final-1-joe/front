@@ -12,15 +12,15 @@ const MySidebar = () => {
   const freeTabs = [
     //Menus
     { name: "마이페이지 홈", path: "/free/mypage" }, //freelancer/mypage
-    { name: "일정관리", path: "/free/schedule" },
-    { name: "이력서관리", path: "/free/manageResume" },
+    { name: "일정관리", path: "/free/calendar" },
+    { name: "이력서관리", path: "/free/resumemypage" },
     { name: "프로젝트목록", path: "/free/myproject" },
     { name: "회원정보수정", path: "/free/myinfo" },
   ];
 
   const clientTabs = [
     { name: "마이페이지 홈", path: "/client/mypage" },
-    { name: "프로젝트관리", path: "/client/myproject" },
+    { name: "프로젝트관리", path: "/client/project" },
     { name: "모집현황", path: "/client/recruit" },
     { name: "회원정보수정", path: "/client/myinfo" },
   ];
