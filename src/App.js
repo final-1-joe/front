@@ -7,6 +7,7 @@ import FreeDetail from "./components/Freelancer/FreeDetail";
 import PjList from "./components/Project/PjList";
 import PjDetail from "./components/Project/PjDetail";
 import PjRegistration from "./components/Project/PjRegistration";
+import PjUpdate from "./components/Project/PjUpdate";
 import "./css/Layout.css";
 import MyCalendar from "./components/MyCalendar";
 import ProjectManagement from "./components/ProjectManagement ";
@@ -38,6 +39,7 @@ function App() {
             <Route path="/freedetail" element={<FreeDetail />} />
             <Route path="/pjlist" element={<PjList />} />
             <Route path="/pjdetail" element={<PjDetail />} />
+            <Route path="/pjdetail/update" element={<PjUpdate />} />
             <Route path="/pjregistration" element={<PjRegistration />} />
             <Route path="/resume" element={<Resume />} />
             <Route path="/resumemypage" element={<ResumeMypage />} />

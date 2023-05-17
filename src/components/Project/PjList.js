@@ -1,7 +1,30 @@
-import { Link } from "react-router-dom";
 import "../../css/List.css";
+import dummy from "./PjDummyData.json";
+import { HiHashtag } from "react-icons/hi";
+import { useNavigate } from "react-router-dom";
 
 const PjList = () => {
+  const navigate = useNavigate();
+
+  const handleDetailPage = ({ dummy }) => {
+    navigate("/pjdetail", {
+      state: {
+        id: `${dummy.projects.id}`,
+        pjNum: `${dummy.projects.pjNum}`,
+        projectName: `${dummy.projects.projectName}`,
+        corpName: `${dummy.projects.corpName}`,
+        workForm: `${dummy.projects.workForm}`,
+        startDate: `${dummy.projects.startDate}`,
+        pjPeriod: `${dummy.projects.pjPeriod}`,
+        salary: `${dummy.projects.salary}`,
+        jobGroup: `${dummy.projects.jobGroup}`,
+        personnel: `${dummy.projects.personnel}`,
+        requiredSkills: `${dummy.projects.requiredSkills}`,
+        pjContent: `${dummy.projects.pjContent}`,
+      },
+    });
+  };
+
   return (
     <div>
       <div className="ListOption">
@@ -49,111 +72,46 @@ const PjList = () => {
       </div>
 
       <div>
-        <div className="ListBox">
-          <Link to="/pjdetail" style={{ textDecoration: "none" }}>
+        {dummy.projects.map((project) => (
+          <div
+            className="ListBox"
+            key={project.id}
+            onClick={() => handleDetailPage({ dummy })}
+          >
             <div className="ListText">
-              <span className="ListJobTag">#개발</span>
-              <span className="ListPossible">모집중</span>
-              <table align="center">
-                <tr>
-                  <td colSpan={5} className="ListIntro">
-                    프로젝트명
-                  </td>
-                </tr>
-                <tr>
-                  <td colSpan={5}>회사명</td>
-                </tr>
-                <tr>
-                  <td>급여</td>
-                  <td className="ListBar">|</td>
-                  <td>기간</td>
-                  <td className="ListBar">|</td>
-                  <td>근무 형태</td>
-                </tr>
+              <table>
+                <tbody>
+                  <tr>
+                    <td colSpan={2}>
+                      <span className="ListJobTag">#개발</span>
+                      <span className="ListPossible">모집중</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>(주)&nbsp;{project.corpName}&nbsp;&nbsp;|</td>
+                    <td className="ListIntro">{project.projectName}</td>
+                  </tr>
+                  <tr style={{ fontSize: "14px" }}>
+                    <td colSpan={2}>
+                      {project.salary}&nbsp;&nbsp;|&nbsp;&nbsp;
+                      {project.pjPeriod}
+                      &nbsp;&nbsp;|&nbsp;&nbsp;{project.workForm}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td colSpan={2}>
+                      <HiHashtag size="20" />
+                      &nbsp;
+                      {project.requiredSkills}
+                    </td>
+                  </tr>
+                </tbody>
               </table>
             </div>
-            {/* 태그 설정시 선택한 태그가 나타나도록 */}
-          </Link>
-        </div>
-        <div className="ListBox">
-          <Link to="/pjdetail" style={{ textDecoration: "none" }}>
-            <div className="ListText">
-              <span className="ListJobTag">#개발</span>
-              <span className="ListPossible">모집중</span>
-              <table align="center">
-                <tr>
-                  <td colSpan={5} className="ListIntro">
-                    프로젝트명
-                  </td>
-                </tr>
-                <tr>
-                  <td colSpan={5}>회사명</td>
-                </tr>
-                <tr>
-                  <td>급여</td>
-                  <td className="ListBar">|</td>
-                  <td>기간</td>
-                  <td className="ListBar">|</td>
-                  <td>근무 형태</td>
-                </tr>
-              </table>
-            </div>
-            {/* 태그 설정시 선택한 태그가 나타나도록 */}
-          </Link>
-        </div>
-        <div className="ListBox">
-          <Link to="/pjdetail" style={{ textDecoration: "none" }}>
-            <div className="ListText">
-              <span className="ListJobTag">#개발</span>
-              <span className="ListPossible">모집중</span>
-              <table align="center">
-                <tr>
-                  <td colSpan={5} className="ListIntro">
-                    프로젝트명
-                  </td>
-                </tr>
-                <tr>
-                  <td colSpan={5}>회사명</td>
-                </tr>
-                <tr>
-                  <td>급여</td>
-                  <td className="ListBar">|</td>
-                  <td>기간</td>
-                  <td className="ListBar">|</td>
-                  <td>근무 형태</td>
-                </tr>
-              </table>
-            </div>
-            {/* 태그 설정시 선택한 태그가 나타나도록 */}
-          </Link>
-        </div>
-        <div className="ListBox">
-          <Link to="/pjdetail" style={{ textDecoration: "none" }}>
-            <div className="ListText">
-              <span className="ListJobTag">#개발</span>
-              <span className="ListPossible">모집중</span>
-              <table align="center">
-                <tr>
-                  <td colSpan={5} className="ListIntro">
-                    프로젝트명
-                  </td>
-                </tr>
-                <tr>
-                  <td colSpan={5}>회사명</td>
-                </tr>
-                <tr>
-                  <td>급여</td>
-                  <td className="ListBar">|</td>
-                  <td>기간</td>
-                  <td className="ListBar">|</td>
-                  <td>근무 형태</td>
-                </tr>
-              </table>
-            </div>
-            {/* 태그 설정시 선택한 태그가 나타나도록 */}
-          </Link>
-        </div>
+          </div>
+        ))}
       </div>
+      <br />
     </div>
   );
 };

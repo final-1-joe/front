@@ -1,7 +1,26 @@
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import dummy from "./FreeDummyData.json";
 import "../../css/List.css";
 
 const FreeList = () => {
+  const navigate = useNavigate();
+
+  // const handleDetailPage = ({ dummy }) => {
+  //   navigate("/freedetail", {
+  //     state: {
+  //       id: `${dummy.freelancers.id}`,
+  //       name: `${dummy.freelancers.name}`,
+  //       pay: `${dummy.freelancers.pay}`,
+  //       workSys: `${dummy.freelancers.workSys}`,
+  //       workForm: `${dummy.freelancers.workForm}`,
+  //       jobGroup: `${dummy.freelancers.jobGroup}`,
+  //       skills: `${dummy.freelancers.skills}`,
+  //       career: `${dummy.freelancers.career}`,
+  //       introduce: `${dummy.freelancers.introduce}`,
+  //     },
+  //   });
+  // };
+
   return (
     <div>
       <div className="ListOption">
@@ -43,73 +62,34 @@ const FreeList = () => {
       </div>
 
       <div>
-        <div className="ListBox">
-          <Link to="/freedetail" style={{ textDecoration: "none" }}>
+        {dummy.freelancers.map((freelist) => (
+          <div
+            className="ListBox"
+            onClick={() => {
+              navigate("/freedetail");
+            }}
+          >
             <div className="ListText">
-              <span className="ListJobTag">#개발</span>
+              <span className="ListJobTag">#{freelist.jobGroup}</span>
               <span className="ListPossible">모집가능</span>
               <table align="center">
                 <tr>
                   <td>김멀티</td>
                   <td className="ListBar">|</td>
-                  <td>경력 0년</td>
+                  <td>경력 {freelist.career}</td>
                   <td className="ListBar">|</td>
-                  <td>Java, Spring, jQuery, MySQL</td>
+                  <td>{freelist.skills}</td>
                 </tr>
                 <tr>
                   <td colSpan={5} className="ListIntro">
-                    " 끈기와 열정이 있는 개발자 김멀티입니다. "
+                    " {freelist.introduce} "
                   </td>
                 </tr>
               </table>
             </div>
             {/* 태그 설정시 선택한 태그가 나타나도록 */}
-          </Link>
-        </div>
-        <div className="ListBox">
-          <Link to="/freedetail" style={{ textDecoration: "none" }}>
-            <div className="ListText">
-              <span className="ListJobTag">#개발</span>
-              <span className="ListPossible">모집가능</span>
-              <table align="center">
-                <tr>
-                  <td>박멀티</td>
-                  <td className="ListBar">|</td>
-                  <td>경력 00년</td>
-                  <td className="ListBar">|</td>
-                  <td>JavaScript, React, TypeScript, Node.js</td>
-                </tr>
-                <tr>
-                  <td colSpan={5} className="ListIntro">
-                    " 준비된 개발자 박멀티입니다. "
-                  </td>
-                </tr>
-              </table>
-            </div>
-          </Link>
-        </div>
-        <div className="ListBox">
-          <Link to="/freedetail" style={{ textDecoration: "none" }}>
-            <div className="ListText">
-              <span className="ListJobTag">#디자인</span>
-              <span className="ListPossible">모집가능</span>
-              <table align="center">
-                <tr>
-                  <td>이멀티</td>
-                  <td className="ListBar">|</td>
-                  <td>경력 0년</td>
-                  <td className="ListBar">|</td>
-                  <td>Illustrator, PhotoShop, AdobeXD</td>
-                </tr>
-                <tr>
-                  <td colSpan={5} className="ListIntro">
-                    " 함께 일하고 싶은 디자이너 이멀티입니다. "
-                  </td>
-                </tr>
-              </table>
-            </div>
-          </Link>
-        </div>
+          </div>
+        ))}
       </div>
     </div>
   );

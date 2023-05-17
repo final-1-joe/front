@@ -1,0 +1,37 @@
+{
+    "freelancers": [
+        {
+            "id": "1",
+            "name": "김멀티",
+            "pay": "월 400만원",
+            "workSys": "원격",
+            "workForm": "풀타임",
+            "jobGroup": "개발",
+            "skills": "Java, Spring, jQuery, MySQL",
+            "career": "3년",
+            "introduce": "끈기와 열정이 있는 개발자 김멀티입니다."
+        },
+        {
+            "id": "2",
+            "name": "박멀티",
+            "pay": "월 500만원",
+            "workSys": "상주",
+            "workForm": "풀타임",
+            "jobGroup": "개발",
+            "skills": "JavaScript, React, TypeScript, Node.js",
+            "career": "5년",
+            "introduce": "준비된 개발자 박멀티입니다."
+        },
+        {
+            "id": "3",
+            "name": "이멀티",
+            "pay": "월 300만원",
+            "workSys": "원격",
+            "workForm": "파트타임",
+            "jobGroup": "디자인",
+            "skills": "Illustrator, Photoshop, AdobeXD",
+            "career": "3년",
+            "introduce": "함께 일하고 싶은 디자이너 이멀티입니다."
+        }
+    ]
+}
