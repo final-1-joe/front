@@ -82,13 +82,15 @@ li.member {
 }
 
 .posts {
-    position: absolute;
-    width: 75%;
+    position: relative;
+    /* width: 75%;
     height: 100%;
     float: left;
     line-height: 40px;
     margin: 0 12% 0 12%;
-    padding: 20px 0 20px 0;
+    padding: 20px 0 20px 0; */
+    padding-bottom: 150px; 
+    z-index: 1;
 }
 
 footer {
@@ -104,3 +106,19 @@ footer {
     padding-top: 40px;
     color:rgb(84, 84, 84);
 }
+
+.scrolling-image {
+    position: fixed;
+    right:50px;
+    bottom:50px;
+    width:50px;
+    height: 50px;
+    transform: translateY(-50%);
+    z-index: 9999;
+    background-size: cover;
+  }
+  
+  .scrolling-image img {
+    width: 70px;
+    height: 70px;
+  }

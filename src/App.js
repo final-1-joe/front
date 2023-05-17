@@ -27,6 +27,10 @@ import Notfound from "./components/Notfound";
 import TagConfigFree from "./components/ResumeTag/TagConfigFree";
 import TagConfigClient from "./components/ResumeTag/TagConfigClient";
 import ResumeMypage from "./components/ResumeTag/ResumeMypage";
+import Loginform from "./components/Login/Loginform";
+import Loginselect from "./components/Login/Loginselect";
+import Registerform_1 from "./components/Login/Registerform_1";
+import Registerform_2 from "./components/Login/Registerform_2";
 
 function App() {
   return (
@@ -41,12 +45,18 @@ function App() {
             <Route path="/pjdetail" element={<PjDetail />} />
             <Route path="/pjdetail/update" element={<PjUpdate />} />
             <Route path="/pjregistration" element={<PjRegistration />} />
+            <Route path="/free/calendar" element={<MyCalendar />} />
             <Route path="/resume" element={<Resume />} />
             <Route path="/resumemypage" element={<ResumeMypage />} />
             <Route path="/tag" element={<TagConfigFree />} />
             <Route path="/tag2" element={<TagConfigClient />} />
-
+            <Route path="/loginform" element={<Loginform />} />
+            <Route path="/loginselect" element={<Loginselect />} />
+            <Route path="/registerform_1" element={<Registerform_1 />} />
+            <Route path="/registerform_2" element={<Registerform_2 />} />
             <Route path="/support" element={<SupportCenter />} />
+            <Route path="/free/project" element={<ProjectManagement />} />
+            <Route path="/client/recruit" element={<RecruitmentManagement />} />
             <Route path="/support/board" element={<SupportBoard />} />
             <Route
               path="/support/board/write"
@@ -61,14 +71,14 @@ function App() {
               element={<SupportBoardModify />}
             />
           </Route>
-          <Route path="/calendar" element={<MyCalendar />} />
-          <Route path="/project" element={<ProjectManagement />} />
-          <Route path="/recruit" element={<RecruitmentManagement />} />
+
+
+
           <Route path="/direct" element={<DirectMessage />} />
-          <Route path="/clientmypage" element={<ClientMypage />} />
-          <Route path="/freemypage" element={<FreeMypage />} />
-          <Route path="/freemyinfo" element={<FreeMyInfo />} />
-          <Route path="/clientmyinfo" element={<ClientMyInfo />} />
+          <Route path="/client/mypage" element={<ClientMypage />} />
+          <Route path="/free/mypage" element={<FreeMypage />} />
+          <Route path="/free/myinfo" element={<FreeMyInfo />} />
+          <Route path="/client/myinfo" element={<ClientMyInfo />} />
           <Route path="*" element={<Notfound />} />
         </Routes>
       </Router>
