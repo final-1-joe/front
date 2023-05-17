@@ -10,7 +10,7 @@ import InputCareer from "./InputCareer";
 const ResumeMypage = () => {
   const [selectedoccupation, setSelectedOccupation] = useState("");
   const [telvalue, setTelValue] = useState("");
-  const us_id = "admin2";
+  const us_id = "admin";
   const nmRef = useRef();
   const jsRef = useRef();
   const bdRef = useRef();

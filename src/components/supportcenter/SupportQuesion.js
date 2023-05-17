@@ -83,7 +83,7 @@ const SupportQuesion = ({ scnum, scquestion, scanswer, getFaq }) => {
               <table>
                 <tbody>
                   <tr>
-                    <td width="70px" valign="top">
+                    <td width="68px" valign="top">
                       <div className="sc_an-1">A</div>
                     </td>
                     <td>

@@ -83,7 +83,7 @@ table {
     display: inline-block;
     word-break: break-all;
     text-align: left !important;
-    width: 860px;
+    width: 850px;
     font-size: 16px;
     font-weight: 500;
     color: rgb(17, 17, 17);
@@ -139,7 +139,7 @@ table {
 .date{    width: 130px;}
 .answer{    width: 150px;}
 .sc_bl_btn{
-    margin-top: 30px;
+    margin-top: 0px;
 }
 .sc_bl_btn-right{
     float: right;
@@ -163,7 +163,7 @@ table {
     clear: both;
     text-align: center;
     padding-bottom: 0;
-    margin-top: 35px;
+    margin-top: 20px;
 }
 .sc_bl_page a{
     display: inline-block;
@@ -195,6 +195,9 @@ table {
 .board_detail{
     border-bottom:1px solid #ffd43b !important;
 }
+.board_detail dl{
+    margin:0px;
+}
 .sc_an .title-area>h4{
     border-bottom:1px solid #ffc800 !important;
     padding-bottom: 5px;
@@ -209,6 +212,7 @@ table {
 }
 .sc_vi .title-area>h4 {
     color: #424242;
+    margin:0px;
     font-size: 34px;
     line-height: 34px;
     margin-bottom: 7px;
@@ -233,22 +237,29 @@ table {
 .sc_vi .sc_vi-information>dl, .sc_vi .sc_vi-information>dl dt, .sc_vi .sc_vi-information>dl dd {
     float: left;
     color: #666666;
+
     font-weight: 300;
 }
 .sc_right{
+    margin: 0px;
+    padding: 0px;
     float: right !important;
     padding-right: 0px !important;
     margin-right: 0px !important;
 }
+.sc_right dd{
+    margin: 0px;
+    
+}
 .sc_vi .sc_vi-contents {
     text-align: left;
-    margin: 10px 30px 0px 30px;
+    margin: 0px 20px 0px 20px;
    
     min-height: 300px;
     
 }
 .sc_vi_list{
-    margin: 5px 10px 0px 10px !important;
+    margin: 10px 10px 0px 10px !important;
 }
 .sc_vi-contentarea{
     border: 1px double #ffd43b !important;
@@ -288,7 +299,7 @@ table {
 }
 
 .sc_bl_wr {
-    margin-bottom: 60px;
+    margin-bottom: 30px;
     border-top: 2px solid #66747e;
 }
 .sc_qu{
@@ -297,12 +308,11 @@ table {
 }
 .sc_qu input{
     width: 355px !important;
-    height: 50px !important;
+    height: auto !important;
     padding: 20px;
     color: #555555;
     font-size: 16px;
-    line-height: 1.5rem;
-    border: 1px solid #e8e8e8;
+    border: 1px solid #ffd43b;
 }
 .sc_qu textarea{
     width: 355px !important;
@@ -313,6 +323,7 @@ table {
 }
 .sc_qu_btn{
     margin-right: 0px;
+    margin-top:0px !important;
     float: center !important;
 }
 .sc_an_wr{
@@ -320,9 +331,10 @@ table {
     border-top: 0 !important;
 }
 .sc_an_wr textarea{
-    width: 1020px !important;
+    width: 977px !important;
     height: 137px !important;
-    padding: 20px;
+    padding: 10px !important;
+    margin-left: 10px;
     white-space: normal;
 }
 .sc_an_wr_btn{
@@ -335,14 +347,15 @@ text-align: right !important;
     display: block;
 }
 .sc_bl_wr textarea {
-    width: 700px;
+    width: 670px ;
     height: 410px;
     padding: 20px;
     color: #555555;
     font-size: 16px;
     line-height: 1.5rem;
     white-space: normal;
-    border: 1px solid #ffd43b;
+    border: 1px double #ffd43b !important;
+    border-radius: 10px;
 }
 .sc_bl_wr dl {
     position: relative;
@@ -374,7 +387,7 @@ text-align: right !important;
     background-color: #fff;
 }
 .sc_bl_wr dl>dd select, .sc_bl_wr dl>dd input[type="text"], .sc_bl_wr dl>dd input[type="password"], .board-write dl>dd input[type="number"] {
-    width: 700px;
+    width: 670px;
     height: 45px;
     line-height: 45px;
     color: #555555;
@@ -382,6 +395,7 @@ text-align: right !important;
     border: 1px solid #ebebeb;
 }
 .btns-area {
+    margin-top: 10px;
     width: auto;
     text-align: center;
 }
@@ -389,11 +403,11 @@ text-align: right !important;
     display: inline-block;
     width: 100px;
     height: 30px;
-    line-height: 2.692rem;
+    line-height: 32px;
     font-size: 16px;
     color: #000;
-    margin: 0 0.1154rem;
-    padding: 0 1.071rem;
+    margin: 1px;
+    padding: 1px;
     text-align: center;
     font-weight: 1000;
     background: #fff;
