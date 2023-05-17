@@ -1,5 +1,5 @@
 import "../../css/FreeDetail.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AiFillGithub } from "react-icons/ai";
 import { AiFillStar } from "react-icons/ai";
 import { AiOutlineStar } from "react-icons/ai";
@@ -10,13 +10,43 @@ import ReviewWrite from "../Review/ReviewWrite";
 
 const FreeDetail = (props) => {
   const [evalForm, setEvalForm] = useState(false);
+  const navigate = useNavigate();
+
+  const onClickLike = () => {
+    alert("관심 프리랜서에 등록되었습니다");
+  };
 
   return (
     <div id="FreeContainer">
       <div>
-        <h1>" 끈기와 열정이 있는 개발자 김멀티입니다. "</h1>
+        <div className="FreeContact">
+          <table align="right">
+            <tr>
+              <td>
+                <span className="FreeLikeBtn" onClick={onClickLike}>
+                  ♡&nbsp;관심 프리랜서
+                </span>
+              </td>
+              <td>
+                <Link to="/" style={{ textDecoration: "none", color: "black" }}>
+                  <span className="FreeDM">DM</span>
+                </Link>
+              </td>
+            </tr>
+          </table>
+          <br />
+        </div>
         <div className="FreeDetailBox1">
           <table align="center">
+            <tr height="50px">
+              <td
+                colSpan={6}
+                align="center"
+                style={{ fontSize: "22px", fontWeight: "bold" }}
+              >
+                끈기와 열정이 있는 개발자 김멀티입니다.
+              </td>
+            </tr>
             <tr>
               <td>김멀티</td>
               <td className="FreeBar">|</td>
@@ -124,12 +154,10 @@ const FreeDetail = (props) => {
               </table>
             </div>
           </details>
-        </div>
-        <div>
-          <span className="FreeLikeBtn">♡&nbsp;관심 프리랜서</span>
-          <Link to="/" style={{ textDecoration: "none", color: "black" }}>
-            <span className="FreeDM">DM</span>
-          </Link>
+          <br />
+          <div>
+            <input type="button" value="수정" className="FreeBtn"></input>
+          </div>
         </div>
       </div>
     </div>

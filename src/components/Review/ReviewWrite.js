@@ -5,13 +5,13 @@ import { AiOutlineStar } from "react-icons/ai";
 
 const ReviewWrite = ({ handlelist }) => {
   const writerRef = useRef();
-  const gradeRef = useRef();
+  const scoreRef = useRef();
   const contentRef = useRef();
 
   const handleInsert = () => {
-    if (gradeRef.current.value === "" || gradeRef.current.value === undefined) {
+    if (scoreRef.current.value === "" || scoreRef.current.value === undefined) {
       alert("평점을 입력하세요");
-      gradeRef.current.focus();
+      scoreRef.current.focus();
       return false;
     }
     if (
@@ -33,14 +33,14 @@ const ReviewWrite = ({ handlelist }) => {
 
     axios
       .post("/insert", {
-        board_title: gradeRef.current.value,
+        board_title: scoreRef.current.value,
         board_writer: writerRef.current.value,
         board_content: contentRef.current.value,
       })
       .then((res) => {
         console.log("handleInsert =>", res);
         handlelist();
-        gradeRef.current.value = "";
+        scoreRef.current.value = "";
         writerRef.current.value = "";
         contentRef.current.value = "";
       })
@@ -50,12 +50,12 @@ const ReviewWrite = ({ handlelist }) => {
   };
 
   return (
-    <div>
+    <div id="ReviewWrite">
       <form>
-        <table align="center" width="500px">
+        <table align="center" width="470px">
           <tr>
             <td width="60px">작성자</td>
-            <td align="left" width="260px">
+            <td align="left" width="200px">
               <input
                 type="text"
                 name="writer"
@@ -66,7 +66,7 @@ const ReviewWrite = ({ handlelist }) => {
             </td>
             <td width="60px">평점</td>
             <td align="left" width="120px">
-              <select ref={gradeRef}>
+              <select ref={scoreRef}>
                 <option>5</option>
                 <option>4</option>
                 <option>3</option>
@@ -80,7 +80,7 @@ const ReviewWrite = ({ handlelist }) => {
             <td align="left" colSpan="3">
               <textarea
                 rows="5"
-                cols="55"
+                cols="60"
                 name="content"
                 ref={contentRef}
                 placeholder="내용을 입력하세요"
