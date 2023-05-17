@@ -33,7 +33,7 @@ function DirectMessage() {
     chatDiv.scrollTop = chatDiv.scrollHeight;
   });
 
-  //window.sessionStorage.setItem("member_id", "kys2743"); // 테스트용 로그인 아이디 세션, 채팅할때 이부분 주석
+  // window.sessionStorage.setItem("member_id", "kys2743"); // 테스트용 로그인 아이디 세션, 채팅할때 이부분 주석
   var login_id = String(window.sessionStorage.getItem("member_id"));
 
   const chatroom = () => {
@@ -93,9 +93,9 @@ function DirectMessage() {
             prevChatArray.length === 0 ||
             prevChatArray[prevChatArray.length - 1].msgId !== content.user_id ||
             prevChatArray[prevChatArray.length - 1].msgContent !==
-              content.message_content ||
+            content.message_content ||
             prevChatArray[prevChatArray.length - 1].msgDate !==
-              content.message_date
+            content.message_date
           ) {
             return [
               ...prevChatArray,
