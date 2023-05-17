@@ -1,17 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import MySidebar from "./mySidebar/MySidebar";
 import "../../css/MyLayout.css";
 import "../../css/MyInfoStyle.css";
 import axios from "axios";
 
-function FreeMyInfo() {
+function FreeMyInfo({ user }) {
   const [newPassword, setNewPassword] = useState("");
   const [newPasswordCheck, setNewPasswordCheck] = useState("");
-  const [newName, setNewName] = useState("");
-  const [newEmail, setNewEmail] = useState("");
-  const [newPhone, setNewPhone] = useState("");
-  // const navigate = useNavigate();
+  const [id, setId] = useState("");
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const navigate = useNavigate();
 
   const getNewPassword = (e) => {
     setNewPassword(e.target.value);
@@ -22,46 +23,53 @@ function FreeMyInfo() {
   };
 
   const getNewName = (e) => {
-    setNewName(e.target.value);
+    setName(e.target.value);
   };
 
   const getNewEmail = (e) => {
-    setNewEmail(e.target.value);
+    setEmail(e.target.value);
   };
 
   const getNewPhone = (e) => {
-    setNewPhone(e.target.value);
+    setPhone(e.target.value);
   };
 
   const passwordRegex =
     /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,16}$/;
   const phoneRegex = /^[0-9]{10,11}$/;
 
-  const memberInfo = {
-    //axios.get("/user_info")
-    user_id: "test01",
-    user_name: "홍길동",
-    user_email: "hong@gmail.com",
-    user_tel: "01012345678", //추후 axios로 정보를 받아온다.
-  };
+  useEffect(() => {
+    axios
+      .get("/auth/userinfo")
+      .then((response) => {
+        const userData = response.data;
+        setId(userData.user_id);
+        setName(userData.user_name);
+        setEmail(userData.user_email);
+        setPhone(userData.user_tel);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // await axios
-    // .put("/auth/memberinfo", {
-    //   user_pw: newPassword,
-    //   user_name: memberInfo.user_name,
-    //   user_email: memberInfo.user_email,
-    //   user_tel: memberInfo.user_phone
-    // })
-    // .then(() => {
-    //   alert("회원정보가 변경되었습니다");
-    //   navigate("/free/mypage");
-    // })
-    // .catch(error => {
-    //   console.log(error);
-    // })
+    await axios
+      .put("/auth/updateuser", {
+        user_pw: newPassword,
+        user_name: getNewName,
+        user_email: getNewEmail,
+        user_tel: getNewPhone,
+      })
+      .then(() => {
+        alert("회원정보가 변경되었습니다");
+        navigate("/free/mypage");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   return (
@@ -72,7 +80,7 @@ function FreeMyInfo() {
         <ul className="myInfoList">
           <li className="mylistGroup">
             <label for="id">아이디</label>
-            <p>{memberInfo.user_id}</p>
+            <p>{id}</p>
           </li>
           <li className="mylistGroup">
             <label for="newPassword">패스워드</label>
@@ -119,7 +127,7 @@ function FreeMyInfo() {
               id="name"
               name="name"
               placeholder="이름"
-              defaultValue={memberInfo.user_name || newName}
+              defaultValue={name}
               onChange={getNewName}
             />
           </li>
@@ -131,7 +139,7 @@ function FreeMyInfo() {
               id="email"
               name="email"
               placeholder="이메일을 입력하세요 ex)peoplancer@peoplancer.com"
-              defaultValue={memberInfo.user_email || newEmail}
+              defaultValue={email}
               onChange={getNewEmail}
             />
           </li>
@@ -143,14 +151,12 @@ function FreeMyInfo() {
               id="phone"
               name="phone"
               placeholder="-없이 숫자만 입력해주세요"
-              defaultValue={memberInfo.user_tel || newPhone}
+              defaultValue={phone}
               onChange={getNewPhone}
             />
           </li>
           <p className="myError">
-            {!phoneRegex.test(memberInfo.user_tel)
-              ? "-없이 숫자만 입력해주세요"
-              : ""}
+            {!phoneRegex.test(phone) ? "-없이 숫자만 입력해주세요" : ""}
           </p>
         </ul>
         <button className="myeditInfo" type="submit" onSubmit={handleSubmit}>

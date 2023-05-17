@@ -20,7 +20,7 @@ function FreeMypage() {
   ];
 
   const bookmarkProject = [
-    //axios.get("/mark_pj_pjnum")
+    //axios.get("/auth/markpjlist")
     {
       pj_num: 2,
       pj_name: "프로젝트2",
@@ -46,7 +46,7 @@ function FreeMypage() {
 
     if (confirmResult) {
       try {
-        const response = axios.delete("/api/user");
+        const response = axios.delete("/auth/delete");
         console.log(response.data);
         alert("회원탈퇴가 완료되었습니다. \n그동안 이용해주셔서 감사합니다.");
         goMain();

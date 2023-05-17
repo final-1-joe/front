@@ -20,7 +20,7 @@ function ClientMypage() {
   ];
 
   const bookmarkFreelancer = [
-    //axios.get(/mark_fre_id)
+    //axios.get(/auth/markfreelist)
     {
       user_id: "kim",
       re_name: "김멀티",
@@ -38,7 +38,7 @@ function ClientMypage() {
 
     if (confirmResult) {
       try {
-        const response = axios.delete("/api/user");
+        const response = axios.delete("/auth/delete");
         console.log(response.data);
         alert("회원탈퇴가 완료되었습니다. \n그동안 이용해주셔서 감사합니다.");
         goMain();
