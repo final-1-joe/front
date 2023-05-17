@@ -1,22 +1,25 @@
 #PjContainer {
-    width: 80%;     
+    width: 1000px;
     margin: 0 auto;
 }
 
 .PjDetail {
     float: left;
-    width: 70%;
+    width: 700px;
 }
 
 #PjAside {
-    float: right; width: 25%; padding: 10px;
-    background-color: #ffffff; border-radius: 10px;
+    float: right;
+    width: 250px;
+    padding: 10px;
+    background-color: #ffffff;
+    border-radius: 10px;
 }
 
 .PjDetailBox1 {
     background-color: #fdfaf0;
     border-radius: 20px;
-    padding: 3%;
+    padding: 10px;
     margin: 10px;
     text-align: left;
 }
@@ -26,49 +29,62 @@
 }
 
 .PjDetailBox2 {
-    padding: 3%;
+    padding: 10px;
     margin: 10px;
     text-align: left;
 }
 
 .info {
-    font-weight: bold; font-size: smaller;
+    font-weight: bold;
+    font-size: smaller;
     color: rgb(134, 134, 134);
 }
 
 .PjReview {
-    padding: 3%;
+    padding: 10px;
     margin: 10px;
 }
 
 .PjContact table {
-    margin: 0 auto; text-align: center; font-size: 14px;
+    margin: 0 auto;
+    text-align: center;
+    font-size: 14px;
 }
 
 .PjLikeBtn {
-    margin: 5px; cursor: pointer; 
-}
-.PjDM {
-    font-weight: bold;  margin: 5px; cursor: pointer;
+    margin: 5px;
+    cursor: pointer;
 }
 
-.PjLikeBtn:hover, .PjDM:hover { color:#444;  border-bottom: 3px solid #FBDB6A; }
+.PjDM {
+    font-weight: bold;
+    margin: 5px;
+    cursor: pointer;
+}
+
+.PjLikeBtn:hover,
+.PjDM:hover {
+    color: #444;
+    border-bottom: 3px solid #FBDB6A;
+}
 
 
 
 .PjApplyBtn {
     background-color: #FBDB6A;
     border-radius: 20px;
-    margin: 10px 0; padding: 10px 40px;
+    margin: 10px 0;
+    padding: 10px 40px;
 }
 
 .PjApplyBtn:hover {
-    background-color: #ffe68b; cursor: pointer;
+    background-color: #ffe68b;
+    cursor: pointer;
 }
 
 .PjSimilar {
     box-shadow: 0px 0px 5px #cfcfcf;
-    border-radius: 20px; 
+    border-radius: 20px;
     margin: 10px 0 10px;
 }
 
@@ -77,36 +93,88 @@
 }
 
 /* 회사 평가 folding */
-.PjReview details { margin:5px 0 10px; }
-.PjReview details > summary { 
-    background:#444; color:#fff; padding:10px; 
-    outline:0; cursor:pointer; transition:background 0.5s; 
-    text-align:center;
+.PjReview details {
+    margin: 5px 0 10px;
 }
-.PjReview details > summary::-webkit-details-marker { 
-    background:#ffffff; color:#494949; background-size:contain; 
-    transform:rotate3d(0, 0, 1, 90deg); transition:transform 0.25s;
+
+.PjReview details>summary {
+    background: #444;
+    color: #fff;
+    padding: 10px;
+    outline: 0;
+    cursor: pointer;
+    transition: background 0.5s;
+    text-align: center;
 }
-.PjReview details[open] > summary::-webkit-details-marker { transform:rotate3d(0, 0, 1, 180deg);}
-.PjReview details[open] > summary { background:#ffffff; color: #494949;}
-.PjReview details[open] > summary ~ * { animation:reveal 0.5s;}
-.tpt { 
-    border: 1px gray; border-style: solid hidden hidden; color:#000000; margin:5px 0 10px; 
-    padding:5px 10px; line-height:25px; text-align: left;
+
+.PjReview details>summary::-webkit-details-marker {
+    background: #ffffff;
+    color: #494949;
+    background-size: contain;
+    transform: rotate3d(0, 0, 1, 90deg);
+    transition: transform 0.25s;
 }
+
+.PjReview details[open]>summary::-webkit-details-marker {
+    transform: rotate3d(0, 0, 1, 180deg);
+}
+
+.PjReview details[open]>summary {
+    background: #ffffff;
+    color: #494949;
+}
+
+.PjReview details[open]>summary~* {
+    animation: reveal 0.5s;
+}
+
+.tpt {
+    border: 1px gray;
+    border-style: solid hidden hidden;
+    color: #000000;
+    margin: 5px 0 10px;
+    padding: 5px 10px;
+    line-height: 25px;
+    text-align: left;
+}
+
 @keyframes reveal {
-    from { opacity:0; transform:translate3d(0, -30px, 0); }
-    to { opacity:1; transform:translate3d(0, 0, 0); }
+    from {
+        opacity: 0;
+        transform: translate3d(0, -30px, 0);
+    }
+
+    to {
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+    }
 }
 
-.PjBtn1 { 
-    padding: 5px 10px; margin: 50px; background-color: white; 
-    border: none; color:#444; font-size: 17px; font-weight: bold;
+.PjBtn1 {
+    padding: 5px 10px;
+    margin: 50px;
+    background-color: white;
+    border: none;
+    color: #444;
+    font-size: 17px;
+    font-weight: bold;
 }
-.PjBtn1:hover { color:rgb(0, 0, 0); cursor: pointer; }
 
-.PjBtn2 { 
-    padding: 5px 10px; margin: 10px;
-    border: none; background-color: #444; color: white; border-radius: 10px;
+.PjBtn1:hover {
+    color: rgb(0, 0, 0);
+    cursor: pointer;
 }
-.PjBtn2:hover { background-color: #666666; cursor: pointer; }
+
+.PjBtn2 {
+    padding: 5px 10px;
+    margin: 10px;
+    border: none;
+    background-color: #444;
+    color: white;
+    border-radius: 10px;
+}
+
+.PjBtn2:hover {
+    background-color: #666666;
+    cursor: pointer;
+}
