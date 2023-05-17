@@ -6,6 +6,7 @@ import "../../../css/MySidebarStyle.css";
 const MySidebar = () => {
   const paths = useLocation().path;
   //const user_code = localStorage.getItem("user_code");
+  //const user_code = window.sessionStorage("user_code");
   const pathName = useLocation().pathname.split("/")[1];
 
   const freeTabs = [
@@ -44,10 +45,12 @@ const MySidebar = () => {
         {Tabs[pathName].map((tab, index) => {
           return (
             <NavLink
-              style={{ color: "gray", textDecoration: "none" }}
+              style={({ isActive }) => ({
+                color: isActive ? "black" : "gray",
+                textDecoration: "none",
+              })}
               to={tab.path}
               key={index}
-              activestyle={{ color: "black" }}
             >
               <MySidebarItem
                 tab={tab}
