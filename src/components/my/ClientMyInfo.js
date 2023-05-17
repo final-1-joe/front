@@ -77,14 +77,19 @@ function ClientMyInfo() {
       <MySidebar />
       <form className="mywrapper">
         <h2 className="mytitle">회원정보수정</h2>
-        <ul className="myInfoList">
-          <li className="mylistGroup">
-            <label for="id">아이디</label>
-            <p>{id}</p>
-          </li>
-          <li className="mylistGroup">
-            <label for="newPassword">패스워드</label>
+        <div className="myInfoList">
+          <div className="mylistGroup">
+            <label for="id" className="mylabel">
+              아이디
+            </label>
+            <p className="myidp">{id}</p>
+          </div>
+          <div className="mylistGroup">
+            <label for="newPassword" className="mylabel">
+              패스워드
+            </label>
             <input
+              className="myinfoinput"
               type="password"
               id="newPassword"
               name="newPassword"
@@ -93,15 +98,18 @@ function ClientMyInfo() {
               onChange={getNewPassword}
               required
             />
-          </li>
+          </div>
           <p className="myError">
             {!passwordRegex.test(newPassword)
               ? "숫자+영문자+특수문자로 8~16자 입력해주세요"
               : ""}
           </p>
-          <li className="mylistGroup">
-            <label for="newPasswordCheck">패스워드 확인</label>
+          <div className="mylistGroup">
+            <label for="newPasswordCheck" className="mylabel">
+              패스워드 확인
+            </label>
             <input
+              className="myinfoinput"
               type="password"
               id="newPasswordCheck"
               name="newPasswordCheck"
@@ -110,15 +118,18 @@ function ClientMyInfo() {
               onChange={getNewPasswordCheck}
               required
             />
-          </li>
+          </div>
           <p className="myError">
             {newPassword !== newPasswordCheck
               ? "비밀번호가 일치하지 않습니다!"
               : ""}
           </p>
-          <li className="mylistGroup">
-            <label for="name">상호명</label>
+          <div className="mylistGroup">
+            <label for="name" className="mylabel">
+              상호명
+            </label>
             <input
+              className="myinfoinput"
               type="text"
               id="name"
               name="name"
@@ -126,11 +137,14 @@ function ClientMyInfo() {
               defaultValue={name}
               onChange={getNewName}
             />
-          </li>
+          </div>
           <p className="myError"></p>
-          <li className="mylistGroup">
-            <label for="email">이메일</label>
+          <div className="mylistGroup">
+            <label for="email" className="mylabel">
+              이메일
+            </label>
             <input
+              className="myinfoinput"
               type="email"
               id="email"
               name="email"
@@ -138,11 +152,14 @@ function ClientMyInfo() {
               defaultValue={email}
               onChange={getNewEmail}
             />
-          </li>
+          </div>
           <p className="myError"></p>
-          <li className="mylistGroup">
-            <label for="phone">전화번호</label>
+          <div className="mylistGroup">
+            <label for="phone" className="mylabel">
+              전화번호
+            </label>
             <input
+              className="myinfoinput"
               type="number"
               id="phone"
               name="phone"
@@ -150,11 +167,11 @@ function ClientMyInfo() {
               defaultValue={phone}
               onChange={getNewPhone}
             />
-          </li>
+          </div>
           <p className="myError">
             {!phoneRegex.test(phone) ? "-없이 숫자만 입력해주세요" : ""}
           </p>
-        </ul>
+        </div>
         <button className="myeditInfo" type="submit" onSubmit={handleSubmit}>
           수정하기
         </button>

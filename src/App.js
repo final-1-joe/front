@@ -31,6 +31,7 @@ import Loginform from "./components/Login/Loginform";
 import Loginselect from "./components/Login/Loginselect";
 import Registerform_1 from "./components/Login/Registerform_1";
 import Registerform_2 from "./components/Login/Registerform_2";
+import FreeMyProject from "./components/my/FreeMyProject";
 
 function App() {
   return (
@@ -55,7 +56,7 @@ function App() {
             <Route path="/registerform_1" element={<Registerform_1 />} />
             <Route path="/registerform_2" element={<Registerform_2 />} />
             <Route path="/support" element={<SupportCenter />} />
-            <Route path="/free/project" element={<ProjectManagement />} />
+            <Route path="/client/project" element={<ProjectManagement />} />
             <Route path="/client/recruit" element={<RecruitmentManagement />} />
             <Route path="/support/board" element={<SupportBoard />} />
             <Route
@@ -70,15 +71,15 @@ function App() {
               path="/support/board/modify"
               element={<SupportBoardModify />}
             />
+            <Route path="/free/myproject" element={<FreeMyProject />} />
+            <Route path="/client/mypage" element={<ClientMypage />} />
+            <Route path="/free/mypage" element={<FreeMypage />} />
+            <Route path="/free/myinfo" element={<FreeMyInfo />} />
+            <Route path="/client/myinfo" element={<ClientMyInfo />} />
           </Route>
 
-
-
           <Route path="/direct" element={<DirectMessage />} />
-          <Route path="/client/mypage" element={<ClientMypage />} />
-          <Route path="/free/mypage" element={<FreeMypage />} />
-          <Route path="/free/myinfo" element={<FreeMyInfo />} />
-          <Route path="/client/myinfo" element={<ClientMyInfo />} />
+
           <Route path="*" element={<Notfound />} />
         </Routes>
       </Router>
