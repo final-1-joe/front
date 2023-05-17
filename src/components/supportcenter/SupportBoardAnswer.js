@@ -181,6 +181,7 @@ const SupportBoardAnswer = (props) => {
               id="content"
               ref={contentRef}
               name="content"
+              className="sc_vi_textarea"
               cols="50"
               rows="50"
               placeholder="내용을 입력하세요."
