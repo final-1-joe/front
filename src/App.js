@@ -27,6 +27,10 @@ import Notfound from "./components/Notfound";
 import TagConfigFree from "./components/ResumeTag/TagConfigFree";
 import TagConfigClient from "./components/ResumeTag/TagConfigClient";
 import ResumeMypage from "./components/ResumeTag/ResumeMypage";
+import Loginform from "./components/Login/Loginform";
+import Loginselect from "./components/Login/Loginselect";
+import Registerform_1 from "./components/Login/Registerform_1";
+import Registerform_2 from "./components/Login/Registerform_2";
 
 function App() {
   return (
@@ -45,7 +49,10 @@ function App() {
             <Route path="/resumemypage" element={<ResumeMypage />} />
             <Route path="/tag" element={<TagConfigFree />} />
             <Route path="/tag2" element={<TagConfigClient />} />
-
+            <Route path="/loginform" element={<Loginform />} />
+            <Route path="/loginselect" element={<Loginselect />} />
+            <Route path="/registerform_1" element={<Registerform_1 />} />
+            <Route path="/registerform_2" element={<Registerform_2 />} />
             <Route path="/support" element={<SupportCenter />} />
             <Route path="/support/board" element={<SupportBoard />} />
             <Route
