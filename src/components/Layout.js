@@ -86,9 +86,7 @@ const Layout = () => {
                   </Link>
                 </div>
               </td>
-              <h1>&nbsp;&nbsp;</h1>
               <td>
-                <p>&nbsp;</p>
                 <div id="LayoutFooterText">
                   <h4>대표: 김성만</h4>
                   <p></p>
