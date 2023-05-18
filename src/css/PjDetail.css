@@ -1,5 +1,5 @@
 #PjContainer {
-    width: 1000px;
+    width: 1000px; height: fit-content;
     margin: 0 auto;
 }
 
@@ -24,8 +24,12 @@
     text-align: left;
 }
 
+.PjDetailBox1 table {
+    margin: 0 auto; width: 100%;
+}
+
 .PjDetailBox1 td {
-    padding: 0 5px;
+    padding: 0 10px;
 }
 
 .PjDetailBox2 {
@@ -44,6 +48,8 @@
     padding: 10px;
     margin: 10px;
 }
+
+.PjContact { padding: 10px; }
 
 .PjContact table {
     margin: 0 auto;
@@ -68,7 +74,9 @@
     border-bottom: 3px solid #FBDB6A;
 }
 
-
+#PjApply {
+    margin: 20px;
+}
 
 .PjApplyBtn {
     background-color: #FBDB6A;
@@ -85,7 +93,7 @@
 .PjSimilar {
     box-shadow: 0px 0px 5px #cfcfcf;
     border-radius: 20px;
-    margin: 10px 0 10px;
+    margin: 10px 0 10px; padding: 7px;
 }
 
 .PjSimilar:hover {

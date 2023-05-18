@@ -60,16 +60,18 @@ const FreeDetail = (props) => {
             </tr>
             <tr>
               <td colSpan={5} align="center" width="300px">
-                <a href="#" style={{ textDecoration: "none" }}>
-                  {/* 첨부한 포트폴리오 파일, 깃 주소로 이동 */}
-                  <span id="FreePortfolio">포트폴리오</span>
-                </a>
-                <a href="#" style={{ textDecoration: "none" }}>
-                  <span id="FreePortfolio">
-                    <AiFillGithub />
-                    &nbsp; GitHub
-                  </span>
-                </a>
+                <div id="FreeResumeIcon">
+                  <a href="#" style={{ textDecoration: "none" }}>
+                    {/* 첨부한 포트폴리오 파일, 깃 주소로 이동 */}
+                    <span id="FreePortfolio">포트폴리오</span>
+                  </a>
+                  <a href="#" style={{ textDecoration: "none" }}>
+                    <span id="FreePortfolio">
+                      <AiFillGithub />
+                      &nbsp; GitHub
+                    </span>
+                  </a>
+                </div>
               </td>
             </tr>
           </table>
