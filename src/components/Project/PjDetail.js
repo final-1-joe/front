@@ -179,12 +179,10 @@ const PjDetail = () => {
                 <span className="PjDM">DM</span>
               </td>
             </tr>
-            <tr>
-              <td colSpan="2">
-                <span className="PjApplyBtn">지원하기</span>
-              </td>
-            </tr>
           </table>
+          <div id="PjApply">
+            <span className="PjApplyBtn">지원하기</span>
+          </div>
         </div>
         <br />
 
