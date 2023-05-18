@@ -173,7 +173,7 @@ const MyCalendar = () => {
                     />
                 </div>
                 <div className="form-wrapper-gj">
-                    <form onSubmit={handleSubmit}>
+                    <form>
                         <label className='label-gj'>
                             제목:
                             <input className='calinput-gj' type="text" value={title} onChange={(e) => setTitle(e.target.value)} />
@@ -220,7 +220,7 @@ const MyCalendar = () => {
                                 ))}
                             </select>
                         </label>
-                        <button className='cal-button-gj' >추가</button>
+                        <button className='cal-button-gj' onClick={handleSubmit} >추가</button>
                     </form>
                 </div>
                 <CalModal open={modalOpen} close={closeModal} event={selectedEvent} render={render} setRender={setRender} />
