@@ -11,8 +11,8 @@ function DirectMessage() {
   const [slide, setSlide] = useState(false); // 좌측 목록 채팅방  or 상세정보
   const [cooperate] = useState(true); // 상세정보 창에서 협력중인지 아닌지에 따라 달라짐
   const [attach, setAttach] = useState(false); // 파일 첨부 버튼 클릭 여부
-  const [select, setSelect] = useState(0);
-  const navigate = useNavigate();
+  const [select, setSelect] = useState(0); // 좌측 사이드바 채팅방 선택 시 변경되는 값 (초기값 0)
+  const navigate = useNavigate(); // dm 나가기 버튼
   const [inputchat, setInputchat] = useState("");
   const [chatarraybox, setChatArrayBox] = useState([]);
   const inputchatvalue = (e) => {
@@ -27,13 +27,14 @@ function DirectMessage() {
   const date = new Date(); // 현재시간
   const [chatArray, setChatArray] = useState([]);
   const chatRef = useRef(null);
-
+  const [채팅방몇개, set채팅방몇개] = useState([]);
+  const [채팅방num, set채팅방num] = useState(0);
   useEffect(() => {
     const chatDiv = chatRef.current;
     chatDiv.scrollTop = chatDiv.scrollHeight;
   });
 
-  // window.sessionStorage.setItem("member_id", "kys2743"); // 테스트용 로그인 아이디 세션, 채팅할때 이부분 주석
+  //window.sessionStorage.setItem("member_id", "kys2743"); // 테스트용 로그인 아이디 세션, 채팅할때 이부분 주석
   var login_id = String(window.sessionStorage.getItem("member_id"));
 
   const chatroom = () => {
@@ -46,7 +47,10 @@ function DirectMessage() {
         message_date: "",
       })
       .then((res) => {
-        console.log(res.data);
+        //console.log(res.data);
+        const jsonData2 = res.data;
+        const data2array = Object.values(jsonData2);
+        set채팅방몇개(data2array);
       })
       .catch((error) => {
         console.error("/chatroom axios 에러 발생" + error);
@@ -57,7 +61,7 @@ function DirectMessage() {
     axios
       .post("http://localhost:8080/lookupmsg", {
         message_id: "",
-        chatroom_id: 1,
+        chatroom_id: 채팅방num,
         user_id: "",
         message_content: "",
         message_date: "",
@@ -74,10 +78,16 @@ function DirectMessage() {
   };
 
   useEffect(() => {
-    chatroom();
-    chatroomcontent();
+    unsubscribe();
     connect();
-  }, []);
+  }, [select]);
+
+  useEffect(() => {
+    unsubscribe();
+    chatroomcontent();
+    chatroom();
+    connect();
+  }, [채팅방num]);
 
   function connect() {
     let socket = new SockJS("http://localhost:8080/chat");
@@ -85,7 +95,7 @@ function DirectMessage() {
     stompClient.connect({}, function (frame) {
       //console.log("Connected: " + frame);
       //console.log("1번 채팅방 구독");
-      stompClient.subscribe("/sub/1", function (response) {
+      stompClient.subscribe("/sub/" + 채팅방num, function (response) {
         //console.log(response.body); // 채팅 내용인듯?
         var content = JSON.parse(response.body);
         setChatArray((prevChatArray) => {
@@ -93,9 +103,9 @@ function DirectMessage() {
             prevChatArray.length === 0 ||
             prevChatArray[prevChatArray.length - 1].msgId !== content.user_id ||
             prevChatArray[prevChatArray.length - 1].msgContent !==
-            content.message_content ||
+              content.message_content ||
             prevChatArray[prevChatArray.length - 1].msgDate !==
-            content.message_date
+              content.message_date
           ) {
             return [
               ...prevChatArray,
@@ -130,7 +140,7 @@ function DirectMessage() {
       "/pub/message",
       {},
       JSON.stringify({
-        chatroom_id: 1,
+        chatroom_id: 채팅방num,
         user_id: login_id,
         message_content: inputchat,
         message_date: Date.now(),
@@ -139,66 +149,36 @@ function DirectMessage() {
     setInputchat("");
   }
 
+  function unsubscribe() {
+    if (stompClient) {
+      stompClient.disconnect();
+      console.log("연결해제");
+    }
+  }
   return (
     <div className="dmContent-div">
       {slide === false ? (
         <div className="dmLft-div2">
-          <div
-            className="dmchat-room-select"
-            onClick={() => {
-              setSelect(0);
-            }}
-          >
-            <div className="dmprofile-photo"></div>
-            <div className="dmprofile-name">프리랜서 1</div>
-            <div className="dmprofile-notify">2</div>
-            {select === 0 ? <div className="dmprofile-line"></div> : null}
-            <div className="dmprofile-content">안녕하세요 저번에 말씀</div>
-          </div>
-          <div
-            className="dmchat-room-select"
-            onClick={() => {
-              setSelect(1);
-            }}
-          >
-            <div className="dmprofile-photo"></div>
-            <div className="dmprofile-name">프리랜서 2</div>
-            <div className="dmprofile-notify">1</div>
-            {select === 1 ? <div className="dmprofile-line"></div> : null}
-            <div className="dmprofile-content">
-              요청하신 자료 올려드렸습니다
-            </div>
-          </div>
-          <div
-            className="dmchat-room-select"
-            onClick={() => {
-              setSelect(2);
-            }}
-          >
-            <div className="dmprofile-photo-tmp"></div>
-            <div className="dmprofile-name">기업 1</div>
-            <div className="dmprofile-notify" hidden>
-              1
-            </div>
-            {select === 2 ? <div className="dmprofile-line"></div> : null}
-            <div className="dmprofile-content">
-              저번에 말씀드렸 건에 관련해서
-            </div>
-          </div>
-          <div
-            className="dmchat-room-select"
-            onClick={() => {
-              setSelect(3);
-            }}
-          >
-            <div className="dmprofile-photo-tmp"></div>
-            <div className="dmprofile-name">기업 2</div>
-            <div className="dmprofile-notify" hidden>
-              1
-            </div>
-            {select === 3 ? <div className="dmprofile-line"></div> : null}
-            <div className="dmprofile-content">상기 프로젝트 관련하여</div>
-          </div>
+          {채팅방몇개.map(function (i, num) {
+            return (
+              <div
+                className="dmchat-room-select"
+                onClick={() => {
+                  setChatArray([]);
+                  setSelect(num + 1);
+                  set채팅방num(i.chatroom_id);
+                }}
+              >
+                <div className="dmprofile-photo"></div>
+                <div className="dmprofile-name">{i.user_id}</div>
+                <div className="dmprofile-notify">2</div>
+                {select === num + 1 ? (
+                  <div className="dmprofile-line"></div>
+                ) : null}
+                <div className="dmprofile-content">{i.message_content}</div>
+              </div>
+            );
+          })}
         </div>
       ) : (
         <>
