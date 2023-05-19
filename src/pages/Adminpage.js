@@ -22,19 +22,21 @@ const Adminpage = () => {
     const [projectRender, setProjectRender] = useState(false);
     const [customerRender, setCustomerRender] = useState(false);
     const [matchRender, setMatchRender] = useState(false);
+    const [mode, setMode] = useState('');
 
     //userdb 데이터 가져오기(임시)
     const [userdb, setUserdb] = useState([]);
     //userdb중 client쪽 데이터만 가져오기(임시)
     const [clientdb, setClientdb] = useState([]);
     const getuserdb = () => {
-        if (userRender == false) {
+        if (userRender == false || clientRender == false) {
             axios
                 .get("http://localhost:8080/user/list", {})
                 .then((userRes) => {
                     const userdata = userRes.data;
-                    const clientdata = userdata.filter(client => client.user_code === 'client')
-                    setUserdb(userdata);
+                    const freelancerdata = userdata.filter(freelancer => freelancer.user_code === 'freelancer');
+                    const clientdata = userdata.filter(client => client.user_code === 'client');
+                    setUserdb(freelancerdata);
                     setClientdb(clientdata);
                     setClientRender(true);
                     setUserRender(true);
@@ -43,7 +45,7 @@ const Adminpage = () => {
                     console.error(e);
                 });
         } else {
-            //이부분을 버튼누르면 이 데이터 리스트를 뽑아오기 위한 방식으로 쓰면 될거같아요 
+            console.log("이미 가져온 데이터(프리랜서, 클라이언트 리스트)");
         };
     };
 
@@ -62,7 +64,7 @@ const Adminpage = () => {
                     console.error(e);
                 });
         } else {
-            //이부분을 버튼누르면 이 데이터 리스트를 뽑아오기 위한 방식으로 쓰면 될거같아요 
+            console.log("이미 가져온 데이터(프로젝트 리스트");
         };
     };
 
@@ -81,16 +83,74 @@ const Adminpage = () => {
                     console.error(e);
                 });
         } else {
-            //이부분을 버튼누르면 이 데이터 리스트를 뽑아오기 위한 방식으로 쓰면 될거같아요 
+            console.log("이미 가져온 데이터(고객센터 리스트");
         };
     };
+    const freelancerclick = () => {
+        getuserdb();
+        setMode('freelancer');
+    };
 
-
+    const clientclick = () => {
+        getuserdb();
+        setMode('client');
+    };
+    const projectclick = () => {
+        getprojectdb();
+        setMode('project');
+    };
+    const customerclick = () => {
+        getcustomerdb();
+        setMode('customer');
+    };
     return (
-        <dev>
+        <div>
             <h1>관리자님, 환영합니다</h1>
-            <button />
-        </dev>
+            <button onClick={freelancerclick}>유저 리스트</button>
+            <button onClick={clientclick}>클라이언트 리스트</button>
+            <button onClick={projectclick}>프로젝트 리스트</button>
+            <button onClick={customerclick}>고객센터 리스트</button>
+            {mode === 'freelancer' ?
+                <div>
+                    <h2>프리랜서 리스트</h2>
+                    <ul>
+                        {userdb.map((freelancer) => (
+                            <li key={freelancer.user_id}>{freelancer.user_name}</li>
+                        ))}
+                    </ul>
+                </div> : null
+            }
+            {mode === 'client' ?
+                <div>
+                    <h2>클라이언트 리스트</h2>
+                    <ul>
+                        {clientdb.map((client) => (
+                            <li key={client.user_id}>{client.user_name}</li>
+                        ))}
+                    </ul>
+                </div>
+                : null}
+            {mode === 'project' ?
+                <div>
+                    <h2>프로젝트 리스트</h2>
+                    <ul>
+                        {projectdb.map((project) => (
+                            <li key={project.pj_title}>{project.pj_content}</li>
+                        ))}
+                    </ul>
+                </div>
+                : null}
+            {mode === 'customer' ?
+                <div>
+                    <h2>고객센터 리스트</h2>
+                    <ul>
+                        {customerdb.map((customer) => (
+                            <li key={customer.id}>{customer.name}</li>
+                        ))}
+                    </ul>
+                </div>
+                : null}
+        </div>
     );
 
 }
