@@ -12,9 +12,9 @@ const ConfirmationModal = ({ open, message, onConfirm, onCancel }) => {
                         </button>
                     </header>
                     <footer>
-                        <button onClick={onConfirm}>확인</button>
+                        <button onClick={onConfirm}>네</button>
                         &nbsp;&nbsp;
-                        <button onClick={onCancel}>취소</button>
+                        <button onClick={onCancel}>아니오</button>
                     </footer>
                 </section>
             ) : null}
