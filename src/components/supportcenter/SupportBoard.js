@@ -28,7 +28,7 @@ const SupportBoard = () => {
     axios
       .get("http://localhost:8080/support/board/count", {})
       .then((res) => {
-        const max = Math.ceil(res.data / 10);
+        const max = Math.ceil(res.data / page_size);
         setPage_maxnum(max);
         const arr = [];
         for (let i = 1; i <= max; i++) {
