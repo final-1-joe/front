@@ -115,10 +115,10 @@ table {
     color: #333333;
     font-size: 18px;
     line-height: 24px;
-    padding: 10px 15px 10px 15px;
+    padding: 10px 10px 10px 10px;
     font-weight: 400;
     text-align: center;
-    letter-spacing: -0.25px;
+ 
     border-bottom: 1px solid #dddddd;
     background-color: #FFEBB4;
 }
@@ -134,10 +134,11 @@ table {
     text-align: center;
     padding: 21px 15px;
 }
-.number{width: 70px;}
-.title{    width: 730px;}
-.date{    width: 130px;}
-.answer{    width: 150px;}
+.number{width: 80px;}
+.title{    width: 710px;}
+.writer{    width: 100px;}
+.date{ width: 100px;}
+.answer{   width: 90px;}
 .sc_bl_btn{
     margin-top: 0px;
 }
@@ -459,4 +460,64 @@ table {
 }
 .w100{
     padding: 20px !important;
+}
+
+.search-wrapper{
+    position: relative;
+    padding: 0 0 0 0;
+    text-align: center;
+    height: 40px;
+    margin-bottom: 10px;
+}
+.search-area{
+    float: right;
+}
+.search-area select{
+    float: left;
+    width: 106px;
+    height: 40px;
+    border: 1px solid #d4d4d4;
+    margin-right: 6px;
+    font-size: 14px;
+    color: #6c6e6f;
+    background-color: #fff;
+    text-indent: 10px;
+    background-position: calc(100% - 10px) center;
+    background-size: 12px 6px;
+}
+.search-area .search-box{
+    float:left;
+}
+.search-area .search-box input[type="search"] {
+    float: left;
+    width: 200px;
+    height: 40px;
+    line-height: 38px;
+    border: 1px solid #d4d4d4;
+    border-right: 0;
+    text-indent: 10px;
+    font-size: 14px;
+}
+.search-area .search-box input[type="submit"] {
+    float: left;
+    width: 92px;
+    height: 40px;
+    line-height: 40px;
+    color: #000;
+    cursor: pointer;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 500;
+    background: #FBDB6A;
+    border-radius: 0;
+    border: 0;
+    -webkit-appearance: none;
+}
+.noboard{
+    height: 300px;
+    margin-bottom: 10px;
+}
+.noboard p{
+    padding: 140px;
+    font-size: 20px;
 }
