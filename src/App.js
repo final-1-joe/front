@@ -33,6 +33,8 @@ import Registerform_1 from "./components/Login/Registerform_1";
 import Registerform_2 from "./components/Login/Registerform_2";
 import FreeMyProject from "./components/my/FreeMyProject";
 import Adminpage from "./pages/Adminpage";
+import APSCA from "./pages/APSCA";
+import APSCNA from "./pages/APSCNA";
 
 function App() {
   return (
@@ -80,6 +82,8 @@ function App() {
             <Route path="/client/myinfo" element={<ClientMyInfo />} />
           </Route>
           <Route path="/admin" element={<Adminpage />} />
+          <Route path="/admin/sca" element={<APSCA />} />
+          <Route path="/admin/scna" element={<APSCNA />} />
           <Route path="/direct" element={<DirectMessage />} />
 
           <Route path="*" element={<Notfound />} />
