@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import "../css/admin.css";
+import APSCNA from "./APSCNA";
 
 //버튼을 누름에 따라, axios를 새로 해서 렌더링 해주는 페이지?
 //버튼은 유저리스트, 클라이언트 리스트, 프로젝트 리스트,
@@ -74,50 +75,6 @@ const Adminpage = () => {
     }
   };
 
-  //customer데이터 가져오기(임시)
-  const [customerdb, setCustomerdb] = useState([]);
-  const [page_num, setPage_num] = useState(1);
-  const [page_maxnum, setPage_maxnum] = useState(0);
-  const [pageLink, setPageLink] = useState([]);
-  const page_size = 10;
-  const getcustomerdb = () => {
-    axios
-      .get("http://localhost:8080/support/board/adcount", {})
-      .then((res) => {
-        console.log("res", res);
-        const max = Math.ceil(res.data / page_size);
-        setPage_maxnum(max);
-        const arr = [];
-        for (let i = 1; i <= max; i++) {
-          arr.push(i);
-        }
-
-        setPageLink(arr);
-      })
-      .catch((e) => {
-        console.error(e);
-      });
-
-    axios
-      .post("http://localhost:8080/support/board/adlist", {
-        page: page_num,
-        limit: page_size,
-      })
-      .then((customerres) => {
-        const customerdata = customerres.data;
-        setCustomerdb(customerdata);
-        console.log(customerres);
-        setCustomerRender(true);
-      })
-      .catch((e) => {
-        console.error(e);
-      });
-  };
-
-
-  useEffect(() => {
-    getcustomerdb();
-  }, [page_num]);
   const freelancerclick = () => {
     getuserdb();
     setMode("freelancer-notanswer");
@@ -135,17 +92,6 @@ const Adminpage = () => {
     setCustomerclick(true);
   };
 
-  const notanswerclick = () => {
-    getcustomerdb();
-    setMode("customer-notanswer");
-  }
-
-  const answerclick = () => {
-    //답변등록 클릭 함수 get함수 필요
-    setMode("customer-answer");
-  }
-
-
   return (
     <div className="admin-page">
       <div className="sidebar-admin">
@@ -154,12 +100,16 @@ const Adminpage = () => {
         <h4 onClick={clientclick}>클라이언트 리스트</h4>
         <h4 onClick={projectclick}>프로젝트 리스트</h4>
         <h4 onClick={handlecustomerclick}>고객센터 리스트</h4>
-        {customerclick ?
+        {customerclick ? (
           <div>
-            <p onClick={answerclick}>┖	답변</p>
-            <p onClick={notanswerclick}>┖	미답변</p>
+            <p>
+              <Link to="/admin/sca">┖ 답변</Link>
+            </p>
+            <p>
+              <Link to="/admin/scna">┖ 미답변</Link>
+            </p>
           </div>
-          : null}
+        ) : null}
       </div>
       <div className="main-content">
         {mode === "freelancer" ? (
@@ -192,85 +142,6 @@ const Adminpage = () => {
             </ul>
           </div>
         ) : null}
-        {mode === "customer-notanswer" ? (
-          <div>
-            <h2>고객센터 미답변 리스트</h2>
-            <div id="sc">
-              <div className="sc_bl">
-                <table>
-                  <thead>
-                    <tr>
-                      <th className="number">번호</th>
-                      <th className="title">제목</th>
-                      <th className="date">작성자</th>
-                      <th className="date">등록일</th>
-                      <th className="answer">답변</th>
-                    </tr>
-                  </thead>
-                  {customerdb.map((data) => (
-                    <tbody>
-                      <tr>
-                        <td className="number">{data.sbqnum}</td>
-                        <td className="title left">
-                          <Link to={`/support/board/detail/${data.sbqnum}`}>
-                            {data.sbqsubject}
-                          </Link>
-                        </td>
-                        <td className="date">{data.sbqwriter}</td>
-                        <td className="date">{data.sbqcreateDate}</td>
-                        <td className="answer">
-                          {data.answerList === null ||
-                            data.answerList.length === 0 ||
-                            data.answerList.length === undefined ? (
-                            <p>미답변</p>
-                          ) : (
-                            <p>답변</p>
-                          )}
-                        </td>
-                      </tr>
-                    </tbody>
-                  ))}
-                </table>
-              </div>
-
-              <div className="sc_bl_page">
-                {page_num === 1 ? (
-                  <></>
-                ) : (
-                  <Link
-                    href="#"
-                    id="back"
-                    onClick={() => setPage_num(page_num - 1)}
-                  >
-                    {"<"}
-                  </Link>
-                )}
-                {pageLink.map((page) => (
-                  <Link href="#" id={page} onClick={() => setPage_num(page)}>
-                    {page}
-                  </Link>
-                ))}
-                {page_num === page_maxnum ? (
-                  <></>
-                ) : (
-                  <Link
-                    href="#"
-                    id="pre"
-                    onClick={() => setPage_num(page_num + 1)}
-                  >
-                    {">"}
-                  </Link>
-                )}
-              </div>
-            </div>
-          </div>
-        ) : null}
-        {/* 여기 null부분 답변리스트 출력 */}
-        {mode === 'customer-answer' ?
-          <div>
-            <h2>고객센터 답변 리스트</h2>
-            {/* 이부분입니다 */}
-          </div> : null}
       </div>
     </div>
   );
