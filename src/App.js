@@ -49,7 +49,7 @@ function App() {
             <Route path="/pjregistration" element={<PjRegistration />} />
             <Route path="/free/calendar" element={<MyCalendar />} />
             <Route path="/resume" element={<Resume />} />
-            <Route path="/resumemypage" element={<ResumeMypage />} />
+
             <Route path="/tag" element={<TagConfigFree />} />
             <Route path="/tag2" element={<TagConfigClient />} />
             <Route path="/loginform" element={<Loginform />} />
@@ -75,6 +75,7 @@ function App() {
             <Route path="/free/myproject" element={<FreeMyProject />} />
             <Route path="/client/mypage" element={<ClientMypage />} />
             <Route path="/free/mypage" element={<FreeMypage />} />
+            <Route path="/free/myresume" element={<ResumeMypage />} />
             <Route path="/free/myinfo" element={<FreeMyInfo />} />
             <Route path="/client/myinfo" element={<ClientMyInfo />} />
           </Route>
