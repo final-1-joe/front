@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
-import "../css/admin.css";
+import '../../css/admin.css';
+import AdminSideBar from "../../components/AdminSideBar";
 
-//매칭율 확인?? 부분을 그래프처럼 생각중
+
 const APSCA = () => {
-  const [customerclick, setCustomerclick] = useState(true);
 
-  //customer데이터 가져오기(임시)
   const [customerdb, setCustomerdb] = useState([]);
   const [page_num, setPage_num] = useState(1);
   const [page_maxnum, setPage_maxnum] = useState(0);
@@ -53,34 +52,10 @@ const APSCA = () => {
     getcustomerdb();
   }, [page_num]);
 
-  const handlecustomerclick = () => {
-    if (customerclick === false) {
-      setCustomerclick(true);
-    } else {
-      setCustomerclick(false);
-    }
-  };
 
   return (
     <div className="admin-page">
-      <div className="sidebar-admin">
-        <h3>관리자님, 환영합니다</h3>
-        <h4>유저 리스트</h4>
-        <h4>클라이언트 리스트</h4>
-        <h4>프로젝트 리스트</h4>
-        <h4 onClick={handlecustomerclick}>고객센터 리스트</h4>
-        {customerclick ? (
-          <div>
-            <Link to="/admin/sca">
-              <p>┖ 답변</p>
-            </Link>
-
-            <Link to="/admin/scna">
-              <p>┖ 미답변</p>
-            </Link>
-          </div>
-        ) : null}
-      </div>
+      <AdminSideBar />
       <div>
         <h2>고객센터 답변 리스트</h2>
         <div id="sc">
@@ -108,8 +83,8 @@ const APSCA = () => {
                     <td className="date">{data.sbqcreateDate}</td>
                     <td className="answer">
                       {data.answerList === null ||
-                      data.answerList.length === 0 ||
-                      data.answerList.length === undefined ? (
+                        data.answerList.length === 0 ||
+                        data.answerList.length === undefined ? (
                         <p>미답변</p>
                       ) : (
                         <p>답변</p>
@@ -148,7 +123,7 @@ const APSCA = () => {
           </div>
         </div>
       </div>
-    </div>
+    </div >
   );
 };
 

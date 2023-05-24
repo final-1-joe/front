@@ -32,9 +32,12 @@ import Loginselect from "./components/Login/Loginselect";
 import Registerform_1 from "./components/Login/Registerform_1";
 import Registerform_2 from "./components/Login/Registerform_2";
 import FreeMyProject from "./components/my/FreeMyProject";
-import Adminpage from "./pages/Adminpage";
-import APSCA from "./pages/APSCA";
-import APSCNA from "./pages/APSCNA";
+import Adminpage from "./pages/Admin/Adminpage";
+import APSCA from "./pages/Admin/APSCA";
+import APSCNA from "./pages/Admin/APSCNA";
+import AdminClientList from "./pages/Admin/AdminClientList";
+import AdminUserList from "./pages/Admin/AdminUserList";
+import AdminProjectList from "./pages/Admin/AdminProjectList";
 
 function App() {
   return (
@@ -84,6 +87,9 @@ function App() {
           <Route path="/admin" element={<Adminpage />} />
           <Route path="/admin/sca" element={<APSCA />} />
           <Route path="/admin/scna" element={<APSCNA />} />
+          <Route path="/admin/client" element={<AdminClientList />} />
+          <Route path="/admin/free" element={<AdminUserList />} />
+          <Route path="/admin/project" element={<AdminProjectList />} />
           <Route path="/direct" element={<DirectMessage />} />
 
           <Route path="*" element={<Notfound />} />
