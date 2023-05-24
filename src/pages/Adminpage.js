@@ -266,7 +266,11 @@ const Adminpage = () => {
           </div>
         ) : null}
         {/* 여기 null부분 답변리스트 출력 */}
-        {mode === 'customer-answer' ? null : null}
+        {mode === 'customer-answer' ?
+          <div>
+            <h2>고객센터 답변 리스트</h2>
+            {/* 이부분입니다 */}
+          </div> : null}
       </div>
     </div>
   );
