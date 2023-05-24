@@ -24,6 +24,7 @@ const Adminpage = () => {
   const [customerRender, setCustomerRender] = useState(false);
   const [matchRender, setMatchRender] = useState(false);
   const [mode, setMode] = useState("");
+  const [customerclick, setCustomerclick] = useState(false);
 
   //userdb 데이터 가져오기(임시)
   const [userdb, setUserdb] = useState([]);
@@ -112,12 +113,14 @@ const Adminpage = () => {
         console.error(e);
       });
   };
+
+
   useEffect(() => {
     getcustomerdb();
   }, [page_num]);
   const freelancerclick = () => {
     getuserdb();
-    setMode("freelancer");
+    setMode("freelancer-notanswer");
   };
 
   const clientclick = () => {
@@ -128,18 +131,35 @@ const Adminpage = () => {
     getprojectdb();
     setMode("project");
   };
-  const customerclick = () => {
-    getcustomerdb();
-    setMode("customer");
+  const handlecustomerclick = () => {
+    setCustomerclick(true);
   };
+
+  const notanswerclick = () => {
+    getcustomerdb();
+    setMode("customer-notanswer");
+  }
+
+  const answerclick = () => {
+    //답변등록 클릭 함수 get함수 필요
+    setMode("customer-answer");
+  }
+
+
   return (
     <div className="admin-page">
       <div className="sidebar-admin">
-        <h4>관리자님, 환영합니다</h4>
-        <button onClick={freelancerclick}>유저 리스트</button><br />
-        <button onClick={clientclick}>클라이언트 리스트</button><br />
-        <button onClick={projectclick}>프로젝트 리스트</button><br />
-        <button onClick={customerclick}>고객센터 리스트</button>
+        <h3>관리자님, 환영합니다</h3>
+        <h4 onClick={freelancerclick}>유저 리스트</h4>
+        <h4 onClick={clientclick}>클라이언트 리스트</h4>
+        <h4 onClick={projectclick}>프로젝트 리스트</h4>
+        <h4 onClick={handlecustomerclick}>고객센터 리스트</h4>
+        {customerclick ?
+          <div>
+            <p onClick={answerclick}>┖	답변</p>
+            <p onClick={notanswerclick}>┖	미답변</p>
+          </div>
+          : null}
       </div>
       <div className="main-content">
         {mode === "freelancer" ? (
@@ -172,7 +192,7 @@ const Adminpage = () => {
             </ul>
           </div>
         ) : null}
-        {mode === "customer" ? (
+        {mode === "customer-notanswer" ? (
           <div>
             <h2>고객센터 미답변 리스트</h2>
             <div id="sc">
@@ -245,6 +265,8 @@ const Adminpage = () => {
             </div>
           </div>
         ) : null}
+        {/* 여기 null부분 답변리스트 출력 */}
+        {mode === 'customer-answer' ? null : null}
       </div>
     </div>
   );

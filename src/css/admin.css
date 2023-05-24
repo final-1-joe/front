@@ -4,10 +4,9 @@
 
 .sidebar-admin {
     width: 200px;
-    /* Adjust the width as needed */
-    min-height: max-content;
+    min-height: 100vh;
     padding: 20px;
-    background: #f1f1f1;
+    background: #FBDB6A;
     margin-right: 30px;
 }
 
@@ -15,5 +14,4 @@
     flex-grow: 1;
     padding: 20px;
     background: #fff;
-    /* Add any additional styles for the main content area */
 }
