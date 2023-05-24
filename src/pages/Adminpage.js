@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
+import "../css/admin.css";
 
 //버튼을 누름에 따라, axios를 새로 해서 렌더링 해주는 페이지?
 //버튼은 유저리스트, 클라이언트 리스트, 프로젝트 리스트,
@@ -132,120 +133,119 @@ const Adminpage = () => {
     setMode("customer");
   };
   return (
-    <div>
-      <h1>관리자님, 환영합니다</h1>
-      <button onClick={freelancerclick}>유저 리스트</button>
-      <button onClick={clientclick}>클라이언트 리스트</button>
-      <button onClick={projectclick}>프로젝트 리스트</button>
-      <button onClick={customerclick}>고객센터 리스트</button>
-      {mode === "freelancer" ? (
-        <div>
-          <h2>프리랜서 리스트</h2>
-          <ul>
-            {userdb.map((freelancer) => (
-              <li key={freelancer.user_id}>{freelancer.user_name}</li>
-            ))}
-          </ul>
-        </div>
-      ) : null}
-      {mode === "client" ? (
-        <div>
-          <h2>클라이언트 리스트</h2>
-          <ul>
-            {clientdb.map((client) => (
-              <li key={client.user_id}>{client.user_name}</li>
-            ))}
-          </ul>
-        </div>
-      ) : null}
-      {mode === "project" ? (
-        <div>
-          <h2>프로젝트 리스트</h2>
-          <ul>
-            {projectdb.map((project) => (
-              <li key={project.pj_title}>{project.pj_content}</li>
-            ))}
-          </ul>
-        </div>
-      ) : null}
-      {mode === "customer" ? (
-        <div>
-          <h2>고객센터 미답변 리스트</h2>
-          {/* <ul>
-            {customerdb.map((customer) => (
-              <li key={customer.sbqnum}>{customer.sbqsubject}</li>
-            ))}
-          </ul> */}
-          <div id="sc">
-            <div className="sc_bl">
-              <table>
-                <thead>
-                  <tr>
-                    <th className="number">번호</th>
-                    <th className="title">제목</th>
-                    <th className="date">작성자</th>
-                    <th className="date">등록일</th>
-                    <th className="answer">답변</th>
-                  </tr>
-                </thead>
-                {customerdb.map((data) => (
-                  <tbody>
-                    <tr>
-                      <td className="number">{data.sbqnum}</td>
-                      <td className="title left">
-                        <Link to={`/support/board/detail/${data.sbqnum}`}>
-                          {data.sbqsubject}
-                        </Link>
-                      </td>
-                      <td className="date">{data.sbqwriter}</td>
-                      <td className="date">{data.sbqcreateDate}</td>
-                      <td className="answer">
-                        {data.answerList === null ||
-                        data.answerList.length === 0 ||
-                        data.answerList.length === undefined ? (
-                          <p>미답변</p>
-                        ) : (
-                          <p>답변</p>
-                        )}
-                      </td>
-                    </tr>
-                  </tbody>
-                ))}
-              </table>
-            </div>
-
-            <div className="sc_bl_page">
-              {page_num === 1 ? (
-                <></>
-              ) : (
-                <Link
-                  href="#"
-                  id="back"
-                  onClick={() => setPage_num(page_num - 1)}
-                >
-                  {"<"}
-                </Link>
-              )}
-              {pageLink.map((page) => (
-                <Link href="#" id={page} onClick={() => setPage_num(page)}>
-                  {page}
-                </Link>
+    <div className="admin-page">
+      <div className="sidebar-admin">
+        <h4>관리자님, 환영합니다</h4>
+        <button onClick={freelancerclick}>유저 리스트</button><br />
+        <button onClick={clientclick}>클라이언트 리스트</button><br />
+        <button onClick={projectclick}>프로젝트 리스트</button><br />
+        <button onClick={customerclick}>고객센터 리스트</button>
+      </div>
+      <div className="main-content">
+        {mode === "freelancer" ? (
+          <div>
+            <h2>프리랜서 리스트</h2>
+            <ul>
+              {userdb.map((freelancer) => (
+                <li key={freelancer.user_id}>{freelancer.user_name}</li>
               ))}
-              {page_num === page_maxnum ? (
-                <></>
-              ) : (
-                <Link
-                  href="#"
-                  id="pre"
-                  onClick={() => setPage_num(page_num + 1)}
-                >
-                  {">"}
-                </Link>
-              )}
+            </ul>
+          </div>
+        ) : null}
+        {mode === "client" ? (
+          <div>
+            <h2>클라이언트 리스트</h2>
+            <ul>
+              {clientdb.map((client) => (
+                <li key={client.user_id}>{client.user_name}</li>
+              ))}
+            </ul>
+          </div>
+        ) : null}
+        {mode === "project" ? (
+          <div>
+            <h2>프로젝트 리스트</h2>
+            <ul>
+              {projectdb.map((project) => (
+                <li key={project.pj_title}>{project.pj_content}</li>
+              ))}
+            </ul>
+          </div>
+        ) : null}
+        {mode === "customer" ? (
+          <div>
+            <h2>고객센터 미답변 리스트</h2>
+            <div id="sc">
+              <div className="sc_bl">
+                <table>
+                  <thead>
+                    <tr>
+                      <th className="number">번호</th>
+                      <th className="title">제목</th>
+                      <th className="date">작성자</th>
+                      <th className="date">등록일</th>
+                      <th className="answer">답변</th>
+                    </tr>
+                  </thead>
+                  {customerdb.map((data) => (
+                    <tbody>
+                      <tr>
+                        <td className="number">{data.sbqnum}</td>
+                        <td className="title left">
+                          <Link to={`/support/board/detail/${data.sbqnum}`}>
+                            {data.sbqsubject}
+                          </Link>
+                        </td>
+                        <td className="date">{data.sbqwriter}</td>
+                        <td className="date">{data.sbqcreateDate}</td>
+                        <td className="answer">
+                          {data.answerList === null ||
+                            data.answerList.length === 0 ||
+                            data.answerList.length === undefined ? (
+                            <p>미답변</p>
+                          ) : (
+                            <p>답변</p>
+                          )}
+                        </td>
+                      </tr>
+                    </tbody>
+                  ))}
+                </table>
+              </div>
+
+              <div className="sc_bl_page">
+                {page_num === 1 ? (
+                  <></>
+                ) : (
+                  <Link
+                    href="#"
+                    id="back"
+                    onClick={() => setPage_num(page_num - 1)}
+                  >
+                    {"<"}
+                  </Link>
+                )}
+                {pageLink.map((page) => (
+                  <Link href="#" id={page} onClick={() => setPage_num(page)}>
+                    {page}
+                  </Link>
+                ))}
+                {page_num === page_maxnum ? (
+                  <></>
+                ) : (
+                  <Link
+                    href="#"
+                    id="pre"
+                    onClick={() => setPage_num(page_num + 1)}
+                  >
+                    {">"}
+                  </Link>
+                )}
+              </div>
             </div>
           </div>
-        </div>
-      ) : null}
+        ) : null}
+      </div>
     </div>
   );
 };
