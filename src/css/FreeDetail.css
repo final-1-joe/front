@@ -1,5 +1,5 @@
 #FreeContainer {
-    width: 80%;
+    width: 800px;
     margin: 0 auto;
 }
 
@@ -19,9 +19,17 @@
 .FreeDetailBox1 {
     background-color: #fdfaf0;
     border-radius: 20px;
-    padding: 3%;
+    padding: 30px;
     margin: 10px;
     text-align: left;
+}
+
+.FreeDetailBox1 td {
+    padding: 5px;
+}
+
+#FreeResumeIcon {
+    padding: 5px; margin: 0 auto;
 }
 
 .FreeDetailBox2 {

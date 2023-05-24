@@ -18,7 +18,7 @@ const Layout = () => {
   //     navigate("/");
   //   };
   return (
-    <div>
+    <div id="Layout">
       <div id="LayoutWrapper">
         <header id="LayoutHeader">
           <div id="LayoutLogo">
@@ -75,9 +75,10 @@ const Layout = () => {
           <Outlet />
         </section>
       </div>
-      <center>
-        <footer id="LayoutFooter">
-          <table>
+
+      <footer id="LayoutFooter">
+        <center id="LayoutFooterCenter">
+          {/* <table>
             <tr>
               <td>
                 <div class="logo">
@@ -100,9 +101,30 @@ const Layout = () => {
                 </div>
               </td>
             </tr>
+          </table> */}
+          <table>
+            <tr>
+              <td rowSpan={4}>
+                <div class="logo">
+                  <Link to="/">
+                    <img src="/images/logo2.PNG" width="200" alt="프리랜서" />
+                  </Link>
+                </div>
+              </td>
+              <td>대표: 김성만</td>
+            </tr>
+            <tr>
+              <td>피플랜서 | 서울특별시 강남구 멀티로 111</td>
+            </tr>
+            <tr>
+              <td>고객센터 02-2244-7272(평일 09:00~18:00, 주말·공휴일 휴무)</td>
+            </tr>
+            <tr>
+              <td>Copyright © PEOPLANCER all right reserved.</td>
+            </tr>
           </table>
-        </footer>
-      </center>
+        </center>
+      </footer>
     </div>
   );
 };
