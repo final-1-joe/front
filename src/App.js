@@ -32,6 +32,9 @@ import Loginselect from "./components/Login/Loginselect";
 import Registerform_1 from "./components/Login/Registerform_1";
 import Registerform_2 from "./components/Login/Registerform_2";
 import FreeMyProject from "./components/my/FreeMyProject";
+import Adminpage from "./pages/Adminpage";
+import APSCA from "./pages/APSCA";
+import APSCNA from "./pages/APSCNA";
 
 function App() {
   return (
@@ -43,12 +46,12 @@ function App() {
             <Route path="/freelist" element={<FreeList />} />
             <Route path="/freedetail" element={<FreeDetail />} />
             <Route path="/pjlist" element={<PjList />} />
-            <Route path="/pjdetail" element={<PjDetail />} />
+            <Route path="/pjlist/pjdetail/:id" element={<PjDetail />} />
             <Route path="/pjdetail/update" element={<PjUpdate />} />
             <Route path="/pjregistration" element={<PjRegistration />} />
             <Route path="/free/calendar" element={<MyCalendar />} />
             <Route path="/resume" element={<Resume />} />
-            <Route path="/resumemypage" element={<ResumeMypage />} />
+
             <Route path="/tag" element={<TagConfigFree />} />
             <Route path="/tag2" element={<TagConfigClient />} />
             <Route path="/loginform" element={<Loginform />} />
@@ -74,10 +77,13 @@ function App() {
             <Route path="/free/myproject" element={<FreeMyProject />} />
             <Route path="/client/mypage" element={<ClientMypage />} />
             <Route path="/free/mypage" element={<FreeMypage />} />
+            <Route path="/free/myresume" element={<ResumeMypage />} />
             <Route path="/free/myinfo" element={<FreeMyInfo />} />
             <Route path="/client/myinfo" element={<ClientMyInfo />} />
           </Route>
-
+          <Route path="/admin" element={<Adminpage />} />
+          <Route path="/admin/sca" element={<APSCA />} />
+          <Route path="/admin/scna" element={<APSCNA />} />
           <Route path="/direct" element={<DirectMessage />} />
 
           <Route path="*" element={<Notfound />} />
