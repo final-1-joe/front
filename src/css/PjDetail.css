@@ -38,6 +38,14 @@
     text-align: left;
 }
 
+.PjDetailBox2 td {
+    padding: 5px;
+}
+
+#PjContent {
+    padding: 30px 0;
+}
+
 .info {
     font-weight: bold;
     font-size: smaller;

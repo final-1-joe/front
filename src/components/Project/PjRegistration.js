@@ -1,4 +1,4 @@
-import DatePick from "./DatePick";
+import DatePick from "./PjDatePick";
 import "../../css/PjRegi.css";
 
 const PjRegistration = () => {

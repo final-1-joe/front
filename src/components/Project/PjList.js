@@ -1,29 +1,43 @@
-import "../../css/List.css";
-import dummy from "./PjDummyData.json";
+import { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 import { HiHashtag } from "react-icons/hi";
-import { useNavigate } from "react-router-dom";
 
 const PjList = () => {
+  //project데이터 가져오기
+  const [pjlist, setPjlist] = useState([]);
+  const [project, setProject] = useState([]);
   const navigate = useNavigate();
 
-  const handleDetailPage = ({ dummy }) => {
-    navigate("/pjdetail", {
-      state: {
-        id: `${dummy.projects.id}`,
-        pjNum: `${dummy.projects.pjNum}`,
-        projectName: `${dummy.projects.projectName}`,
-        corpName: `${dummy.projects.corpName}`,
-        workForm: `${dummy.projects.workForm}`,
-        startDate: `${dummy.projects.startDate}`,
-        pjPeriod: `${dummy.projects.pjPeriod}`,
-        salary: `${dummy.projects.salary}`,
-        jobGroup: `${dummy.projects.jobGroup}`,
-        personnel: `${dummy.projects.personnel}`,
-        requiredSkills: `${dummy.projects.requiredSkills}`,
-        pjContent: `${dummy.projects.pjContent}`,
-      },
-    });
+  useEffect(() => {
+    getPjlist();
+  }, []);
+
+  const getPjlist = () => {
+    axios
+      .get("http://localhost:8080/pjlist", {})
+      .then((res) => {
+        const data = res.data;
+        console.log(data);
+        setPjlist(data);
+      })
+      .catch((e) => {
+        console.error(e);
+      });
   };
+
+  // const getPjDetail = () => {
+  //   axios
+  //     .get("http://localhost:8080/pjlist/pjdetail", {})
+  //     .then((res) => {
+  //       const data = res.data;
+  //       console.log(data);
+  //       setProject(data);
+  //     })
+  //     .catch((e) => {
+  //       console.error(e);
+  //     });
+  // };
 
   return (
     <div>
@@ -70,50 +84,46 @@ const PjList = () => {
           </select>
         </div>
       </div>
-
-      <div>
-        {dummy.projects.map((project) => (
-          <div
-            className="ListBox"
-            key={project.id}
-            onClick={() => handleDetailPage({ dummy })}
-          >
+      {pjlist.map((data) => (
+        <div className="ListBox" id={data.pj_num}>
+          <Link to={`/pjlist/pjdetail/${data.pj_num}`}>
             <div className="ListText">
               <table>
                 <tbody>
                   <tr>
                     <td colSpan={2}>
-                      <span className="ListJobTag">#개발</span>
-                      <span className="ListPossible">모집중</span>
+                      <span className="ListJobTag">#{data.pj_job}</span>
+                      <span className="ListPossible">
+                        모집 마감일 {data.pj_period}
+                      </span>
                     </td>
                   </tr>
                   <tr>
-                    <td>(주)&nbsp;{project.corpName}&nbsp;&nbsp;|</td>
-                    <td className="ListIntro">{project.projectName}</td>
+                    <td>(주)&nbsp;{data.pj_corpname}&nbsp;&nbsp;|</td>
+                    <td className="ListIntro">{data.pj_title}</td>
                   </tr>
                   <tr style={{ fontSize: "14px" }}>
                     <td colSpan={2}>
-                      {project.salary}&nbsp;&nbsp;|&nbsp;&nbsp;
-                      {project.pjPeriod}
-                      &nbsp;&nbsp;|&nbsp;&nbsp;{project.workForm}
+                      {data.pj_pay}&nbsp;&nbsp;|&nbsp;&nbsp;
+                      {data.pj_day}개월&nbsp;&nbsp;|&nbsp;&nbsp;
+                      {data.pj_work_form}&nbsp;&nbsp;|&nbsp;&nbsp;
+                      {data.pj_place}
                     </td>
                   </tr>
                   <tr>
                     <td colSpan={2}>
                       <HiHashtag size="20" />
                       &nbsp;
-                      {project.requiredSkills}
+                      {data.pj_skill}
                     </td>
                   </tr>
                 </tbody>
               </table>
             </div>
-          </div>
-        ))}
-      </div>
-      <br />
+          </Link>
+        </div>
+      ))}
     </div>
   );
 };
-
 export default PjList;

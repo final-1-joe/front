@@ -1,16 +1,41 @@
 import "../../css/PjDetail.css";
-// import dummy from "./PjDummyData.json";
 import { Link } from "react-router-dom";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation, useParams } from "react-router-dom";
 import React, { useState } from "react";
+import axios from "axios";
 import ReviewModal from "../Review/ReviewModal";
 import ReviewWrite from "../Review/ReviewWrite";
+import { useEffect } from "react";
 
 const PjDetail = () => {
   const [reviewForm, setReviewForm] = useState(false);
+  const [project, setProject] = useState([]);
+  const [similarlist, setSimilarlist] = useState([]);
+
   const navigate = useNavigate();
-  const location = useLocation();
-  const pjInfo = { ...location.state };
+  // const location = useLocation();
+  // const pjInfo = { ...location.state };
+
+  const { id } = useParams();
+  const pj_num = parseInt(id);
+  useEffect(() => {
+    getPjDetail();
+  }, []);
+
+  const getPjDetail = () => {
+    axios
+      .get(`http://localhost:8080/pjlist/pjdetail?pj_num=${pj_num}`, {})
+      .then((res) => {
+        const data = res.data;
+        console.log(data);
+        setProject(data);
+      })
+      .catch((e) => {
+        console.error(e);
+      });
+  };
+
+  const getSimilarList = () => {};
 
   const onClickRegister = () => {
     navigate("/pjregistration");
@@ -38,26 +63,28 @@ const PjDetail = () => {
                   align="center"
                   style={{ fontSize: "22px", fontWeight: "bold" }}
                 >
-                  {pjInfo.projectName}
+                  {project.pj_title}
                 </td>
               </tr>
               <tr>
                 <td width="60px" className="info">
                   회사명
                 </td>
-                <td>(주){pjInfo.corpName}</td>
+                <td>(주){project.pj_corpname}</td>
                 <td width="60px" className="info">
-                  근무 형태
+                  근무 형태/지역
                 </td>
-                <td>{pjInfo.workForm}</td>
+                <td>
+                  {project.pj_work_form}&nbsp;/&nbsp;{project.pj_place}
+                </td>
               </tr>
               <tr>
                 <td className="info">시작 예정일</td>
-                <td>{pjInfo.startDate}</td>
+                <td>{project.pj_start}</td>
                 <td className="info" width="100px">
-                  프로젝트 기간
+                  모집 마감일
                 </td>
-                <td>{pjInfo.pjPeriod}</td>
+                <td>{project.pj_period}</td>
               </tr>
             </tbody>
           </table>
@@ -65,28 +92,33 @@ const PjDetail = () => {
 
         <div className="PjDetailBox2">
           <table>
-            <tbody key={pjInfo.id}>
+            <tbody key={project.pj_num}>
+              <tr>
+                <td className="info">프로젝트 기간</td>
+                <td>{project.pj_day}개월</td>
+              </tr>
               <tr>
                 <td className="info" width="80px">
                   예상 급여
                 </td>
-                <td>{pjInfo.salary}</td>
+                <td>{project.pj_pay}</td>
               </tr>
               <tr>
                 <td className="info">직군</td>
-                <td>{pjInfo.jobGroup}</td>
+                <td>{project.pj_job}</td>
               </tr>
               <tr>
                 <td className="info">고용 인원</td>
-                <td>{pjInfo.personnel}</td>
+                <td>{project.pj_pick}명</td>
               </tr>
               <tr>
                 <td className="info">필요 스킬</td>
-                <td>{pjInfo.requiredSkills}</td>
+                <td>{project.pj_skill}</td>
               </tr>
-              <br />
               <tr>
-                <td colSpan={2}>{pjInfo.pjContent}</td>
+                <td colSpan={2}>
+                  <div id="PjContent">{project.pj_content}</div>
+                </td>
               </tr>
             </tbody>
           </table>

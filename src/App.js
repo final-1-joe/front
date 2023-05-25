@@ -46,7 +46,7 @@ function App() {
             <Route path="/freelist" element={<FreeList />} />
             <Route path="/freedetail" element={<FreeDetail />} />
             <Route path="/pjlist" element={<PjList />} />
-            <Route path="/pjdetail" element={<PjDetail />} />
+            <Route path="/pjlist/pjdetail/:id" element={<PjDetail />} />
             <Route path="/pjdetail/update" element={<PjUpdate />} />
             <Route path="/pjregistration" element={<PjRegistration />} />
             <Route path="/free/calendar" element={<MyCalendar />} />
