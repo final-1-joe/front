@@ -13,7 +13,8 @@ const TagConfigClient = () => {
   const [selectedJobs, setSelectedJobs] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
   const [redata, setRedata] = useState();
-  const user_id = "admin3";
+  const user_id = window.sessionStorage.getItem("user_id");
+
   const jsRef = useRef();
   const [js, setJs] = useState("work");
   const jgRef = useRef();

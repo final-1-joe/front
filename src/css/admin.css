@@ -1,0 +1,24 @@
+.admin-page {
+    display: flex;
+}
+
+.sidebar-admin {
+    width: 200px;
+    min-height: 100vh;
+    padding: 20px;
+    background: #FBDB6A;
+    margin-right: 30px;
+}
+
+.main-content-admin {
+    flex-grow: 1;
+    padding: 20px;
+    background: #fff;
+}
+
+.sidebar-admin p:hover,
+.sidebar-admin h4:hover {
+
+    background: #b6ad8b;
+    margin-right: 30px;
+}

@@ -7,10 +7,12 @@ import { occupation, occupations } from "./OccupationData";
 import SkillTag from "./SkillTag";
 import InputWon from "./InputWon";
 import InputCareer from "./InputCareer";
+import MySidebar from "../my/mySidebar/MySidebar";
 const ResumeMypage = () => {
   const [selectedoccupation, setSelectedOccupation] = useState("");
   const [telvalue, setTelValue] = useState("");
-  const us_id = "admin";
+  const user_id = window.sessionStorage.getItem("user_id");
+
   const nmRef = useRef();
   const jsRef = useRef();
   const bdRef = useRef();
@@ -71,11 +73,13 @@ const ResumeMypage = () => {
   useEffect(() => {
     if (redata) {
       setSelectedOccupation(redata.user_jg);
-      setSelectedJobs(
-        occupation[redata.user_jg].filter((option) =>
-          redata.user_job.includes(option.value)
-        )
-      );
+      if (redata.user_jg !== null) {
+        setSelectedJobs(
+          occupation[redata.user_jg].filter((option) =>
+            redata.user_job.includes(option.value)
+          )
+        );
+      }
       setFileName(redata.user_orfile);
       setTelValue(redata.user_tel);
     }
@@ -94,7 +98,7 @@ const ResumeMypage = () => {
   const getResume = () => {
     axios
       .post("http://localhost:8080/resume/select", {
-        user_id: us_id,
+        user_id: user_id,
       })
       .then((res) => {
         setRedata(res.data);
@@ -130,7 +134,7 @@ const ResumeMypage = () => {
     if (fileList === undefined || fileList === null) {
       axios
         .post("http://localhost:8080/resume/update", {
-          user_id: us_id,
+          user_id: user_id,
           user_nm: nmRef.current.value || null,
           user_js: jsRef.current.value || null,
           user_bd: bdRef.current.value || null,
@@ -166,7 +170,7 @@ const ResumeMypage = () => {
         .then((res) => {
           axios
             .post("http://localhost:8080/resume/update", {
-              user_id: us_id,
+              user_id: user_id,
               user_nm: nmRef.current.value || null,
               user_js: jsRef.current.value || null,
               user_bd: bdRef.current.value || null,
@@ -206,8 +210,9 @@ const ResumeMypage = () => {
   };
 
   return (
-    <div className="resume">
-      {redata ? (
+    <div className="reflex">
+      <MySidebar />
+      <div className="resume reflex">
         <div id="basic" className="resume_section">
           <div className="area_title">
             <h3 className="title">이력서</h3>
@@ -225,7 +230,7 @@ const ResumeMypage = () => {
                   name="user_nm"
                   className="box_input"
                   maxLength="20"
-                  defaultValue={redata.user_nm}
+                  defaultValue={redata ? redata.user_nm : null}
                   data-only-word="true"
                   placeholder="이름 입력"
                   ref={nmRef}
@@ -234,7 +239,7 @@ const ResumeMypage = () => {
               <span className="sri_select resume_select resume_right">
                 <select
                   className="ico_arr selected size_type3"
-                  defaultValue={redata.user_js}
+                  defaultValue={redata ? redata.user_js : null}
                   ref={jsRef}
                 >
                   <option value="work">구직중</option>
@@ -254,37 +259,67 @@ const ResumeMypage = () => {
                   className="box_input"
                   data-only-word="true"
                   ref={bdRef}
-                  defaultValue={redata.user_bd}
+                  defaultValue={redata ? redata.user_bd : null}
                 />
               </span>
-              {redata && redata.user_gen === "male" ? (
-                <span className="inpRdoSw sizeXL resume_right focus">
-                  <span className="inOption">
-                    <input
-                      name="gender"
-                      id="male"
-                      type="radio"
-                      value="male"
-                      defaultChecked
-                      ref={maleRef}
-                    />
-                    <label htmlFor="male" name="male" className="lbl">
-                      남
-                    </label>
+              {redata ? (
+                redata.user_gen === "male" ? (
+                  <span className="inpRdoSw sizeXL resume_right focus">
+                    <span className="inOption">
+                      <input
+                        name="gender"
+                        id="male"
+                        type="radio"
+                        value="male"
+                        defaultChecked
+                        ref={maleRef}
+                      />
+                      <label htmlFor="male" name="male" className="lbl">
+                        남
+                      </label>
+                    </span>
+                    <span className="inOption">
+                      <input
+                        name="gender"
+                        id="female"
+                        type="radio"
+                        value="female"
+                        ref={femaleRef}
+                      />
+                      <label htmlFor="female" name="female" className="lbl">
+                        여
+                      </label>
+                    </span>
                   </span>
-                  <span className="inOption">
-                    <input
-                      name="gender"
-                      id="female"
-                      type="radio"
-                      value="female"
-                      ref={femaleRef}
-                    />
-                    <label htmlFor="female" name="female" className="lbl">
-                      여
-                    </label>
+                ) : (
+                  <span className="inpRdoSw sizeXL resume_right focus">
+                    <span className="inOption">
+                      <input
+                        name="gender"
+                        id="male"
+                        type="radio"
+                        value="male"
+                        ref={maleRef}
+                      />
+                      <label htmlFor="male" name="male" className="lbl">
+                        남
+                      </label>
+                    </span>
+                    <span className="inOption">
+                      <input
+                        name="gender"
+                        id="female"
+                        type="radio"
+                        value="female"
+                        checked
+                        ref={femaleRef}
+                      />
+                      <label htmlFor="female" name="female" className="lbl">
+                        여
+                      </label>
+                    </span>
                   </span>
-                </span>
+                )
               ) : (
                 <span className="inpRdoSw sizeXL resume_right focus">
                   <span className="inOption">
@@ -305,7 +340,6 @@ const ResumeMypage = () => {
                       id="female"
                       type="radio"
                       value="female"
-                      checked
                       ref={femaleRef}
                     />
                     <label htmlFor="female" name="female" className="lbl">
@@ -328,7 +362,7 @@ const ResumeMypage = () => {
                   className="box_input max_length"
                   placeholder="이메일 입력"
                   autoComplete="on"
-                  defaultValue={redata.user_email}
+                  defaultValue={redata ? redata.user_email : null}
                 />
               </div>
             </div>
@@ -389,7 +423,7 @@ const ResumeMypage = () => {
               </div>
             </div>
             <SkillTag
-              skill={JSON.parse(redata.user_skill || []) || []}
+              skill={redata ? JSON.parse(redata.user_skill || []) || [] : []}
               onData={skill}
             ></SkillTag>
             <div className="resume_row">
@@ -398,7 +432,7 @@ const ResumeMypage = () => {
                 <select
                   className="box_input"
                   name="work_st"
-                  defaultValue={redata.user_ws}
+                  defaultValue={redata ? redata.user_ws : null}
                   ref={wsRef}
                 >
                   <option value="allok">상관없음</option>
@@ -413,7 +447,7 @@ const ResumeMypage = () => {
                 <select
                   className="box_input"
                   name="work_ty"
-                  defaultValue={redata.user_wt}
+                  defaultValue={redata ? redata.user_wt : null}
                   ref={wtRef}
                 >
                   <option value="allok">상관없음</option>
@@ -424,12 +458,12 @@ const ResumeMypage = () => {
             </div>
             <div className="resume_row">
               <div className="input_title">희망 금액(월)</div>
-              <InputWon pay={redata.user_pay} onData={pay} />
+              <InputWon pay={redata ? redata.user_pay : 0} onData={pay} />
             </div>
             <div className="resume_row">
               <span className="input_title">프리랜서 경력</span>
               <InputCareer
-                career={redata.user_career}
+                career={redata ? redata.user_career : 0}
                 onData={career}
               ></InputCareer>
             </div>
@@ -464,7 +498,7 @@ const ResumeMypage = () => {
                   name="user_url"
                   className="box_input max_length"
                   placeholder="ex) https://github.com"
-                  defaultValue={redata.user_github}
+                  defaultValue={redata ? redata.user_github : null}
                   ref={githubRef}
                 />
               </div>
@@ -482,9 +516,7 @@ const ResumeMypage = () => {
             </Link>
           </div>
         </div>
-      ) : (
-        <></>
-      )}
+      </div>
     </div>
   );
 };

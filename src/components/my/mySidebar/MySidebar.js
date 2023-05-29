@@ -29,7 +29,7 @@ const MySidebar = () => {
   const freeTabs = [
     { name: "마이페이지 홈", path: "/free/mypage" },
     { name: "일정관리", path: "/free/calendar" },
-    { name: "이력서관리", path: "/free/resumemypage" },
+    { name: "이력서관리", path: "/free/myresume" },
     { name: "프로젝트목록", path: "/free/myproject" },
     { name: "회원정보수정", path: "/free/myinfo" },
   ];

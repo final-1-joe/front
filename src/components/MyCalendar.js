@@ -6,6 +6,7 @@ import '../css/MyCalendar.css';
 import CalModal from './Modals/CalModal';
 import MySidebar from './my/mySidebar/MySidebar';
 import axios from "axios";
+import ConfirmationModal from './Modals/ConfirmationModal';
 
 
 const MyCalendar = () => {
@@ -19,6 +20,7 @@ const MyCalendar = () => {
     const [isStartDateSelected, setIsStartDateSelected] = useState(false);
     const [events, setEvents] = useState([]);
     const [render, setRender] = useState(false);
+    const [showAddModal, setShowAddModal] = useState(false);
 
 
 
@@ -58,9 +60,13 @@ const MyCalendar = () => {
     };
 
 
-    const handleReset = () => {
+    const handleReset = (event) => {
+        event.preventDefault();
+        setContent('');
+        setTitle('');
         setStart('');
         setEnd('');
+        setColor('');
         setIsStartDateSelected(false);
     }
 
@@ -79,12 +85,11 @@ const MyCalendar = () => {
     };
 
     //axios 시작
-
+    const userid = window.sessionStorage.getItem('userid');
     const getEvent = () => {
         axios
-            .get("http://localhost:8080/schedule/get?user_id=admin", {})
-            // .get(`http://localhost8080/schedule/list?user_id=${userid}`, {}) 아이디 생기면 변경해야함
-            // httpsession이용하고싶긴한데..
+            // .get("http://localhost:8080/schedule/get?user_id=admin", {})
+            .get(`http://localhost:8080/schedule/get?user_id=${userid}`, {})
             .then((res) => {
                 const { data } = res;
                 const events = data.map((event) => {
@@ -119,6 +124,11 @@ const MyCalendar = () => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
+        setShowAddModal(true);
+    }
+
+    const confirmAdd = (event) => {
+        event.preventDefault();
 
         // 유효성 검사
         if (!title || !start || !color || !content) {
@@ -131,8 +141,8 @@ const MyCalendar = () => {
         }
         axios
             .post(`http://localhost:8080/schedule/insert`, {
-                user_id: 'admin',
-                // user_id : httpsession.user_id,
+                // user_id: 'admin',
+                user_id: userid,
                 schedule_title: title,
                 schedule_content: content,
                 schedule_start: start,
@@ -141,13 +151,14 @@ const MyCalendar = () => {
             })
             .then(() => {
                 setRender(!render);
+                setShowAddModal(false);
             })
             .catch((e) => {
                 console.error(e);
             })
 
 
-
+        setContent('');
         setTitle('');
         setStart('');
         setEnd('');
@@ -173,7 +184,7 @@ const MyCalendar = () => {
                     />
                 </div>
                 <div className="form-wrapper-gj">
-                    <form onSubmit={handleSubmit}>
+                    <form>
                         <label className='label-gj'>
                             제목:
                             <input className='calinput-gj' type="text" value={title} onChange={(e) => setTitle(e.target.value)} />
@@ -220,10 +231,16 @@ const MyCalendar = () => {
                                 ))}
                             </select>
                         </label>
-                        <button className='cal-button-gj' >추가</button>
+                        <button className='cal-button-gj' onClick={handleSubmit} >추가</button>
                     </form>
                 </div>
-                <CalModal open={modalOpen} close={closeModal} event={selectedEvent} render={render} setRender={setRender} />
+                <CalModal open={modalOpen} close={closeModal} event={selectedEvent} render={render} setRender={setRender} userid={userid} />
+                <ConfirmationModal
+                    open={showAddModal}
+                    message="스케줄을 추가할까요?"
+                    onConfirm={confirmAdd}
+                    onCancel={() => setShowAddModal(false)}
+                />
             </div>
         </div>
     );

@@ -10,7 +10,7 @@ import InputCareer from "./InputCareer";
 const Resume = () => {
   const [selectedoccupation, setSelectedOccupation] = useState("");
   const [telvalue, setTelValue] = useState("");
-  const us_id = "admin";
+  const user_id = window.sessionStorage.getItem("user_id");
   const nmRef = useRef();
   const jsRef = useRef();
   const bdRef = useRef();
@@ -91,7 +91,7 @@ const Resume = () => {
     if (fileList === undefined || fileList === null) {
       axios
         .post("http://localhost:8080/resume/insert", {
-          user_id: us_id,
+          user_id: user_id,
           user_nm: nmRef.current.value || null,
           user_js: jsRef.current.value || null,
           user_bd: bdRef.current.value || null,
@@ -125,7 +125,7 @@ const Resume = () => {
         .then((res) => {
           axios
             .post("http://localhost:8080/resume/insert", {
-              user_id: us_id,
+              user_id: user_id,
               user_nm: nmRef.current.value || null,
               user_js: jsRef.current.value || null,
               user_bd: bdRef.current.value || null,

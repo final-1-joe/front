@@ -9,6 +9,7 @@ const SupportBoardDetail = () => {
   const { id } = useParams();
   const sbqnum = parseInt(id);
   const [boarddetail, setBoarddetail] = useState([]);
+  const user_id = window.sessionStorage.getItem("user_id");
   useEffect(() => {
     getDetail();
   }, []);
@@ -69,19 +70,26 @@ const SupportBoardDetail = () => {
       </div>
       <SupportBoardAnswer sbqnum={sbqnum} />
       <div className="btns-area mt60">
-        <Link
-          to={`/support/board/modify`}
-          state={boarddetail.sbqnum}
-          className="btn-m02 btn-color02 depth3"
-        >
-          수정
-        </Link>
-        <Link
-          onClick={handleDelete}
-          className="btn-m02 btn-color02 depth3 open-password"
-        >
-          삭제
-        </Link>
+        {user_id === boarddetail.sbqwriter || user_id === "admin" ? (
+          <>
+            <Link
+              to={`/support/board/modify`}
+              state={boarddetail.sbqnum}
+              className="btn-m02 btn-color02 depth3"
+            >
+              수정
+            </Link>
+            <Link
+              onClick={handleDelete}
+              className="btn-m02 btn-color02 depth3 open-password"
+            >
+              삭제
+            </Link>
+          </>
+        ) : (
+          <></>
+        )}
+
         <Link to="/support/board" className="btn-m02 btn-color01 depth3">
           목록
         </Link>

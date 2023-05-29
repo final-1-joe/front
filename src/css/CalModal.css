@@ -5,15 +5,35 @@
     right: 0;
     bottom: 0;
     left: 0;
-    z-index: 99;
+    z-index: 1000;
     background-color: rgba(0, 0, 0, 0.6);
 }
+
+.confirmation-modal {
+    z-index: 9999;
+}
+
+.confirmation-modal>section>header {
+    position: relative;
+    padding: 16px 16px 16px 16px;
+    background-color: #ffffff !important;
+    font-size: 21px;
+    font-weight: 500;
+}
+
 
 .modal-cal button.cal-gj {
     outline: none;
     cursor: pointer;
     border: 0;
 }
+
+.modal-cal button.close-gj {
+    outline: none;
+    cursor: pointer;
+    border: 0;
+}
+
 
 .modal-cal>section {
     width: 90%;
@@ -28,9 +48,10 @@
 
 .modal-cal>section>header {
     position: relative;
-    padding: 16px 64px 16px 16px;
+    padding: 16px 16px 16px 16px;
     background-color: #FFEBB4;
-    font-weight: 700;
+    font-size: 21px;
+    font-weight: 500;
 }
 
 .modal-cal>section>header button {
@@ -41,7 +62,7 @@
     font-size: 21px;
     font-weight: 700;
     text-align: center;
-    color: #999;
+    color: #707070;
     background-color: transparent;
 }
 
