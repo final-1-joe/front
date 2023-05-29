@@ -2,11 +2,11 @@ import React, { useState, useEffect } from 'react';
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
-import '../css/MyCalendar.css';
-import CalModal from './Modals/CalModal';
-import MySidebar from './my/mySidebar/MySidebar';
+import '../../css/MyCalendar.css';
+import CalModal from './CalModal';
+import MySidebar from '../my/mySidebar/MySidebar';
 import axios from "axios";
-import ConfirmationModal from './Modals/ConfirmationModal';
+import ConfirmationModal from '../ConfirmationModal';
 
 
 const MyCalendar = () => {
@@ -85,10 +85,9 @@ const MyCalendar = () => {
     };
 
     //axios 시작
-    const userid = window.sessionStorage.getItem('userid');
+    const userid = window.sessionStorage.getItem('user_id');
     const getEvent = () => {
         axios
-            // .get("http://localhost:8080/schedule/get?user_id=admin", {})
             .get(`http://localhost:8080/schedule/get?user_id=${userid}`, {})
             .then((res) => {
                 const { data } = res;
@@ -221,7 +220,7 @@ const MyCalendar = () => {
                         </label>
                         <hr />
                         <label className='label-gj'>
-                            색깔 :
+                            컬러 :
                             <select className='cal-gj' value={color} onChange={handleColorChange}>
                                 <option value="">선택하세요</option>
                                 {colorList.map((item) => (

@@ -9,7 +9,7 @@ import PjDetail from "./components/Project/PjDetail";
 import PjRegistration from "./components/Project/PjRegistration";
 import PjUpdate from "./components/Project/PjUpdate";
 import "./css/Layout.css";
-import MyCalendar from "./components/MyCalendar";
+import MyCalendar from "./components/Schedule/MyCalendar";
 import ProjectManagement from "./components/ProjectManagement ";
 import RecruitmentManagement from "./components/RecruitmentManagement ";
 import DirectMessage from "./pages/DirectMessage";
@@ -38,6 +38,7 @@ import APSCNA from "./pages/Admin/APSCNA";
 import AdminClientList from "./pages/Admin/AdminClientList";
 import AdminUserList from "./pages/Admin/AdminUserList";
 import AdminProjectList from "./pages/Admin/AdminProjectList";
+import FreeCalendar from "./components/Schedule/FreeCalendar";
 
 
 function App() {
@@ -92,6 +93,7 @@ function App() {
           <Route path="/admin/free" element={<AdminUserList />} />
           <Route path="/admin/project" element={<AdminProjectList />} />
           <Route path="/direct" element={<DirectMessage />} />
+          <Route path="/free/calendar/:id" element={<FreeCalendar />} />
 
           <Route path="*" element={<Notfound />} />
         </Routes>
