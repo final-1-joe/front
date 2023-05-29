@@ -6,7 +6,7 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 
 const SupportQuesion = ({ scnum, scquestion, scanswer, getFaq }) => {
-  const userid = window.sessionStorage.getItem("userid");
+  const user_id = window.sessionStorage.getItem("user_id");
   const [modalOpen, setModalOpen] = useState(false);
   const questionRef = useRef();
   const answerRef = useRef();
@@ -90,7 +90,7 @@ const SupportQuesion = ({ scnum, scquestion, scanswer, getFaq }) => {
                         <p>{scanswer}</p>
                       </span>
                       <span className="sc_an-3">
-                        {userid === "admin" ? (
+                        {user_id === "admin" ? (
                           <>
                             <Link
                               className="btn_an"

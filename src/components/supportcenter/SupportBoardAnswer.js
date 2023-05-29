@@ -11,7 +11,7 @@ const SupportBoardAnswer = (props) => {
   const writerRef = useRef();
   const contentRef = useRef();
   const mocontentRef = useRef();
-  const userid = window.sessionStorage.getItem("userid");
+  const user_id = window.sessionStorage.getItem("user_id");
   useEffect(() => {
     getAnswer();
   }, []);
@@ -70,7 +70,7 @@ const SupportBoardAnswer = (props) => {
     axios
       .post("http://localhost:8080/support/answer/insert", {
         sbaanswer: contentRef.current.value,
-        sbawriter: userid,
+        sbawriter: user_id,
         sbquestion_id: sbqnum,
       })
       .then((res) => {
@@ -146,7 +146,7 @@ const SupportBoardAnswer = (props) => {
                   </div>
                 </div>
                 <div className="btns-area sc_an_wr_btn">
-                  {userid === "admin" ? (
+                  {user_id === "admin" ? (
                     <>
                       <Link
                         className="btn-m02 btn-color01 depth2"
@@ -169,7 +169,7 @@ const SupportBoardAnswer = (props) => {
             )}
           </>
         ))}
-      {userid === "admin" ? (
+      {user_id === "admin" ? (
         <>
           <div className="title-area">
             <h4>답변 등록</h4>
@@ -180,7 +180,7 @@ const SupportBoardAnswer = (props) => {
             name="writer"
             id="writer"
             ref={writerRef}
-            value={userid}
+            value={user_id}
           />
           <div className="sc_bl_wr sc_an_wr">
             <div className="sc_vi-contents">
