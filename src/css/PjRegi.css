@@ -1,6 +1,9 @@
 .PjRegisterTbl { text-align: left; margin: 0 auto; }
 
-.PjRegisterTbl td { padding: 0 5px; border: 3px solid white; }
+.PjRegisterTbl td { 
+    padding: 20px; 
+    /* border: 3px solid white; */
+}
 
 .PjRegisterTbl .info { background-color: #f5f5f5; text-align: center;}
 
@@ -11,8 +14,8 @@
 }
 
 .PjContent {
-    width: 800px; height: 300px;
-    resize: none; margin: 10px;
+    width: 600px; height: 300px;
+    resize: none;
 }
 
 .PjBtn {

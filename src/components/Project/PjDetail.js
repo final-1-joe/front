@@ -8,13 +8,9 @@ import ReviewWrite from "../Review/ReviewWrite";
 import { useEffect } from "react";
 
 const PjDetail = () => {
+  const navigate = useNavigate();
   const [reviewForm, setReviewForm] = useState(false);
   const [project, setProject] = useState([]);
-  const [similarlist, setSimilarlist] = useState([]);
-
-  const navigate = useNavigate();
-  // const location = useLocation();
-  // const pjInfo = { ...location.state };
 
   const { id } = useParams();
   const pj_num = parseInt(id);
@@ -27,7 +23,7 @@ const PjDetail = () => {
       .get(`http://localhost:8080/pjlist/pjdetail?pj_num=${pj_num}`, {})
       .then((res) => {
         const data = res.data;
-        console.log(data);
+        console.log("data: ", data);
         setProject(data);
       })
       .catch((e) => {
@@ -35,24 +31,29 @@ const PjDetail = () => {
       });
   };
 
-  const getSimilarList = () => {};
-
-  const onClickRegister = () => {
-    navigate("/pjregistration");
-  };
   const onClickUpdate = () => {
-    navigate("/pjdetail/update");
+    navigate(`/pjdetail/update/${pj_num}`);
   };
   const onClickDelete = () => {
-    alert("프로젝트가 삭제되었습니다.");
-    navigate("/pjlist");
+    console.log("[Delete]pj_num: ", pj_num);
+
+    axios
+      .get(`http://localhost:8080/pjdetail/delete?pj_num=${pj_num}`, {})
+      .then((res) => {
+        alert("프로젝트가 삭제되었습니다.");
+        navigate("/pjlist");
+      })
+      .catch((e) => {
+        alert("프로젝트 삭제에 실패했습니다.");
+        console.error(e);
+      });
   };
   const onClickLike = () => {
     alert("관심 프로젝트에 등록되었습니다");
   };
 
   return (
-    <div id="PjContainer">
+    <div className="PjContainer" id={project.pj_num}>
       <div className="PjDetail">
         <div className="PjDetailBox1">
           <table width="450px">
@@ -174,20 +175,15 @@ const PjDetail = () => {
           <br />
 
           <div className="PjManagement">
-            <span>
-              <input
-                type="button"
-                value="프로젝트 등록"
-                className="PjBtn1"
-                onClick={onClickRegister}
-              ></input>
-            </span>
-            <input
+            {/* <input
               type="button"
               value="수정"
               className="PjBtn2"
               onClick={onClickUpdate}
-            ></input>
+            ></input> */}
+            <Link to={`/pjdetail/update`}>
+              <span className="PjBtn2">수정</span>
+            </Link>
             <input
               type="button"
               value="삭제"

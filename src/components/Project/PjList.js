@@ -6,7 +6,7 @@ import { HiHashtag } from "react-icons/hi";
 const PjList = () => {
   //project데이터 가져오기
   const [pjlist, setPjlist] = useState([]);
-  const [project, setProject] = useState([]);
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -25,19 +25,6 @@ const PjList = () => {
         console.error(e);
       });
   };
-
-  // const getPjDetail = () => {
-  //   axios
-  //     .get("http://localhost:8080/pjlist/pjdetail", {})
-  //     .then((res) => {
-  //       const data = res.data;
-  //       console.log(data);
-  //       setProject(data);
-  //     })
-  //     .catch((e) => {
-  //       console.error(e);
-  //     });
-  // };
 
   return (
     <div>
