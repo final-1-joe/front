@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import moment from 'moment';
 import axios from 'axios';
 import '../../css/CalModal.css';
-import ConfirmationModal from './ConfirmationModal';
+import ConfirmationModal from '../ConfirmationModal';
 const CalModal = (props) => {
     const { open, close, event, render, setRender, userid } = props;
     const [edit, setEdit] = useState(false);
@@ -13,6 +13,7 @@ const CalModal = (props) => {
     const [memo, setMemo] = useState('');
     const [showSubmitModal, setShowSubmitModal] = useState(false);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
+    const [color, setColor] = useState('');
 
 
     useEffect(() => {
@@ -22,9 +23,26 @@ const CalModal = (props) => {
             setStart(event.start);
             setEnd(event.end);
             setMemo(event.extendedProps.memo);
+            setColor(event.color);
             setEdit(false);
         }
     }, [open]);
+
+    const colorList = [
+        { label: 'Red', value: 'red' },
+        { label: 'Blue', value: 'blue' },
+        { label: 'Green', value: 'green' },
+        { label: 'Yellow', value: 'yellow' },
+        { label: 'Orange', value: 'orange' },
+        { label: 'Purple', value: 'purple' },
+        { label: 'Pink', value: 'pink' },
+        { label: 'Brown', value: 'brown' },
+        { label: 'Gray', value: 'gray' },
+    ];
+
+    const handleColorChange = (e) => {
+        setColor(e.target.value);
+    };
 
     const memochange = (e) => {
         setMemo(e.target.value);
@@ -52,7 +70,8 @@ const CalModal = (props) => {
                 schedule_content: memo,
                 schedule_start: start,
                 schedule_end: end,
-                schedule_key: parseInt(id)
+                schedule_key: parseInt(id),
+                schedule_color: color
             })
             .then(() => {
                 setEdit(false);
@@ -139,6 +158,18 @@ const CalModal = (props) => {
                                 ) : null}
                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                 <textarea className='cal-textarea' maxLength="100" placeholder='최대 150자까지 가능합니다' value={memo} onChange={memochange}></textarea>
+                                <hr />
+                                <label className='label-gj'>
+                                    스케줄 컬러:
+                                    <select className='cal-gj' value={color} onChange={handleColorChange}>
+                                        <option value="">선택하세요</option>
+                                        {colorList.map((item) => (
+                                            <option key={item.value} value={item.value}>
+                                                {item.label}
+                                            </option>
+                                        ))}
+                                    </select>
+                                </label>
                             </main>
                             <footer>
                                 <button onClick={handlemodalSubmit}>수정완료</button>
@@ -164,8 +195,14 @@ const CalModal = (props) => {
                                     <p>끝 : {moment(event.end).format('YYYY-MM-DD HH:mm')}</p>
                                 ) : null}
                                 <p>{event.extendedProps.memo}</p>
+                                <hr />
+                                <label className='label-gj'>
+                                    스케줄 컬러:
+                                    <h4 style={{ color: color }}>{color}</h4>
+                                </label>
                             </main>
                             <footer>
+
                                 <button onClick={handleEdit}>수정</button>
                                 &nbsp;&nbsp;
                                 <button onClick={handlemodalDelete}>삭제</button>
