@@ -4,19 +4,17 @@ import { ko } from "date-fns/esm/locale";
 
 import "react-datepicker/dist/react-datepicker.css";
 
-const DatePick = ({ startDate, setStartDate }) => {
-  // const [test, setTest] = useState(new Date());
-  console.log(startDate);
+const DatePick2 = ({ periodDate, setPeriodDate }) => {
   return (
     <DatePicker
       locale={ko}
       dateFormat="yyyy-MM-dd"
       closeOnScroll={true}
-      selected={startDate}
+      selected={periodDate}
       minDate={new Date()}
-      onChange={(date) => setStartDate(date)}
+      onChange={(date) => setPeriodDate(date)}
     />
   );
 };
 
-export default DatePick;
+export default DatePick2;

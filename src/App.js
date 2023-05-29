@@ -32,9 +32,9 @@ import Loginselect from "./components/Login/Loginselect";
 import Registerform_1 from "./components/Login/Registerform_1";
 import Registerform_2 from "./components/Login/Registerform_2";
 import FreeMyProject from "./components/my/FreeMyProject";
-import Adminpage from "./pages/Adminpage";
-import APSCA from "./pages/APSCA";
-import APSCNA from "./pages/APSCNA";
+// import Adminpage from "./pages/Adminpage";
+// import APSCA from "./pages/APSCA";
+// import APSCNA from "./pages/APSCNA";
 
 function App() {
   return (
@@ -48,7 +48,7 @@ function App() {
             <Route path="/pjlist" element={<PjList />} />
             <Route path="/pjlist/pjdetail/:id" element={<PjDetail />} />
             <Route path="/pjdetail/update" element={<PjUpdate />} />
-            <Route path="/pjregistration" element={<PjRegistration />} />
+            <Route path="/pjdetail/insert" element={<PjRegistration />} />
             <Route path="/free/calendar" element={<MyCalendar />} />
             <Route path="/resume" element={<Resume />} />
 
@@ -81,9 +81,9 @@ function App() {
             <Route path="/free/myinfo" element={<FreeMyInfo />} />
             <Route path="/client/myinfo" element={<ClientMyInfo />} />
           </Route>
-          <Route path="/admin" element={<Adminpage />} />
+          {/* <Route path="/admin" element={<Adminpage />} />
           <Route path="/admin/sca" element={<APSCA />} />
-          <Route path="/admin/scna" element={<APSCNA />} />
+          <Route path="/admin/scna" element={<APSCNA />} /> */}
           <Route path="/direct" element={<DirectMessage />} />
 
           <Route path="*" element={<Notfound />} />
