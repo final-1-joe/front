@@ -85,7 +85,7 @@ function App() {
             <Route path="/free/myinfo" element={<FreeMyInfo />} />
             <Route path="/client/myinfo" element={<ClientMyInfo />} />
           </Route>
-          {/* <Route path="/admin" element={<Adminpage />} />
+          <Route path="/admin" element={<Adminpage />} />
           <Route path="/admin/sca" element={<APSCA />} />
           <Route path="/admin/scna" element={<APSCNA />} />
           <Route path="/admin/client" element={<AdminClientList />} />
