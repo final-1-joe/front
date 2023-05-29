@@ -10,7 +10,7 @@ let stompClient = null; // 웹소캣 라이브러리 stomp 객체 입니다. 랜
 
 function DirectMessage() {
   const [slide, setSlide] = useState(false); // 좌측 목록 채팅방  or 상세정보
-  const [cooperate] = useState(true); // 상세정보 창에서 협력중인지 아닌지에 따라 달라짐
+  const [cooperate, setCooperate] = useState(false); // 상세정보 창에서 협력중인지 아닌지에 따라 달라짐
   const [attach, setAttach] = useState(false); // 파일 첨부 버튼 클릭 여부
   const [select, setSelect] = useState(0); // 좌측 사이드바 채팅방 선택 시 변경되는 값 (초기값 0)
   const navigate = useNavigate(); // dm 나가기 버튼
@@ -44,13 +44,28 @@ function DirectMessage() {
   const [채팅방몇개, set채팅방몇개] = useState([]);
   const [채팅방num, set채팅방num] = useState(0);
   const [chatname, setChatname] = useState("");
+  const [userInfo, SetUserInfo] = useState({
+    user_code: "",
+    user_email: "",
+    user_id: "",
+    user_name: "",
+    user_tel: "",
+  });
   useEffect(() => {
     const chatDiv = chatRef.current;
     chatDiv.scrollTop = chatDiv.scrollHeight;
   });
 
-  //window.sessionStorage.setItem("member_id", "kys2743"); // 테스트용 로그인 아이디 세션, 채팅할때 이부분 주석
-  var login_id = String(window.sessionStorage.getItem("member_id"));
+  //window.sessionStorage.setItem("user_id", "aladin"); // 테스트용 로그인 아이디 세션, 채팅할때 이부분 주석
+  var login_id = String(window.sessionStorage.getItem("user_id"));
+
+  const isSameDate = (date1, date2) => {
+    return (
+      date1.getFullYear() === date2.getFullYear() &&
+      date1.getMonth() === date2.getMonth() &&
+      date1.getDate() === date2.getDate()
+    );
+  };
 
   const chatroom = () => {
     axios
@@ -86,9 +101,31 @@ function DirectMessage() {
         message_date: "",
       })
       .then((res) => {
-        console.log(res.data);
         const jsonData1 = res.data;
-        const data1array = Object.values(jsonData1);
+        const data1array = Object.values(jsonData1).map((item) => {
+          const messageDate = new Date(item.message_date);
+          const today = new Date();
+          const koreaTimeZoneOffset = 9 * 60; // 한국 시간과 UTC 시간의 차이 (분 단위)
+
+          if (isSameDate(messageDate, today)) {
+            // 오늘 날짜라면 한국 시간으로 시분초 표시
+            messageDate.setMinutes(
+              messageDate.getMinutes() + koreaTimeZoneOffset
+            );
+            const formattedTime = messageDate.toISOString().slice(11, 16); // 'hh:mm' 형식으로 표시
+            return {
+              ...item,
+              message_date: formattedTime,
+            };
+          } else {
+            // 오늘 날짜가 아니면 연월일로 표시
+            const formattedDate = messageDate.toISOString().slice(0, 10); // 'yyyy-MM-dd' 형식으로 표시
+            return {
+              ...item,
+              message_date: formattedDate,
+            };
+          }
+        });
         setChatArrayBox(data1array);
       })
       .catch((error) => {
@@ -96,22 +133,72 @@ function DirectMessage() {
       });
   };
 
-  const chatuserinfo = () => {
-    const userIDs = 채팅방몇개.map((obj) => obj.user_id); // user_id만 추출하여 새로운 배열 생성
-
-    const joinedUserIDs = userIDs.join(","); // 쉼표로 구분된 문자열로 변환
-
+  const chatRoomQuit = () => {
     axios
-      .get("http://localhost:8080/auth/userinfo2", {
+      .post("http://localhost:8080/quitChatroom", {
+        message_id: "",
+        chatroom_id: 채팅방num,
+        user_id: login_id,
+        message_content: "",
+        img_code: null,
+        file_code: null,
+        message_date: "",
+      })
+      .then((res) => {
+        console.log("채팅방 나가기 성공");
+        set채팅방num(0);
+        setSlide(false);
+        window.location.reload();
+      })
+      .catch((error) => {
+        console.error("/quitChatroom axios 에러 발생" + error);
+      });
+  };
+
+  function sendQuit() {
+    stompClient.send(
+      "/pub/message",
+      {},
+      JSON.stringify({
+        chatroom_id: 채팅방num,
+        user_id: login_id,
+        message_content: "",
+        message_date: Date.now(),
+        img_code: null,
+        file_code: null,
+      })
+    );
+    chatRoomQuit();
+  }
+
+  const chatuserinfo = () => {
+    axios
+      .get("http://localhost:8080/auth/userinfo", {
         params: {
-          user_id: joinedUserIDs,
+          user_id: chatname,
         },
       })
       .then((res) => {
-        console.log(res);
+        SetUserInfo(res.data);
       })
       .catch((err) => {
         console.error("/auth/userinfo 에러 발생" + err);
+      });
+  };
+
+  const chatuserinfowork = () => {
+    axios
+      .post("http://localhost:8080/getworkstate", {
+        my_user_id: login_id,
+        your_user_id: chatname,
+      })
+      .then((res) => {
+        if (res.data.some((item) => item.pj_status === "ongoing")) {
+          setCooperate(true);
+        }
+      })
+      .catch((err) => {
+        console.error("/getworkstate 에러 발생" + err);
       });
   };
 
@@ -124,6 +211,8 @@ function DirectMessage() {
     unsubscribe();
     chatroomcontent();
     chatroom();
+    chatuserinfo();
+    chatuserinfowork();
     connect();
   }, [채팅방num]);
 
@@ -139,6 +228,23 @@ function DirectMessage() {
         //console.log(response.body); // 채팅 내용인듯?
         var content = JSON.parse(response.body);
         setChatArray((prevChatArray) => {
+          const messageDate = new Date(content.message_date);
+          const today = new Date();
+          const koreaTimeZoneOffset = 9 * 60; // 한국 시간과 UTC 시간의 차이 (분 단위)
+
+          if (isSameDate(messageDate, today)) {
+            // 오늘 날짜라면 한국 시간으로 시분초 표시
+            messageDate.setMinutes(
+              messageDate.getMinutes() + koreaTimeZoneOffset
+            );
+            const formattedTime = messageDate.toISOString().slice(11, 16); // 'hh:mm' 형식으로 표시
+            content.message_date = formattedTime;
+          } else {
+            // 오늘 날짜가 아니면 연월일로 표시
+            const formattedDate = messageDate.toISOString().slice(0, 10); // 'yyyy-MM-dd' 형식으로 표시
+            content.message_date = formattedDate;
+          }
+
           if (
             prevChatArray.length === 0 ||
             prevChatArray[prevChatArray.length - 1].msgId !== content.user_id ||
@@ -182,6 +288,8 @@ function DirectMessage() {
 
   // 메시지를 웹소캣에 전달합니다.
   function send() {
+    const currentDate = +new Date();
+
     stompClient.send(
       "/pub/message",
       {},
@@ -189,7 +297,7 @@ function DirectMessage() {
         chatroom_id: 채팅방num,
         user_id: login_id,
         message_content: inputchat,
-        message_date: Date.now(),
+        message_date: currentDate,
         img_code: null,
         file_code: null,
       })
@@ -258,17 +366,29 @@ function DirectMessage() {
       ) : (
         <>
           <div className="dmLft-div">
-            <div
-              className="dmdetail-profile"
-              onClick={() => {
-                setSlide(!slide);
-              }}
-            ></div>
+            <>
+              {userInfo.user_code === "free" ? (
+                <div
+                  className="dmdetail-profile-freelancer"
+                  onClick={() => {
+                    setSlide(!slide);
+                  }}
+                ></div>
+              ) : (
+                <div
+                  className="dmdetail-profile-enterprise"
+                  onClick={() => {
+                    setSlide(!slide);
+                  }}
+                ></div>
+              )}
+            </>
+
             <div className="dmdetail-bottom">
               {/* 해당 값을 뭐 받아온 데이터[select] 이런식으로*/}
-              <div className="dmdetail-name">기업 1</div>{" "}
-              <div className="dmdetail-email">enterprise1@naver.com</div>
-              <div className="dmdetail-telephone">02-541-3000</div>
+              <div className="dmdetail-name">{userInfo.user_id}</div>
+              <div className="dmdetail-email">{userInfo.user_email}</div>
+              <div className="dmdetail-telephone">{userInfo.user_tel}</div>
               <div className="dmdetail-score">평점 4.2 / 5.0</div>
               <img
                 src="DirectMessage/4.5.png"
@@ -284,6 +404,14 @@ function DirectMessage() {
               ) : (
                 <div className="dmnot-cooperate">협업중인 기업이 아닙니다</div>
               )}
+              <div
+                className="dmroomquit"
+                onClick={() => {
+                  sendQuit();
+                }}
+              >
+                나가기
+              </div>
             </div>
           </div>
         </>
@@ -300,14 +428,7 @@ function DirectMessage() {
           {chatname === "" ? (
             <div className="dmRgt-center-logo-image"></div>
           ) : (
-            <div
-              className="dmRgt-center-div-profile"
-              onClick={() => {
-                alert("아이디 변경 dlrdyd97"); // 테스트용 코드
-                window.sessionStorage.setItem("member_id", "dlrdyd97");
-                login_id = window.sessionStorage.getItem("member_id");
-              }}
-            ></div>
+            <div className="dmRgt-center-div-profile"></div>
           )}
 
           <div className="dmRgt-center-div-name">{chatname}</div>
@@ -412,7 +533,11 @@ function DirectMessage() {
           // 웹소켓 통신을 채팅창에 표시하는 부분
           return (
             <>
-              {i.msgId === login_id ? (
+              {i.msgContent === "" ? (
+                <div className="dmquitalarm">
+                  {i.msgId}님이 채팅방을 나갔습니다.
+                </div>
+              ) : i.msgId === login_id ? (
                 <>
                   <img
                     src="DirectMessage/freelancer1.png"
@@ -458,7 +583,7 @@ function DirectMessage() {
                   <div className="dmcombine">
                     {i.img_code ? (
                       <img
-                        className="dmRgt-chat-content-me"
+                        className="dmRgt-chat-content"
                         src={"http://localhost:8080/upload/" + i.img_code}
                         style={{ objectFit: "cover" }}
                         alt="img"
@@ -486,12 +611,16 @@ function DirectMessage() {
       </div>
 
       <div className="dmRgt-div-input">
-        <div
-          className="dminput-something"
-          onClick={() => {
-            setAttach(!attach);
-          }}
-        ></div>
+        {chatname === "(알 수 없음)" ? (
+          <div className="dminput-something-no"></div>
+        ) : (
+          <div
+            className="dminput-something"
+            onClick={() => {
+              setAttach(!attach);
+            }}
+          ></div>
+        )}
         {attach === true ? (
           <>
             <div className="dmattach-pic" onClick={onClickImageInput}>
@@ -530,6 +659,7 @@ function DirectMessage() {
                   className="dmImageAccept"
                   onClick={() => {
                     if (imgFile) {
+                      const currentDate = +new Date();
                       stompClient.send(
                         "/pub/message",
                         {},
@@ -537,7 +667,7 @@ function DirectMessage() {
                           chatroom_id: 채팅방num,
                           user_id: login_id,
                           message_content: "사진",
-                          message_date: "",
+                          message_date: currentDate,
                           img_code: imgFileName,
                           file_code: null,
                         })
@@ -555,6 +685,7 @@ function DirectMessage() {
                         )
                         .then((res) => {
                           console.log("업로드 완료");
+                          setAttach(!attach);
                         })
                         .catch((error) => {
                           console.error("/file-upload axios 에러 발생" + error);
@@ -600,6 +731,7 @@ function DirectMessage() {
                   className="dmImageAccept"
                   onClick={() => {
                     if (dmfile) {
+                      const currentDate = +new Date();
                       stompClient.send(
                         "/pub/message",
                         {},
@@ -607,7 +739,7 @@ function DirectMessage() {
                           chatroom_id: 채팅방num,
                           user_id: login_id,
                           message_content: "첨부파일",
-                          message_date: "",
+                          message_date: currentDate,
                           img_code: null,
                           file_code: filename,
                         })
@@ -625,6 +757,7 @@ function DirectMessage() {
                         )
                         .then((res) => {
                           console.log("업로드 완료");
+                          setAttach(!attach);
                         })
                         .catch((error) => {
                           console.error("/file-upload axios 에러 발생" + error);
@@ -643,30 +776,47 @@ function DirectMessage() {
             )}
           </>
         ) : null}
-
-        <input
-          type="text"
-          className="dminput-text"
-          placeholder="메시지를 입력하세요"
-          value={inputchat}
-          onFocus={chatfocus}
-          onBlur={chatblur}
-          onChange={inputchatvalue}
-          onKeyDown={(e) => {
-            if (e.key === "Enter") {
-              // 엔터키를 눌러도 보내기 버튼을 누르는 것과 같음
-              send();
-            }
-          }}
-        ></input>
-        <div
-          className="dminput-button"
-          onClick={() => {
-            send();
-          }}
-        >
-          보내기
-        </div>
+        {chatname === "(알 수 없음)" ? (
+          <div className="dminput-text" style={{ color: "gray" }}>
+            대화 상대가 없습니다
+          </div>
+        ) : (
+          <input
+            type="text"
+            className="dminput-text"
+            placeholder="메시지를 입력하세요"
+            value={inputchat}
+            onFocus={chatfocus}
+            onBlur={chatblur}
+            onChange={inputchatvalue}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                // 엔터키를 눌러도 보내기 버튼을 누르는 것과 같음
+                if (inputchat === "") {
+                  alert("메시지를 입력하세요");
+                } else {
+                  send();
+                }
+              }
+            }}
+          ></input>
+        )}
+        {chatname === "(알 수 없음)" ? (
+          <div className="dminput-button-no">보내기</div>
+        ) : (
+          <div
+            className="dminput-button"
+            onClick={() => {
+              if (inputchat === "") {
+                alert("메시지를 입력하세요");
+              } else {
+                send();
+              }
+            }}
+          >
+            보내기
+          </div>
+        )}
         <div className="dminput-line"></div>
       </div>
     </div>
