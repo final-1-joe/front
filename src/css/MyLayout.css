@@ -19,6 +19,7 @@
   width: 800px;
   height: 80px;
   margin-bottom: 20px;
+  margin-right: 530px;
   border: 5px solid #ffebb4;
   border-radius: 20px;
   padding: 15px;
@@ -31,7 +32,7 @@
 }
 
 .myfreelancer {
-  width: 80vh;
+  width: 800px;
   height: 80px;
   margin-bottom: 20px;
   border: 5px solid #ffd2b4;

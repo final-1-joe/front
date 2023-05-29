@@ -10,7 +10,7 @@
 .myofferedProject {
   display: flex;
   position: relative;
-  width: 720px;
+  width: 500px;
   height: 80px;
   align-items: center;
   text-overflow: ellipsis;
@@ -25,6 +25,7 @@
 
 .myofferedProject p {
   font-size: 20px;
+  text-align: left;
 }
 
 button.myofferedButton {

@@ -5,7 +5,7 @@ import "../../css/MyLayout.css";
 import "../../css/MyInfoStyle.css";
 import axios from "axios";
 
-function FreeMyInfo({ user }) {
+function FreeMyInfo() {
   const [newPassword, setNewPassword] = useState("");
   const [newPasswordCheck, setNewPasswordCheck] = useState("");
   const [id, setId] = useState("");
@@ -40,7 +40,7 @@ function FreeMyInfo({ user }) {
 
   useEffect(() => {
     axios
-      .get("/auth/userinfo")
+      .get("http://localhost:8080/auth/userinfo")
       .then((response) => {
         const userData = response.data;
         setId(userData.user_id);
@@ -57,7 +57,7 @@ function FreeMyInfo({ user }) {
     e.preventDefault();
 
     await axios
-      .put("/auth/updateuser", {
+      .put("http://localhost:8080/auth/updateuser", {
         user_pw: newPassword,
         user_name: getNewName,
         user_email: getNewEmail,

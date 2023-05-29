@@ -1,17 +1,33 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import MySidebarItem from "./MySidebarItem";
 import "../../../css/MySidebarStyle.css";
+import axios from "axios";
 
 const MySidebar = () => {
   const paths = useLocation().path;
-  //const user_code = localStorage.getItem("user_code");
-  //const user_code = window.sessionStorage("user_code");
+  //const [userCode, setUserCode] = useState("");
   const pathName = useLocation().pathname.split("/")[1];
 
+  // useEffect(() => {
+  //   const fetchUserCode = async () => {
+  //     try {
+  //       const userId = window.sessionStorage.getItem("user_id");
+  //       const response = await axios.get(
+  //         `http://localhost:8080/auth/user_code?user_id=${userId}`
+  //       );
+  //       const userCode = response.data;
+  //       window.sessionStorage.setItem("user_code", userCode);
+  //       setUserCode(userCode);
+  //     } catch (error) {
+  //       console.error(error);
+  //     }
+  //   };
+  //   fetchUserCode();
+  // }, []);
+
   const freeTabs = [
-    //Menus
-    { name: "마이페이지 홈", path: "/free/mypage" }, //freelancer/mypage
+    { name: "마이페이지 홈", path: "/free/mypage" },
     { name: "일정관리", path: "/free/calendar" },
     { name: "이력서관리", path: "/free/resumemypage" },
     { name: "프로젝트목록", path: "/free/myproject" },
@@ -32,13 +48,12 @@ const MySidebar = () => {
 
   // let sidebarTitle = "";
 
-  // if (user_code === "client") {
+  // if (userCode === "client") {
   //   sidebarTitle = clientTabs;
-  // }
-  // else if(user_code === "freelancer") {
+  // } else if (userCode === "free") {
   //   sidebarTitle = freeTabs;
   // }
-
+  //sidebarTitle.map Tabs[pathName]
   return (
     <div className="myside">
       <div className="mymenu">

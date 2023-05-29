@@ -12,6 +12,7 @@ function ClientMyInfo() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
+  const [license, setLicense] = useState("");
   const navigate = useNavigate();
 
   const getNewPassword = (e) => {
@@ -34,23 +35,34 @@ function ClientMyInfo() {
     setPhone(e.target.value);
   };
 
+  const getNewLicense = (e) => {
+    setLicense(e.target.value);
+  };
+
   const passwordRegex =
     /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,16}$/;
   const phoneRegex = /^[0-9]{10,11}$/;
 
   useEffect(() => {
+    // const isLoggedIn = window.sessionStorage.getItem("isLoggedIn");
+    // if (isLoggedIn === "true") {
+    //   const user_id = window.sessionStorage.getItem("user_id");
+    //   setId(user_id);
     axios
       .get("/auth/userinfo")
       .then((response) => {
-        const userData = response.data;
-        setId(userData.user_id);
-        setName(userData.user_name);
-        setEmail(userData.user_email);
-        setPhone(userData.user_tel);
+        const { user_id, user_name, user_email, user_tel } = response.data;
+        setId(user_id);
+        setName(user_name);
+        setPhone(user_tel);
+        setEmail(user_email);
       })
       .catch((error) => {
         console.error(error);
       });
+    // } else {
+    //   navigate("/loginform");
+    // }
   }, []);
 
   const handleSubmit = async (e) => {
@@ -62,10 +74,11 @@ function ClientMyInfo() {
         user_name: getNewName,
         user_email: getNewEmail,
         user_tel: getNewPhone,
+        user_license: getNewLicense,
       })
       .then(() => {
         alert("회원정보가 변경되었습니다");
-        navigate("/free/mypage");
+        navigate("/client/mypage");
       })
       .catch((error) => {
         console.log(error);
@@ -171,6 +184,20 @@ function ClientMyInfo() {
           <p className="myError">
             {!phoneRegex.test(phone) ? "-없이 숫자만 입력해주세요" : ""}
           </p>
+          <div className="mylistGroup">
+            <label for="license" className="mylabel">
+              사업자등록증
+            </label>
+            <input
+              className="myfileinput"
+              type="file"
+              id="license"
+              name="license"
+              accept="image/*, .pdf"
+              value={license}
+              onChange={getNewLicense}
+            />
+          </div>
         </div>
         <button className="myeditInfo" type="submit" onSubmit={handleSubmit}>
           수정하기
