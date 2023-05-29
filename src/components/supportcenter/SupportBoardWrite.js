@@ -6,8 +6,12 @@ const SupportBoardWrite = () => {
   const titleRef = useRef();
   const contentRef = useRef();
   const navigate = useNavigate();
+  const userid = window.sessionStorage.getItem("userid");
   const handleInsert = () => {
     console.log("handleInsert =>", titleRef.current.value);
+    if (!userid) {
+      alert("로그인후 작성하세요!!!");
+    }
     if (titleRef.current.value === "" || titleRef.current.value === undefined) {
       alert("제목을 입력하세요!!!");
       titleRef.current.focus();
@@ -24,7 +28,7 @@ const SupportBoardWrite = () => {
 
     axios
       .post("http://localhost:8080/support/board/insert", {
-        sbqwriter: "admin",
+        sbqwriter: userid,
         sbqsubject: titleRef.current.value,
         sbqcontent: contentRef.current.value,
       })

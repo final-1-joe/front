@@ -13,7 +13,8 @@ const TagConfigClient = () => {
   const [selectedJobs, setSelectedJobs] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
   const [redata, setRedata] = useState();
-  const user_id = "admin3";
+  const userid = window.sessionStorage.getItem("userid");
+
   const jsRef = useRef();
   const [js, setJs] = useState("work");
   const jgRef = useRef();
@@ -63,7 +64,7 @@ const TagConfigClient = () => {
   const getTag = () => {
     axios
       .post("http://localhost:8080/clitag/select", {
-        user_id: user_id,
+        user_id: userid,
       })
       .then((res) => {
         setRedata(res.data);
@@ -75,14 +76,14 @@ const TagConfigClient = () => {
   const insertTag = () => {
     axios
       .post("http://localhost:8080/clitag/select", {
-        user_id: user_id,
+        user_id: userid,
       })
       .then((res) => {
         const count = res.data;
         if (count === "" || count === null) {
           axios
             .post("http://localhost:8080/clitag/insert", {
-              user_id: user_id,
+              user_id: userid,
               cli_jg: jgRef.current.props
                 ? jgRef.current.props.value.value
                 : null,
@@ -107,7 +108,7 @@ const TagConfigClient = () => {
         } else {
           axios
             .post("http://localhost:8080/clitag/update", {
-              user_id: user_id,
+              user_id: userid,
               cli_jg: jgRef.current.props
                 ? jgRef.current.props.value.value
                 : null,
