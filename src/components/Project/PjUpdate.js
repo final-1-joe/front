@@ -1,28 +1,28 @@
-import DatePick from "./PjDatePick";
 import "../../css/PjRegi.css";
 import axios from "axios";
-import { useState, useEffect } from "react";
+import { useRef, useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 const PjUpdate = () => {
-  // 동작x 수정 필요
   const navigate = useNavigate();
   const { id } = useParams();
   const pj_num = parseInt(id);
-  const [pjupdate, setPjupdate] = useState({
-    pj_title: "",
-    pj_corpname: "",
-    pj_content: "",
-    pj_pay: "",
-    pj_start: "",
-    pj_period: "",
-    pj_day: "",
-    pj_work_form: "",
-    pj_place: "",
-    pj_job: "",
-    pj_skill: "",
-    pj_pick: "",
-  });
+
+  const titleRef = useRef();
+  const contentRef = useRef();
+  const payRef = useRef();
+  const startRef = useRef();
+  const endRef = useRef();
+  const periodRef = useRef();
+  const dayRef = useRef();
+  const workformRef = useRef();
+  const placeRef = useRef();
+  const jobRef = useRef();
+  const skillRef = useRef();
+  const pickRef = useRef();
+
+  const [pjdetail, setPjdetail] = useState([]);
+
   useEffect(() => {
     getPjDetail();
   }, []);
@@ -33,7 +33,7 @@ const PjUpdate = () => {
       .then((res) => {
         const data = res.data;
         console.log("getPjDetail: ", data);
-        // setPjupdate(data);
+        setPjdetail(data);
       })
       .catch((e) => {
         console.error(e);
@@ -41,41 +41,37 @@ const PjUpdate = () => {
   };
 
   const handleUpdate = () => {
+    console.log("pjdetail.pj_num: ", pjdetail.pj_num);
     axios
-      .post(`http://localhost:8080/pjdetail/update`, { pj_num: pj_num })
+      .post(`http://localhost:8080/pjdetail/update`, {
+        pj_num: pjdetail.pj_num,
+        pj_title: titleRef.current.value,
+        pj_corpname: pjdetail.pj_corpname,
+        pj_content: contentRef.current.value,
+        pj_pay: payRef.current.value,
+        pj_start: startRef.current.value,
+        pj_end: endRef.current.value,
+        pj_period: periodRef.current.value,
+        pj_day: pjdetail.pj_day,
+        pj_work_form: workformRef.current.value,
+        pj_place: placeRef.current.value,
+        pj_job: jobRef.current.value,
+        pj_skill: skillRef.current.value,
+        pj_pick: pickRef.current.value,
+        user_id: "admin",
+      })
       .then((res) => {
-        getPjDetail();
-        const { data } = res; // const data = res.data;
-        console.log("getPjDetail => handleUpdate: ", data);
-
-        setPjupdate({
-          pj_title: data.pj_title,
-          pj_corpname: data.pj_corpname,
-          pj_content: data.pj_content,
-          pj_pay: data.pj_pay,
-          pj_start: data.pj_start,
-          pj_period: data.pj_period,
-          pj_day: data.pj_day,
-          pj_work_form: data.pj_work_form,
-          pj_place: data.pj_place,
-          pj_job: data.pj_job,
-          pj_skill: data.pj_skill,
-          pj_pick: data.pj_pick,
-        });
+        const data = res.data;
+        console.log("pj_num: ", pjdetail.pj_num);
+        console.log("updated data: ", data);
         alert("프로젝트가 수정되었습니다.");
+        navigate(`/pjlist/pjdetail/${pj_num}`);
       })
       .catch((e) => {
-        console.log("pj_num: ", pj_num);
         console.error(e);
         alert("프로젝트 수정에 실패했습니다.");
+        navigate(`/pjlist/pjdetail/${pj_num}`);
       });
-  };
-
-  const onChange = (e) => {
-    setPjupdate({
-      ...pjupdate,
-      [e.target.name]: e.target.value,
-    });
   };
 
   return (
@@ -89,72 +85,102 @@ const PjUpdate = () => {
               <input
                 type="text"
                 size="60"
-                defaultValue={pjupdate.pj_title}
-                onChange={onChange}
+                defaultValue={pjdetail.pj_title}
+                ref={titleRef}
               ></input>
             </td>
           </tr>
           <tr>
             <td>회사명&nbsp;&nbsp;(주)</td>
-            <td>
-              <input type="text" size="30" value={pjupdate.pj_corpname}></input>
-            </td>
+            <td>{pjdetail.pj_corpname}</td>
           </tr>
           <tr>
             <td>근무 형태 / 지역</td>
             {/* (select option으로 처리 전)임시 입력창 */}
             <td>
-              <input
+              <select
+                className="ListSelect"
+                defaultValue={pjdetail.pj_work_form}
+                ref={workformRef}
+              >
+                <option value="원격">원격</option>
+                <option value="상주">상주</option>
+              </select>
+              {/* <input
                 type="text"
                 size="30"
-                defaultValue={pjupdate.pj_work_form}
-                onChange={onChange}
-              ></input>
+                defaultValue={pjdetail.pj_work_form}
+                ref={workformRef}
+              ></input> */}
               &nbsp;&nbsp;
-              <input
+              {/* <input
                 type="text"
                 size="30"
-                defaultValue={pjupdate.pj_place}
-                onChange={onChange}
-              ></input>
+                defaultValue={pjdetail.pj_place}
+                ref={placeRef}
+              ></input> */}
+              <select
+                className="ListSelect"
+                defaultValue={pjdetail.pj_place}
+                ref={placeRef}
+              >
+                <option value="서울">서울</option>
+                <option value="경기">경기</option>
+                <option value="인천">인천</option>
+                <option value="강원">강원</option>
+                <option value="충청">충청</option>
+                <option value="전라">전라</option>
+                <option value="경상">경상</option>
+                <option value="제주">제주</option>
+                <option value="해외">해외</option>
+                <option value="자택">자택</option>
+              </select>
             </td>
           </tr>
           <tr>
             <td>시작 예정일</td>
             <td>
-              {/* <DatePick startDate={startDate} setStartDate={setStartDate} /> */}
               <input
-                type="text"
+                type="date"
                 size="30"
-                defaultValue={pjupdate.pj_start}
-                onChange={onChange}
+                defaultValue={pjdetail.pj_start}
+                ref={startRef}
               ></input>
             </td>
           </tr>
           <tr>
-            <td>모집 마감일</td>
+            <td>종료 예정일</td>
             <td>
-              {/* <DatePick2
-                periodDate={periodDate}
-                setPeriodDate={setPeriodDate}
-              /> */}
               <input
-                type="text"
-                size="30"
-                defaultValue={pjupdate.pj_period}
-                onChange={onChange}
+                type="date"
+                defaultValue={pjdetail.pj_end}
+                ref={endRef}
               ></input>
             </td>
           </tr>
           <tr>
             <td>직군</td> {/* (select option으로 처리 전)임시 입력창 */}
             <td>
-              <input
+              {/* <input
                 type="text"
                 size="30"
-                defaultValue={pjupdate.pj_job}
-                onChange={onChange}
-              ></input>
+                defaultValue={pjdetail.pj_job}
+                ref={jobRef}
+              ></input> */}
+              <select
+                className="ListSelect"
+                defaultValue={pjdetail.pj_job}
+                ref={jobRef}
+              >
+                <option value="개발">개발</option>
+                <option value="경영·비즈니스">경영·비즈니스</option>
+                <option value="마케팅·광고">마케팅·광고</option>
+                <option value="디자인">디자인</option>
+                <option value="미디어">미디어</option>
+                <option value="엔지니어링·설계">엔지니어링·설계</option>
+                <option value="법률·법집행기관">법률·법집행기관</option>
+                <option value="기타">기타</option>
+              </select>
             </td>
           </tr>
           <tr>
@@ -162,20 +188,20 @@ const PjUpdate = () => {
             <td>
               <input
                 type="text"
-                defaultValue={pjupdate.pj_pay}
-                onChange={onChange}
+                defaultValue={pjdetail.pj_pay}
+                ref={payRef}
               ></input>
             </td>
           </tr>
           <tr>
-            <td>프로젝트 기간</td>
+            <td>모집 마감일</td>
             <td>
               <input
-                type="text"
-                defaultValue={pjupdate.pj_day}
-                onChange={onChange}
+                type="date"
+                size="30"
+                defaultValue={pjdetail.pj_period}
+                ref={periodRef}
               ></input>
-              &nbsp;개월
             </td>
           </tr>
           <tr>
@@ -183,8 +209,8 @@ const PjUpdate = () => {
             <td>
               <input
                 type="text"
-                defaultValue={pjupdate.pj_pick}
-                onChange={onChange}
+                defaultValue={pjdetail.pj_pick}
+                ref={pickRef}
               ></input>
               &nbsp;&nbsp;명
             </td>
@@ -194,11 +220,9 @@ const PjUpdate = () => {
             <td>
               <input
                 type="text"
-                defaultValue={pjupdate.pj_skill}
-                onChange={onChange}
+                defaultValue={pjdetail.pj_skill}
+                ref={skillRef}
               ></input>
-              <input type="button" value="+" className="pjbtn"></input>
-              {/* 임시: 필요 스킬 직접 입력 / 추후: 태그 선택하도록 구현 */}
             </td>
           </tr>
           <tr>
@@ -206,25 +230,19 @@ const PjUpdate = () => {
             <td>
               <textarea
                 className="PjContent"
-                defaultValue={pjupdate.pj_content}
-                onChange={onChange}
+                defaultValue={pjdetail.pj_content}
+                ref={contentRef}
               ></textarea>
             </td>
           </tr>
         </table>
         <br />
-        <input
-          value="등록"
-          className="PjBtn"
-          onClick={() => handleUpdate()}
-        ></input>
-        &nbsp;&nbsp;
-        <input
-          type="reset"
-          value="취소"
-          className="PjBtn"
-          onClick={() => navigate(-1)}
-        ></input>
+        <button className="PjBtn" onClick={() => handleUpdate()}>
+          수정
+        </button>
+        <button className="PjBtn" onClick={() => navigate(-1)}>
+          취소
+        </button>
       </div>
     </div>
   );

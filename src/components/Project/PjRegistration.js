@@ -1,14 +1,10 @@
-// import DatePick from "./PjDatePick";
-// import DatePick2 from "./PjDatePick2";
 import "../../css/PjRegi.css";
 import { useNavigate } from "react-router-dom";
 import { useRef, useState } from "react";
 import axios from "axios";
+import Select from "react-select";
 
 const PjRegistration = () => {
-  // const [startDate, setStartDate] = useState(new Date());
-  // const [periodDate, setPeriodDate] = useState(new Date());
-  // const [test2, setTest2] = useState("");
   const navigate = useNavigate();
 
   const [info, setInfo] = useState({
@@ -18,7 +14,7 @@ const PjRegistration = () => {
     pj_pay: "",
     pj_start: "",
     pj_period: "",
-    pj_day: "",
+    pj_end: "",
     pj_work_form: "",
     pj_place: "",
     pj_job: "",
@@ -32,7 +28,7 @@ const PjRegistration = () => {
   const payRef = useRef();
   const startRef = useRef();
   const periodRef = useRef();
-  const dayRef = useRef();
+  const endRef = useRef();
   const workformRef = useRef();
   const placeRef = useRef();
   const jobRef = useRef();
@@ -40,7 +36,7 @@ const PjRegistration = () => {
   const pickRef = useRef();
 
   const handleInsert = () => {
-    console.log("handleInsert =>", titleRef.current.value);
+    console.log("handleInsert => pj_title: ", titleRef.current.value);
     if (titleRef.current.value === "" || titleRef.current.value === undefined) {
       alert("프로젝트명을 입력하세요.");
       titleRef.current.focus();
@@ -64,11 +60,6 @@ const PjRegistration = () => {
       contentRef.current.focus();
       return false;
     }
-    // const year = startDate.getFullYear();
-    // const month = startDate.getMonth() + 1;
-    // const day = startDate.getDate();
-    // console.log([year, month, day].join("-"));
-    // setTest2([year, month, day].join("-"));
 
     axios
       .post("http://localhost:8080/pjdetail/insert", {
@@ -78,7 +69,7 @@ const PjRegistration = () => {
         pj_pay: info.pj_pay,
         pj_start: info.pj_start,
         pj_period: info.pj_period,
-        pj_day: info.pj_day,
+        pj_end: info.pj_end,
         pj_work_form: info.pj_work_form,
         pj_place: info.pj_place,
         pj_job: info.pj_job,
@@ -140,12 +131,9 @@ const PjRegistration = () => {
           </tr>
           <tr>
             <td>근무 형태 / 지역</td>
-            {/* (select option으로 처리 전)임시 입력창 */}
             <td>
-              <input
-                type="text"
-                size="30"
-                placeholder="근무 형태"
+              <select
+                className="ListSelect"
                 ref={workformRef}
                 onChange={() =>
                   setInfo((prevInfo) => ({
@@ -153,12 +141,13 @@ const PjRegistration = () => {
                     pj_work_form: workformRef.current.value,
                   }))
                 }
-              ></input>
+              >
+                <option value="원격">원격</option>
+                <option value="상주">상주</option>
+              </select>
               &nbsp;&nbsp;
-              <input
-                type="text"
-                size="30"
-                placeholder="근무 지역"
+              <select
+                className="ListSelect"
                 ref={placeRef}
                 onChange={() =>
                   setInfo((prevInfo) => ({
@@ -166,17 +155,26 @@ const PjRegistration = () => {
                     pj_place: placeRef.current.value,
                   }))
                 }
-              ></input>
+              >
+                <option value="서울">서울</option>
+                <option value="경기">경기</option>
+                <option value="인천">인천</option>
+                <option value="강원">강원</option>
+                <option value="충청">충청</option>
+                <option value="전라">전라</option>
+                <option value="경상">경상</option>
+                <option value="제주">제주</option>
+                <option value="해외">해외</option>
+                <option value="자택">자택</option>
+              </select>
             </td>
           </tr>
           <tr>
             <td>시작 예정일</td>
             <td>
-              {/* <DatePick startDate={startDate} setStartDate={setStartDate} /> */}
               <input
-                type="text"
+                type="date"
                 size="30"
-                placeholder="yyyy-MM-dd"
                 ref={startRef}
                 onChange={() =>
                   setInfo((prevInfo) => ({
@@ -188,33 +186,25 @@ const PjRegistration = () => {
             </td>
           </tr>
           <tr>
-            <td>모집 마감일</td>
+            <td>종료 예정일</td>
             <td>
-              {/* <DatePick2
-                periodDate={periodDate}
-                setPeriodDate={setPeriodDate}
-              /> */}
               <input
-                type="text"
-                size="30"
-                placeholder="yyyy-MM-dd"
-                ref={periodRef}
+                type="date"
+                ref={endRef}
                 onChange={() =>
                   setInfo((prevInfo) => ({
                     ...prevInfo,
-                    pj_period: periodRef.current.value,
+                    pj_end: endRef.current.value,
                   }))
                 }
               ></input>
             </td>
           </tr>
           <tr>
-            <td>직군</td> {/* (select option으로 처리 전)임시 입력창 */}
+            <td>직군</td>
             <td>
-              <input
-                type="text"
-                size="30"
-                placeholder="모집 직군을 입력하세요"
+              <select
+                className="ListSelect"
                 ref={jobRef}
                 onChange={() =>
                   setInfo((prevInfo) => ({
@@ -222,7 +212,16 @@ const PjRegistration = () => {
                     pj_job: jobRef.current.value,
                   }))
                 }
-              ></input>
+              >
+                <option value="개발">개발</option>
+                <option value="경영·비즈니스">경영·비즈니스</option>
+                <option value="마케팅·광고">마케팅·광고</option>
+                <option value="디자인">디자인</option>
+                <option value="미디어">미디어</option>
+                <option value="엔지니어링·설계">엔지니어링·설계</option>
+                <option value="법률·법집행기관">법률·법집행기관</option>
+                <option value="기타">기타</option>
+              </select>
             </td>
           </tr>
           <tr>
@@ -242,19 +241,19 @@ const PjRegistration = () => {
             </td>
           </tr>
           <tr>
-            <td>프로젝트 기간</td>
+            <td>모집 마감일</td>
             <td>
               <input
-                type="text"
-                ref={dayRef}
+                type="date"
+                size="30"
+                ref={periodRef}
                 onChange={() =>
                   setInfo((prevInfo) => ({
                     ...prevInfo,
-                    pj_day: dayRef.current.value,
+                    pj_period: periodRef.current.value,
                   }))
                 }
               ></input>
-              &nbsp;개월
             </td>
           </tr>
           <tr>
@@ -287,8 +286,6 @@ const PjRegistration = () => {
                   }))
                 }
               ></input>
-              <input type="button" value="+" className="pjbtn"></input>
-              {/* 임시: 필요 스킬 직접 입력 / 추후: 태그 선택하도록 구현 */}
             </td>
           </tr>
           <tr>
@@ -309,18 +306,13 @@ const PjRegistration = () => {
           </tr>
         </table>
         <br />
-        <input
-          value="등록"
-          className="PjBtn"
-          onClick={() => handleInsert()}
-        ></input>
+        <button className="PjBtn" onClick={() => handleInsert()}>
+          등록
+        </button>
         &nbsp;&nbsp;
-        <input
-          type="reset"
-          value="취소"
-          className="PjBtn"
-          onClick={() => navigate(-1)}
-        ></input>
+        <button className="PjBtn" onClick={() => navigate(-1)}>
+          취소
+        </button>
       </div>
     </div>
   );
