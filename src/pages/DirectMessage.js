@@ -10,7 +10,7 @@ let stompClient = null; // 웹소캣 라이브러리 stomp 객체 입니다. 랜
 
 function DirectMessage() {
   const [slide, setSlide] = useState(false); // 좌측 목록 채팅방  or 상세정보
-  const [cooperate] = useState(true); // 상세정보 창에서 협력중인지 아닌지에 따라 달라짐
+  const [cooperate, setCooperate] = useState(false); // 상세정보 창에서 협력중인지 아닌지에 따라 달라짐
   const [attach, setAttach] = useState(false); // 파일 첨부 버튼 클릭 여부
   const [select, setSelect] = useState(0); // 좌측 사이드바 채팅방 선택 시 변경되는 값 (초기값 0)
   const navigate = useNavigate(); // dm 나가기 버튼
@@ -44,13 +44,20 @@ function DirectMessage() {
   const [채팅방몇개, set채팅방몇개] = useState([]);
   const [채팅방num, set채팅방num] = useState(0);
   const [chatname, setChatname] = useState("");
+  const [userInfo, SetUserInfo] = useState({
+    user_code: "",
+    user_email: "",
+    user_id: "",
+    user_name: "",
+    user_tel: "",
+  });
   useEffect(() => {
     const chatDiv = chatRef.current;
     chatDiv.scrollTop = chatDiv.scrollHeight;
   });
 
-  //window.sessionStorage.setItem("member_id", "kys2743"); // 테스트용 로그인 아이디 세션, 채팅할때 이부분 주석
-  var login_id = String(window.sessionStorage.getItem("member_id"));
+  //window.sessionStorage.setItem("user_id", "aladin"); // 테스트용 로그인 아이디 세션, 채팅할때 이부분 주석
+  var login_id = String(window.sessionStorage.getItem("user_id"));
 
   const isSameDate = (date1, date2) => {
     return (
@@ -165,21 +172,33 @@ function DirectMessage() {
   }
 
   const chatuserinfo = () => {
-    const userIDs = 채팅방몇개.map((obj) => obj.user_id); // user_id만 추출하여 새로운 배열 생성
-
-    const joinedUserIDs = userIDs.join(","); // 쉼표로 구분된 문자열로 변환
-
     axios
-      .get("http://localhost:8080/auth/userinfo2", {
+      .get("http://localhost:8080/auth/userinfo", {
         params: {
-          user_id: joinedUserIDs,
+          user_id: chatname,
         },
       })
       .then((res) => {
-        console.log(res);
+        SetUserInfo(res.data);
       })
       .catch((err) => {
         console.error("/auth/userinfo 에러 발생" + err);
+      });
+  };
+
+  const chatuserinfowork = () => {
+    axios
+      .post("http://localhost:8080/getworkstate", {
+        my_user_id: login_id,
+        your_user_id: chatname,
+      })
+      .then((res) => {
+        if (res.data.some((item) => item.pj_status === "ongoing")) {
+          setCooperate(true);
+        }
+      })
+      .catch((err) => {
+        console.error("/getworkstate 에러 발생" + err);
       });
   };
 
@@ -192,6 +211,8 @@ function DirectMessage() {
     unsubscribe();
     chatroomcontent();
     chatroom();
+    chatuserinfo();
+    chatuserinfowork();
     connect();
   }, [채팅방num]);
 
@@ -345,17 +366,29 @@ function DirectMessage() {
       ) : (
         <>
           <div className="dmLft-div">
-            <div
-              className="dmdetail-profile"
-              onClick={() => {
-                setSlide(!slide);
-              }}
-            ></div>
+            <>
+              {userInfo.user_code === "free" ? (
+                <div
+                  className="dmdetail-profile-freelancer"
+                  onClick={() => {
+                    setSlide(!slide);
+                  }}
+                ></div>
+              ) : (
+                <div
+                  className="dmdetail-profile-enterprise"
+                  onClick={() => {
+                    setSlide(!slide);
+                  }}
+                ></div>
+              )}
+            </>
+
             <div className="dmdetail-bottom">
               {/* 해당 값을 뭐 받아온 데이터[select] 이런식으로*/}
-              <div className="dmdetail-name">기업 1</div>{" "}
-              <div className="dmdetail-email">enterprise1@naver.com</div>
-              <div className="dmdetail-telephone">02-541-3000</div>
+              <div className="dmdetail-name">{userInfo.user_id}</div>
+              <div className="dmdetail-email">{userInfo.user_email}</div>
+              <div className="dmdetail-telephone">{userInfo.user_tel}</div>
               <div className="dmdetail-score">평점 4.2 / 5.0</div>
               <img
                 src="DirectMessage/4.5.png"
@@ -395,14 +428,7 @@ function DirectMessage() {
           {chatname === "" ? (
             <div className="dmRgt-center-logo-image"></div>
           ) : (
-            <div
-              className="dmRgt-center-div-profile"
-              onClick={() => {
-                alert("아이디 변경 dlrdyd97"); // 테스트용 코드
-                window.sessionStorage.setItem("member_id", "dlrdyd97");
-                login_id = window.sessionStorage.getItem("member_id");
-              }}
-            ></div>
+            <div className="dmRgt-center-div-profile"></div>
           )}
 
           <div className="dmRgt-center-div-name">{chatname}</div>
@@ -659,6 +685,7 @@ function DirectMessage() {
                         )
                         .then((res) => {
                           console.log("업로드 완료");
+                          setAttach(!attach);
                         })
                         .catch((error) => {
                           console.error("/file-upload axios 에러 발생" + error);
@@ -730,6 +757,7 @@ function DirectMessage() {
                         )
                         .then((res) => {
                           console.log("업로드 완료");
+                          setAttach(!attach);
                         })
                         .catch((error) => {
                           console.error("/file-upload axios 에러 발생" + error);

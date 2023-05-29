@@ -267,7 +267,7 @@ border-radius: 0.7813vw;
 margin-top:6.5104vw;
 }
 
-.dmdetail-profile {
+.dmdetail-profile-enterprise {
 height: 18.8750vw;
 width: 18.8750vw;
 float:left;
@@ -279,7 +279,23 @@ background: url(/public/DirectMessage/enterprise1.png);
 background-size: cover;
 }
 
-.dmdetail-profile:hover {
+.dmdetail-profile-freelancer {
+  height: 18.8750vw;
+  width: 18.8750vw;
+  float:left;
+  margin-top : 0.78125vw;
+  margin-bottom : 0.78125vw;
+  margin-left : 3.5833vw;
+  border-radius: 4.6875vw;
+  background: url(/public/DirectMessage/freelancer1.png);
+  background-size: cover;
+  }
+
+.dmdetail-profile-enterprise:hover {
+  cursor:pointer;
+}
+
+.dmdetail-profile-freelancer:hover {
   cursor:pointer;
 }
 
