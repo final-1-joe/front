@@ -11,6 +11,7 @@ const SupportBoardAnswer = (props) => {
   const writerRef = useRef();
   const contentRef = useRef();
   const mocontentRef = useRef();
+  const user_id = window.sessionStorage.getItem("user_id");
   useEffect(() => {
     getAnswer();
   }, []);
@@ -69,7 +70,7 @@ const SupportBoardAnswer = (props) => {
     axios
       .post("http://localhost:8080/support/answer/insert", {
         sbaanswer: contentRef.current.value,
-        sbawriter: "admin",
+        sbawriter: user_id,
         sbquestion_id: sbqnum,
       })
       .then((res) => {
@@ -145,58 +146,69 @@ const SupportBoardAnswer = (props) => {
                   </div>
                 </div>
                 <div className="btns-area sc_an_wr_btn">
-                  <Link
-                    className="btn-m02 btn-color01 depth2"
-                    onClick={() => setAnswermodify(data.sbanum)}
-                  >
-                    수정
-                  </Link>
-                  <Link
-                    className="btn-m02 btn-color01 depth2"
-                    onClick={() => deleteAnswer(data.sbanum)}
-                  >
-                    삭제
-                  </Link>
+                  {user_id === "admin" ? (
+                    <>
+                      <Link
+                        className="btn-m02 btn-color01 depth2"
+                        onClick={() => setAnswermodify(data.sbanum)}
+                      >
+                        수정
+                      </Link>
+                      <Link
+                        className="btn-m02 btn-color01 depth2"
+                        onClick={() => deleteAnswer(data.sbanum)}
+                      >
+                        삭제
+                      </Link>
+                    </>
+                  ) : (
+                    <></>
+                  )}
                 </div>
               </>
             )}
           </>
         ))}
-
-      <div className="title-area">
-        <h4>답변 등록</h4>
-      </div>
-      <input type="hidden" name="id" id="id" value={sbqnum} />
-      <input
-        type="hidden"
-        name="writer"
-        id="writer"
-        ref={writerRef}
-        value="admin"
-      />
-      <div className="sc_bl_wr sc_an_wr">
-        <div className="sc_vi-contents">
-          <div className="editer-wrapper">
-            <textarea
-              id="content"
-              ref={contentRef}
-              name="content"
-              className="sc_vi_textarea"
-              cols="50"
-              rows="50"
-              placeholder="내용을 입력하세요."
-            ></textarea>
+      {user_id === "admin" ? (
+        <>
+          <div className="title-area">
+            <h4>답변 등록</h4>
           </div>
-        </div>
-        <div className="btns-area sc_an_wr_btn">
-          <Link
-            className="btn-m02 btn-color01 depth2"
-            onClick={() => insertAnswer()}
-          >
-            등록
-          </Link>
-        </div>
-      </div>
+          <input type="hidden" name="id" id="id" value={sbqnum} />
+          <input
+            type="hidden"
+            name="writer"
+            id="writer"
+            ref={writerRef}
+            value={user_id}
+          />
+          <div className="sc_bl_wr sc_an_wr">
+            <div className="sc_vi-contents">
+              <div className="editer-wrapper">
+                <textarea
+                  id="content"
+                  ref={contentRef}
+                  name="content"
+                  className="sc_vi_textarea"
+                  cols="50"
+                  rows="50"
+                  placeholder="내용을 입력하세요."
+                ></textarea>
+              </div>
+            </div>
+            <div className="btns-area sc_an_wr_btn">
+              <Link
+                className="btn-m02 btn-color01 depth2"
+                onClick={() => insertAnswer()}
+              >
+                등록
+              </Link>
+            </div>
+          </div>
+        </>
+      ) : (
+        <></>
+      )}
     </div>
   );
 };

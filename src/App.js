@@ -39,6 +39,7 @@ import AdminClientList from "./pages/Admin/AdminClientList";
 import AdminUserList from "./pages/Admin/AdminUserList";
 import AdminProjectList from "./pages/Admin/AdminProjectList";
 
+
 function App() {
   return (
     <div>
@@ -49,9 +50,9 @@ function App() {
             <Route path="/freelist" element={<FreeList />} />
             <Route path="/freedetail" element={<FreeDetail />} />
             <Route path="/pjlist" element={<PjList />} />
-            <Route path="/pjdetail" element={<PjDetail />} />
+            <Route path="/pjlist/pjdetail/:id" element={<PjDetail />} />
             <Route path="/pjdetail/update" element={<PjUpdate />} />
-            <Route path="/pjregistration" element={<PjRegistration />} />
+            <Route path="/pjdetail/insert" element={<PjRegistration />} />
             <Route path="/free/calendar" element={<MyCalendar />} />
             <Route path="/resume" element={<Resume />} />
 
@@ -84,7 +85,7 @@ function App() {
             <Route path="/free/myinfo" element={<FreeMyInfo />} />
             <Route path="/client/myinfo" element={<ClientMyInfo />} />
           </Route>
-          <Route path="/admin" element={<Adminpage />} />
+          {/* <Route path="/admin" element={<Adminpage />} />
           <Route path="/admin/sca" element={<APSCA />} />
           <Route path="/admin/scna" element={<APSCNA />} />
           <Route path="/admin/client" element={<AdminClientList />} />

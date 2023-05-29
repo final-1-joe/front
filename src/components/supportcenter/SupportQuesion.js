@@ -5,9 +5,8 @@ import Modal from "./modal";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
-// title,info 표시하기
 const SupportQuesion = ({ scnum, scquestion, scanswer, getFaq }) => {
-  // info를 클릭시에 볼수있도록 버튼 만들기
+  const user_id = window.sessionStorage.getItem("user_id");
   const [modalOpen, setModalOpen] = useState(false);
   const questionRef = useRef();
   const answerRef = useRef();
@@ -91,21 +90,27 @@ const SupportQuesion = ({ scnum, scquestion, scanswer, getFaq }) => {
                         <p>{scanswer}</p>
                       </span>
                       <span className="sc_an-3">
-                        <Link
-                          className="btn_an"
-                          name={scnum}
-                          onClick={openModal}
-                        >
-                          수정
-                        </Link>{" "}
-                        &nbsp;
-                        <Link
-                          className="btn_an"
-                          name={scnum}
-                          onClick={() => deleteFaq(scnum)}
-                        >
-                          삭제
-                        </Link>
+                        {user_id === "admin" ? (
+                          <>
+                            <Link
+                              className="btn_an"
+                              name={scnum}
+                              onClick={openModal}
+                            >
+                              수정
+                            </Link>
+                            &nbsp;
+                            <Link
+                              className="btn_an"
+                              name={scnum}
+                              onClick={() => deleteFaq(scnum)}
+                            >
+                              삭제
+                            </Link>
+                          </>
+                        ) : (
+                          <></>
+                        )}
                       </span>
                       <Modal
                         open={modalOpen}

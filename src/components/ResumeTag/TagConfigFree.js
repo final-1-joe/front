@@ -13,7 +13,7 @@ const TagConfigFree = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedJobs, setSelectedJobs] = useState([]);
   const [redata, setRedata] = useState();
-  const user_id = "admin2";
+  const user_id = window.sessionStorage.getItem("user_id");
   const jgRef = useRef();
   const jobRef = useRef();
   const wsRef = useRef();
