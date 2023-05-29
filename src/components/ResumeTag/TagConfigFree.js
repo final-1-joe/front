@@ -13,7 +13,7 @@ const TagConfigFree = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedJobs, setSelectedJobs] = useState([]);
   const [redata, setRedata] = useState();
-  const user_id = "admin2";
+  const userid = window.sessionStorage.getItem("userid");
   const jgRef = useRef();
   const jobRef = useRef();
   const wsRef = useRef();
@@ -66,7 +66,7 @@ const TagConfigFree = () => {
   const getTag = () => {
     axios
       .post("http://localhost:8080/fretag/select", {
-        user_id: user_id,
+        user_id: userid,
       })
       .then((res) => {
         setRedata(res.data);
@@ -79,14 +79,14 @@ const TagConfigFree = () => {
   const insertTag = () => {
     axios
       .post("http://localhost:8080/fretag/select", {
-        user_id: user_id,
+        user_id: userid,
       })
       .then((res) => {
         const count = res.data;
         if (count === "" || count === null) {
           axios
             .post("http://localhost:8080/fretag/insert", {
-              user_id: user_id,
+              user_id: userid,
               fre_jg: jgRef.current.props
                 ? jgRef.current.props.value.value
                 : null,
@@ -111,7 +111,7 @@ const TagConfigFree = () => {
         } else {
           axios
             .post("http://localhost:8080/fretag/update", {
-              user_id: user_id,
+              user_id: userid,
               fre_jg: jgRef.current.props
                 ? jgRef.current.props.value.value
                 : null,

@@ -10,7 +10,7 @@ const SupportCenter = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const questionRef = useRef();
   const answerRef = useRef();
-
+  const userid = window.sessionStorage.getItem("userid");
   useEffect(() => {
     getFaq();
   }, []);
@@ -58,7 +58,7 @@ const SupportCenter = () => {
       .post("http://localhost:8080/support/faq/insert", {
         scquestion: questionRef.current.value,
         scanswer: answerRef.current.value,
-        scwriter: "admin",
+        scwriter: userid,
       })
       .then((res) => {
         questionRef.current.value = "";
@@ -87,9 +87,13 @@ const SupportCenter = () => {
         );
       })}
       <div className="btns-area sc_an_wr_btn">
-        <Link className="btn-m02 btn-color01 depth2" onClick={openModal}>
-          등록
-        </Link>
+        {userid === "admin" ? (
+          <Link className="btn-m02 btn-color01 depth2" onClick={openModal}>
+            등록
+          </Link>
+        ) : (
+          <></>
+        )}
       </div>
       <Modal open={modalOpen} close={closeModal} header="질문등록">
         <form>

@@ -11,7 +11,8 @@ import MySidebar from "../my/mySidebar/MySidebar";
 const ResumeMypage = () => {
   const [selectedoccupation, setSelectedOccupation] = useState("");
   const [telvalue, setTelValue] = useState("");
-  const us_id = "admin";
+  const userid = window.sessionStorage.getItem("userid");
+
   const nmRef = useRef();
   const jsRef = useRef();
   const bdRef = useRef();
@@ -97,7 +98,7 @@ const ResumeMypage = () => {
   const getResume = () => {
     axios
       .post("http://localhost:8080/resume/select", {
-        user_id: us_id,
+        user_id: userid,
       })
       .then((res) => {
         setRedata(res.data);
@@ -133,7 +134,7 @@ const ResumeMypage = () => {
     if (fileList === undefined || fileList === null) {
       axios
         .post("http://localhost:8080/resume/update", {
-          user_id: us_id,
+          user_id: userid,
           user_nm: nmRef.current.value || null,
           user_js: jsRef.current.value || null,
           user_bd: bdRef.current.value || null,
@@ -169,7 +170,7 @@ const ResumeMypage = () => {
         .then((res) => {
           axios
             .post("http://localhost:8080/resume/update", {
-              user_id: us_id,
+              user_id: userid,
               user_nm: nmRef.current.value || null,
               user_js: jsRef.current.value || null,
               user_bd: bdRef.current.value || null,
