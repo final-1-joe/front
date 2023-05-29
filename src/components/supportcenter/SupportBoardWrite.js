@@ -6,10 +6,10 @@ const SupportBoardWrite = () => {
   const titleRef = useRef();
   const contentRef = useRef();
   const navigate = useNavigate();
-  const userid = window.sessionStorage.getItem("userid");
+  const user_id = window.sessionStorage.getItem("user_id");
   const handleInsert = () => {
     console.log("handleInsert =>", titleRef.current.value);
-    if (!userid) {
+    if (!user_id) {
       alert("로그인후 작성하세요!!!");
     }
     if (titleRef.current.value === "" || titleRef.current.value === undefined) {
@@ -28,7 +28,7 @@ const SupportBoardWrite = () => {
 
     axios
       .post("http://localhost:8080/support/board/insert", {
-        sbqwriter: userid,
+        sbqwriter: user_id,
         sbqsubject: titleRef.current.value,
         sbqcontent: contentRef.current.value,
       })

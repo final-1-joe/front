@@ -9,7 +9,7 @@ const SupportBoardDetail = () => {
   const { id } = useParams();
   const sbqnum = parseInt(id);
   const [boarddetail, setBoarddetail] = useState([]);
-  const userid = window.sessionStorage.getItem("userid");
+  const user_id = window.sessionStorage.getItem("user_id");
   useEffect(() => {
     getDetail();
   }, []);
@@ -70,7 +70,7 @@ const SupportBoardDetail = () => {
       </div>
       <SupportBoardAnswer sbqnum={sbqnum} />
       <div className="btns-area mt60">
-        {userid === boarddetail.sbqwriter || userid === "admin" ? (
+        {user_id === boarddetail.sbqwriter || user_id === "admin" ? (
           <>
             <Link
               to={`/support/board/modify`}
