@@ -10,23 +10,6 @@ const MySidebar = () => {
   const pathName = useLocation().pathname.split("/")[1];
   const user = window.sessionStorage.getItem("user_id");
 
-  // useEffect(() => {
-  //   const fetchUserCode = async () => {
-  //     try {
-  //       const response = await axios.get(
-  //         "http://localhost:8080/auth/user_code",
-  //         { params: { user_id: user } }
-  //       );
-  //       const userCode = response.data;
-  //       window.sessionStorage.setItem("user_code", userCode);
-  //       setUserCode(userCode);
-  //     } catch (error) {
-  //       console.error(error);
-  //     }
-  //   };
-  //   fetchUserCode();
-  // }, []);
-
   const freeTabs = [
     { name: "마이페이지 홈", path: "/free/mypage" },
     { name: "일정관리", path: "/free/calendar" },
@@ -47,14 +30,6 @@ const MySidebar = () => {
     free: freeTabs, //freelancer
   };
 
-  // let sidebarTitle = "";
-
-  // if (userCode === "client") {
-  //   sidebarTitle = clientTabs;
-  // } else if (userCode === "free") {
-  //   sidebarTitle = freeTabs;
-  // }
-  //sidebarTitle.map Tabs[pathName]
   return (
     <div className="myside">
       <div className="mymenu">
