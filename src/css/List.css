@@ -48,3 +48,59 @@
 .ListIntro {
     color: black; font-weight: bold; font-size: larger;
 }
+.ListFilter{
+    float: left;
+}
+.ListHr{
+    clear:both;
+}
+.List-search-wrapper{
+    
+    padding: 0 0 0 0;
+    text-align: center;
+    height: 69px;
+}
+.List-search-area{
+    padding: 15px 0 0 0;
+    float: right;
+}
+.List-search-area select{
+    float: left;
+    width: 106px;
+    height: 40px;
+    border: 1px solid #d4d4d4;
+    margin-right: 4px;
+    font-size: 14px;
+    color: #6c6e6f;
+    background-color: #fff;
+    text-indent: 10px;
+    background-position: calc(100% - 10px) center;
+    background-size: 12px 6px;
+}
+.List-search-area .List-search-box{
+    float:left;
+}
+.List-search-area .List-search-box input[type="search"] {
+    float: left;
+    width: 200px;
+    height: 40px;
+    line-height: 38px;
+    border: 1px solid #d4d4d4;
+    border-right: 0;
+    text-indent: 10px;
+    font-size: 14px;
+}
+.List-search-area .List-search-box input[type="submit"] {
+    float: left;
+    width: 92px;
+    height: 40px;
+    line-height: 40px;
+    color: #000;
+    cursor: pointer;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 500;
+    background: #FBDB6A;
+    border-radius: 0;
+    border: 0;
+}
