@@ -44,7 +44,23 @@ const PjList = () => {
     searchtextRef.current.value = searchtext || "";
     getPjlistTag(pj_job, pj_day, pj_work_form, searchNo, searchtext);
   }, [location.search]);
-
+  const handleKeyPress = (event) => {
+    if (event.key === "Enter") {
+      const pj_job = pj_jobRef.current.value;
+      const pj_day = pj_dayRef.current.value;
+      const pj_work_form = pj_work_formRef.current.value;
+      const searchNo = searchRef.current.value;
+      const searchtext = searchtextRef.current.value;
+      const searchParams = new URLSearchParams();
+      searchParams.set("pj_job", pj_job);
+      searchParams.set("pj_day", pj_day);
+      searchParams.set("pj_work_form", pj_work_form);
+      searchParams.set("searchNo", searchNo);
+      searchParams.set("searchtext", searchtext);
+      navigate(`?${searchParams.toString()}`);
+      getPjlistTag(pj_job, pj_day, pj_work_form, searchNo, searchtext);
+    }
+  };
   const handleTagChange = () => {
     const pj_job = pj_jobRef.current.value;
     const pj_day = pj_dayRef.current.value;
@@ -58,8 +74,6 @@ const PjList = () => {
     searchParams.set("searchNo", searchNo);
     searchParams.set("searchtext", searchtext);
     navigate(`?${searchParams.toString()}`);
-
-    // Fetch project list based on the updated tag settings
     getPjlistTag(pj_job, pj_day, pj_work_form, searchNo, searchtext);
   };
 
@@ -76,7 +90,6 @@ const PjList = () => {
   };
 
   const getPjlistTag = (pj_job, pj_day, pj_work_form, searchNo, searchtext) => {
-    console.log(searchNo);
     axios
       .post("http://localhost:8080/pjlisttag", {
         pj_job: pj_job || "",
@@ -162,6 +175,7 @@ const PjList = () => {
                 ref={searchtextRef}
                 placeholder="검색어를 입력하세요."
                 title="검색어를 입력하세요."
+                onKeyDown={handleKeyPress}
               />
               <input
                 type="submit"
