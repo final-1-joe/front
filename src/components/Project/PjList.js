@@ -9,6 +9,8 @@ const PjList = () => {
   const pj_jobRef = useRef();
   const pj_dayRef = useRef();
   const pj_work_formRef = useRef(null);
+  const searchRef = useRef();
+  const searchtextRef = useRef();
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -18,39 +20,47 @@ const PjList = () => {
     const pj_job = searchParams.get("pj_job");
     const pj_day = searchParams.get("pj_day");
     const pj_work_form = searchParams.get("pj_work_form");
-
+    const searchNo = searchParams.get("searchNo");
+    const searchtext = searchParams.get("searchtext");
     pj_jobRef.current.value = pj_job || "";
     pj_dayRef.current.value = pj_day || 0;
     pj_work_formRef.current.value = pj_work_form || "";
+    searchRef.current.value = searchNo || 0;
+    searchtextRef.current.value = searchtext || "";
 
-    getPjlistTag(pj_job, pj_day, pj_work_form);
+    getPjlistTag(pj_job, pj_day, pj_work_form, searchNo, searchtext);
   }, []);
   useEffect(() => {
     const searchParams = new URLSearchParams(location.search);
     const pj_job = searchParams.get("pj_job");
     const pj_day = searchParams.get("pj_day");
     const pj_work_form = searchParams.get("pj_work_form");
-
+    const searchNo = searchParams.get("searchNo");
+    const searchtext = searchParams.get("searchtext");
     pj_jobRef.current.value = pj_job || "";
     pj_dayRef.current.value = pj_day || 0;
     pj_work_formRef.current.value = pj_work_form || "";
-
-    getPjlistTag(pj_job, pj_day, pj_work_form);
+    searchRef.current.value = searchNo || 0;
+    searchtextRef.current.value = searchtext || "";
+    getPjlistTag(pj_job, pj_day, pj_work_form, searchNo, searchtext);
   }, [location.search]);
 
   const handleTagChange = () => {
     const pj_job = pj_jobRef.current.value;
     const pj_day = pj_dayRef.current.value;
     const pj_work_form = pj_work_formRef.current.value;
-
+    const searchNo = searchRef.current.value;
+    const searchtext = searchtextRef.current.value;
     const searchParams = new URLSearchParams();
     searchParams.set("pj_job", pj_job);
     searchParams.set("pj_day", pj_day);
     searchParams.set("pj_work_form", pj_work_form);
+    searchParams.set("searchNo", searchNo);
+    searchParams.set("searchtext", searchtext);
     navigate(`?${searchParams.toString()}`);
 
     // Fetch project list based on the updated tag settings
-    getPjlistTag(pj_job, pj_day, pj_work_form);
+    getPjlistTag(pj_job, pj_day, pj_work_form, searchNo, searchtext);
   };
 
   const getPjlist = () => {
@@ -58,7 +68,6 @@ const PjList = () => {
       .get("http://localhost:8080/pjlist", {})
       .then((res) => {
         const data = res.data;
-        console.log(data);
         setPjlist(data);
       })
       .catch((e) => {
@@ -66,17 +75,18 @@ const PjList = () => {
       });
   };
 
-  const getPjlistTag = (pj_job, pj_day, pj_work_form) => {
-    // Fetch project list based on tag settings
+  const getPjlistTag = (pj_job, pj_day, pj_work_form, searchNo, searchtext) => {
+    console.log(searchNo);
     axios
       .post("http://localhost:8080/pjlisttag", {
         pj_job: pj_job || "",
-        pj_day: pj_day || "",
+        pj_day: pj_day || 0,
         pj_work_form: pj_work_form || "",
+        pj_title: searchNo === "0" ? searchtext || "" : "",
+        pj_corpname: searchNo === "1" ? searchtext || "" : "",
       })
       .then((res) => {
         const data = res.data;
-        console.log("tag", res);
         setPjlist(data);
       })
       .catch((e) => {
@@ -87,7 +97,7 @@ const PjList = () => {
   return (
     <div>
       <div className="ListOption">
-        <table>
+        <table className="ListFilter">
           <tr>
             <td width="100px">프로젝트</td>
             <td>
@@ -132,7 +142,37 @@ const PjList = () => {
             </td>
           </tr>
         </table>
-        <hr />
+        <div className="List-search-wrapper">
+          <div className="List-search-area">
+            <select
+              name="searchNo"
+              id="id_searchNo"
+              title="검색선택창"
+              ref={searchRef}
+            >
+              <option value="0">제목</option>
+              <option value="1">회사명</option>
+            </select>
+            <div className="List-search-box">
+              <input
+                type="search"
+                className="List-txt"
+                name="searchtext"
+                id="id_searchtext"
+                ref={searchtextRef}
+                placeholder="검색어를 입력하세요."
+                title="검색어를 입력하세요."
+              />
+              <input
+                type="submit"
+                className="List-btn-search"
+                value="검색"
+                onClick={handleTagChange}
+              />
+            </div>
+          </div>
+        </div>
+        <hr className="ListHr" />
         <div>
           <select id="ListFilter">
             <option>최신순</option>
