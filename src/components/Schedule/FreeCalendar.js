@@ -9,13 +9,6 @@ import axios from "axios";
 const MyCalendar = () => {
     const { id } = useParams();
     const [events, setEvents] = useState([]);
-    // 연결 사이트에서 연결 해야할것
-    const openlink = (url) => {
-        const open = window.open(url, '_blank', 'width=900px,height=910px,scrollbars=no');
-        if (open) {
-            open.document.documentElement.style.overflow = 'hidden';
-        }
-    };
     const getEvent = () => {
         axios
             .get(`http://localhost:8080/schedule/get?user_id=${id}`, {})
@@ -52,8 +45,6 @@ const MyCalendar = () => {
     return (
         <div className="calendar-wrapper">
             <div className="calendar-container">
-                {/* 버튼은 해당 사이트에서 연결해야함 */}
-                <button onClick={() => openlink(`http://localhost:3000/free/calendar/${id}`)}>테스트</button>
                 <h2 style={{ textAlign: "center" }}>{id}님의 스케줄</h2>
                 <FullCalendar
                     locale='ko'
