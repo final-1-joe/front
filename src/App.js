@@ -39,14 +39,27 @@ import AdminClientList from "./pages/Admin/AdminClientList";
 import AdminUserList from "./pages/Admin/AdminUserList";
 import AdminProjectList from "./pages/Admin/AdminProjectList";
 import FreeCalendar from "./components/Schedule/FreeCalendar";
+import { useState, useEffect } from "react";
 
 
 function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  const handleLogin = () => {
+    setIsLoggedIn(true);
+  };
+
+  const handleLogout = () => {
+    setIsLoggedIn(false);
+  }
+
+  useEffect(() => {
+  }, [isLoggedIn]);
   return (
     <div>
       <Router>
         <Routes>
-          <Route path="/" element={<Layout />}>
+          <Route path="/" element={<Layout onLogin={handleLogin} isLoggedIn={isLoggedIn} handleLogout={handleLogout} />}>
             <Route index element={<Home />} />
             <Route path="/freelist" element={<FreeList />} />
             <Route path="/freedetail" element={<FreeDetail />} />
@@ -59,7 +72,7 @@ function App() {
 
             <Route path="/tag" element={<TagConfigFree />} />
             <Route path="/tag2" element={<TagConfigClient />} />
-            <Route path="/loginform" element={<Loginform />} />
+            <Route path="/loginform" element={<Loginform onLogin={handleLogin} />} />
             <Route path="/loginselect" element={<Loginselect />} />
             <Route path="/registerform_1" element={<Registerform_1 />} />
             <Route path="/registerform_2" element={<Registerform_2 />} />
