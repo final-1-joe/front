@@ -1,17 +1,57 @@
-import { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useState, useEffect, useRef } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { HiHashtag } from "react-icons/hi";
 
 const PjList = () => {
   //project데이터 가져오기
   const [pjlist, setPjlist] = useState([]);
-
+  const pj_jobRef = useRef();
+  const pj_dayRef = useRef();
+  const pj_work_formRef = useRef(null);
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     getPjlist();
+    const searchParams = new URLSearchParams(location.search);
+    const pj_job = searchParams.get("pj_job");
+    const pj_day = searchParams.get("pj_day");
+    const pj_work_form = searchParams.get("pj_work_form");
+
+    pj_jobRef.current.value = pj_job || "";
+    pj_dayRef.current.value = pj_day || 0;
+    pj_work_formRef.current.value = pj_work_form || "";
+
+    getPjlistTag(pj_job, pj_day, pj_work_form);
   }, []);
+  useEffect(() => {
+    const searchParams = new URLSearchParams(location.search);
+    const pj_job = searchParams.get("pj_job");
+    const pj_day = searchParams.get("pj_day");
+    const pj_work_form = searchParams.get("pj_work_form");
+
+    pj_jobRef.current.value = pj_job || "";
+    pj_dayRef.current.value = pj_day || 0;
+    pj_work_formRef.current.value = pj_work_form || "";
+
+    getPjlistTag(pj_job, pj_day, pj_work_form);
+  }, [location.search]);
+
+  const handleTagChange = () => {
+    const pj_job = pj_jobRef.current.value;
+    const pj_day = pj_dayRef.current.value;
+    const pj_work_form = pj_work_formRef.current.value;
+
+    const searchParams = new URLSearchParams();
+    searchParams.set("pj_job", pj_job);
+    searchParams.set("pj_day", pj_day);
+    searchParams.set("pj_work_form", pj_work_form);
+    navigate(`?${searchParams.toString()}`);
+
+    // Fetch project list based on the updated tag settings
+    getPjlistTag(pj_job, pj_day, pj_work_form);
+  };
 
   const getPjlist = () => {
     axios
@@ -26,6 +66,24 @@ const PjList = () => {
       });
   };
 
+  const getPjlistTag = (pj_job, pj_day, pj_work_form) => {
+    // Fetch project list based on tag settings
+    axios
+      .post("http://localhost:8080/pjlisttag", {
+        pj_job: pj_job || "",
+        pj_day: pj_day || "",
+        pj_work_form: pj_work_form || "",
+      })
+      .then((res) => {
+        const data = res.data;
+        console.log("tag", res);
+        setPjlist(data);
+      })
+      .catch((e) => {
+        console.error(e);
+      });
+  };
+
   return (
     <div>
       <div className="ListOption">
@@ -33,32 +91,43 @@ const PjList = () => {
           <tr>
             <td width="100px">프로젝트</td>
             <td>
-              <select className="ListSelect">
-                <option>직군 선택</option>
-                <option>개발</option>
-                <option>경영 / 비지니스</option>
-                <option>마케팅 / 광고</option>
-                <option>디자인</option>
-                <option>미디어</option>
-                <option>엔지니어링 / 설계</option>
-                <option>법률 / 법집행기관</option>
-                <option>기타</option>
+              <select
+                className="ListSelect"
+                ref={pj_jobRef}
+                onChange={handleTagChange}
+              >
+                <option value="">직군 선택</option>
+                <option value="개발">개발</option>
+                <option value="경영·비즈니스">경영·비즈니스</option>
+                <option value="마케팅·광고">마케팅·광고</option>
+                <option value="디자인">디자인</option>
+                <option value="미디어">미디어</option>
+                <option value="엔지니어링·설계">엔지니어링·설계</option>
+                <option value="법률·법집행기관">법률·법집행기관</option>
               </select>
             </td>
             <td>
-              <select className="ListSelect">
-                <option>근무 기간</option>
-                <option>~3개월</option>
-                <option>3~6개월</option>
-                <option>6개월~1년</option>
-                <option>1년 이상</option>
+              <select
+                className="ListSelect"
+                ref={pj_dayRef}
+                onChange={handleTagChange}
+              >
+                <option value={0}>근무 기간</option>
+                <option value={3}>~3개월</option>
+                <option value={6}>3~6개월</option>
+                <option value={12}>6개월~1년</option>
+                <option value={13}>1년 이상</option>
               </select>
             </td>
             <td>
-              <select className="ListSelect">
-                <option>근무 형태</option>
-                <option>원격</option>
-                <option>상주</option>
+              <select
+                className="ListSelect"
+                ref={pj_work_formRef}
+                onChange={handleTagChange}
+              >
+                <option value="">근무 형태</option>
+                <option value="online">원격</option>
+                <option value="offline">상주</option>
               </select>
             </td>
           </tr>
