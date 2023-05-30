@@ -11,7 +11,7 @@ div.myInfoList {
   padding: 0px;
   flex-direction: column;
   display: flex;
-  margin-right: 480px;
+  margin-right: 53vh;
 }
 
 div.mylistGroup {
@@ -32,6 +32,7 @@ div.mylistGroup {
   font-size: 20px;
   display: inline-block;
   margin-left: 10px;
+  text-align: left;
   width: 500px;
 }
 
@@ -86,7 +87,7 @@ div.mylistGroup {
 
 .myError {
   color: red;
-  margin-left: 330px;
+  margin-left: 36vh;
   font-size: 15px;
   text-align: left;
 }

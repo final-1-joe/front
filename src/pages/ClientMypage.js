@@ -101,9 +101,9 @@ function ClientMypage() {
             style={{ textDecoration: "none" }}
           >
             <div className="myfreelancer">
-              {bookmarkFreelancer.user_nm}
+              {freelancer.user_nm}
               <br />
-              {bookmarkFreelancer.user_skill}
+              {freelancer.user_skill}
             </div>
           </Link>
         ))}

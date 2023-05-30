@@ -8,13 +8,14 @@ const MySidebar = () => {
   const paths = useLocation().path;
   //const [userCode, setUserCode] = useState("");
   const pathName = useLocation().pathname.split("/")[1];
+  const user = window.sessionStorage.getItem("user_id");
 
   // useEffect(() => {
   //   const fetchUserCode = async () => {
   //     try {
-  //       const userId = window.sessionStorage.getItem("user_id");
   //       const response = await axios.get(
-  //         `http://localhost:8080/auth/user_code?user_id=${userId}`
+  //         "http://localhost:8080/auth/user_code",
+  //         { params: { user_id: user } }
   //       );
   //       const userCode = response.data;
   //       window.sessionStorage.setItem("user_code", userCode);

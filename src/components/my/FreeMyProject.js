@@ -7,21 +7,6 @@ import axios from "axios";
 
 function MyProject() {
   const navigate = useNavigate();
-  const goDM = async (user_id, pj_num) => {
-    try {
-      const response = await axios.get("http://localhost:8080/auth/connectdm", {
-        params: {
-          user_id: user,
-          pj_num: pj_num,
-        },
-      });
-      const { my_user_id, your_user_id } = response.data;
-      navigate("/direct");
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   const [applyProject, setApplyProject] = useState([]);
   const [ongoingProject, setOngoingProject] = useState([]);
   const [offeredProject, setOfferedProject] = useState([]);
@@ -73,33 +58,56 @@ function MyProject() {
   }, []);
 
   const handleUpdate = (pj_num) => {
-    console.log(pj_num);
-    console.log("AAAAAAAA");
-    axios
-      .put("http://localhost:8080/auth/updatecompleted", {
-        user_id: user,
-        pj_num: pj_num,
-      })
-      .then((response) => {
-        window.location.reload();
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+    const confirmed = window.confirm("프로젝트를 승낙하시겠습니까?");
+
+    if (confirmed) {
+      axios
+        .put("http://localhost:8080/auth/updatecompleted", {
+          user_id: user,
+          pj_num: pj_num,
+        })
+        .then((response) => {
+          window.location.reload();
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
   };
 
   const handleDelete = (pj_num) => {
-    axios
-      .post("http://localhost:8080/auth/deleteinprogress", {
-        user_id: user,
-        pj_num: pj_num,
-      })
-      .then((response) => {
-        window.location.reload();
-      })
-      .catch((error) => {
-        console.error(error);
+    const confirmed = window.confirm(
+      "프로젝트를 거절하시겠습니까? \n거절하시면 제안이 삭제됩니다"
+    );
+
+    if (confirmed) {
+      axios
+        .post("http://localhost:8080/auth/deleteinprogress", {
+          user_id: user,
+          pj_num: pj_num,
+        })
+        .then((response) => {
+          window.location.reload();
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
+  };
+
+  const goDM = async (user_id, pj_num) => {
+    try {
+      const response = await axios.get("http://localhost:8080/auth/connectdm", {
+        params: {
+          user_id: user,
+          pj_num: pj_num,
+        },
       });
+      const { my_user_id, your_user_id } = response.data;
+      navigate("/direct");
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (

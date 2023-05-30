@@ -14,6 +14,8 @@ function FreeMyInfo() {
   const [phone, setPhone] = useState("");
   const navigate = useNavigate();
 
+  const user = window.sessionStorage.getItem("user_id");
+
   const getNewPassword = (e) => {
     setNewPassword(e.target.value);
   };
@@ -40,18 +42,18 @@ function FreeMyInfo() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/auth/userinfo")
+      .get("http://localhost:8080/auth/userinfo", { params: { user_id: user } })
       .then((response) => {
         const userData = response.data;
         setId(userData.user_id);
         setName(userData.user_name);
-        setEmail(userData.user_email);
         setPhone(userData.user_tel);
+        setEmail(userData.user_email);
       })
       .catch((error) => {
         console.error(error);
       });
-  }, []);
+  }, [user]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -59,11 +61,12 @@ function FreeMyInfo() {
     await axios
       .put("http://localhost:8080/auth/updateuser", {
         user_pw: newPassword,
-        user_name: getNewName,
-        user_email: getNewEmail,
-        user_tel: getNewPhone,
+        user_name: name,
+        user_email: email,
+        user_tel: phone,
       })
-      .then(() => {
+      .then((response) => {
+        console.log(response);
         alert("회원정보가 변경되었습니다");
         navigate("/free/mypage");
       })
@@ -75,14 +78,14 @@ function FreeMyInfo() {
   return (
     <div className="mypageLayout">
       <MySidebar />
-      <form className="mywrapper">
+      <form className="mywrapper" onSubmit={handleSubmit}>
         <h2 className="mytitle">회원정보수정</h2>
         <div className="myInfoList">
           <div className="mylistGroup">
             <label for="id" className="mylabel">
               아이디
             </label>
-            <p className="myidp">{id}</p>
+            <p className="myidp">{user}</p>
           </div>
           <div className="mylistGroup">
             <label for="newPassword" className="mylabel">
@@ -138,7 +141,7 @@ function FreeMyInfo() {
               id="name"
               name="name"
               placeholder="이름"
-              defaultValue={name}
+              value={name}
               onChange={getNewName}
             />
           </div>
@@ -153,7 +156,7 @@ function FreeMyInfo() {
               id="email"
               name="email"
               placeholder="이메일을 입력하세요 ex)peoplancer@peoplancer.com"
-              defaultValue={email}
+              value={email}
               onChange={getNewEmail}
             />
           </div>
@@ -168,7 +171,7 @@ function FreeMyInfo() {
               id="phone"
               name="phone"
               placeholder="-없이 숫자만 입력해주세요"
-              defaultValue={phone}
+              value={phone}
               onChange={getNewPhone}
             />
           </div>

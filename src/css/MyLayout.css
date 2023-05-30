@@ -20,6 +20,7 @@
   height: 80px;
   margin-bottom: 20px;
   margin-right: 530px;
+  align-items: center;
   border: 5px solid #ffebb4;
   border-radius: 20px;
   padding: 15px;
@@ -35,6 +36,8 @@
   width: 800px;
   height: 80px;
   margin-bottom: 20px;
+  margin-right: 530px;
+  align-items: center;
   border: 5px solid #ffd2b4;
   border-radius: 20px;
   padding: 20px;
@@ -60,7 +63,7 @@ button.mywithdrawal {
   position: relative;
   flex-direction: column;
   align-items: center;
-  width: 150px;
+  width: 130px;
   height: 55px;
   display: flex;
   text-align: center;
@@ -70,7 +73,7 @@ button.mywithdrawal {
   border-radius: 20px;
   border: none;
   padding: 13px;
-  margin-left: 700px;
+  margin-left: 710px;
   cursor: pointer;
 }
 button.mywithdrawal:hover {

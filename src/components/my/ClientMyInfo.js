@@ -15,6 +15,8 @@ function ClientMyInfo() {
   const [license, setLicense] = useState("");
   const navigate = useNavigate();
 
+  const user = window.sessionStorage.getItem("user_id");
+
   const getNewPassword = (e) => {
     setNewPassword(e.target.value);
   };
@@ -44,37 +46,30 @@ function ClientMyInfo() {
   const phoneRegex = /^[0-9]{10,11}$/;
 
   useEffect(() => {
-    // const isLoggedIn = window.sessionStorage.getItem("isLoggedIn");
-    // if (isLoggedIn === "true") {
-    //   const user_id = window.sessionStorage.getItem("user_id");
-    //   setId(user_id);
     axios
-      .get("/auth/userinfo")
+      .get("http://localhost:8080/auth/userinfo", { params: { user_id: user } })
       .then((response) => {
-        const { user_id, user_name, user_email, user_tel } = response.data;
-        setId(user_id);
-        setName(user_name);
-        setPhone(user_tel);
-        setEmail(user_email);
+        const userData = response.data;
+        setId(userData.user_id);
+        setName(userData.user_name);
+        setPhone(userData.user_tel);
+        setEmail(userData.user_email);
       })
       .catch((error) => {
         console.error(error);
       });
-    // } else {
-    //   navigate("/loginform");
-    // }
-  }, []);
+  }, [user]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     await axios
-      .put("/auth/updateuser", {
+      .put("http://localhost:8080/auth/updateuser", {
         user_pw: newPassword,
-        user_name: getNewName,
-        user_email: getNewEmail,
-        user_tel: getNewPhone,
-        user_license: getNewLicense,
+        user_name: name,
+        user_email: email,
+        user_tel: phone,
+        //user_license: getNewLicense,
       })
       .then(() => {
         alert("회원정보가 변경되었습니다");
@@ -88,14 +83,14 @@ function ClientMyInfo() {
   return (
     <div className="mypageLayout">
       <MySidebar />
-      <form className="mywrapper">
+      <form className="mywrapper" onSubmit={handleSubmit}>
         <h2 className="mytitle">회원정보수정</h2>
         <div className="myInfoList">
           <div className="mylistGroup">
             <label for="id" className="mylabel">
               아이디
             </label>
-            <p className="myidp">{id}</p>
+            <p className="myidp">{user}</p>
           </div>
           <div className="mylistGroup">
             <label for="newPassword" className="mylabel">
@@ -147,7 +142,7 @@ function ClientMyInfo() {
               id="name"
               name="name"
               placeholder="상호명"
-              defaultValue={name}
+              value={name}
               onChange={getNewName}
             />
           </div>
@@ -162,7 +157,7 @@ function ClientMyInfo() {
               id="email"
               name="email"
               placeholder="이메일을 입력하세요 ex)peoplancer@peoplancer.com"
-              defaultValue={email}
+              value={email}
               onChange={getNewEmail}
             />
           </div>
@@ -177,7 +172,7 @@ function ClientMyInfo() {
               id="phone"
               name="phone"
               placeholder="-없이 숫자만 입력해주세요"
-              defaultValue={phone}
+              value={phone}
               onChange={getNewPhone}
             />
           </div>
