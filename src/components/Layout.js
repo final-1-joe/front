@@ -18,6 +18,8 @@ const Layout = ({ isLoggedIn, handleLogout, onLogin }) => {
     } else {
       onLogin();
     }
+
+    fetchUserCode(loggedInUserId);
   }, [user_id, isLoggedIn]);
 
   const fetchUserCode = async (userId) => {
