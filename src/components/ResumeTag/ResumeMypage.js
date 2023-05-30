@@ -40,6 +40,7 @@ const ResumeMypage = () => {
   const [fileName, setFileName] = useState("");
   const [fileList, setFileList] = useState();
   const githubRef = useRef();
+  const introRef = useRef();
   const [redata, setRedata] = useState();
   const navigate = useNavigate();
 
@@ -159,6 +160,7 @@ const ResumeMypage = () => {
           user_orfile: redata.user_orfile,
           user_stfile: redata.user_stfile,
           user_github: githubRef.current.value || null,
+          user_intro: introRef.current.value || null,
         })
         .then((res) => {})
         .catch((e) => {
@@ -197,6 +199,7 @@ const ResumeMypage = () => {
               user_orfile: res.data[0].originfilename || null,
               user_stfile: res.data[0].storedfilename || null,
               user_github: githubRef.current.value || null,
+              user_intro: introRef.current.value || null,
             })
             .then((res) => {})
             .catch((e) => {
@@ -500,6 +503,19 @@ const ResumeMypage = () => {
                   placeholder="ex) https://github.com"
                   defaultValue={redata ? redata.user_github : null}
                   ref={githubRef}
+                />
+              </div>
+            </div>
+            <div className="resume_row">
+              <div className="input_title">한줄소개</div>
+              <div className="resume_input">
+                <input
+                  type="url"
+                  id="user_url"
+                  name="user_url"
+                  className="box_input max_length"
+                  placeholder="간단한 소개문을 작성해주세요"
+                  ref={introRef}
                 />
               </div>
             </div>

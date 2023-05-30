@@ -38,6 +38,7 @@ const Resume = () => {
   const [fileName, setFileName] = useState("");
   const [fileList, setFileList] = useState();
   const githubRef = useRef();
+  const introRef = useRef();
 
   const handleFileChange = (e) => {
     const uploadFiles = Array.prototype.slice.call(e.target.files);
@@ -114,6 +115,7 @@ const Resume = () => {
           user_orfile: null,
           user_stfile: null,
           user_github: githubRef.current.value || null,
+          user_intro: introRef.current.value || null,
         })
         .then((res) => {})
         .catch((e) => {
@@ -361,6 +363,19 @@ const Resume = () => {
                 className="box_input max_length"
                 placeholder="ex) https://github.com"
                 ref={githubRef}
+              />
+            </div>
+          </div>
+          <div className="resume_row">
+            <div className="input_title">한줄소개</div>
+            <div className="resume_input">
+              <input
+                type="url"
+                id="user_url"
+                name="user_url"
+                className="box_input max_length"
+                placeholder="간단한 소개문을 작성해주세요"
+                ref={introRef}
               />
             </div>
           </div>
