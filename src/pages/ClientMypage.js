@@ -38,26 +38,6 @@ function ClientMypage() {
       });
   }, []);
 
-  // const recruitProject = [
-  //   {
-  //     pj_num: 1,
-  //     pj_title: "온라인몰 리뉴얼 프로젝트 개발자 - React, Java",
-  //     pj_corpname: "멀티캠퍼스",
-  //     //path: "/pjdetail/:pj_num"
-  //   },
-  // ];
-
-  // const bookmarkFreelancer = [
-  //   //axios.get(/auth/markfreelist)
-  //   {
-  //     user_id: "kim",
-  //     user_nm: "김멀티",
-  //     user_skill: "Java, Spring, mySQL",
-  //     /*path:"/freedetail/:user_id"*/
-  //   },
-  //   { user_id: "lee", re_name: "이멀티", re_skill: "Java, React, Recoil" },
-  // ];
-
   const handleDeleteMember = (e) => {
     e.preventDefault();
     const confirmResult = window.confirm(
@@ -65,15 +45,22 @@ function ClientMypage() {
     );
 
     if (confirmResult) {
-      try {
-        const response = axios.delete("http://localhost:8080/auth/delete");
-        console.log(response.data);
-        alert("회원탈퇴가 완료되었습니다. \n그동안 이용해주셔서 감사합니다.");
-        goMain();
-      } catch (error) {
-        console.error(error);
-        alert("회원탈퇴가 취소되었습니다");
-      }
+      axios
+        .post("http://localhost:8080/auth/delete", null, {
+          params: {
+            user_id: user,
+          },
+        })
+        .then((response) => {
+          console.log(response.data);
+          alert("회원탈퇴가 완료되었습니다. \n그동안 이용해주셔서 감사합니다.");
+          window.sessionStorage.clear();
+          goMain();
+        })
+        .catch((error) => {
+          console.error(error);
+          alert("회원탈퇴가 취소되었습니다");
+        });
     }
   };
 

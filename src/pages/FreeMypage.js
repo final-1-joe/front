@@ -38,34 +38,6 @@ function FreeMypage() {
       });
   }, []);
 
-  // const ongoingProject = [
-  //   {
-  //     pj_num: 1,
-  //     pj_name: "프로젝트1",
-  //     pj_content: "온라인몰 리뉴얼 프로젝트 개발자 - React, Java",
-  //     //path: "/pjdetail/:pj_num"
-  //   },
-  // ];
-
-  // const bookmarkProject = [
-  //   //axios.get("/auth/markpjlist")
-  //   {
-  //     pj_num: 2,
-  //     pj_name: "프로젝트2",
-  //     pj_content: "[원격] 프론트 개발 - React 모집",
-  //   },
-  //   {
-  //     pj_num: 3,
-  //     pj_name: "프로젝트3",
-  //     pj_content: "제조업 고객서비스 앱 운영 및 유지보수 - Git, JavaScript",
-  //   },
-  //   {
-  //     pj_num: 4,
-  //     pj_name: "프로젝트4",
-  //     pj_content: "[상주] 서점 온라인몰 퍼블리싱",
-  //   },
-  // ];
-
   const handleDeleteMember = (e) => {
     e.preventDefault();
     const confirmResult = window.confirm(
@@ -73,15 +45,22 @@ function FreeMypage() {
     );
 
     if (confirmResult) {
-      try {
-        const response = axios.delete("/auth/delete");
-        console.log(response.data);
-        alert("회원탈퇴가 완료되었습니다. \n그동안 이용해주셔서 감사합니다.");
-        goMain();
-      } catch (error) {
-        console.error(error);
-        alert("회원탈퇴가 취소되었습니다");
-      }
+      axios
+        .post("http://localhost:8080/auth/delete", null, {
+          params: {
+            user_id: user,
+          },
+        })
+        .then((response) => {
+          console.log(response.data);
+          alert("회원탈퇴가 완료되었습니다. \n그동안 이용해주셔서 감사합니다.");
+          window.sessionStorage.clear();
+          goMain();
+        })
+        .catch((error) => {
+          console.error(error);
+          alert("회원탈퇴가 취소되었습니다");
+        });
     }
   };
 
@@ -92,7 +71,7 @@ function FreeMypage() {
         <h4 className="myh4">진행중인 프로젝트</h4>
         {ongoingProject.map((project) => (
           <Link
-            to={"/pjlist/pjdetail/${project.pj_num}"}
+            to={`/pjlist/pjdetail/${project.pj_num}`}
             style={{ textDecoration: "none" }}
           >
             <div className="myproject">
@@ -105,7 +84,7 @@ function FreeMypage() {
         <h4 className="myh4">관심 프로젝트</h4>
         {bookmarkProject.map((project) => (
           <Link
-            to={"/pjlist/pjdetail/${project.pj_num}"}
+            to={`/pjlist/pjdetail/${project.pj_num}`}
             style={{ textDecoration: "none" }}
           >
             <div className="myproject">
