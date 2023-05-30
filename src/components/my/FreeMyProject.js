@@ -1,92 +1,197 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import MySidebar from "./mySidebar/MySidebar";
 import "../../css/MyLayout.css";
 import "../../css/FreeMyProject.css";
+import axios from "axios";
 
 function MyProject() {
   const navigate = useNavigate();
-  const goDM = () => {
-    navigate("/direct/:pj_user_id");
+  const [applyProject, setApplyProject] = useState([]);
+  const [ongoingProject, setOngoingProject] = useState([]);
+  const [offeredProject, setOfferedProject] = useState([]);
+  const [finishedProject, setFinishedProject] = useState([]);
+  const user = window.sessionStorage.getItem("user_id");
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:8080/auth/applypj", { params: { user_id: user } })
+      .then((response) => {
+        setApplyProject(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+
+    axios
+      .get("http://localhost:8080/auth/freeongoingpj", {
+        params: { user_id: user },
+      })
+      .then((response) => {
+        setOngoingProject(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+
+    axios
+      .get("http://localhost:8080/auth/inprogresspj", {
+        params: { user_id: user },
+      })
+      .then((response) => {
+        setOfferedProject(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+
+    axios
+      .get("http://localhost:8080/auth/finishedpj", {
+        params: { user_id: user },
+      })
+      .then((response) => {
+        setFinishedProject(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, []);
+
+  const handleUpdate = (pj_num) => {
+    const confirmed = window.confirm("프로젝트를 승낙하시겠습니까?");
+
+    if (confirmed) {
+      axios
+        .put("http://localhost:8080/auth/updatecompleted", {
+          user_id: user,
+          pj_num: pj_num,
+        })
+        .then((response) => {
+          window.location.reload();
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
   };
-  /*DB구성에 따라서 바로 DM으로 넘길지 
-  아니면 해당 프로젝트 상세페이지로 넘어가게 해서 DM으로 연결할지 추후 결정 */
 
-  const ongoingProject = [
-    {
-      pj_num: 1,
-      pj_title: "프로젝트1",
-      pj_content: "온라인몰 리뉴얼 프로젝트 개발자 - React, Java",
-      //path: "/pjdetail/:pj_num"
-    },
-  ];
+  const handleDelete = (pj_num) => {
+    const confirmed = window.confirm(
+      "프로젝트를 거절하시겠습니까? \n거절하시면 제안이 삭제됩니다"
+    );
 
-  const offeredProject = [
-    //axios.get
-    {
-      pj_num: 2,
-      pj_title: "프로젝트2",
-      pj_content: "카페24 관리자에 연동되는 별도의 Admin 페이지 설계 및 개발",
-    },
-    {
-      pj_num: 3,
-      pj_title: "프로젝트3",
-      pj_content: "공간관리 플랫폼 React 프론트엔드 개발",
-    },
-  ];
+    if (confirmed) {
+      axios
+        .post("http://localhost:8080/auth/deleteinprogress", {
+          user_id: user,
+          pj_num: pj_num,
+        })
+        .then((response) => {
+          window.location.reload();
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
+  };
 
-  const finishedProject = [
-    {
-      pj_num: 5,
-      pj_title: "프로젝트4",
-      pj_content: "반응형 및 모바일 서브페이지 퍼블리싱",
-    },
-  ];
+  const goDM = async (user_id, pj_num) => {
+    try {
+      const response = await axios.get("http://localhost:8080/auth/connectdm", {
+        params: {
+          user_id: user,
+          pj_num: pj_num,
+        },
+      });
+      const { my_user_id, your_user_id } = response.data;
+      navigate("/direct");
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <div className="mypageLayout">
       <MySidebar />
       <div className="mywrapper">
         <h4 className="myh4">진행중인 프로젝트</h4>
-        {ongoingProject.map((ongoingProject) => (
-          //<Link to = "/pjdetail:pj_num" style={{textDecoration: "none"}}>
-          <div className="myproject">
-            {ongoingProject.pj_title}
-            <br />
-            {ongoingProject.pj_content}
-          </div>
-          //</Link>
+        {ongoingProject.map((project) => (
+          <Link
+            to={"/pjlist/pjdetail/${project.pj_num}"}
+            style={{ textDecoration: "none" }}
+          >
+            <div className="myproject">
+              {project.pj_title}
+              <br />
+              {project.pj_corpname}
+            </div>
+          </Link>
+        ))}
+        <h4 className="myh4">지원한 프로젝트</h4>
+        {applyProject.map((project) => (
+          <Link
+            to={"/pjlist/pjdetail?pj_num=${project.pj_num}"}
+            style={{ textDecoration: "none" }}
+          >
+            <div className="myproject">
+              {project.pj_title}
+              <br />
+              {project.pj_corpname}
+            </div>
+          </Link>
         ))}
         <h4 className="myh4">제안받은 프로젝트</h4>
-        {offeredProject.map((offeredProject) => (
-          <form className="myoffered">
-            <div className="myofferedProject">
-              <p>
-                {offeredProject.pj_title}
-                <br />
-                {offeredProject.pj_content?.length > 28
-                  ? `${offeredProject.pj_content.slice(0, 28)}...`
-                  : offeredProject.pj_content}
-              </p>
-            </div>
-            <button className="myDMButton" type="button" onClick={goDM}>
+        {offeredProject.map((project) => (
+          <form className="myoffered" key={project.pj_num} id={project.pj_num}>
+            <Link
+              to={"/pjlist/pjdetail/${project.pj_num}"}
+              style={{ textDecoration: "none" }}
+            >
+              <div className="myofferedProject">
+                <p>
+                  {project.pj_title?.length > 28
+                    ? `${project.pj_title.slice(0, 28)}...`
+                    : project.pj_title}
+                  <br />
+                  {project.pj_corpname}
+                </p>
+              </div>
+            </Link>
+            <button
+              className="myDMButton"
+              type="button"
+              onClick={() => goDM(user, project.pj_num)}
+            >
               DM
             </button>
-            <button className="myofferedButton" type="submit">
+            <button
+              className="myofferedButton"
+              type="submit"
+              onClick={() => handleUpdate(project.pj_num)}
+            >
               승낙
             </button>
-            <button className="myofferedButton" type="submit">
+            <button
+              className="myofferedButton"
+              type="submit"
+              onClick={() => handleDelete(project.pj_num)}
+            >
               거부
             </button>
           </form>
         ))}
         <h4 className="myh4">완료된 프로젝트</h4>
         {finishedProject.map((finishedProject) => (
-          <div className="myproject">
-            {finishedProject.pj_title}
-            <br />
-            {finishedProject.pj_content}
-          </div>
+          <Link
+            to={"/pjlist/pjdetail/${project.pj_num}"}
+            style={{ textDecoration: "none" }}
+          >
+            <div className="myproject">
+              {finishedProject.pj_title}
+              <br />
+              {finishedProject.pj_corpname}
+            </div>
+          </Link>
         ))}
       </div>
     </div>

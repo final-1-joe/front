@@ -12,7 +12,10 @@ function ClientMyInfo() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
+  const [license, setLicense] = useState("");
   const navigate = useNavigate();
+
+  const user = window.sessionStorage.getItem("user_id");
 
   const getNewPassword = (e) => {
     setNewPassword(e.target.value);
@@ -34,38 +37,43 @@ function ClientMyInfo() {
     setPhone(e.target.value);
   };
 
+  const getNewLicense = (e) => {
+    setLicense(e.target.value);
+  };
+
   const passwordRegex =
     /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,16}$/;
   const phoneRegex = /^[0-9]{10,11}$/;
 
   useEffect(() => {
     axios
-      .get("/auth/userinfo")
+      .get("http://localhost:8080/auth/userinfo", { params: { user_id: user } })
       .then((response) => {
         const userData = response.data;
         setId(userData.user_id);
         setName(userData.user_name);
-        setEmail(userData.user_email);
         setPhone(userData.user_tel);
+        setEmail(userData.user_email);
       })
       .catch((error) => {
         console.error(error);
       });
-  }, []);
+  }, [user]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     await axios
-      .put("/auth/updateuser", {
+      .put("http://localhost:8080/auth/updateuser", {
         user_pw: newPassword,
-        user_name: getNewName,
-        user_email: getNewEmail,
-        user_tel: getNewPhone,
+        user_name: name,
+        user_email: email,
+        user_tel: phone,
+        //user_license: getNewLicense,
       })
       .then(() => {
         alert("회원정보가 변경되었습니다");
-        navigate("/free/mypage");
+        navigate("/client/mypage");
       })
       .catch((error) => {
         console.log(error);
@@ -75,14 +83,14 @@ function ClientMyInfo() {
   return (
     <div className="mypageLayout">
       <MySidebar />
-      <form className="mywrapper">
+      <form className="mywrapper" onSubmit={handleSubmit}>
         <h2 className="mytitle">회원정보수정</h2>
         <div className="myInfoList">
           <div className="mylistGroup">
             <label for="id" className="mylabel">
               아이디
             </label>
-            <p className="myidp">{id}</p>
+            <p className="myidp">{user}</p>
           </div>
           <div className="mylistGroup">
             <label for="newPassword" className="mylabel">
@@ -134,7 +142,7 @@ function ClientMyInfo() {
               id="name"
               name="name"
               placeholder="상호명"
-              defaultValue={name}
+              value={name}
               onChange={getNewName}
             />
           </div>
@@ -149,7 +157,7 @@ function ClientMyInfo() {
               id="email"
               name="email"
               placeholder="이메일을 입력하세요 ex)peoplancer@peoplancer.com"
-              defaultValue={email}
+              value={email}
               onChange={getNewEmail}
             />
           </div>
@@ -164,13 +172,27 @@ function ClientMyInfo() {
               id="phone"
               name="phone"
               placeholder="-없이 숫자만 입력해주세요"
-              defaultValue={phone}
+              value={phone}
               onChange={getNewPhone}
             />
           </div>
           <p className="myError">
             {!phoneRegex.test(phone) ? "-없이 숫자만 입력해주세요" : ""}
           </p>
+          <div className="mylistGroup">
+            <label for="license" className="mylabel">
+              사업자등록증
+            </label>
+            <input
+              className="myfileinput"
+              type="file"
+              id="license"
+              name="license"
+              accept="image/*, .pdf"
+              value={license}
+              onChange={getNewLicense}
+            />
+          </div>
         </div>
         <button className="myeditInfo" type="submit" onSubmit={handleSubmit}>
           수정하기
