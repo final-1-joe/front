@@ -1,49 +1,66 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Link, useNavigate } from "react-router-dom";
-import '../../css/admin.css';
+import { Link, useNavigate, useParams } from "react-router-dom";
+import "../../css/admin.css";
 import AdminSideBar from "../../components/AdminSideBar";
 
 const AdminProjectList = () => {
-    //함수
-    return (
-        <div className="admin-page">
-            <AdminSideBar />
-            <div className="main-content">
-                <h2>출력물(프로젝트리스트)</h2>
-                <div id="sc">
-                    <div className="sc_bl">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th className="number">번호</th>
-                                    <th className="title">데이터 제목</th>
-                                    <th className="data1">데이터1</th>
-                                    <th className="data2">데이터2</th>
-                                    <th className="data3">데이터3</th>
-                                </tr>
-                            </thead>
-                            {/* 여기에 .map써서 리스트 추가 */}
-                            <tbody>
-                                <tr>
-                                    <td className="number">데이터 번호</td>
-                                    <td className="title left">
-                                        <Link to={`/admin/project`}>
-                                            데이터 제목, 링크 업데이트 해야함
-                                        </Link>
-                                    </td>
-                                    <td className="data1">필요한 데이터 정보 1</td>
-                                    <td className="data2">필요한 데이터 정보 2</td>
-                                    <td className="data3">필요한 데이터 정보 3</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-    );
-};
+  const [pjlist, setPjlist] = useState([]);
 
+  useEffect(() => {
+    getPjlist();
+  }, []);
+  const getPjlist = () => {
+    axios
+      .get("http://localhost:8080/pjlist", {})
+      .then((res) => {
+        const data = res.data;
+        setPjlist(data);
+      })
+      .catch((e) => {
+        console.error(e);
+      });
+  };
+
+  //함수
+  return (
+    <div className="admin-page">
+      <AdminSideBar />
+      <div className="main-content">
+        <h2>등록된 프로젝트 목록</h2>
+        <div id="sc">
+          <div className="sc_bl">
+            <table border={1}>
+              <thead>
+                <tr>
+                  <th className="num">번호</th>
+                  <th className="title">프로젝트명</th>
+                  <th className="corpname">회사명</th>
+                  <th className="job">직군</th>
+                  <th className="end">모집 마감일</th>
+                </tr>
+              </thead>
+              {pjlist.map((data) => (
+                <tbody>
+                  <tr>
+                    <td className="num">{data.pj_num}</td>
+                    <td className="title left">
+                      <Link to={`/pjlist/pjdetail/${data.pj_num}`}>
+                        {data.pj_title}
+                      </Link>
+                    </td>
+                    <td className="corpname">{data.pj_corpname}</td>
+                    <td className="job">{data.pj_job}</td>
+                    <td className="end">{data.pj_end}</td>
+                  </tr>
+                </tbody>
+              ))}
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
 
 export default AdminProjectList;
