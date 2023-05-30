@@ -201,7 +201,8 @@ const PjList = () => {
                   <tr style={{ fontSize: "14px" }}>
                     <td colSpan={2}>
                       {data.pj_pay}&nbsp;&nbsp;|&nbsp;&nbsp;
-                      {data.pj_day}개월&nbsp;&nbsp;|&nbsp;&nbsp;
+                      {data.pj_start}&nbsp;~&nbsp;{data.pj_end}
+                      &nbsp;&nbsp;|&nbsp;&nbsp;
                       {data.pj_work_form}&nbsp;&nbsp;|&nbsp;&nbsp;
                       {data.pj_place}
                     </td>

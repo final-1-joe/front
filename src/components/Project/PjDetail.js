@@ -83,9 +83,9 @@ const PjDetail = () => {
                 <td className="info">시작 예정일</td>
                 <td>{project.pj_start}</td>
                 <td className="info" width="100px">
-                  모집 마감일
+                  종료 예정일
                 </td>
-                <td>{project.pj_period}</td>
+                <td>{project.pj_end}</td>
               </tr>
             </tbody>
           </table>
@@ -95,8 +95,8 @@ const PjDetail = () => {
           <table>
             <tbody key={project.pj_num}>
               <tr>
-                <td className="info">프로젝트 기간</td>
-                <td>{project.pj_day}개월</td>
+                <td className="info">모집 마감일</td>
+                <td>{project.pj_period}</td>
               </tr>
               <tr>
                 <td className="info" width="80px">
@@ -175,21 +175,12 @@ const PjDetail = () => {
           <br />
 
           <div className="PjManagement">
-            {/* <input
-              type="button"
-              value="수정"
-              className="PjBtn2"
-              onClick={onClickUpdate}
-            ></input> */}
-            <Link to={`/pjdetail/update`}>
-              <span className="PjBtn2">수정</span>
+            <Link to={`/pjdetail/update/${project.pj_num}`}>
+              <button className="PjBtn2">수정</button>
             </Link>
-            <input
-              type="button"
-              value="삭제"
-              className="PjBtn2"
-              onClick={onClickDelete}
-            ></input>
+            <button className="PjBtn2" onClick={onClickDelete}>
+              삭제
+            </button>
           </div>
         </div>
       </div>

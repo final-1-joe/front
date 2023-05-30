@@ -13,8 +13,10 @@
     margin: 0 auto; padding: 20px;
 }
 
+.selectItem { width: 150px; font-size: small;}
+
 .PjContent {
-    width: 600px; height: 300px;
+    width: 550px; height: 300px;
     resize: none;
 }
 
