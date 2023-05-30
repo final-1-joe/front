@@ -104,6 +104,19 @@ function MyProject() {
         },
       });
       const { my_user_id, your_user_id } = response.data;
+      console.log(response.data);
+
+      const chatDto2 = {
+        my_user_id: my_user_id,
+        your_user_id: your_user_id,
+      };
+
+      const createChatroomResponse = await axios.post(
+        "http://localhost:8080/createChatroom",
+        chatDto2
+      );
+      const chatroomId = createChatroomResponse.data;
+      console.log("Chatroom created with Id:", chatroomId);
       navigate("/direct");
     } catch (error) {
       console.log(error);

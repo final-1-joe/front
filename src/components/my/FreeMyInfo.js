@@ -85,7 +85,7 @@ function FreeMyInfo() {
             <label for="id" className="mylabel">
               아이디
             </label>
-            <p className="myidp">{user}</p>
+            <p className="myidp">{id}</p>
           </div>
           <div className="mylistGroup">
             <label for="newPassword" className="mylabel">
