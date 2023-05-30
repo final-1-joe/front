@@ -103,34 +103,32 @@ const Layout = ({ isLoggedIn, handleLogout, onLogin }) => {
           <Outlet />
         </section>
       </div>
-      <center>
-        <footer>
+
+      <footer id="LayoutFooter">
+        <center id="LayoutFooterCenter">
           <table>
             <tr>
-              <td>
+              <td rowSpan={4}>
                 <div class="logo">
                   <Link to="/">
                     <img src="/images/logo2.PNG" width="200" alt="프리랜서" />
                   </Link>
                 </div>
               </td>
-              <h1>&nbsp;&nbsp;</h1>
-              <td>
-                <p>&nbsp;</p>
-                <div class="footertext">
-                  <h4>대표: 김성만</h4>
-                  <p></p>
-                  <h4>피플랜서 | 서울특별시 강남구 멀티로 111</h4>
-                  <p></p>
-                  <h4>고객센터 02-2244-7272(평일 09:00~18:00, 주말·공휴일 휴무)</h4>
-                  <p></p>
-                  <h4>Copyright © PEOPLANCER all right reserved.</h4>
-                </div>
-              </td>
+              <td>대표: 김성만</td>
+            </tr>
+            <tr>
+              <td>피플랜서 | 서울특별시 강남구 멀티로 111</td>
+            </tr>
+            <tr>
+              <td>고객센터 02-2244-7272(평일 09:00~18:00, 주말·공휴일 휴무)</td>
+            </tr>
+            <tr>
+              <td>Copyright © PEOPLANCER all right reserved.</td>
             </tr>
           </table>
-        </footer>
-      </center>
+        </center>
+      </footer>
     </div>
   );
 };
