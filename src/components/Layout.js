@@ -1,25 +1,37 @@
 import "../css/Layout.css";
 import { useNavigate } from "react-router-dom";
 import { Link, Outlet } from "react-router-dom";
+import { useState, useEffect } from "react";
 
-const Layout = () => {
-  //   var login_check = false;
-  //   const login_id = window.sessionStorage.getItem("id");
-  //   if (login_id === null) {
-  //     login_check = false;
-  //   } else {
-  //     login_check = true;
-  //   }
+const Layout = ({ isLoggedIn, handleLogout, onLogin }) => {
 
-  //   const navigate = useNavigate();
-  //   const handleLogout = () => {
-  //     window.sessionStorage.clear(); // 세션스토리지에 저장된 속성값 모두 삭제
+  const [user_id, setUserId] = useState("");
+  const navigate = useNavigate();
 
-  //     navigate("/");
-  //   };
+  useEffect(() => {
+    const loggedInUserId = window.sessionStorage.getItem("user_id");
+    setUserId(loggedInUserId);
+    console.log(user_id);
+    if (user_id == null) {
+      handleLogout();
+    } else {
+      onLogin();
+    }
+
+  }, [user_id, isLoggedIn]);
+
+
+  const Logout = () => {
+    window.sessionStorage.clear();
+
+    setUserId("");
+    handleLogout();
+    navigate("/");
+  };
+
   return (
     <div id="Layout">
-      <div id="LayoutWrapper">
+      <div id="Layoutwrapper">
         <header id="LayoutHeader">
           <div id="LayoutLogo">
             <Link to="/">
@@ -31,19 +43,35 @@ const Layout = () => {
               <img src="/images/bell.png" width="35" alt="알림"></img>
             </Link>
           </div>
-
           <div>
             <ul className="memberbtn">
-              <li className="member">
-                <Link to="/" style={{ textDecoration: "none" }}>
-                  마이페이지
-                </Link>
-              </li>
-              <li className="member">
-                <Link to="/" style={{ textDecoration: "none" }}>
-                  회원가입
-                </Link>
-              </li>
+              {isLoggedIn ? (
+                <>
+                  <li className="member">
+                    <Link to="/" style={{ textDecoration: "none" }}>
+                      마이페이지
+                    </Link>
+                  </li>
+                  <li className="member">
+                    <button onClick={Logout} style={{ backgroundColor: 'transparent', border: 'none', fontSize: "16px" }}>&nbsp;&nbsp;로그아웃</button>
+                  </li>
+                  <li className="welcome-message" style={{ fontSize: "17px" }}>{user_id} 회원님, 환영합니다!</li>
+
+                </>
+              ) : (
+                <>
+                  <li className="member">
+                    <Link to="/loginform" style={{ textDecoration: "none" }}>
+                      로그인
+                    </Link>
+                  </li>
+                  <li className="member">
+                    <Link to="/Loginselect" style={{ textDecoration: "none" }}>
+                      회원가입
+                    </Link>
+                  </li>
+                </>
+              )}
             </ul>
           </div>
           <div className="menubar">
@@ -75,10 +103,9 @@ const Layout = () => {
           <Outlet />
         </section>
       </div>
-
-      <footer id="LayoutFooter">
-        <center id="LayoutFooterCenter">
-          {/* <table>
+      <center>
+        <footer>
+          <table>
             <tr>
               <td>
                 <div class="logo">
@@ -87,44 +114,23 @@ const Layout = () => {
                   </Link>
                 </div>
               </td>
+              <h1>&nbsp;&nbsp;</h1>
               <td>
-                <div id="LayoutFooterText">
+                <p>&nbsp;</p>
+                <div class="footertext">
                   <h4>대표: 김성만</h4>
                   <p></p>
                   <h4>피플랜서 | 서울특별시 강남구 멀티로 111</h4>
                   <p></p>
-                  <h4>
-                    고객센터 02-2244-7272(평일 09:00~18:00, 주말·공휴일 휴무)
-                  </h4>
+                  <h4>고객센터 02-2244-7272(평일 09:00~18:00, 주말·공휴일 휴무)</h4>
                   <p></p>
                   <h4>Copyright © PEOPLANCER all right reserved.</h4>
                 </div>
               </td>
             </tr>
-          </table> */}
-          <table>
-            <tr>
-              <td rowSpan={4}>
-                <div class="logo">
-                  <Link to="/">
-                    <img src="/images/logo2.PNG" width="200" alt="프리랜서" />
-                  </Link>
-                </div>
-              </td>
-              <td>대표: 김성만</td>
-            </tr>
-            <tr>
-              <td>피플랜서 | 서울특별시 강남구 멀티로 111</td>
-            </tr>
-            <tr>
-              <td>고객센터 02-2244-7272(평일 09:00~18:00, 주말·공휴일 휴무)</td>
-            </tr>
-            <tr>
-              <td>Copyright © PEOPLANCER all right reserved.</td>
-            </tr>
           </table>
-        </center>
-      </footer>
+        </footer>
+      </center>
     </div>
   );
 };
