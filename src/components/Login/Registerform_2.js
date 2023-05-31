@@ -11,7 +11,6 @@ const Registerform_2 = () => {
   const pwRef = useRef();
   const pwConfirmRef = useRef();
   const nmRef = useRef();
-  const bthRef = useRef();
   const emailRef = useRef();
   const phRef = useRef();
   const [phoneNumber, setPhoneNumber] = useState("");
@@ -144,12 +143,6 @@ const Registerform_2 = () => {
       return false;
     }
 
-    if (bthRef.current.value === "" || bthRef.current.value === undefined) {
-      alert("생년월일을 입력하세요!");
-      bthRef.current.focus();
-      return false;
-    }
-
     if (phRef.current.value === "" || phRef.current.value === undefined) {
       alert("이메일을 입력하세요!");
       phRef.current.focus();
@@ -161,7 +154,6 @@ const Registerform_2 = () => {
         user_id: idRef.current.value,
         user_pw: pwRef.current.value,
         user_name: nmRef.current.value,
-        // user_birth :bthRef.current.value,
         user_email: emailRef.current.value,
         user_tel: phRef.current.value,
         user_code: "free",
@@ -292,25 +284,6 @@ const Registerform_2 = () => {
                   size="40"
                   ref={nmRef}
                   placeholder="이름을 입력하세요"
-                  style={{ fontSize: "20px" }}
-                />
-              </td>
-            </tr>
-            <p>&nbsp;&nbsp;</p>
-            <tr>
-              <td style={{ fontSize: "20px" }}>
-                생년월일
-                <span style={{ color: "red", marginLeft: "5px" }}>*</span>
-              </td>
-            </tr>
-            <tr>
-              <td align="left" colspan="2">
-                <input
-                  type="text"
-                  name="id"
-                  size="40"
-                  ref={bthRef}
-                  placeholder="YYYYMMDD"
                   style={{ fontSize: "20px" }}
                 />
               </td>

@@ -308,9 +308,9 @@ const Resume = () => {
             <div className="input_title">근무방식</div>
             <div className="resume_input">
               <select className="box_input" name="work_st" ref={wsRef}>
-                <option value="allok">상관없음</option>
-                <option value="offline">상주근무</option>
-                <option value="online">원격근무</option>
+                <option value="상관없음">상관없음</option>
+                <option value="상주">상주근무</option>
+                <option value="원격">원격근무</option>
               </select>
             </div>
           </div>
@@ -318,9 +318,9 @@ const Resume = () => {
             <div className="input_title">근무형태</div>
             <div className="resume_input">
               <select className="box_input" name="work_ty" ref={wtRef}>
-                <option value="allok">상관없음</option>
-                <option value="fulltime">풀타임</option>
-                <option value="parttime">파트타임</option>
+                <option value="상관없음">상관없음</option>
+                <option value="풀타임">풀타임</option>
+                <option value="파트타임">파트타임</option>
               </select>
             </div>
           </div>
