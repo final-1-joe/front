@@ -438,9 +438,9 @@ const ResumeMypage = () => {
                   defaultValue={redata ? redata.user_ws : null}
                   ref={wsRef}
                 >
-                  <option value="allok">상관없음</option>
-                  <option value="offline">상주근무</option>
-                  <option value="online">원격근무</option>
+                  <option value="상관없음">상관없음</option>
+                  <option value="상주">상주근무</option>
+                  <option value="원격">원격근무</option>
                 </select>
               </div>
             </div>
@@ -453,9 +453,9 @@ const ResumeMypage = () => {
                   defaultValue={redata ? redata.user_wt : null}
                   ref={wtRef}
                 >
-                  <option value="allok">상관없음</option>
-                  <option value="fulltime">풀타임</option>
-                  <option value="parttime">파트타임</option>
+                  <option value="상관없음">상관없음</option>
+                  <option value="풀타임">풀타임</option>
+                  <option value="파트타임">파트타임</option>
                 </select>
               </div>
             </div>

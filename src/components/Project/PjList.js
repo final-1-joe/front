@@ -149,8 +149,8 @@ const PjList = () => {
                 onChange={handleTagChange}
               >
                 <option value="">근무 형태</option>
-                <option value="online">원격</option>
-                <option value="offline">상주</option>
+                <option value="원격">원격</option>
+                <option value="상주">상주</option>
               </select>
             </td>
           </tr>
