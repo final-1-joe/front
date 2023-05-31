@@ -112,11 +112,13 @@ li.member {
     width: 100%;
     height: 150px;
     background: #FBDB6A;
-    bottom: 0;
+    top: 50vh;
+    position: relative;
 }
 
 #LayoutFooter td {
-    font-size: small; color: rgb(62, 62, 62);
+    font-size: bolder;
+    color: rgb(62, 62, 62);
     padding: 5px;
 }
 
