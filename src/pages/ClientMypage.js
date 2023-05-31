@@ -84,7 +84,7 @@ function ClientMypage() {
         <h4 className="myh4">관심 프리랜서</h4>
         {bookmarkFreelancer.map((freelancer) => (
           <Link
-            to={`/freedetail?user_id=${freelancer.user_id}`}
+            to={`/freedetail?user_id=${freelancer.mark_fre_id}`}
             style={{ textDecoration: "none" }}
           >
             <div className="myfreelancer">
