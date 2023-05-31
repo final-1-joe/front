@@ -23,6 +23,7 @@ function DirectMessage() {
   const [dmfile, setDmFile] = useState("");
   const [filename, setFileName] = useState("");
   const [chatarraybox, setChatArrayBox] = useState([]);
+  const [chatroomarray, setChatRoomArray] = useState([]);
   const inputchatvalue = (e) => {
     setInputchat(e.target.value);
   };
@@ -38,12 +39,13 @@ function DirectMessage() {
   const chatblur = (e) => {
     e.target.placeholder = "메시지를 입력하세요";
   };
-  const date = new Date(); // 현재시간
   const [chatArray, setChatArray] = useState([]);
   const chatRef = useRef(null);
   const [채팅방몇개, set채팅방몇개] = useState([]);
   const [채팅방num, set채팅방num] = useState(0);
   const [chatname, setChatname] = useState("");
+  const [score, setScore] = useState(0);
+  const [simplescore, setSimpleScore] = useState(0);
   const [userInfo, SetUserInfo] = useState({
     user_code: "",
     user_email: "",
@@ -51,10 +53,16 @@ function DirectMessage() {
     user_name: "",
     user_tel: "",
   });
+
   useEffect(() => {
     const chatDiv = chatRef.current;
     chatDiv.scrollTop = chatDiv.scrollHeight;
-  });
+  }, [chatarraybox]);
+
+  useEffect(() => {
+    const chatDiv = chatRef.current;
+    chatDiv.scrollTop = chatDiv.scrollHeight;
+  }, [chatArray]);
 
   //window.sessionStorage.setItem("user_id", "aladin"); // 테스트용 로그인 아이디 세션, 채팅할때 이부분 주석
   var login_id = String(window.sessionStorage.getItem("user_id"));
@@ -145,7 +153,7 @@ function DirectMessage() {
         message_date: "",
       })
       .then((res) => {
-        console.log("채팅방 나가기 성공");
+        //console.log("채팅방 나가기 성공");
         set채팅방num(0);
         setSlide(false);
         window.location.reload();
@@ -195,6 +203,8 @@ function DirectMessage() {
       .then((res) => {
         if (res.data.some((item) => item.pj_status === "ongoing")) {
           setCooperate(true);
+        } else {
+          setCooperate(false);
         }
       })
       .catch((err) => {
@@ -202,8 +212,90 @@ function DirectMessage() {
       });
   };
 
+  const chatuserscore = () => {
+    axios
+      .get("http://localhost:8080/score", {
+        params: {
+          user_id: chatname,
+        },
+      })
+      .then((res) => {
+        var scnum = res.data;
+        scnum = scnum.toFixed(1);
+        setScore(scnum);
+        if (0 <= scnum && scnum < 1) {
+          setSimpleScore(0.5);
+        } else if (1 <= scnum && scnum < 1.5) {
+          setSimpleScore(1);
+        } else if (1.5 <= scnum && scnum < 2) {
+          setSimpleScore(1.5);
+        } else if (2 <= scnum && scnum < 2.5) {
+          setSimpleScore(2);
+        } else if (2.5 <= scnum && scnum < 3) {
+          setSimpleScore(2.5);
+        } else if (3 <= scnum && scnum < 3.5) {
+          setSimpleScore(3);
+        } else if (3.5 <= scnum && scnum < 4) {
+          setSimpleScore(3.5);
+        } else if (4 <= scnum && scnum < 4.5) {
+          setSimpleScore(4);
+        } else if (4.5 <= scnum && scnum < 5) {
+          setSimpleScore(4.5);
+        } else {
+          setSimpleScore(5);
+        }
+      })
+      .catch((err) => {
+        console.error("/score 에러 발생" + err);
+      });
+  };
+
+  const alarmchat = () => {
+    axios
+      .post("http://localhost:8080/alarm", {
+        message_id: "",
+        chatroom_id: "",
+        user_id: login_id,
+        message_content: "",
+        img_code: null,
+        file_code: null,
+        message_date: "",
+      })
+      .then((res) => {
+        const chatroomIds = res.data.map((item) => [
+          item.chatroom_id,
+          item.new_messages,
+        ]);
+        setChatRoomArray(chatroomIds);
+        //console.log(chatroomIds);
+      })
+      .catch((err) => {
+        console.error("/alarm 에러 발생" + err);
+      });
+  };
+
+  const updatealarmchat = () => {
+    axios
+      .post("http://localhost:8080/updatealarm", {
+        message_id: "",
+        chatroom_id: 채팅방num,
+        user_id: login_id,
+        message_content: "",
+        img_code: null,
+        file_code: null,
+        message_date: "",
+      })
+      .then((res) => {
+        //console.log("업뎃");
+      })
+      .catch((err) => {
+        console.error("/updatealarm 에러 발생" + err);
+      });
+  };
+
   useEffect(() => {
     unsubscribe();
+    alarmchat();
     connect();
   }, [select]);
 
@@ -213,8 +305,24 @@ function DirectMessage() {
     chatroom();
     chatuserinfo();
     chatuserinfowork();
+    chatuserscore();
+    alarmchat();
     connect();
   }, [채팅방num]);
+
+  useEffect(() => {
+    //unsubscribe();
+    updatealarmchat();
+    chatroom();
+    //alarmchat();
+  }, [chatArray]);
+
+  useEffect(() => {
+    //unsubscribe();
+    //updatealarmchat();
+    chatroom();
+    alarmchat();
+  }, [채팅방몇개]);
 
   //chatuserinfo();
 
@@ -307,8 +415,9 @@ function DirectMessage() {
 
   function unsubscribe() {
     if (stompClient) {
+      updatealarmchat();
       stompClient.disconnect();
-      console.log("연결해제");
+      //console.log("연결해제");
     }
   }
 
@@ -324,6 +433,7 @@ function DirectMessage() {
         FileSaver.saveAs(response.data, dmfilenam);
       });
   }
+
   return (
     <div className="dmContent-div">
       {slide === false ? (
@@ -349,11 +459,21 @@ function DirectMessage() {
                     setSelect(num + 1);
                     set채팅방num(i.chatroom_id);
                     setChatname(i.user_id);
+                    chatuserinfowork();
                   }}
                 >
                   <div className="dmprofile-photo"></div>
                   <div className="dmprofile-name">{i.user_id}</div>
-                  <div className="dmprofile-notify">2</div>
+                  {chatroomarray.some((item) => item[0] === i.chatroom_id) ? (
+                    <div className="dmprofile-notify">
+                      {
+                        chatroomarray.find(
+                          (item) => item[0] === i.chatroom_id
+                        )[1]
+                      }
+                    </div>
+                  ) : null}
+
                   {select === num + 1 ? (
                     <div className="dmprofile-line"></div>
                   ) : null}
@@ -389,9 +509,9 @@ function DirectMessage() {
               <div className="dmdetail-name">{userInfo.user_id}</div>
               <div className="dmdetail-email">{userInfo.user_email}</div>
               <div className="dmdetail-telephone">{userInfo.user_tel}</div>
-              <div className="dmdetail-score">평점 4.2 / 5.0</div>
+              <div className="dmdetail-score">평점 {score} / 5.0</div>
               <img
-                src="DirectMessage/4.5.png"
+                src={"DirectMessage/" + simplescore + ".png"}
                 alt="score"
                 className="dmdetail-score-image"
               ></img>
@@ -407,7 +527,10 @@ function DirectMessage() {
               <div
                 className="dmroomquit"
                 onClick={() => {
-                  sendQuit();
+                  if (window.confirm("채팅방을 나가시겠습니까?")) {
+                    sendQuit();
+                  } else {
+                  }
                 }}
               >
                 나가기
@@ -684,7 +807,7 @@ function DirectMessage() {
                           config
                         )
                         .then((res) => {
-                          console.log("업로드 완료");
+                          //console.log("업로드 완료");
                           setAttach(!attach);
                         })
                         .catch((error) => {
@@ -756,7 +879,7 @@ function DirectMessage() {
                           config
                         )
                         .then((res) => {
-                          console.log("업로드 완료");
+                          //console.log("업로드 완료");
                           setAttach(!attach);
                         })
                         .catch((error) => {
