@@ -40,7 +40,6 @@ import AdminUserList from "./pages/Admin/AdminUserList";
 import AdminProjectList from "./pages/Admin/AdminProjectList";
 import FreeCalendar from "./components/Schedule/FreeCalendar";
 
-
 function App() {
   return (
     <div>

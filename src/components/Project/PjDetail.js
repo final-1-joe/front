@@ -12,7 +12,6 @@ const PjDetail = () => {
   const [reviewForm, setReviewForm] = useState(false);
   const [project, setProject] = useState([]);
   const [pjlist, setPjlist] = useState([]);
-  // const [similar, setSimilar] = useState([]);
 
   const user = window.sessionStorage.getItem("user_id");
   const { id } = useParams();
@@ -20,7 +19,7 @@ const PjDetail = () => {
 
   useEffect(() => {
     getPjDetail();
-  }, []);
+  }, [pj_num]);
   const getPjDetail = () => {
     axios
       .get(`http://localhost:8080/pjlist/pjdetail?pj_num=${pj_num}`, {})
@@ -49,13 +48,6 @@ const PjDetail = () => {
         console.error(e);
       });
   };
-
-  // const handleSimilarPj = (pjlist) => {
-  //   const filterList = pjlist.filter((list) => list.pj_num !== pj_num);
-  //   setSimilar({ pjlist: filterList });
-  //   console.log("handleSimilarPj: ", filterList);
-  //   navigate(`/pjlist/pjdetail/${filterList.pj_num}`);
-  // };
 
   const onClickDelete = () => {
     console.log("[Delete]pj_num: ", pj_num);
@@ -234,12 +226,14 @@ const PjDetail = () => {
                 list.pj_num !== project.pj_num && list.pj_job === project.pj_job
             )
             .map((slist) => (
-              <Link to={`/pjlist/pjdetail/${slist.pj_num}`}>
-                <div className="PjSimilar">
-                  <p>{slist.pj_title}</p>
-                  <p>{slist.pj_content}</p>
-                </div>
-              </Link>
+              <div
+                key={slist.pj_num}
+                className="PjSimilar"
+                onClick={() => navigate(`/pjlist/pjdetail/${slist.pj_num}`)}
+              >
+                <p>{slist.pj_title}</p>
+                <p>{slist.pj_content}</p>
+              </div>
             ))}
         </div>
       </aside>
