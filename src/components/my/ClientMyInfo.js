@@ -12,7 +12,7 @@ function ClientMyInfo() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
-  const [license, setLicense] = useState("");
+  const [fileList, setFileList] = useState([]);
   const navigate = useNavigate();
 
   const user = window.sessionStorage.getItem("user_id");
@@ -38,7 +38,9 @@ function ClientMyInfo() {
   };
 
   const getNewLicense = (e) => {
-    setLicense(e.target.value);
+    const uploadFiles = Array.prototype.slice.call(e.target.files);
+    console.log("uploadFiles =>", uploadFiles);
+    setFileList(uploadFiles);
   };
 
   const passwordRegex =
@@ -60,24 +62,65 @@ function ClientMyInfo() {
       });
   }, [user]);
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
+    const formData = new FormData();
+    fileList.forEach((file) => {
+      formData.append("uploadfiles", file);
+    });
 
-    await axios
-      .put("http://localhost:8080/auth/updateuser", {
-        user_pw: newPassword,
-        user_name: name,
-        user_email: email,
-        user_tel: phone,
-        //user_license: getNewLicense,
-      })
-      .then(() => {
-        alert("회원정보가 변경되었습니다");
-        navigate("/client/mypage");
-      })
-      .catch((error) => {
-        console.log(error);
+    if (fileList.length === 0) {
+      axios
+        .post("http://localhost:8080/auth/updateuser", {
+          user_pw: newPassword,
+          user_name: name,
+          user_email: email,
+          user_tel: phone,
+          user_orlicense: null,
+          user_stlicense: null,
+        })
+        .then((res) => {
+          alert("회원정보가 변경되었습니다");
+          navigate("/client/mypage");
+          console.log(res);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    } else {
+      const formData = new FormData();
+      fileList.forEach((file) => {
+        formData.append("uploadfiles", file);
       });
+
+      axios
+        .post("http://localhost:8080/auth/upload", formData)
+        .then((res) => {
+          const originfilename = res.data[0].originfilename || null;
+          const storedfilename = res.data[0].storedfilename || null;
+
+          axios
+            .post("http://localhost:8080/auth/updateuser", {
+              user_pw: newPassword,
+              user_name: name,
+              user_email: email,
+              user_tel: phone,
+              user_orlicense: originfilename,
+              user_stlicense: storedfilename,
+            })
+            .then((res) => {
+              console.log(res);
+              alert("회원정보가 변경되었습니다");
+              navigate("/client/mypage");
+            })
+            .catch((error) => {
+              console.error(error);
+            });
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
   };
 
   return (
@@ -189,7 +232,7 @@ function ClientMyInfo() {
               id="license"
               name="license"
               accept="image/*, .pdf"
-              value={license}
+              multiple
               onChange={getNewLicense}
             />
           </div>

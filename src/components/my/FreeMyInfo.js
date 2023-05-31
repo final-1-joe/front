@@ -59,7 +59,7 @@ function FreeMyInfo() {
     e.preventDefault();
 
     await axios
-      .put("http://localhost:8080/auth/updateuser", {
+      .post("http://localhost:8080/auth/updateuser", {
         user_pw: newPassword,
         user_name: name,
         user_email: email,

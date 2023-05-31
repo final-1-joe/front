@@ -2,11 +2,12 @@ import "../css/Layout.css";
 import { useNavigate } from "react-router-dom";
 import { Link, Outlet } from "react-router-dom";
 import { useState, useEffect } from "react";
+import axios from "axios";
 
 const Layout = ({ isLoggedIn, handleLogout, onLogin }) => {
-
   const [user_id, setUserId] = useState("");
   const navigate = useNavigate();
+  const [user_code, setUserCode] = useState("");
 
   useEffect(() => {
     const loggedInUserId = window.sessionStorage.getItem("user_id");
@@ -18,8 +19,23 @@ const Layout = ({ isLoggedIn, handleLogout, onLogin }) => {
       onLogin();
     }
 
+    fetchUserCode(loggedInUserId);
   }, [user_id, isLoggedIn]);
 
+  const fetchUserCode = async (userId) => {
+    try {
+      const response = await axios.get("http://localhost:8080/auth/user_code", {
+        params: {
+          user_id: userId,
+        },
+      });
+      const userCode = response.data;
+      setUserCode(userCode);
+      window.sessionStorage.setItem("user_code", userCode);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   const Logout = () => {
     window.sessionStorage.clear();
@@ -27,6 +43,17 @@ const Layout = ({ isLoggedIn, handleLogout, onLogin }) => {
     setUserId("");
     handleLogout();
     navigate("/");
+  };
+
+  const getMyPageLink = () => {
+    const storedUserCode = window.sessionStorage.getItem("user_code");
+    if (storedUserCode === "free") {
+      return "/free/mypage";
+    } else if (storedUserCode === "client") {
+      return "/client/mypage";
+    } else {
+      return "/";
+    }
   };
 
   return (
@@ -48,15 +75,28 @@ const Layout = ({ isLoggedIn, handleLogout, onLogin }) => {
               {isLoggedIn ? (
                 <>
                   <li className="member">
-                    <Link to="/" style={{ textDecoration: "none" }}>
+                    <Link
+                      to={getMyPageLink()}
+                      style={{ textDecoration: "none" }}
+                    >
                       마이페이지
                     </Link>
                   </li>
                   <li className="member">
-                    <button onClick={Logout} style={{ backgroundColor: 'transparent', border: 'none', fontSize: "16px" }}>&nbsp;&nbsp;로그아웃</button>
+                    <button
+                      onClick={Logout}
+                      style={{
+                        backgroundColor: "transparent",
+                        border: "none",
+                        fontSize: "16px",
+                      }}
+                    >
+                      &nbsp;&nbsp;로그아웃
+                    </button>
                   </li>
-                  <li className="welcome-message" style={{ fontSize: "17px" }}>{user_id} 회원님, 환영합니다!</li>
-
+                  <li className="welcome-message" style={{ fontSize: "17px" }}>
+                    {user_id} 회원님, 환영합니다!
+                  </li>
                 </>
               ) : (
                 <>
