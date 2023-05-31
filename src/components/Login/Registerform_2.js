@@ -11,6 +11,7 @@ const Registerform_2 = () => {
   const pwRef = useRef();
   const pwConfirmRef = useRef();
   const nmRef = useRef();
+  const bthRef = useRef();
   const emailRef = useRef();
   const phRef = useRef();
   const [phoneNumber, setPhoneNumber] = useState("");
@@ -143,6 +144,12 @@ const Registerform_2 = () => {
       return false;
     }
 
+    if (bthRef.current.value === "" || bthRef.current.value === undefined) {
+      alert("생년월일을 입력하세요!");
+      bthRef.current.focus();
+      return false;
+    }
+
     if (phRef.current.value === "" || phRef.current.value === undefined) {
       alert("이메일을 입력하세요!");
       phRef.current.focus();
@@ -154,6 +161,7 @@ const Registerform_2 = () => {
         user_id: idRef.current.value,
         user_pw: pwRef.current.value,
         user_name: nmRef.current.value,
+        user_birth: bthRef.current.value,
         user_email: emailRef.current.value,
         user_tel: phRef.current.value,
         user_code: "free",
@@ -228,14 +236,14 @@ const Registerform_2 = () => {
                 <input
                   type="password"
                   name="password"
-                  size="45"
+                  size="40"
                   minLength="8"
                   maxLength="16"
                   ref={pwRef}
                   value={password}
                   onChange={handlePasswordChange}
                   placeholder="비밀번호를 입력하세요(8~16자리, 특수문자 가능)"
-                  style={{ fontSize: "20px", border: "none" }}
+                  style={{ fontSize: "20px" }}
                 />
               </td>
             </tr>
@@ -256,7 +264,7 @@ const Registerform_2 = () => {
                   value={passwordConfirm}
                   onChange={handlePasswordConfirmChange}
                   placeholder="비밀번호를 다시 입력하세요"
-                  style={{ fontSize: "20px", border: "none" }}
+                  style={{ fontSize: "20px" }}
                 />
               </td>
             </tr>
@@ -285,6 +293,25 @@ const Registerform_2 = () => {
                   ref={nmRef}
                   placeholder="이름을 입력하세요"
                   style={{ fontSize: "20px" }}
+                />
+              </td>
+            </tr>
+            <p>&nbsp;&nbsp;</p>
+            <tr>
+              <td style={{ fontSize: "20px" }}>
+                생년월일
+                <span style={{ color: "red", marginLeft: "5px" }}>*</span>
+              </td>
+            </tr>
+            <tr>
+              <td align="left" colspan="2">
+                <input
+                  type="date"
+                  name="id"
+                  size="40"
+                  ref={bthRef}
+                  placeholder="YYYYMMDD"
+                  style={{ fontSize: "20px", width: "438px" }}
                 />
               </td>
             </tr>

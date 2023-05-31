@@ -224,14 +224,14 @@ const Registerform_1 = () => {
                 <input
                   type="password"
                   name="password"
-                  size="45"
+                  size="40"
                   minLength="8"
                   maxLength="16"
                   ref={pwRef}
                   value={password}
                   onChange={handlePasswordChange}
                   placeholder="비밀번호를 입력하세요(8~16자리, 특수문자 가능)"
-                  style={{ fontSize: "20px", border: "none" }}
+                  style={{ fontSize: "20px" }}
                 />
               </td>
             </tr>
@@ -252,7 +252,7 @@ const Registerform_1 = () => {
                   value={passwordConfirm}
                   onChange={handlePasswordConfirmChange}
                   placeholder="비밀번호를 다시 입력하세요"
-                  style={{ fontSize: "20px", border: "none" }}
+                  style={{ fontSize: "20px" }}
                 />
               </td>
             </tr>
