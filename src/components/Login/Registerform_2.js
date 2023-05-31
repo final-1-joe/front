@@ -21,9 +21,13 @@ const Registerform_2 = () => {
   const [isIdExist, setIsIdExist] = useState(false);
 
   const handleCheck = () => {
+    if (idRef.current.value === "") {
+      alert("아이디를 입력해주세요!!!");
+      return false;
+    }
     axios
       .get(
-        `http://localhost:8080/user/checkUser_id?user_id=${idRef.current.value}`
+        `http://localhost:8080/user/checkMember?user_id=${idRef.current.value}`
       )
       .then((res) => {
         setIsIdExist(res.data); //
