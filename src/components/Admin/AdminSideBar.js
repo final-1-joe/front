@@ -1,10 +1,15 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "../../css/admin.css";
 
 const AdminSideBar = () => {
-
     const navigate = useNavigate();
+    const userid = window.sessionStorage.getItem("user_id");
+    const admincheck = () => {
+        if (userid !== 'admin') {
+            navigate("/");
+        }
+    }
 
     const freelancerclick = () => {
         navigate('/admin/free');
@@ -16,6 +21,9 @@ const AdminSideBar = () => {
     const projectclick = () => {
         navigate('/admin/project')
     };
+    useEffect(() => {
+        admincheck();
+    }, []);
 
     return (
         <div className="sidebar-admin">

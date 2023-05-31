@@ -50,7 +50,7 @@ const AdminClientList = () => {
                             </thead>
                             <tbody>
                                 {clientdb.map((data) => (
-
+                                    
                                     <tr>
                                         <td className="number">{data.user_id}</td>
                                         <td className="data1">{data.user_pw}</td>
