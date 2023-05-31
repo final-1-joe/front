@@ -1,6 +1,6 @@
 import React from "react";
 import '../../css/admin.css';
-import AdminSideBar from "../../components/AdminSideBar";
+import AdminSideBar from "../../components/Admin/AdminSideBar";
 
 
 const Adminpage = () => {

@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "../css/Slideshow.css";
-
 function PrevArrow(props) {
   const { className, onClick } = props;
   const handleClick = () => {
@@ -39,66 +38,64 @@ const Home = () => {
     slidesToShow: 3,
     slidesToScroll: 1,
     draggable: true,
-    variableWidth: false,
+    variableWidth: true,
     nextArrow: <NextArrow />,
     prevArrow: <PrevArrow />,
-    vertical: true,
+    vertical: false,
     initialSlide: 0,
   };
-
   const data = [
     {
-      img: "/images/logo.png",
+      img: "/images/프리랜서1.PNG",
       url: "/",
-      text: "프로젝트 1",
-      description: "로고 제작",
+      // text: "프로젝트 1",
+      // description: "로고 제작",
     },
     {
-      img: "/images/logo2.PNG",
+      img: "/images/프리랜서2.PNG",
       url: "/",
-      text: "프로젝트 2",
-      description: "프로그램 제작",
+      // text: "프로젝트 2",
+      // description: "프로그램 제작",
     },
     {
-      img: "/images/logo.png",
+      img: "/images/프리랜서3.PNG",
       url: "/",
-      text: "프로젝트 3",
-      description: "홈페이지 제작",
+      // text: "프로젝트 3",
+      // description: "홈페이지 제작",
     },
     {
-      img: "/images/logo2.PNG",
+      img: "/images/프리랜서1.PNG",
       url: "/",
-      text: "프로젝트 4",
-      description: "영상 편집",
+      // text: "프로젝트 1",
+      // description: "로고 제작",
     },
   ];
   const data2 = [
     {
-      img: "/images/logo.png",
+      img: "/images/프리랜서1.PNG",
       url: "/",
-      text: "홍현덕",
-      description: "로고 제작 전문",
+      // text: "프로젝트 1",
+      // description: "로고 제작",
     },
     {
-      img: "/images/logo2.PNG",
+      img: "/images/프리랜서2.PNG",
       url: "/",
-      text: "이길주",
-      description: "코딩 전문",
+      // text: "프로젝트 2",
+      // description: "프로그램 제작",
     },
     {
-      img: "/images/logo.png",
+      img: "/images/프리랜서3.PNG",
       url: "/",
-      text: "김성만",
-      description: "영상 편집 전문",
+      // text: "프로젝트 3",
+      // description: "홈페이지 제작",
     },
     {
-      img: "/images/logo2.PNG",
+      img: "/images/프리랜서1.PNG",
       url: "/",
-      text: "최유진",
-      description: "프론트엔드 전문",
+      // text: "프로젝트 1",
+      // description: "로고 제작",
     },
   ];
-
   return (
     <div>
       <center>
@@ -112,7 +109,7 @@ const Home = () => {
                   style={{
                     width: "150px",
                     height: "50px",
-                    backgroundColor: "#ffe68b",
+                    backgroundColor: "#FFE68B",
                     fontSize: "20px",
                     border: "none",
                   }}
@@ -125,7 +122,20 @@ const Home = () => {
                   style={{
                     width: "150px",
                     height: "50px",
-                    backgroundColor: "#ffe68b",
+                    backgroundColor: "#FFE68B",
+                    fontSize: "20px",
+                    border: "none",
+                  }}
+                />
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <input
+                  type="button"
+                  value="태그 검색"
+                  onClick={"/"}
+                  style={{
+                    width: "150px",
+                    height: "50px",
+                    backgroundColor: "#FFE68B",
                     fontSize: "20px",
                     border: "none",
                   }}
@@ -135,7 +145,11 @@ const Home = () => {
             <p>&nbsp;&nbsp;</p>
             <p>&nbsp;&nbsp;</p>
           </tr>
-
+          <div>
+            <h2>
+              Peoplancer와 함께 성공적인 비즈니스를 시작해보세요!
+            </h2>
+          </div>
           <div id="event_show">
             <div style={{ height: "500px" }}>
               <h3>추천 프로젝트(프리랜서) </h3>

@@ -22,3 +22,9 @@
     background: #b6ad8b;
     margin-right: 30px;
 }
+
+.data1,
+.data2,
+.data3 {
+    min-width: 150px;
+}
