@@ -40,8 +40,6 @@ import AdminUserList from "./pages/Admin/AdminUserList";
 import AdminProjectList from "./pages/Admin/AdminProjectList";
 import FreeCalendar from "./components/Schedule/FreeCalendar";
 import { useState, useEffect } from "react";
-import FreeEdit from "./components/Admin/FreeEdit";
-import ClientEdit from "./components/Admin/ClientEdit";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -108,8 +106,6 @@ function App() {
           <Route path="/admin/project" element={<AdminProjectList />} />
           <Route path="/direct" element={<DirectMessage />} />
           <Route path="/free/calendar/:id" element={<FreeCalendar />} />
-          <Route path="/admin/freeedit/:user_id" element={<FreeEdit />} />
-          <Route path="/admin/clientedit/:user_id" element={<ClientEdit />} />
 
           <Route path="*" element={<Notfound />} />
         </Routes>
