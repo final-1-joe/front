@@ -134,6 +134,15 @@ const TagConfigClient = () => {
       .catch((error) => {
         console.error(error);
       });
+    axios
+      .post("http://localhost:8080/user/updatert", {
+        user_id: user_id,
+        user_resume: 1,
+      })
+      .then((res) => {})
+      .catch((e) => {
+        console.error(e);
+      });
   };
 
   return (
