@@ -177,6 +177,7 @@ const Resume = () => {
               user_orfile: res.data[0].originfilename || null,
               user_stfile: res.data[0].storedfilename || null,
               user_github: githubRef.current.value || null,
+              user_intro: introRef.current.value || null,
             })
             .then((res) => {})
             .catch((e) => {
@@ -192,15 +193,16 @@ const Resume = () => {
         user_id: user_id,
         user_resume: 1,
       })
-      .then((res) => {})
+      .then((res) => {
+        navigate("/");
+      })
       .catch((e) => {
         console.error(e);
       });
-    navigate("/");
   };
 
   return (
-    <div className="resume">
+    <div className="resume recenter">
       <div id="basic" className="resume_section">
         <div className="area_title">
           <h3 className="title">이력서</h3>
@@ -243,6 +245,7 @@ const Resume = () => {
                 className="box_input"
                 data-only-word="true"
                 ref={bdRef}
+                defaultValue={userdata ? userdata.user_birth : ""}
               />
             </span>
             <span className="inpRdoSw sizeXL resume_right focus">
