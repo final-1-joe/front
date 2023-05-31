@@ -2,14 +2,14 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import '../../css/admin.css';
-import AdminSideBar from "../../components/AdminSideBar";
+import AdminSideBar from "../../components/Admin/AdminSideBar";
 
 const AdminUserList = () => {
     //함수
     const [freedb, setFreedb] = useState([]);
 
     const openlink = (url) => {
-        const open = window.open(url, '_blank', 'width=900px,height=910px,scrollbars=no');
+        const open = window.open(url, '_blank', 'width=1200px,height=910px,scrollbars=no');
         if (open) {
             open.document.documentElement.style.overflow = 'hidden';
         }
@@ -60,7 +60,7 @@ const AdminUserList = () => {
                                         <td className="data1">{data.user_email}</td>
                                         <td className="data2">{data.user_tel}</td>
                                         <td className="data3"
-                                            onClick={() => openlink(`http://localhost:3000/free/calendar/${data.user_id}`)}
+                                            onClick={() => openlink(`http://localhost:3000/admin/freeedit/${data.user_id}`)}
                                         >정보변경(클릭)</td>
                                     </tr>
                                 ))}

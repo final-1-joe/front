@@ -2,10 +2,17 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import '../../css/admin.css';
-import AdminSideBar from "../../components/AdminSideBar";
+import AdminSideBar from "../../components/Admin/AdminSideBar";
 
 const AdminClientList = () => {
     const [clientdb, setClientdb] = useState([]);
+
+    const openlink = (url) => {
+        const open = window.open(url, '_blank', 'width=1200px,height=910px,scrollbars=no');
+        if (open) {
+            open.document.documentElement.style.overflow = 'hidden';
+        }
+    };
     //함수
     const getclientdb = () => {
         axios
@@ -53,8 +60,9 @@ const AdminClientList = () => {
                                         <td className="data1">{data.user_tel}</td>
                                         {/* 다운로드식으로 하실건지는 모르겠어요 */}
                                         <td className="data2">{data.user_orlicense}</td>
-                                        {/* 나중에 링크를 이을 예정 */}
-                                        <td className="data3">정보변경(클릭)</td>
+                                        <td className="data3"
+                                            onClick={() => openlink(`http://localhost:3000/admin/clientedit/${data.user_id}`)}
+                                        >정보변경(클릭)</td>
                                     </tr>
                                 ))}
                             </tbody>

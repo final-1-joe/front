@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import '../../css/admin.css';
-import AdminSideBar from "../../components/AdminSideBar";
+import AdminSideBar from "../../components/Admin/AdminSideBar";
 
 
 const APSCA = () => {
