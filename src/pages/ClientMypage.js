@@ -71,7 +71,7 @@ function ClientMypage() {
         <h4 className="myh4">모집중인 프로젝트</h4>
         {recruitProject.map((project) => (
           <Link
-            to={"/pjlist/pjdetail/${project.pj_num}"}
+            to={`/pjlist/pjdetail/${project.pj_num}`}
             style={{ textDecoration: "none" }}
           >
             <div className="myproject">
@@ -84,7 +84,7 @@ function ClientMypage() {
         <h4 className="myh4">관심 프리랜서</h4>
         {bookmarkFreelancer.map((freelancer) => (
           <Link
-            to={"/freelist/freedetail/${freelancer.user_id}"}
+            to={`/freedetail?user_id=${freelancer.user_id}`}
             style={{ textDecoration: "none" }}
           >
             <div className="myfreelancer">
