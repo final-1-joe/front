@@ -130,7 +130,7 @@ function MyProject() {
         <h4 className="myh4">진행중인 프로젝트</h4>
         {ongoingProject.map((project) => (
           <Link
-            to={"/pjlist/pjdetail/${project.pj_num}"}
+            to={`/pjlist/pjdetail/${project.pj_num}`}
             style={{ textDecoration: "none" }}
           >
             <div className="myproject">
@@ -143,7 +143,7 @@ function MyProject() {
         <h4 className="myh4">지원한 프로젝트</h4>
         {applyProject.map((project) => (
           <Link
-            to={"/pjlist/pjdetail?pj_num=${project.pj_num}"}
+            to={`/pjlist/pjdetail/${project.pj_num}`}
             style={{ textDecoration: "none" }}
           >
             <div className="myproject">
@@ -157,7 +157,7 @@ function MyProject() {
         {offeredProject.map((project) => (
           <form className="myoffered" key={project.pj_num} id={project.pj_num}>
             <Link
-              to={"/pjlist/pjdetail/${project.pj_num}"}
+              to={`/pjlist/pjdetail/${project.pj_num}`}
               style={{ textDecoration: "none" }}
             >
               <div className="myofferedProject">
@@ -194,15 +194,15 @@ function MyProject() {
           </form>
         ))}
         <h4 className="myh4">완료된 프로젝트</h4>
-        {finishedProject.map((finishedProject) => (
+        {finishedProject.map((project) => (
           <Link
-            to={"/pjlist/pjdetail/${project.pj_num}"}
+            to={`/pjlist/pjdetail/${project.pj_num}`}
             style={{ textDecoration: "none" }}
           >
             <div className="myproject">
-              {finishedProject.pj_title}
+              {project.pj_title}
               <br />
-              {finishedProject.pj_corpname}
+              {project.pj_corpname}
             </div>
           </Link>
         ))}
