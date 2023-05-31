@@ -179,6 +179,8 @@ const Registerform_2 = () => {
       })
       .catch((e) => {
         console.log(e);
+        alert("회원가입 실패!");
+        navigate("/");
       });
   };
 
