@@ -122,7 +122,7 @@ const AdminUserList = () => {
                                     <>
                                         < tr >
                                             <td className="number">{data.user_id}</td>
-                                            <td className="pw">
+                                            <td className="pass">
                                                 {/* 비밀번호 */}
                                                 {edit === data.user_id ?
                                                     <td>
