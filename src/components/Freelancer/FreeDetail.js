@@ -18,9 +18,13 @@ const FreeDetail = () => {
   const user_id = params.get("user_id");
   const navigate = useNavigate();
   const openlink = (url) => {
-    const open = window.open(url, '_blank', 'width=900px,height=910px,scrollbars=no');
+    const open = window.open(
+      url,
+      "_blank",
+      "width=900px,height=910px,scrollbars=no"
+    );
     if (open) {
-      open.document.documentElement.style.overflow = 'hidden';
+      open.document.documentElement.style.overflow = "hidden";
     }
   };
   const onClickLike = () => {
@@ -110,14 +114,18 @@ const FreeDetail = () => {
             <tr>
               <td colSpan={5} align="center" width="300px">
                 <div id="FreeResumeIcon">
-                  <Link
-                    onClick={() =>
-                      getportfolio(frdata.user_orfile, frdata.user_stfile)
-                    }
-                    style={{ textDecoration: "none" }}
-                  >
+                  {frdata.user_orfile !== null ? (
+                    <Link
+                      onClick={() =>
+                        getportfolio(frdata.user_orfile, frdata.user_stfile)
+                      }
+                      style={{ textDecoration: "none" }}
+                    >
+                      <span id="FreePortfolio">포트폴리오</span>
+                    </Link>
+                  ) : (
                     <span id="FreePortfolio">포트폴리오</span>
-                  </Link>
+                  )}
                   <a
                     href={frdata.user_github}
                     style={{ textDecoration: "none" }}
@@ -145,8 +153,8 @@ const FreeDetail = () => {
                 {frdata.user_ws === "allok"
                   ? "상관없음"
                   : frdata.user_ws === "online"
-                    ? "원격(재택)"
-                    : "상주"}
+                  ? "원격(재택)"
+                  : "상주"}
               </td>
               <td width="50px"></td>
               <td>희망 근무형태</td>
@@ -155,12 +163,16 @@ const FreeDetail = () => {
                 {frdata.user_wt === "allok"
                   ? "상관없음"
                   : frdata.user_wt === "fulltime"
-                    ? "풀타임"
-                    : "파트타임"}
+                  ? "풀타임"
+                  : "파트타임"}
               </td>
               <td width="100px"></td>
-              <td align="center" onClick={() => openlink(`http://localhost:3000/free/calendar/${user_id}`)}>
-
+              <td
+                align="center"
+                onClick={() =>
+                  openlink(`http://localhost:3000/free/calendar/${user_id}`)
+                }
+              >
                 <span id="FreeSchedule">일정 보기</span>
               </td>
             </tr>

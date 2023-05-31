@@ -11,19 +11,21 @@ const PjDetail = () => {
   const navigate = useNavigate();
   const [reviewForm, setReviewForm] = useState(false);
   const [project, setProject] = useState([]);
+  const [pjlist, setPjlist] = useState([]);
 
+  const user = window.sessionStorage.getItem("user_id");
   const { id } = useParams();
   const pj_num = parseInt(id);
+
   useEffect(() => {
     getPjDetail();
-  }, []);
-
+  }, [pj_num]);
   const getPjDetail = () => {
     axios
       .get(`http://localhost:8080/pjlist/pjdetail?pj_num=${pj_num}`, {})
       .then((res) => {
         const data = res.data;
-        console.log("data: ", data);
+        console.log("getdetail data: ", data);
         setProject(data);
       })
       .catch((e) => {
@@ -31,12 +33,24 @@ const PjDetail = () => {
       });
   };
 
-  const onClickUpdate = () => {
-    navigate(`/pjdetail/update/${pj_num}`);
+  useEffect(() => {
+    getPjlist();
+  }, []);
+  const getPjlist = () => {
+    axios
+      .get("http://localhost:8080/pjlist", {})
+      .then((res) => {
+        const data = res.data;
+        setPjlist(data);
+        console.log("getPjlist: ", data);
+      })
+      .catch((e) => {
+        console.error(e);
+      });
   };
+
   const onClickDelete = () => {
     console.log("[Delete]pj_num: ", pj_num);
-
     axios
       .get(`http://localhost:8080/pjdetail/delete?pj_num=${pj_num}`, {})
       .then((res) => {
@@ -204,27 +218,23 @@ const PjDetail = () => {
           </div>
         </div>
         <br />
-
         <div>
           <h3>유사 프로젝트</h3>
-          <Link to="/" style={{ textDecoration: "none", color: "black" }}>
-            <div className="PjSimilar">
-              <p>프로젝트명</p>
-              <p>프로젝트 내용</p>
-            </div>
-          </Link>
-          <Link to="/" style={{ textDecoration: "none", color: "black" }}>
-            <div className="PjSimilar">
-              <p>프로젝트명</p>
-              <p>프로젝트 내용</p>
-            </div>
-          </Link>
-          <Link to="/" style={{ textDecoration: "none", color: "black" }}>
-            <div className="PjSimilar">
-              <p>프로젝트명</p>
-              <p>프로젝트 내용</p>
-            </div>
-          </Link>
+          {pjlist
+            .filter(
+              (list) =>
+                list.pj_num !== project.pj_num && list.pj_job === project.pj_job
+            )
+            .map((slist) => (
+              <div
+                key={slist.pj_num}
+                className="PjSimilar"
+                onClick={() => navigate(`/pjlist/pjdetail/${slist.pj_num}`)}
+              >
+                <p>{slist.pj_title}</p>
+                <p>{slist.pj_content}</p>
+              </div>
+            ))}
         </div>
       </aside>
     </div>

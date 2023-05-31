@@ -41,7 +41,6 @@ import AdminProjectList from "./pages/Admin/AdminProjectList";
 import FreeCalendar from "./components/Schedule/FreeCalendar";
 import { useState, useEffect } from "react";
 
-
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
