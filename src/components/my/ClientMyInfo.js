@@ -72,6 +72,7 @@ function ClientMyInfo() {
     if (fileList.length === 0) {
       axios
         .post("http://localhost:8080/auth/updateuser", {
+          user_id: user,
           user_pw: newPassword,
           user_name: name,
           user_email: email,
@@ -101,6 +102,7 @@ function ClientMyInfo() {
 
           axios
             .post("http://localhost:8080/auth/updateuser", {
+              user_id: user,
               user_pw: newPassword,
               user_name: name,
               user_email: email,
