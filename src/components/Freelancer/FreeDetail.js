@@ -17,6 +17,12 @@ const FreeDetail = () => {
   const params = new URLSearchParams(location.search);
   const user_id = params.get("user_id");
   const navigate = useNavigate();
+  const openlink = (url) => {
+    const open = window.open(url, '_blank', 'width=900px,height=910px,scrollbars=no');
+    if (open) {
+      open.document.documentElement.style.overflow = 'hidden';
+    }
+  };
   const onClickLike = () => {
     alert("관심 프리랜서에 등록되었습니다");
   };
@@ -139,8 +145,8 @@ const FreeDetail = () => {
                 {frdata.user_ws === "allok"
                   ? "상관없음"
                   : frdata.user_ws === "online"
-                  ? "원격(재택)"
-                  : "상주"}
+                    ? "원격(재택)"
+                    : "상주"}
               </td>
               <td width="50px"></td>
               <td>희망 근무형태</td>
@@ -149,14 +155,13 @@ const FreeDetail = () => {
                 {frdata.user_wt === "allok"
                   ? "상관없음"
                   : frdata.user_wt === "fulltime"
-                  ? "풀타임"
-                  : "파트타임"}
+                    ? "풀타임"
+                    : "파트타임"}
               </td>
               <td width="100px"></td>
-              <td align="center">
-                <Link to="/" style={{ textDecoration: "none" }}>
-                  <span id="FreeSchedule">일정 보기</span>
-                </Link>
+              <td align="center" onClick={() => openlink(`http://localhost:3000/free/calendar/${user_id}`)}>
+
+                <span id="FreeSchedule">일정 보기</span>
               </td>
             </tr>
           </table>
