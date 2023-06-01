@@ -50,15 +50,23 @@ function App() {
 
   const handleLogout = () => {
     setIsLoggedIn(false);
-  }
+  };
 
-  useEffect(() => {
-  }, [isLoggedIn]);
+  useEffect(() => {}, [isLoggedIn]);
   return (
     <div>
       <Router>
         <Routes>
-          <Route path="/" element={<Layout onLogin={handleLogin} isLoggedIn={isLoggedIn} handleLogout={handleLogout} />}>
+          <Route
+            path="/"
+            element={
+              <Layout
+                onLogin={handleLogin}
+                isLoggedIn={isLoggedIn}
+                handleLogout={handleLogout}
+              />
+            }
+          >
             <Route index element={<Home />} />
             <Route path="/freelist" element={<FreeList />} />
             <Route path="/freedetail" element={<FreeDetail />} />
@@ -71,7 +79,10 @@ function App() {
 
             <Route path="/tag" element={<TagConfigFree />} />
             <Route path="/tag2" element={<TagConfigClient />} />
-            <Route path="/loginform" element={<Loginform onLogin={handleLogin} />} />
+            <Route
+              path="/loginform"
+              element={<Loginform onLogin={handleLogin} />}
+            />
             <Route path="/loginselect" element={<Loginselect />} />
             <Route path="/registerform_1" element={<Registerform_1 />} />
             <Route path="/registerform_2" element={<Registerform_2 />} />
@@ -91,8 +102,14 @@ function App() {
               path="/support/board/modify"
               element={<SupportBoardModify />}
             />
-            <Route path="/free/myproject" element={<FreeMyProject />} />
-            <Route path="/client/mypage" element={<ClientMypage />} />
+            <Route
+              path="/free/myproject"
+              element={<FreeMyProject handleLogout={handleLogout} />}
+            />
+            <Route
+              path="/client/mypage"
+              element={<ClientMypage handleLogout={handleLogout} />}
+            />
             <Route path="/free/mypage" element={<FreeMypage />} />
             <Route path="/free/myresume" element={<ResumeMypage />} />
             <Route path="/free/myinfo" element={<FreeMyInfo />} />
