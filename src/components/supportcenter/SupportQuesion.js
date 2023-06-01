@@ -87,7 +87,7 @@ const SupportQuesion = ({ scnum, scquestion, scanswer, getFaq }) => {
                     </td>
                     <td>
                       <span className="sc_an-2">
-                        <p>{scanswer}</p>
+                        <pre className="nows">{scanswer}</pre>
                       </span>
                       <span className="sc_an-3">
                         {user_id === "admin" ? (
