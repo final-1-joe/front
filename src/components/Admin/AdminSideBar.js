@@ -19,8 +19,11 @@ const AdminSideBar = () => {
         navigate('/admin/client');
     };
     const projectclick = () => {
-        navigate('/admin/project')
+        navigate('/admin/project');
     };
+    const mainclick = () => {
+        navigate('/admin');
+    }
     useEffect(() => {
         admincheck();
     }, []);
@@ -28,6 +31,7 @@ const AdminSideBar = () => {
     return (
         <div className="sidebar-admin">
             <h3>관리자님, 환영합니다</h3><hr />
+            <h4 onClick={mainclick}>어드민 메인 페이지(통계)</h4>
             <h4 onClick={freelancerclick}>프리랜서 리스트</h4>
             <h4 onClick={clientclick}>클라이언트 리스트</h4>
             <h4 onClick={projectclick}>프로젝트 리스트</h4>

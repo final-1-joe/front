@@ -10,7 +10,7 @@ const ProjectManagement = () => {
             id: 1,
             project: 'Project A',
             content: 'Schedule 1',
-            status: 'inProgress',
+            status: 'ongoing',
             link: '/hello'
         },
         { id: 2, project: 'Project B', content: 'Schedule 2', status: 'completed' },
