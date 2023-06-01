@@ -6,6 +6,7 @@ import axios from "axios";
 
 const Adminpage = () => {
   const [projectresult, setProjectresult] = useState([]);
+  const [bardata, setBardata] = useState([]);
   //선그래프 데이터
   //회원 가입추이, 직군 그래프에 이용할거같아요
   const linedata = [
@@ -19,19 +20,36 @@ const Adminpage = () => {
   ];
   //막대그래프 데이터
   //프로젝트 진행상황 (모집중, 모집완료, 진행중, 진행완료) 이 4개를 막대그래프로 만들거에요
-  const bardata = [
-    { name: '모집중', value: 10 },
-    { name: '모집완료', value: 20 },
-    { name: '진행중', value: 15 },
-    { name: '진행완료', value: 25 },
-  ];
+  const getpjstatuslist = async () => {
+    let baseUrl = "http://localhost:8080/admin";
+    const statuslist = [];
+    const requests = [
+      { name: '모집중', endpoint: 'countInprogress' },
+      { name: '모집완료', endpoint: 'countCompleted' },
+      { name: '진행중', endpoint: 'countOngoing' },
+      { name: '진행완료', endpoint: 'countFinished' },
+    ];
+    try {
+      for (const request of requests) {
+        const response = await axios.get(`${baseUrl}/${request.endpoint}`);
+        statuslist.push({
+          name: request.name,
+          value: response.data,
+        });
+      }
+    } catch (error) {
+      console.error(error);
+    }
+    console.log(statuslist);
+    setBardata(statuslist);
+  }
 
   const getprojectlist = async () => {
-    const baseUrl = "http://localhost:8080/count";
+    let baseUrl = "http://localhost:8080/count";
     const year = 2023;
     const startDate = new Date(year, 0, 1);
     const endDate = new Date(year, 11, 31);
-    const result = [];
+    let pjlistresult = [];
 
     for (let date = startDate; date <= endDate; date.setMonth(date.getMonth() + 1)) {
       const year = date.getFullYear();
@@ -43,7 +61,7 @@ const Adminpage = () => {
 
         const monthName = date.toLocaleString('ko-KR', { month: 'short' });
 
-        result.push({
+        pjlistresult.push({
           name: monthName,
           value: responseStart.data,
           value2: responseEnd.data,
@@ -53,10 +71,11 @@ const Adminpage = () => {
         console.error(error);
       }
     }
-    setProjectresult(result);
+    setProjectresult(pjlistresult);
   }
   useEffect(() => {
     getprojectlist();
+    getpjstatuslist();
   }, []);
 
   return (
