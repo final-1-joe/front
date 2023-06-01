@@ -37,14 +37,18 @@ const AdminSideBar = () => {
             <h4 onClick={projectclick}>프로젝트 리스트</h4>
             <h4>고객센터 리스트</h4>
             <div>
-                <p>
-                    <Link to="/admin/sca">┖ 답변</Link>
-                </p>
-                <p>
-                    <Link to="/admin/scna">┖ 미답변</Link>
-                </p>
+                <Link to="/admin/sca">
+                    <p>
+                        ┖ 답변
+                    </p>
+                </Link>
+                <Link to="/admin/scna">
+                    <p>
+                        ┖ 미답변
+                    </p>
+                </Link>
             </div>
-        </div>
+        </div >
     );
 }
 export default AdminSideBar;

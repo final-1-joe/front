@@ -7,15 +7,16 @@ import axios from "axios";
 const Adminpage = () => {
   const [projectresult, setProjectresult] = useState([]);
   const [bardata, setBardata] = useState([]);
+  const [userdata, setUserdata] = useState([]);
   const [combinedData, setCombinedData] = useState([]);
-  const [render, setrender] = useState(false);
+  const [supportData, setSupportData] = useState([]);
   //선그래프 데이터
   //프로젝트 시작 / 마감 그래프 데이터
   const getprojectlist = async () => {
     let baseUrl = "http://localhost:8080/count";
     const year = 2023;
-    const startDate = new Date(year, 0, 1);
-    const endDate = new Date(year, 11, 31);
+    const startDate = new Date(year, 0, 1); //1월 1일
+    const endDate = new Date(year, 11, 31); //12월 31일
     let pjlistresult = [];
 
     for (let date = startDate; date <= endDate; date.setMonth(date.getMonth() + 1)) {
@@ -38,13 +39,60 @@ const Adminpage = () => {
         console.error(error);
       }
     }
-    console.log(pjlistresult);
     setProjectresult(pjlistresult);
   }
   //프로젝트 시작/ 마감 그래프 데이터 끝
+  //월별 회원가입 카운트 데이터 시작
+  const userdate = () => {
+    const baseUrl = "http://localhost:8080/user/userdate";
+    const userCode = "free";
+    const year = 2023;
+    const months = Array.from({ length: 12 }, (_, i) => i + 1); // 1월부터 12월까지의 월 배열 생성
+    const requests = months.map((month) =>
+      axios.post(baseUrl, { user_code: userCode, year: year, month: month })
+    );
+
+    Promise.all(requests)
+      .then((responses) => {
+        const data = responses.map((response, i) => ({
+          name: `${i + 1}월`,
+          value: response.data,
+        }));
+        setUserdata(data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+  //월별 회원가입 카운트 데이터 끝
   //선 그래프 데이터 끝
 
   //막대그래프 데이터
+  // 고객센터 답변/ 미답변 카운트
+  const answerData = async () => {
+    const baseUrl = "http://localhost:8080/support/board";
+    try {
+      const [acountResponse, nacountResponse] = await Promise.all([
+        axios.get(`${baseUrl}/acount`),
+        axios.get(`${baseUrl}/nacount`),
+      ]);
+
+      const acount = acountResponse.data;
+      const nacount = nacountResponse.data;
+
+      const data = [
+        { name: "답변", value: acount },
+        { name: "미답변", value: nacount },
+      ];
+      setSupportData(data);
+      console.log(data);
+      // 선 그래프에 데이터(data)를 설정하거나 다른 로직에 적용할 수 있음
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  // 고객센터 답변/ 미답변 카운트 끝
+
   //클라이언트 프로젝트 요구직군 데이터
   const jgdata = [
     "개발",
@@ -100,7 +148,6 @@ const Adminpage = () => {
     } catch (error) {
       console.error(error);
     }
-    console.log(statuslist);
     setBardata(statuslist);
   }
   //프로젝트 진행상황 (모집중, 모집완료, 진행중, 진행완료)에 따른 그래프 끝
@@ -111,7 +158,8 @@ const Adminpage = () => {
     getprojectlist();
     getpjstatuslist();
     fetchData();
-    setrender(!render);
+    userdate();
+    answerData();
   }, []);
 
 
@@ -121,18 +169,16 @@ const Adminpage = () => {
       <AdminSideBar />
       <div className="main-content">
         <div className="flex">
-          {/* 선그래프 */}
           <LineChart width={700} height={300} data={projectresult}>
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="name" />
             <YAxis />
             <Tooltip />
             <Legend />
-            <Line type="monotone" dataKey="value" stroke="#FF0000" strokeWidth={3} name="프로젝트 시작" />
-            <Line type="monotone" dataKey="value2" stroke="#0000FF" strokeWidth={3} name="프로젝트 마감" />
+            <Line type="monotone" dataKey="value" stroke="#FF6347" strokeWidth={3} name="프로젝트 시작" />
+            <Line type="monotone" dataKey="value2" stroke="#800080" strokeWidth={3} name="프로젝트 마감" />
           </LineChart>
 
-          {/* 막대그래프 */}
           <BarChart width={500} height={300} data={bardata}>
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="name" />
@@ -141,7 +187,9 @@ const Adminpage = () => {
             <Legend />
             <Bar dataKey="value" fill="#FFC300" name="프로젝트 수" />
           </BarChart>
+
         </div>
+
         <div className="flex">
           <BarChart width={1200} height={300} data={combinedData}>
             <CartesianGrid strokeDasharray="3 3" />
@@ -150,9 +198,30 @@ const Adminpage = () => {
             <Tooltip />
             <Legend />
             <Bar dataKey="resumedata" fill="#FFC300" name="프리랜서" />
-            <Bar dataKey="projectdata" fill="#FF0000" name="프로젝트" />
+            <Bar dataKey="projectdata" fill="#FF6347" name="프로젝트" />
           </BarChart>
         </div>
+
+        <div className="flex">
+          <LineChart width={700} height={300} data={userdata}>
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis dataKey="name" />
+            <YAxis />
+            <Tooltip />
+            <Legend />
+            <Line type="monotone" dataKey="value" stroke="#FF6347" strokeWidth={3} name="월별 회원가입 수" />
+          </LineChart>
+
+          <BarChart width={500} height={300} data={supportData}>
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis dataKey="name" />
+            <YAxis />
+            <Tooltip />
+            <Legend />
+            <Bar dataKey="value" fill="#008000" name="프로젝트 수" />
+          </BarChart>
+        </div>
+
       </div>
     </div>
   );
