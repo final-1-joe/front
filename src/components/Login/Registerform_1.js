@@ -20,17 +20,20 @@ const Registerform_1 = () => {
 
   const [isIdExist, setIsIdExist] = useState(false);
 
+
   const handleCheck = () => {
     axios
-      .get(`/checkMember/${idRef.current.value}`)
+      .get(`http://localhost:8080/user/checkMember?user_id=${idRef.current.value}`)
       .then((res) => {
-        console.log("handleCheck =>", res);
-        console.log("handleCheck((res.data) =>", res.data);
-        setIsIdExist(res.data === 1);
+        if (res.data === 1) {
+          alert("중복되는 아이디입니다");
+        } else {
+          alert("생성이 가능한 아이디입니다");
+        }
       })
       .catch((e) => {
         console.error(e);
-      });  
+      });
   };
 
   const handleIdKeyPress = (event) => {
@@ -152,7 +155,8 @@ const Registerform_1 = () => {
         co: coRef.current.value,
         email: emailRef.current.value,
         bth: bthRef.current.value,
-        ph: phRef.current.value
+        ph: phRef.current.value,
+        
       })
       .then((res) => {
         console.log("handleMember =>", res);
@@ -259,6 +263,21 @@ const Registerform_1 = () => {
                     ref={coRef}
                     placeholder="상호 명을 입력하세요"
                     style={{ fontSize: '20px' }} />
+            </td>
+          </tr>
+          <tr>
+            <td style={{ fontSize: '20px' }}>사업자 등록증 파일
+              <span style={{ color: 'red', marginLeft: '5px' }}>*</span>
+            </td>
+          </tr>
+          <tr>
+            <td align="left" colspan="2">
+              <input
+                type="file"
+                name="businessLicense"
+                accept=".pdf,.jpg,.jpeg,.png"
+                style={{ fontSize: '20px' }}
+              />
             </td>
           </tr>
           <p>&nbsp;&nbsp;</p>
