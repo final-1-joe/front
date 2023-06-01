@@ -116,8 +116,8 @@ const AdminClientList = () => {
     <div className="admin-page">
       <AdminSideBar />
       <div className="main-content">
-        <h2>출력물(클라이언트리스트)</h2>
         <div id="sc">
+          <h2>출력물(클라이언트리스트)</h2>
           <div className="sc_bl">
             <table>
               <thead>
