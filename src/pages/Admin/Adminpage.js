@@ -7,9 +7,8 @@ import axios from "axios";
 const Adminpage = () => {
   const [projectresult, setProjectresult] = useState([]);
   const [bardata, setBardata] = useState([]);
-  const [resumedata, setResumedata] = useState([]);
-  const [projectdata, setProjectdata] = useState([]);
   const [combinedData, setCombinedData] = useState([]);
+  const [render, setrender] = useState(false);
   //선그래프 데이터
   //프로젝트 시작 / 마감 그래프 데이터
   const getprojectlist = async () => {
@@ -56,51 +55,29 @@ const Adminpage = () => {
     "엔지니어링·설계",
     "법률·법집행기관",
   ];
-  const pjjglist = [];
-  const pjjgCount = () => {
-    const requests = jgdata.map((jg) =>
-      axios.post("http://localhost:8080/pjjgcount", { pj_job: jg })
-    );
 
-    Promise.all(requests)
-      .then((responses) => {
-        responses.forEach((response, i) => {
-          pjjglist[i] = {
-            name: jgdata[i],
-            value: response.data,
-          };
-        });
-        console.log(pjjglist);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-    setProjectdata(pjjglist)
+  //프리랜서 직군 데이터 배열과, 클라이언트 프로젝트 요구직군 데이터 배열을 합침
+  const fetchData = async () => {
+    try {
+      const pjjgResponses = await Promise.all(jgdata.map((jg) =>
+        axios.post("http://localhost:8080/pjjgcount", { pj_job: jg })
+      ));
+
+      const jgResponses = await Promise.all(jgdata.map((jg) =>
+        axios.post("http://localhost:8080/resume/usjgcount", { user_jg: jg })
+      ));
+
+      const combinedData = jgdata.map((jg, index) => ({
+        name: jg,
+        resumedata: jgResponses[index]?.data || 0,
+        projectdata: pjjgResponses[index]?.data || 0,
+      }));
+      setCombinedData(combinedData);
+    } catch (error) {
+      console.error(error);
+    }
   };
-  //프리랜서 직군 데이터
 
-  const usjglist = [];
-  const jgCount = () => {
-    const requests = jgdata.map((jg) =>
-      axios.post("http://localhost:8080/resume/usjgcount", { user_jg: jg })
-    );
-
-    Promise.all(requests)
-      .then((responses) => {
-        responses.forEach((response, i) => {
-          usjglist[i] = {
-            name: jgdata[i],
-            value: response.data,
-          };
-        });
-        console.log(usjglist);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-    setResumedata(usjglist);
-  };
-  //프리랜서 데이터 끝
 
   //프로젝트 진행상황 (모집중, 모집완료, 진행중, 진행완료)에 따른 그래프
   const getpjstatuslist = async () => {
@@ -127,27 +104,16 @@ const Adminpage = () => {
     setBardata(statuslist);
   }
   //프로젝트 진행상황 (모집중, 모집완료, 진행중, 진행완료)에 따른 그래프 끝
-  //프로젝트 진행상황의 배열과, 프리랜서 직군 데이터 배열을 합침
-  const combine = () => {
-    const combined = jgdata.map((jg, index) => ({
-      name: jg,
-      resumedata: resumedata[index]?.value || 0,
-      projectdata: projectdata[index]?.value || 0,
-    }));
-    setCombinedData(combined);
-  };
+
 
   //막대그래프 끝
   useEffect(() => {
     getprojectlist();
     getpjstatuslist();
-    pjjgCount();
-    jgCount();
-    combine();
+    fetchData();
+    setrender(!render);
   }, []);
-  useEffect(() => {
-    console.log(combinedData);
-  }, [combinedData]);
+
 
 
   return (
@@ -156,7 +122,7 @@ const Adminpage = () => {
       <div className="main-content">
         <div className="flex">
           {/* 선그래프 */}
-          <LineChart width={500} height={300} data={projectresult}>
+          <LineChart width={700} height={300} data={projectresult}>
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="name" />
             <YAxis />
