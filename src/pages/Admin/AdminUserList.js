@@ -102,8 +102,8 @@ const AdminUserList = () => {
         <div className="admin-page">
             <AdminSideBar />
             <div className="main-content">
-                <h2>출력물(프리랜서리스트)</h2>
                 <div id="sc">
+                    <h2>출력물(프리랜서리스트)</h2>
                     <div className="sc_bl">
                         <table>
                             <thead>

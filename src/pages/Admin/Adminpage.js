@@ -3,6 +3,9 @@ import '../../css/admin.css';
 import AdminSideBar from "../../components/Admin/AdminSideBar";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, BarChart, Bar } from 'recharts';
 import axios from "axios";
+import { useLocation, useNavigate } from "react-router-dom";
+
+
 
 const Adminpage = () => {
   const [projectresult, setProjectresult] = useState([]);
@@ -10,6 +13,10 @@ const Adminpage = () => {
   const [userdata, setUserdata] = useState([]);
   const [combinedData, setCombinedData] = useState([]);
   const [supportData, setSupportData] = useState([]);
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const mode = searchParams.get("mode");
+  const navigate = useNavigate();
   //선그래프 데이터
   //프로젝트 시작 / 마감 그래프 데이터
   const getprojectlist = async () => {
@@ -162,68 +169,267 @@ const Adminpage = () => {
     answerData();
   }, []);
 
+  const goStart = () => {
+    navigate('/admin?mode=start_end');
+  }
+  const goStatus = () => {
+    navigate('/admin?mode=status');
+  }
+  const goSkill = () => {
+    navigate('/admin?mode=skills');
+  }
+  const goUser = () => {
+    navigate('/admin?mode=usercount');
+  }
+  const goSupport = () => {
+    navigate('/admin?mode=support');
+  }
+
 
 
   return (
     <div className="admin-page">
       <AdminSideBar />
-      <div className="main-content">
-        <div className="flex">
-          <LineChart width={700} height={300} data={projectresult}>
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="name" />
-            <YAxis />
-            <Tooltip />
-            <Legend />
-            <Line type="monotone" dataKey="value" stroke="#FF6347" strokeWidth={3} name="프로젝트 시작" />
-            <Line type="monotone" dataKey="value2" stroke="#800080" strokeWidth={3} name="프로젝트 마감" />
-          </LineChart>
+      {/* 디폴트 모드 */}
+      {mode === 'default' &&
+        <div className="main-content">
+          <div className="flex">
+            <div onClick={goStart}>
+              <h3>프로젝트 시작 / 마감 그래프</h3>
+              <LineChart width={700} height={300} data={projectresult}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="name" />
+                <YAxis />
+                <Tooltip />
+                <Legend />
+                <Line type="monotone" dataKey="value" stroke="#FF6347" strokeWidth={3} name="프로젝트 시작" />
+                <Line type="monotone" dataKey="value2" stroke="#800080" strokeWidth={3} name="프로젝트 마감" />
+              </LineChart>
+            </div>
+            <div onClick={goStatus}>
+              <h3>&nbsp;&nbsp;프로젝트 상태에 따른 그래프</h3>
+              <BarChart width={500} height={300} data={bardata}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="name" />
+                <YAxis />
+                <Tooltip />
+                <Legend />
+                <Bar dataKey="value" fill="#FFC300" name="프로젝트 수" />
+              </BarChart>
+            </div>
+          </div>
 
-          <BarChart width={500} height={300} data={bardata}>
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="name" />
-            <YAxis />
-            <Tooltip />
-            <Legend />
-            <Bar dataKey="value" fill="#FFC300" name="프로젝트 수" />
-          </BarChart>
+          <div className="flex">
+            <div onClick={goSkill}>
+              <h3>&nbsp;&nbsp;프로젝트 요구 기술 / 프리랜서 보유 기술 그래프</h3>
+              <BarChart width={1200} height={250} data={combinedData}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="name" />
+                <YAxis />
+                <Tooltip />
+                <Legend />
+                <Bar dataKey="resumedata" fill="#FFC300" name="프리랜서" />
+                <Bar dataKey="projectdata" fill="#FF6347" name="프로젝트" />
+              </BarChart>
+            </div>
+          </div>
 
+          <div className="flex">
+            <div onClick={goUser}>
+              <h3>&nbsp;&nbsp;월별 회원가입 증감 그래프</h3>
+              <LineChart width={700} height={300} data={userdata}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="name" />
+                <YAxis />
+                <Tooltip />
+                <Legend />
+                <Line type="monotone" dataKey="value" stroke="#FF6347" strokeWidth={3} name="월별 회원가입 수" />
+              </LineChart>
+            </div>
+            <div onClick={goSupport}>
+              <h3>&nbsp;고객센터 게시물 답변 / 미답변 그래프</h3>
+              <BarChart width={500} height={300} data={supportData}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="name" />
+                <YAxis />
+                <Tooltip />
+                <Legend />
+                <Bar dataKey="value" fill="#008000" name="고객센터 게시물 수" />
+              </BarChart>
+            </div>
+          </div>
+        </div>}
+      {/* 시작/마감 */}
+      {
+        mode === 'start_end' &&
+        <div className="main-content">
+          <h1 className="chart-title">프로젝트 시작 / 마감 그래프</h1>
+          <div className="chart-container">
+            <LineChart width={900} height={600} data={projectresult}>
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="name" />
+              <YAxis />
+              <Tooltip />
+              <Legend />
+              <Line type="monotone" dataKey="value" stroke="#FF6347" strokeWidth={3} name="프로젝트 시작" />
+              <Line type="monotone" dataKey="value2" stroke="#800080" strokeWidth={3} name="프로젝트 마감" />
+            </LineChart>
+          </div>
+          <table className="project-table">
+            <thead>
+              <tr>
+                <th>Month</th>
+                <th>Start</th>
+                <th>End</th>
+              </tr>
+            </thead>
+            <tbody>
+              {projectresult.map((item, index) => (
+                <tr key={index}>
+                  <td>{item.name}</td>
+                  <td>{item.value}</td>
+                  <td>{item.value2}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
-
-        <div className="flex">
-          <BarChart width={1200} height={300} data={combinedData}>
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="name" />
-            <YAxis />
-            <Tooltip />
-            <Legend />
-            <Bar dataKey="resumedata" fill="#FFC300" name="프리랜서" />
-            <Bar dataKey="projectdata" fill="#FF6347" name="프로젝트" />
-          </BarChart>
+      }
+      {/* 진행상태 */}
+      {
+        mode === 'status' && <div className="main-content">
+          <div>
+            <h1 className="chart-title">&nbsp;&nbsp;프로젝트 상태에 따른 그래프</h1>
+            <BarChart width={900} height={600} data={bardata}>
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="name" />
+              <YAxis />
+              <Tooltip />
+              <Legend />
+              <Bar dataKey="value" fill="#FFC300" name="프로젝트 수" />
+            </BarChart>
+          </div>
+          <table className="bardata-table">
+            <thead>
+              <tr>
+                <th>Status</th>
+                <th>Count</th>
+              </tr>
+            </thead>
+            <tbody>
+              {bardata.map((item, index) => (
+                <tr key={index}>
+                  <td>{item.name}</td>
+                  <td>{item.value}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
-
-        <div className="flex">
-          <LineChart width={700} height={300} data={userdata}>
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="name" />
-            <YAxis />
-            <Tooltip />
-            <Legend />
-            <Line type="monotone" dataKey="value" stroke="#FF6347" strokeWidth={3} name="월별 회원가입 수" />
-          </LineChart>
-
-          <BarChart width={500} height={300} data={supportData}>
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="name" />
-            <YAxis />
-            <Tooltip />
-            <Legend />
-            <Bar dataKey="value" fill="#008000" name="프로젝트 수" />
-          </BarChart>
+      }
+      {/* 요구기술 / 보유기술 */}
+      {
+        mode === 'skills' &&
+        <div className="main-content">
+          <div>
+            <h1>&nbsp;&nbsp;프로젝트 요구 기술 / 프리랜서 보유 기술 그래프</h1>
+            <BarChart width={900} height={600} data={combinedData}>
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="name" />
+              <YAxis />
+              <Tooltip />
+              <Legend />
+              <Bar dataKey="resumedata" fill="#FFC300" name="프리랜서" />
+              <Bar dataKey="projectdata" fill="#FF6347" name="프로젝트" />
+            </BarChart>
+          </div>
+          <table className="combinedData-table">
+            <thead>
+              <tr>
+                <th>Skill</th>
+                <th>Resumes</th>
+                <th>Projects</th>
+              </tr>
+            </thead>
+            <tbody>
+              {combinedData.map((item, index) => (
+                <tr key={index}>
+                  <td>{item.name}</td>
+                  <td>{item.resumedata}</td>
+                  <td>{item.projectdata}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
-
-      </div>
-    </div>
+      }
+      {/* 월별 회원가입 증감 */}
+      {
+        mode === 'usercount' &&
+        <div className="main-content">
+          <div>
+            <h1>&nbsp;&nbsp;월별 회원가입 증감 그래프</h1>
+            <LineChart width={900} height={600} data={userdata}>
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="name" />
+              <YAxis />
+              <Tooltip />
+              <Legend />
+              <Line type="monotone" dataKey="value" stroke="#FF6347" strokeWidth={3} name="월별 회원가입 수" />
+            </LineChart>
+          </div>
+          <table className="userdata-table">
+            <thead>
+              <tr>
+                <th>Month</th>
+                <th>Count</th>
+              </tr>
+            </thead>
+            <tbody>
+              {userdata.map((item, index) => (
+                <tr key={index}>
+                  <td>{item.name}</td>
+                  <td>{item.value}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      }
+      {/* 답변 / 미답변 */}
+      {
+        mode === 'support' &&
+        <div className="main-content">
+          <div>
+            <h1>&nbsp;고객센터 게시물 답변 / 미답변 그래프</h1>
+            <BarChart width={900} height={600} data={supportData}>
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="name" />
+              <YAxis />
+              <Tooltip />
+              <Legend />
+              <Bar dataKey="value" fill="#008000" name="고객센터 게시물 수" />
+            </BarChart>
+          </div>
+          <table className="supportData-table">
+            <thead>
+              <tr>
+                <th>Answer</th>
+                <th>Count</th>
+              </tr>
+            </thead>
+            <tbody>
+              {supportData.map((item, index) => (
+                <tr key={index}>
+                  <td>{item.name}</td>
+                  <td>{item.value}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      }
+    </div >
   );
 };
 
