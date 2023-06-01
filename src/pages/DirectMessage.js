@@ -53,6 +53,13 @@ function DirectMessage() {
     user_name: "",
     user_tel: "",
   });
+  const [myInfo, SetMyInfo] = useState({
+    user_code: "",
+    user_email: "",
+    user_id: "",
+    user_name: "",
+    user_tel: "",
+  });
 
   useEffect(() => {
     const chatDiv = chatRef.current;
@@ -194,6 +201,20 @@ function DirectMessage() {
       });
   };
 
+  const chatmyinfo = () => {
+    axios
+      .get("http://localhost:8080/auth/userinfo", {
+        params: {
+          user_id: login_id,
+        },
+      })
+      .then((res) => {
+        SetMyInfo(res.data);
+      })
+      .catch((err) => {
+        console.error("/auth/userinfo 에러 발생" + err);
+      });
+  };
   const chatuserinfowork = () => {
     axios
       .post("http://localhost:8080/getworkstate", {
@@ -304,6 +325,7 @@ function DirectMessage() {
     chatroomcontent();
     chatroom();
     chatuserinfo();
+    chatmyinfo();
     chatuserinfowork();
     chatuserscore();
     alarmchat();
@@ -550,8 +572,18 @@ function DirectMessage() {
         <div className="dmRgt-center-div">
           {chatname === "" ? (
             <div className="dmRgt-center-logo-image"></div>
+          ) : userInfo.user_code === "free" ? (
+            <img
+              className="dmRgt-center-div-profile"
+              src="DirectMessage/freelancer1.png"
+              alt="profile2"
+            ></img>
           ) : (
-            <div className="dmRgt-center-div-profile"></div>
+            <img
+              className="dmRgt-center-div-profile"
+              src="DirectMessage/enterprise1.png"
+              alt="profile2"
+            ></img>
           )}
 
           <div className="dmRgt-center-div-name">{chatname}</div>
@@ -579,11 +611,19 @@ function DirectMessage() {
               <>
                 {i.user_id === login_id ? (
                   <>
-                    <img
-                      src="DirectMessage/freelancer1.png"
-                      alt="profile2"
-                      className="dmRgt-chat-profile-me"
-                    ></img>
+                    {myInfo.user_code === "free" ? (
+                      <img
+                        src="DirectMessage/freelancer1.png"
+                        alt="profile2"
+                        className="dmRgt-chat-profile-me"
+                      ></img>
+                    ) : (
+                      <img
+                        src="DirectMessage/enterprise1.png"
+                        alt="profile2"
+                        className="dmRgt-chat-profile-me"
+                      ></img>
+                    )}
                     <div className="dmRgt-chat-name-me">나</div>
                     <div className="dmRgt-chat-arrow-me"></div>
                     <div className="dmcombine-me">
@@ -613,11 +653,19 @@ function DirectMessage() {
                   </>
                 ) : (
                   <>
-                    <img
-                      src="DirectMessage/freelancer1.png"
-                      alt="profile2"
-                      className="dmRgt-chat-profile"
-                    ></img>
+                    {userInfo.user_code === "free" ? (
+                      <img
+                        src="DirectMessage/freelancer1.png"
+                        alt="profile2"
+                        className="dmRgt-chat-profile"
+                      ></img>
+                    ) : (
+                      <img
+                        src="DirectMessage/enterprise1.png"
+                        alt="profile2"
+                        className="dmRgt-chat-profile"
+                      ></img>
+                    )}
                     <div className="dmRgt-chat-name">{i.user_id}</div>
                     <div className="dmRgt-chat-arrow"></div>
                     <div className="dmcombine">

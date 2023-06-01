@@ -1,7 +1,7 @@
 import "../../css/Resume.css";
 import axios from "axios";
 import Select from "react-select";
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { occupation, occupations } from "./OccupationData";
 import SkillTag from "./SkillTag";
@@ -30,6 +30,7 @@ const Resume = () => {
   const pay = (data) => {
     setPays(data);
   };
+  const navigate = useNavigate();
   const [careers, setCareers] = useState(0);
   const career = (data) => {
     setCareers(data);
@@ -37,9 +38,33 @@ const Resume = () => {
   const fileRef = useRef();
   const [fileName, setFileName] = useState("");
   const [fileList, setFileList] = useState();
+  const [userdata, setUserdata] = useState();
   const githubRef = useRef();
   const introRef = useRef();
-
+  useEffect(() => {
+    getuserdata();
+  }, []);
+  useEffect(() => {
+    if (userdata) {
+      let val = userdata.user_tel.toString();
+      val = val.replace(/[^-\.0-9]/gi, "");
+      val = val.replace(/^(\d{3})(\d{4})(\d{4})$/, `$1-$2-$3`);
+      setTelValue(val);
+    }
+  }, [userdata]);
+  const getuserdata = () => {
+    axios
+      .post("http://localhost:8080/user/getuser", {
+        user_id: user_id,
+      })
+      .then((res) => {
+        console.log(res.data);
+        setUserdata(res.data);
+      })
+      .catch((e) => {
+        console.error(e);
+      });
+  };
   const handleFileChange = (e) => {
     const uploadFiles = Array.prototype.slice.call(e.target.files);
     uploadFiles.forEach((uploadFile) => {
@@ -152,6 +177,7 @@ const Resume = () => {
               user_orfile: res.data[0].originfilename || null,
               user_stfile: res.data[0].storedfilename || null,
               user_github: githubRef.current.value || null,
+              user_intro: introRef.current.value || null,
             })
             .then((res) => {})
             .catch((e) => {
@@ -162,10 +188,21 @@ const Resume = () => {
           console.error(e);
         });
     }
+    axios
+      .post("http://localhost:8080/user/updatert", {
+        user_id: user_id,
+        user_resume: 1,
+      })
+      .then((res) => {
+        navigate("/");
+      })
+      .catch((e) => {
+        console.error(e);
+      });
   };
 
   return (
-    <div className="resume">
+    <div className="resume recenter">
       <div id="basic" className="resume_section">
         <div className="area_title">
           <h3 className="title">이력서</h3>
@@ -186,6 +223,7 @@ const Resume = () => {
                 data-only-word="true"
                 placeholder="이름 입력"
                 ref={nmRef}
+                defaultValue={userdata ? userdata.user_name : ""}
               />
             </span>
             <span className="sri_select resume_select resume_right">
@@ -207,6 +245,7 @@ const Resume = () => {
                 className="box_input"
                 data-only-word="true"
                 ref={bdRef}
+                defaultValue={userdata ? userdata.user_birth : ""}
               />
             </span>
             <span className="inpRdoSw sizeXL resume_right focus">
@@ -246,6 +285,7 @@ const Resume = () => {
                 id="email"
                 name="email"
                 ref={emailRef}
+                defaultValue={userdata ? userdata.user_email : ""}
                 className="box_input max_length"
                 placeholder="이메일 입력"
                 autoComplete="on"

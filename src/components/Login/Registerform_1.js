@@ -17,6 +17,28 @@ const Registerform_1 = () => {
   const [phoneNumber, setPhoneNumber] = useState("");
   const navigate = useNavigate();
   const [fileList, setFileList] = useState([]);
+  const [isIdExist, setIsIdExist] = useState(false);
+  const handleCheck = () => {
+    if (idRef.current.value === "") {
+      alert("아이디를 입력해주세요!!!");
+      return false;
+    }
+    axios
+      .get(
+        `http://localhost:8080/user/checkMember?user_id=${idRef.current.value}`
+      )
+      .then((res) => {
+        setIsIdExist(res.data); //
+        if (res.data) {
+          alert("중복된 아이디입니다.");
+        } else {
+          alert("사용 가능한 아이디입니다.");
+        }
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
 
   const getNewLicense = (e) => {
     const uploadFiles = Array.prototype.slice.call(e.target.files);
@@ -105,6 +127,11 @@ const Registerform_1 = () => {
   const handleMember = () => {
     if (idRef.current.value === "" || idRef.current.value === undefined) {
       alert("이이디를 입력하세요!");
+      idRef.current.focus();
+      return false;
+    }
+    if (isIdExist) {
+      alert("이미 존재하는 아이디입니다!");
       idRef.current.focus();
       return false;
     }
@@ -206,7 +233,7 @@ const Registerform_1 = () => {
                     fontSize: "18px",
                     border: "none",
                   }}
-                  onClick={"/"}
+                  onClick={handleCheck}
                 >
                   중복확인
                 </button>
@@ -224,14 +251,14 @@ const Registerform_1 = () => {
                 <input
                   type="password"
                   name="password"
-                  size="45"
+                  size="40"
                   minLength="8"
                   maxLength="16"
                   ref={pwRef}
                   value={password}
                   onChange={handlePasswordChange}
                   placeholder="비밀번호를 입력하세요(8~16자리, 특수문자 가능)"
-                  style={{ fontSize: "20px", border: "none" }}
+                  style={{ fontSize: "20px" }}
                 />
               </td>
             </tr>
@@ -252,7 +279,7 @@ const Registerform_1 = () => {
                   value={passwordConfirm}
                   onChange={handlePasswordConfirmChange}
                   placeholder="비밀번호를 다시 입력하세요"
-                  style={{ fontSize: "20px", border: "none" }}
+                  style={{ fontSize: "20px" }}
                 />
               </td>
             </tr>

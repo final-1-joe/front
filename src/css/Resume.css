@@ -59,7 +59,12 @@
     font-size: 16px;
     line-height: 46px;
 }
-
+.recenter{
+    margin: 0 auto;
+}
+.taleft{
+    width: 500px;
+}
 .resume_input .file_input {
     padding: 0 15px 0 0px;
     width: 357px;
