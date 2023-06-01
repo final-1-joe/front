@@ -1,25 +1,23 @@
 import "../../css/PjDetail.css";
 import { Link } from "react-router-dom";
-import { useNavigate, useLocation, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import React, { useState } from "react";
 import axios from "axios";
-import ReviewModal from "../Review/ReviewModal";
-import ReviewWrite from "../Review/ReviewWrite";
+import PjReview from "../Review/pj/PjReview";
 import { useEffect } from "react";
 
 const PjDetail = () => {
   const navigate = useNavigate();
-  const [reviewForm, setReviewForm] = useState(false);
+  const [isSelected, setIsSelected] = useState(false);
   const [project, setProject] = useState([]);
   const [pjlist, setPjlist] = useState([]);
+  const [pjNum, setPjNum] = useState("");
 
-  const user = window.sessionStorage.getItem("user_id");
+  const user_id = window.sessionStorage.getItem("user_id");
   const { id } = useParams();
   const pj_num = parseInt(id);
+  console.log("pj_num: ", pj_num);
 
-  useEffect(() => {
-    getPjDetail();
-  }, [pj_num]);
   const getPjDetail = () => {
     axios
       .get(`http://localhost:8080/pjlist/pjdetail?pj_num=${pj_num}`, {})
@@ -32,6 +30,23 @@ const PjDetail = () => {
         console.error(e);
       });
   };
+
+  useEffect(() => {
+    if (isSelected) {
+      window.location.reload(); // 페이지 새로고침
+      setIsSelected(false);
+    }
+  }, [isSelected]);
+
+  const onClickSimilarProject = (slist) => {
+    navigate(`/pjlist/pjdetail/${slist.pj_num}`);
+    setIsSelected(true);
+  };
+
+  useEffect(() => {
+    console.log("aaa");
+    getPjDetail();
+  }, []);
 
   useEffect(() => {
     getPjlist();
@@ -138,64 +153,23 @@ const PjDetail = () => {
             </tbody>
           </table>
         </div>
+        <div className="PjManagement">
+          <Link to={`/pjdetail/update/${project.pj_num}`}>
+            <button className="PjBtn2">수정</button>
+          </Link>
+          <button className="PjBtn2" onClick={onClickDelete}>
+            삭제
+          </button>
+        </div>
 
         <div className="PjReview">
           <details open>
             <summary>회사 평가</summary>
-            <div className="evaluate">
-              <input
-                type="button"
-                value="작성"
-                className="PjWriteBtn"
-                onClick={() => setReviewForm(!reviewForm)}
-              />
-              {reviewForm && (
-                <ReviewModal closeModal={() => setReviewForm(!reviewForm)}>
-                  <ReviewWrite />
-                </ReviewModal>
-              )}
-            </div>
             <div class="tpt">
-              <table>
-                <tr height="50px">
-                  <td width="30px">작성자</td>
-                  <td width="60px">김멀티</td>
-                  <td width="30px">평점</td>
-                  <td width="60px">5.0 / 5.0</td>
-                </tr>
-                <tr>
-                  <td colSpan={4}>
-                    멀티캠퍼스와 함께 하는 동안 많이 배우고 성장했습니다!
-                  </td>
-                </tr>
-              </table>
-            </div>
-            <div class="tpt">
-              <table>
-                <tr height="50px">
-                  <td width="30px">작성자</td>
-                  <td width="60px">김멀티</td>
-                  <td width="30px">평점</td>
-                  <td width="60px">5.0 / 5.0</td>
-                </tr>
-                <tr>
-                  <td colSpan={4}>
-                    멀티캠퍼스와 함께 하는 동안 많이 배우고 성장했습니다!
-                  </td>
-                </tr>
-              </table>
+              <PjReview pj_num={pj_num} />
             </div>
           </details>
           <br />
-
-          <div className="PjManagement">
-            <Link to={`/pjdetail/update/${project.pj_num}`}>
-              <button className="PjBtn2">수정</button>
-            </Link>
-            <button className="PjBtn2" onClick={onClickDelete}>
-              삭제
-            </button>
-          </div>
         </div>
       </div>
 
@@ -229,7 +203,7 @@ const PjDetail = () => {
               <div
                 key={slist.pj_num}
                 className="PjSimilar"
-                onClick={() => navigate(`/pjlist/pjdetail/${slist.pj_num}`)}
+                onClick={() => onClickSimilarProject(slist)}
               >
                 <p>{slist.pj_title}</p>
                 <p>{slist.pj_content}</p>
