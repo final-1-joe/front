@@ -2,7 +2,6 @@ import "../../css/PjRegi.css";
 import { useNavigate } from "react-router-dom";
 import { useRef, useState } from "react";
 import axios from "axios";
-import Select from "react-select";
 
 const PjRegistration = () => {
   const navigate = useNavigate();
@@ -44,12 +43,12 @@ const PjRegistration = () => {
     }
     if (corpRef.current.value === "" || corpRef.current.value === undefined) {
       alert("회사명을 입력하세요.");
-      titleRef.current.focus();
+      corpRef.current.focus();
       return false;
     }
     if (jobRef.current.value === "" || jobRef.current.value === undefined) {
       alert("직군을 선택하세요.");
-      titleRef.current.focus();
+      jobRef.current.focus();
       return false;
     }
     if (
