@@ -7,6 +7,7 @@ const ManagementForm = ({ listData, Mode }) => {
     const [activeTab, setActiveTab] = useState('all');
     const [allSchedules, setAllSchedules] = useState([]);
     const [inProgressSchedules, setInProgressSchedules] = useState([]);
+    const [ongoingSchedules, setOngoingSchedules] = useState([]);
     const [completedSchedules, setCompletedSchedules] = useState([]);
     const navigate = useNavigate();
 
@@ -14,6 +15,8 @@ const ManagementForm = ({ listData, Mode }) => {
         setAllSchedules(listData);
         const inProgress = listData.filter(schedule => schedule.status === 'inProgress');
         const completed = listData.filter(schedule => schedule.status === 'completed');
+        const ongoing = listData.filter(schedule => schedule.status === 'ongoing');
+        setOngoingSchedules(ongoing);
         setInProgressSchedules(inProgress);
         setCompletedSchedules(completed);
     }, [listData]);
@@ -87,6 +90,7 @@ const ManagementForm = ({ listData, Mode }) => {
                 <div className="container-manageform">
                     <div className="tab-manageform">
                         <button className={`button-manageform ${activeTab === 'all' ? 'active' : ''}`} onClick={() => handleTabClick('all')}>전체</button>
+                        <button className={`button-manageform ${activeTab === 'oncruiting' ? 'active' : ''}`} onClick={() => handleTabClick('oncruiting')}>모집중</button>
                         <button className={`button-manageform ${activeTab === 'inProgress' ? 'active' : ''}`} onClick={() => handleTabClick('inProgress')}>진행중</button>
                         <button className={`button-manageform ${activeTab === 'completed' ? 'active' : ''}`} onClick={() => handleTabClick('completed')}>완료</button>
                     </div>
@@ -118,6 +122,18 @@ const ManagementForm = ({ listData, Mode }) => {
                                             <span>{schedule.project}</span>
                                             <span>{schedule.content}</span>
                                             <span>진행중</span>
+                                        </li>
+                                    ))}
+                                </>
+                            )}
+
+                            {activeTab === 'oncruiting' && (
+                                <>
+                                    {ongoingSchedules.map((schedule) => (
+                                        <li key={schedule.id} className="list-item-manageform" onClick={() => navigate(schedule.link)}>
+                                            <span>{schedule.project}</span>
+                                            <span>{schedule.content}</span>
+                                            <span>모집중</span>
                                         </li>
                                     ))}
                                 </>
