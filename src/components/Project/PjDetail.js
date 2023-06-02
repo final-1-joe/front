@@ -11,7 +11,6 @@ const PjDetail = () => {
   const [isSelected, setIsSelected] = useState(false);
   const [project, setProject] = useState([]);
   const [pjlist, setPjlist] = useState([]);
-  const [pjNum, setPjNum] = useState("");
 
   const user_id = window.sessionStorage.getItem("user_id");
   const { id } = useParams();
@@ -28,20 +27,6 @@ const PjDetail = () => {
       })
       .catch((e) => {
         console.error(e);
-      });
-  };
-
-  const dmchatcreate = () => {
-    axios
-      .post("http://localhost:8080/createChatroom", {
-        my_user_id: user_id,
-        your_user_id: project.user_id,
-      })
-      .then((res) => {
-        console.log(res.data);
-      })
-      .catch((error) => {
-        console.error("/createChatroom 에러 발생" + error);
       });
   };
 
@@ -168,16 +153,20 @@ const PjDetail = () => {
           </table>
         </div>
         <div className="PjManagement">
-          <Link to={`/pjdetail/update/${project.pj_num}`}>
-            <button className="PjBtn2">수정</button>
-          </Link>
-          <button className="PjBtn2" onClick={onClickDelete}>
-            삭제
-          </button>
+          {project.user_id === user_id && (
+            <Link to={`/pjdetail/update/${project.pj_num}`}>
+              <button className="PjBtn2">프로젝트 수정</button>
+            </Link>
+          )}
+          {project.user_id === user_id && (
+            <button className="PjBtn2" onClick={onClickDelete}>
+              삭제
+            </button>
+          )}
         </div>
 
         <div className="PjReview">
-          <details open>
+          <details close>
             <summary>회사 평가</summary>
             <div class="tpt">
               <PjReview pj_num={pj_num} />
@@ -197,19 +186,9 @@ const PjDetail = () => {
                 </span>
               </td>
               <td>
-                <Link
-                  to="/direct"
-                  style={{ textDecoration: "none", color: "black" }}
-                >
-                  <span
-                    className="FreeDM"
-                    onClick={() => {
-                      dmchatcreate();
-                    }}
-                  >
-                    DM
-                  </span>
-                </Link>
+                <span className="PjDM" onClick={() => navigate(`/direct`)}>
+                  DM
+                </span>
               </td>
             </tr>
           </table>

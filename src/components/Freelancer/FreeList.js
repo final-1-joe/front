@@ -135,6 +135,7 @@ const FreeList = () => {
                 <option value="미디어">미디어</option>
                 <option value="엔지니어링·설계">엔지니어링·설계</option>
                 <option value="법률·법집행기관">법률·법집행기관</option>
+                <option value="기타">기타</option>
               </select>
             </td>
             <td>
@@ -236,7 +237,6 @@ const FreeList = () => {
                 </tr>
               </table>
             </div>
-            {/* 태그 설정시 선택한 태그가 나타나도록 */}
           </div>
         ))}
       </div>
