@@ -54,7 +54,8 @@ const Home = () => {
   const [frlist, setFrlist] = useState([]);
   const [pjlist, setPjlist] = useState([]);
   const settings = {
-    infinite: refrlist.length > 3 || repjlist.length > 3,
+    infinite:
+      user_code === "client" ? refrlist.length > 3 : repjlist.length > 3,
     VariableWidthSlide: true,
     speed: 500,
     slidesToShow: 3,
@@ -62,6 +63,16 @@ const Home = () => {
     nextArrow: <NextArrow />,
     prevArrow: <PrevArrow />,
   };
+  const settings2 = {
+    infinite: true,
+    VariableWidthSlide: true,
+    speed: 500,
+    slidesToShow: 3,
+    slidesToScroll: 1,
+    nextArrow: <NextArrow />,
+    prevArrow: <PrevArrow />,
+  };
+  console.log("repjlist.length ", repjlist.length);
   useEffect(() => {
     startstep();
     getPjlist();
@@ -194,10 +205,30 @@ const Home = () => {
     <div className="home">
       <div className="home_btn_area">
         <div className="home_btn">
-          <h4>프로젝트 등록</h4>
+          {user_code === "client" ? (
+            <Link to="/pjdetail/insert">
+              <h4>프로젝트 등록</h4>
+            </Link>
+          ) : user_code === "" || user_code === null ? (
+            <Link to="/loginform">
+              <h4>프로젝트 등록</h4>
+            </Link>
+          ) : (
+            <h4>프로젝트 등록</h4>
+          )}
         </div>
         <div className="home_btn">
-          <h4>프리랜서 등록</h4>
+          {user_code === "free" ? (
+            <Link to="/free/myresume">
+              <h4>프리랜서 등록</h4>
+            </Link>
+          ) : user_code === "" || user_code === null ? (
+            <Link to="/loginform">
+              <h4>프리랜서 등록</h4>
+            </Link>
+          ) : (
+            <h4>프로젝트 등록</h4>
+          )}
         </div>
       </div>
       <div className="margin2"></div>
@@ -209,7 +240,7 @@ const Home = () => {
         <div id="home_show">
           <div className="in-bl-area">
             <h2 className="in-bl">추천 프로젝트</h2>
-            <TagConfigFree onRendering={getPjlistTag()}></TagConfigFree>
+            <TagConfigFree onRendering={getPjlistTag}></TagConfigFree>
           </div>
           <Slider {...settings}>
             {repjlist.map((data) => (
@@ -260,11 +291,11 @@ const Home = () => {
             ))}
           </Slider>
         </div>
-      ) : (
+      ) : user_code === "client" ? (
         <div id="home_show">
           <div className="in-bl-area">
             <h2 className="in-bl">추천 프리랜서</h2>
-            <TagConfigClient onRendering={getFrlistTag()}></TagConfigClient>
+            <TagConfigClient onRendering={getFrlistTag}></TagConfigClient>
           </div>
           <Slider {...settings}>
             {refrlist.map((freelist) => (
@@ -317,6 +348,8 @@ const Home = () => {
             ))}
           </Slider>
         </div>
+      ) : (
+        <></>
       )}
 
       <div className="margin1"></div>
@@ -390,13 +423,12 @@ const Home = () => {
         </div>
       </div>
       <div className="margin1"></div>
-      {user_code === "free" ? (
+      {user_code !== "client" ? (
         <div id="home_show">
           <div className="in-bl-area">
             <h2 className="in-bl">신규 프로젝트</h2>
-            <TagConfigFree></TagConfigFree>
           </div>
-          <Slider {...settings}>
+          <Slider {...settings2}>
             {pjlist.map((data) => (
               <div className="reco_slice">
                 <Link to={`/pjlist/pjdetail/${data.pj_num}`}>
@@ -446,12 +478,15 @@ const Home = () => {
           </Slider>
         </div>
       ) : (
+        <></>
+      )}
+      <div className="margin1"></div>
+      {user_code !== "free" ? (
         <div id="home_show">
           <div className="in-bl-area">
             <h2 className="in-bl">신규 프리랜서</h2>
-            <TagConfigClient></TagConfigClient>
           </div>
-          <Slider {...settings}>
+          <Slider {...settings2}>
             {frlist.map((freelist) => (
               <div className="reco_slice">
                 <Link to={`/freedetail?user_id=${freelist.user_id}`}>
@@ -502,6 +537,8 @@ const Home = () => {
             ))}
           </Slider>
         </div>
+      ) : (
+        <></>
       )}
 
       <div class="scrolling-image">

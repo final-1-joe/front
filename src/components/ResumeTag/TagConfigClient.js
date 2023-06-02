@@ -68,7 +68,6 @@ const TagConfigClient = ({ onRendering }) => {
       })
       .then((res) => {
         setRedata(res.data);
-        onRendering();
       })
       .catch((error) => {
         console.error(error);
@@ -112,6 +111,7 @@ const TagConfigClient = ({ onRendering }) => {
                   console.error(e);
                 });
               getTag();
+              onRendering();
               closeModal();
             })
             .catch((error) => {
@@ -141,7 +141,11 @@ const TagConfigClient = ({ onRendering }) => {
                   user_id: user_id,
                   user_tag: 1,
                 })
-                .then((res) => {})
+                .then((res) => {
+                  getTag();
+                  onRendering();
+                  closeModal();
+                })
                 .catch((e) => {
                   console.error(e);
                 });

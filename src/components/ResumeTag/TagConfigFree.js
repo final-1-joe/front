@@ -72,7 +72,6 @@ const TagConfigFree = ({ onRendering }) => {
       .then((res) => {
         console.log(res.data);
         setRedata(res.data);
-        onRendering();
       })
       .catch((error) => {
         console.error(error);
@@ -138,6 +137,7 @@ const TagConfigFree = ({ onRendering }) => {
                 .catch((e) => {
                   console.error(e);
                 });
+              onRendering();
               getTag();
               closeModal();
             })
@@ -168,7 +168,11 @@ const TagConfigFree = ({ onRendering }) => {
                   user_id: user_id,
                   user_tag: 1,
                 })
-                .then((res) => {})
+                .then((res) => {
+                  getTag();
+                  closeModal();
+                  onRendering();
+                })
                 .catch((e) => {
                   console.error(e);
                 });
