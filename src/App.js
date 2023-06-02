@@ -87,6 +87,7 @@ function App() {
             <Route path="/registerform_1" element={<Registerform_1 />} />
             <Route path="/registerform_2" element={<Registerform_2 />} />
             <Route path="/support" element={<SupportCenter />} />
+            <Route path="/direct" element={<DirectMessage />} />
             <Route path="/client/project" element={<ProjectManagement />} />
             <Route path="/client/recruit" element={<RecruitmentManagement />} />
             <Route path="/support/board" element={<SupportBoard />} />
@@ -121,7 +122,6 @@ function App() {
           <Route path="/admin/client" element={<AdminClientList />} />
           <Route path="/admin/free" element={<AdminUserList />} />
           <Route path="/admin/project" element={<AdminProjectList />} />
-          <Route path="/direct" element={<DirectMessage />} />
           <Route path="/free/calendar/:id" element={<FreeCalendar />} />
 
           <Route path="*" element={<Notfound />} />
