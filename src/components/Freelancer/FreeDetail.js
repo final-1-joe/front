@@ -13,6 +13,7 @@ const FreeDetail = () => {
   const [frdata, setFrData] = useState("");
   const params = new URLSearchParams(location.search);
   const user_id = params.get("user_id");
+  const login_id = window.sessionStorage.getItem("user_id");
   const navigate = useNavigate();
   const openlink = (url) => {
     const open = window.open(
@@ -26,6 +27,19 @@ const FreeDetail = () => {
   };
   const onClickLike = () => {
     alert("관심 프리랜서에 등록되었습니다");
+  };
+  const dmchatcreate = () => {
+    axios
+      .post("http://localhost:8080/createChatroom", {
+        my_user_id: login_id,
+        your_user_id: frdata.user_id,
+      })
+      .then((res) => {
+        //console.log(res.data);
+      })
+      .catch((error) => {
+        console.error("/createChatroom 에러 발생" + error);
+      });
   };
   useEffect(() => {
     getResume();
@@ -70,8 +84,18 @@ const FreeDetail = () => {
                 </span>
               </td>
               <td>
-                <Link to="/direct" style={{ textDecoration: "none", color: "black" }}>
-                  <span className="FreeDM">DM</span>
+                <Link
+                  to="/direct"
+                  style={{ textDecoration: "none", color: "black" }}
+                >
+                  <span
+                    className="FreeDM"
+                    onClick={() => {
+                      dmchatcreate();
+                    }}
+                  >
+                    DM
+                  </span>
                 </Link>
               </td>
             </tr>
