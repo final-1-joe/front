@@ -44,6 +44,7 @@ function DirectMessage() {
   const [채팅방몇개, set채팅방몇개] = useState([]);
   const [채팅방num, set채팅방num] = useState(0);
   const [chatname, setChatname] = useState("");
+  const [chatRname, setChatRName] = useState("");
   const [score, setScore] = useState(0);
   const [simplescore, setSimpleScore] = useState(0);
   const [userInfo, SetUserInfo] = useState({
@@ -94,7 +95,7 @@ function DirectMessage() {
         message_date: "",
       })
       .then((res) => {
-        //console.log(res.data);
+        console.log(res.data);
         const jsonData2 = res.data;
         const data2array = Object.values(jsonData2);
         set채팅방몇개(data2array);
@@ -481,11 +482,12 @@ function DirectMessage() {
                     setSelect(num + 1);
                     set채팅방num(i.chatroom_id);
                     setChatname(i.user_id);
+                    setChatRName(i.user_name);
                     chatuserinfowork();
                   }}
                 >
                   <div className="dmprofile-photo"></div>
-                  <div className="dmprofile-name">{i.user_id}</div>
+                  <div className="dmprofile-name">{i.user_name}</div>
                   {chatroomarray.some((item) => item[0] === i.chatroom_id) ? (
                     <div className="dmprofile-notify">
                       {
@@ -528,7 +530,7 @@ function DirectMessage() {
 
             <div className="dmdetail-bottom">
               {/* 해당 값을 뭐 받아온 데이터[select] 이런식으로*/}
-              <div className="dmdetail-name">{userInfo.user_id}</div>
+              <div className="dmdetail-name">{chatRname}</div>
               <div className="dmdetail-email">{userInfo.user_email}</div>
               <div className="dmdetail-telephone">{userInfo.user_tel}</div>
               <div className="dmdetail-score">평점 {score} / 5.0</div>
@@ -586,7 +588,7 @@ function DirectMessage() {
             ></img>
           )}
 
-          <div className="dmRgt-center-div-name">{chatname}</div>
+          <div className="dmRgt-center-div-name">{chatRname}</div>
         </div>
         <div
           className="dminformation-button"
@@ -677,7 +679,7 @@ function DirectMessage() {
                             className="dmRgt-chat-profile"
                           ></img>
                         )}
-                        <div className="dmRgt-chat-name">{i.user_id}</div>
+                        <div className="dmRgt-chat-name">{chatRname}</div>
                       </>
                     ) : null}
                     <div className="dmRgt-chat-arrow"></div>
@@ -768,7 +770,7 @@ function DirectMessage() {
                         alt="profile2"
                         className="dmRgt-chat-profile"
                       ></img>
-                      <div className="dmRgt-chat-name">{i.msgId}</div>
+                      <div className="dmRgt-chat-name">{chatRname}</div>
                     </>
                   ) : null}
                   <div className="dmRgt-chat-arrow"></div>
