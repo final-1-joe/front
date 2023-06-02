@@ -1,12 +1,9 @@
 import "../../css/FreeDetail.css";
+import FreeReview from "../Review/fre/FreeReview";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { AiFillGithub } from "react-icons/ai";
-import { AiFillStar } from "react-icons/ai";
-import { AiOutlineStar } from "react-icons/ai";
 import { FaHashtag } from "react-icons/fa";
 import React, { useState, useEffect } from "react";
-import ReviewModal from "../Review/ReviewModal";
-import ReviewWrite from "../Review/ReviewWrite";
 import axios from "axios";
 import FileSaver from "file-saver";
 const formData = new FormData();
@@ -16,6 +13,7 @@ const FreeDetail = () => {
   const [frdata, setFrData] = useState("");
   const params = new URLSearchParams(location.search);
   const user_id = params.get("user_id");
+  const loginid = window.sessionStorage.getItem("user_id");
   const navigate = useNavigate();
   const openlink = (url) => {
     const open = window.open(
@@ -73,8 +71,13 @@ const FreeDetail = () => {
                 </span>
               </td>
               <td>
-                <Link to="/" style={{ textDecoration: "none", color: "black" }}>
-                  <span className="FreeDM">DM</span>
+                <Link
+                  to="/direct"
+                  style={{ textDecoration: "none", color: "black" }}
+                >
+                  <span className="FreeDM" onClick={() => navigate(`/direct`)}>
+                    DM
+                  </span>
                 </Link>
               </td>
             </tr>
@@ -167,69 +170,21 @@ const FreeDetail = () => {
           </table>
         </div>
         <br />
+        <div>
+          {user_id === loginid && (
+            <Link to={`/free/myresume`}>
+              <button className="PjBtn2">이력서 수정</button>
+            </Link>
+          )}
+        </div>
         <div className="FreeReview">
-          <details open>
+          <details close>
             <summary>프리랜서 평가</summary>
-            <div>
-              <input
-                type="button"
-                value="작성"
-                className="FreeWriteBtn"
-                onClick={() => setEvalForm(!evalForm)}
-              />
-              {evalForm && (
-                <ReviewModal closeModal={() => setEvalForm(!evalForm)}>
-                  <ReviewWrite />
-                </ReviewModal>
-              )}
-            </div>
             <div className="tpt">
-              <table>
-                <tr height="50px">
-                  <td width="30px">작성자</td>
-                  <td width="100px">멀티캠퍼스</td>
-                  <td width="30px">평점</td>
-                  <td width="60px">
-                    <AiFillStar />
-                    <AiFillStar />
-                    <AiFillStar />
-                    <AiFillStar />
-                    <AiFillStar /> 5.0
-                  </td>
-                </tr>
-                <tr>
-                  <td colSpan={4} id="word">
-                    {/* 멀티캠퍼스와 함께 하는 동안 많이 배우고 성장했습니다! */}
-                  </td>
-                </tr>
-              </table>
-            </div>
-            <div className="tpt">
-              <table>
-                <tr height="50px">
-                  <td width="30px">작성자</td>
-                  <td width="100px">멀티캠퍼스</td>
-                  <td width="30px">평점</td>
-                  <td width="60px">
-                    <AiFillStar />
-                    <AiFillStar />
-                    <AiFillStar />
-                    <AiFillStar />
-                    <AiFillStar /> 5.0
-                  </td>
-                </tr>
-                <tr>
-                  <td colSpan={4}>
-                    {/* 멀티캠퍼스와 함께 하는 동안 많이 배우고 성장했습니다! */}
-                  </td>
-                </tr>
-              </table>
+              <FreeReview fre_rv_target={user_id} />
             </div>
           </details>
           <br />
-          <div>
-            <input type="button" value="수정" className="FreeBtn"></input>
-          </div>
         </div>
       </div>
     </div>

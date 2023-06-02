@@ -1,32 +1,47 @@
-import React from 'react';
-import ManagementForm from './ManagementForm';
-import MySidebar from './my/mySidebar/MySidebar';
+import React, { useState, useEffect } from "react";
+import ManagementForm from "./ManagementForm";
+import MySidebar from "./my/mySidebar/MySidebar";
+import { useParams, useLocation } from "react-router-dom";
+import axios from "axios";
 
 const RecruitmentManagement = () => {
-    // 스케줄데이터를 axios로 전환 예정
-    const FreelancerData = [
-        {
-            id: 1, project: 'Freelancer 1',
-            content: 'Schedule 1',
-            status: 'inProgress',
-            link: '/33333'
-        },
-        //링크는 이렇게 걸어도 되고, 나중에 아이디로 거셔도 될거같아요.
-        //프로젝트명이 겹치기가 쉽지 않을거 같아 일단 이렇게정했습니다.
-        //프리랜서 상세 페이지로 링크가 들어갈 예정
-        //내용관련해선 차후 이야기 해 봐야함
-        { id: 2, project: 'Freelancer 2', content: 'Schedule 2', status: 'completed' },
-        { id: 3, project: 'Freelancer 3', content: 'Schedule 3', status: 'inProgress' },
-        { id: 4, project: 'Freelancer 4', content: 'Schedule 4', status: 'completed' },
-    ];
-    return (
-        <div className='flex'>
-            <MySidebar />
-            <ManagementForm
-                listData={FreelancerData}
-                Mode='Recruit' />
-        </div>
-    );
+  const [freelancerData, setFreelancerData] = useState([]);
+  const user = window.sessionStorage.getItem("user_id");
+  //const { pj_num } = useParams(); //pj_num
+  const location = useLocation();
+  const pj_num = location.state.pj_num;
+
+  useEffect(() => {
+    axios
+      .post("http://localhost:8080/auth/freelistClient", {
+        user_id: user,
+        pj_num: pj_num,
+      })
+      .then((response) => {
+        const modifiedData = response.data.map((item) => {
+          const { pj_num, user_nm, pj_title, pj_status, user_id } = item;
+          const link = `/freedetail?user_id=${user_id}`;
+          return {
+            id: pj_num,
+            project: user_nm,
+            content: pj_title,
+            status: pj_status,
+            link,
+          };
+        });
+        setFreelancerData(modifiedData);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  });
+
+  return (
+    <div className="flex">
+      <MySidebar />
+      <ManagementForm listData={freelancerData} Mode="Recruit" />
+    </div>
+  );
 };
 
 export default RecruitmentManagement;

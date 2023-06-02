@@ -11,7 +11,7 @@ const MySidebar = () => {
   const user = window.sessionStorage.getItem("user_id");
 
   const freeTabs = [
-    { name: "마이페이지 홈", path: "/free/mypage" },
+    { name: "홈", path: "/free/mypage" },
     { name: "일정관리", path: "/free/calendar" },
     { name: "이력서관리", path: "/free/myresume" },
     { name: "프로젝트목록", path: "/free/myproject" },
@@ -19,7 +19,7 @@ const MySidebar = () => {
   ];
 
   const clientTabs = [
-    { name: "마이페이지 홈", path: "/client/mypage" },
+    { name: "홈", path: "/client/mypage" },
     { name: "프로젝트관리", path: "/client/project" },
     { name: "모집현황", path: "/client/recruit" },
     { name: "회원정보수정", path: "/client/myinfo" },
@@ -32,6 +32,7 @@ const MySidebar = () => {
 
   return (
     <div className="myside">
+      <h6 className="myh6">마이페이지</h6>
       <div className="mymenu">
         {Tabs[pathName].map((tab, index) => {
           return (

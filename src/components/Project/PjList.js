@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { HiHashtag } from "react-icons/hi";
+import "../../css/List.css";
 
 const PjList = () => {
   //project데이터 가져오기

@@ -44,15 +44,15 @@ const MyCalendar = () => {
 
     const handleDateClick = (arg) => {
         if (!isStartDateSelected) {
-            setStart(arg.dateStr + 'T09:00');
+            setStart(arg.dateStr);
             setIsStartDateSelected(true);
             alert('시작 날짜가 저장되었습니다.');
         } else {
-            const selectedEndDate = arg.dateStr + 'T09:01';
+            const selectedEndDate = arg.dateStr;
             if (selectedEndDate <= start) {
                 alert('종료 날짜가 시작 날짜보다 이전입니다.');
             } else {
-                setEnd(arg.dateStr + 'T09:00');
+                setEnd(arg.dateStr);
                 setIsStartDateSelected(false);
                 alert('종료 날짜가 저장되었습니다.');
             }
@@ -191,22 +191,22 @@ const MyCalendar = () => {
                         <hr />
                         <label className='label-gj'>
                             시작 시간:
-                            <input type="datetime-local"
+                            <input type="date"
                                 id="start-time" value={start}
                                 onChange={(e) => setStart(e.target.value)}
-                                min="2023-01-01T00:00"
-                                max="2100-12-31T23:59"
+                                min="2023-01-01"
+                                max="2100-12-31"
                             />
                         </label>
                         <br />
                         <label className='label-gj'>
                             종료 시간:
                             <input
-                                type="datetime-local"
+                                type="date"
                                 id="end-time" value={end}
                                 onChange={(e) => setEnd(e.target.value)}
-                                min="2023-01-01T00:00"
-                                max="2100-12-31T23:59" />
+                                min="2023-01-01"
+                                max="2100-12-31" />
                         </label>
                         <button className='cal-button-gj' onClick={handleReset} >
                             리셋

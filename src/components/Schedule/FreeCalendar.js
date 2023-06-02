@@ -41,7 +41,8 @@ const MyCalendar = () => {
 
     useEffect(() => {
         getEvent();
-    }, []);
+        console.log(events);
+    }, [events]);
     return (
         <div className="calendar-wrapper">
             <div className="calendar-container">

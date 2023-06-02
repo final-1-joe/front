@@ -116,8 +116,8 @@ const AdminClientList = () => {
     <div className="admin-page">
       <AdminSideBar />
       <div className="main-content">
-        <h2>출력물(클라이언트리스트)</h2>
         <div id="sc">
+          <h2>출력물(클라이언트리스트)</h2>
           <div className="sc_bl">
             <table>
               <thead>
@@ -137,21 +137,19 @@ const AdminClientList = () => {
                   <>
                     <tr>
                       <td className="number">{data.user_id}</td>
-                      <td className="pass">
-                        {/* 비밀번호 */}
-                        {edit === data.user_id ? (
-                          <td>
-                            <input
-                              type="text"
-                              name="user_name"
-                              value={editpw || ""}
-                              onChange={pwChange}
-                            />
-                          </td>
-                        ) : (
-                          <td className="data1">{data.user_pw}</td>
-                        )}
-                      </td>
+                      {/* 비밀번호 */}
+                      {edit === data.user_id ? (
+                        <td>
+                          <input
+                            type="text"
+                            name="user_name"
+                            value={editpw || ""}
+                            onChange={pwChange}
+                          />
+                        </td>
+                      ) : (
+                        <td className="data1">{data.user_pw}</td>
+                      )}
                       {/* 이름 */}
                       {edit === data.user_id ? (
                         <td>
@@ -234,7 +232,7 @@ const AdminClientList = () => {
                       >
                         삭제&nbsp;&nbsp;&nbsp;
                       </td>
-                    </tr>
+                    </tr >
                   </>
                 ))}
               </tbody>
@@ -242,7 +240,7 @@ const AdminClientList = () => {
           </div>
         </div>
       </div>
-    </div>
+    </div >
   );
 };
 

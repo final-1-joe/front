@@ -591,7 +591,10 @@ function DirectMessage() {
         <div
           className="dminformation-button"
           onClick={() => {
-            setSlide(!slide);
+            if (채팅방num === 0) {
+            } else {
+              setSlide(!slide);
+            }
           }}
         ></div>
         <div className="dmdvide-line"></div>
@@ -605,26 +608,31 @@ function DirectMessage() {
             <div className="dmRgt-div-bottom-add"></div>
           </>
         ) : (
-          chatarraybox.map(function (i) {
+          chatarraybox.map(function (i, index) {
             // DB에 있는 메시지를 채팅창에 표시하는 부분
             return (
               <>
                 {i.user_id === login_id ? (
                   <>
-                    {myInfo.user_code === "free" ? (
-                      <img
-                        src="DirectMessage/freelancer1.png"
-                        alt="profile2"
-                        className="dmRgt-chat-profile-me"
-                      ></img>
-                    ) : (
-                      <img
-                        src="DirectMessage/enterprise1.png"
-                        alt="profile2"
-                        className="dmRgt-chat-profile-me"
-                      ></img>
-                    )}
-                    <div className="dmRgt-chat-name-me">나</div>
+                    {index === 0 ||
+                    i.user_id !== chatarraybox[index - 1].user_id ? (
+                      <>
+                        {myInfo.user_code === "free" ? (
+                          <img
+                            src="DirectMessage/freelancer1.png"
+                            alt="profile2"
+                            className="dmRgt-chat-profile-me"
+                          ></img>
+                        ) : (
+                          <img
+                            src="DirectMessage/enterprise1.png"
+                            alt="profile2"
+                            className="dmRgt-chat-profile-me"
+                          ></img>
+                        )}
+                        <div className="dmRgt-chat-name-me">나</div>
+                      </>
+                    ) : null}
                     <div className="dmRgt-chat-arrow-me"></div>
                     <div className="dmcombine-me">
                       {i.img_code ? (
@@ -653,20 +661,25 @@ function DirectMessage() {
                   </>
                 ) : (
                   <>
-                    {userInfo.user_code === "free" ? (
-                      <img
-                        src="DirectMessage/freelancer1.png"
-                        alt="profile2"
-                        className="dmRgt-chat-profile"
-                      ></img>
-                    ) : (
-                      <img
-                        src="DirectMessage/enterprise1.png"
-                        alt="profile2"
-                        className="dmRgt-chat-profile"
-                      ></img>
-                    )}
-                    <div className="dmRgt-chat-name">{i.user_id}</div>
+                    {index === 0 ||
+                    i.user_id !== chatarraybox[index - 1].user_id ? (
+                      <>
+                        {userInfo.user_code === "free" ? (
+                          <img
+                            src="DirectMessage/freelancer1.png"
+                            alt="profile2"
+                            className="dmRgt-chat-profile"
+                          ></img>
+                        ) : (
+                          <img
+                            src="DirectMessage/enterprise1.png"
+                            alt="profile2"
+                            className="dmRgt-chat-profile"
+                          ></img>
+                        )}
+                        <div className="dmRgt-chat-name">{i.user_id}</div>
+                      </>
+                    ) : null}
                     <div className="dmRgt-chat-arrow"></div>
                     <div className="dmcombine">
                       {i.img_code ? (
@@ -700,7 +713,7 @@ function DirectMessage() {
           })
         )}
 
-        {chatArray.map(function (i) {
+        {chatArray.map(function (i, index) {
           // 웹소켓 통신을 채팅창에 표시하는 부분
           return (
             <>
@@ -710,12 +723,16 @@ function DirectMessage() {
                 </div>
               ) : i.msgId === login_id ? (
                 <>
-                  <img
-                    src="DirectMessage/freelancer1.png"
-                    alt="profile2"
-                    className="dmRgt-chat-profile-me"
-                  ></img>
-                  <div className="dmRgt-chat-name-me">나</div>
+                  {index === 0 || i.msgId !== chatArray[index - 1].msgId ? (
+                    <>
+                      <img
+                        src="DirectMessage/freelancer1.png"
+                        alt="profile2"
+                        className="dmRgt-chat-profile-me"
+                      ></img>
+                      <div className="dmRgt-chat-name-me">나</div>
+                    </>
+                  ) : null}
                   <div className="dmRgt-chat-arrow-me"></div>
                   <div className="dmcombine-me">
                     {i.img_code ? (
@@ -744,12 +761,16 @@ function DirectMessage() {
                 </>
               ) : (
                 <>
-                  <img
-                    src="DirectMessage/freelancer1.png"
-                    alt="profile2"
-                    className="dmRgt-chat-profile"
-                  ></img>
-                  <div className="dmRgt-chat-name">{i.msgId}</div>
+                  {index === 0 || i.msgId !== chatArray[index - 1].msgId ? (
+                    <>
+                      <img
+                        src="DirectMessage/freelancer1.png"
+                        alt="profile2"
+                        className="dmRgt-chat-profile"
+                      ></img>
+                      <div className="dmRgt-chat-name">{i.msgId}</div>
+                    </>
+                  ) : null}
                   <div className="dmRgt-chat-arrow"></div>
                   <div className="dmcombine">
                     {i.img_code ? (
@@ -788,7 +809,10 @@ function DirectMessage() {
           <div
             className="dminput-something"
             onClick={() => {
-              setAttach(!attach);
+              if (채팅방num === 0) {
+              } else {
+                setAttach(!attach);
+              }
             }}
           ></div>
         )}
@@ -978,10 +1002,13 @@ function DirectMessage() {
           <div
             className="dminput-button"
             onClick={() => {
-              if (inputchat === "") {
-                alert("메시지를 입력하세요");
+              if (채팅방num === 0) {
               } else {
-                send();
+                if (inputchat === "") {
+                  alert("메시지를 입력하세요");
+                } else {
+                  send();
+                }
               }
             }}
           >

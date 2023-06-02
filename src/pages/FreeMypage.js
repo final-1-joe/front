@@ -4,7 +4,7 @@ import "../css/MyLayout.css";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 
-function FreeMypage() {
+function FreeMypage({ handleLogout }) {
   const navigate = useNavigate();
   const goMain = () => {
     navigate("/");
@@ -55,6 +55,7 @@ function FreeMypage() {
           console.log(response.data);
           alert("회원탈퇴가 완료되었습니다. \n그동안 이용해주셔서 감사합니다.");
           window.sessionStorage.clear();
+          handleLogout();
           goMain();
         })
         .catch((error) => {

@@ -1,11 +1,12 @@
 .dmContent-div {
   display : table;
   margin : 0 auto;
+  width : 70.0833vw;
 }
 
 .dmLft-div {
-  height: 48.0833vw;
-  width: 26.0417vw;
+  height: 14.2433vw;
+  width: 18.2vw;
   border-radius: 1.0417vw;
   background: #FFFBEB;
   margin : 2.0833vw 2.1250vw 2.0833vw 1.0417vw;
@@ -29,8 +30,8 @@
 }
 
 .dmLft-div2 {
-  height: 48.0833vw;
-  width: 26.0417vw;
+  height: 36.0433vw;
+  width: 18.2vw;
   border-radius: 1.0417vw;
   background: #FFFBEB;
   margin : 2.0833vw 2.1250vw 2.0833vw 1.0417vw; 
@@ -68,16 +69,16 @@
 
 .dmRgt-div-top { 
   height: 7.2917vw;
-  width: 66.4063vw;
+  width: 46.4063vw;
   margin-right: 0.6250vw;
   float: left;
   /*background: #D9D9D9;*/  /* 자리 잡으면 없앨 것 */
 }
 
 .dmRgt-div-bottom {
-  min-height: 35.6250vw;
-  max-height: 35.6250vw;
-  width: 66.4063vw;
+  min-height: 24.6250vw;
+  max-height: 24.6250vw;
+  width: 47.4063vw;
   margin-top: 1.5625vw;
   margin-right: 0.6250vw;
   float: left;
@@ -88,16 +89,16 @@
 
 .dmRgt-div-input {
   height: 4.1667vw;
-  width: 66.4063vw;
+  width: 47.4063vw;
   margin-top: 0.5208vw;
   margin-right: 0.6250vw;
-  float: left;
+  float: right;
   /*background: #D9D9D9;*/ /* 자리 잡으면 없앨 것 */
 }
 
 .dmchat-room-select{
-height: 5.9896vw;
-width: 23.7500vw;
+height: 4.9896vw;
+width: 16.7500vw;
 border-radius: 1.0417vw;
 background-color: white;
 margin: 0 auto;
@@ -113,11 +114,11 @@ overflow: hidden;
 }
   
 .dmprofile-photo {
-height: 4.9479vw;
-width: 4.9479vw;
+height: 3.9479vw;
+width: 3.9479vw;
 border-radius: 4.6875vw;
 margin: 0.5208vw;
-margin-left: 2.2396vw;
+margin-left: 1.2396vw;
 float:left;
 background-size: cover;
 background-image: url(/public/DirectMessage/freelancer1.png);
@@ -136,59 +137,60 @@ background-image: url(/public/DirectMessage/freelancer1.png);
 
 .dmprofile-name {
 height: 2.5000vw;
-width: 10.4167vw;
+width: 7.4167vw;
 font-family: 'Inter';
 font-style: normal;
 font-weight: 400;
-font-size: 2.0833vw;
+font-size: 1.5833vw;
 line-height: 2.5000vw;
-margin-left:1.4063vw;
+margin-left:0.4063vw;
 float: left;
-margin-top: 0.5208vw;
+margin-top: 0.208vw;
+text-align: left;
 }
 
 .dmprofile-notify {
-  height: 2.0313vw;
-  width: 2.0313vw;
-  left: 24.0625vw;
-  top: 4.4792vw;
+  height: 1.8313vw;
+  width: 1.8313vw;
   border-radius: 4.6875vw;
   background-color: #FF6D6D;
   font-family: 'Inter';
   font-style: normal;
   font-weight: 700;
-  font-size: 1.5625vw;
-  line-height: 1.8750vw;
+  font-size: 1.2625vw;
+  line-height: 1.8313vw;
   text-align: center;
   color: #FFFFFF;
-  margin-top:0.8854vw;
-  margin-left:1.1458vw;
+  margin-top:0.7854vw;
+  margin-left:0.458vw;
   float : left;
 }
 
 .dmprofile-content {
 height: 1.8750vw;
-width: 12.8125vw;
+width: 8.8125vw;
 font-family: 'Inter';
 font-style: normal;
 font-weight: 400;
-font-size: 1.5625vw;
+font-size: 1.2625vw;
 line-height: 1.8750vw;
 color : rgba(0, 0, 0, 0.5);
 float: left;
-margin-left: 1.4063vw;
-margin-top: 0.3125vw;
+margin-left: 0.4063vw;
+margin-top: -0.3125vw;
 overflow: hidden;
 text-overflow: ellipsis;
 white-space:nowrap;
+text-align: left;
 }
 
 .dmprofile-line {
-height: 4.0271vw;
+height: 3.0271vw;
 width: 0.000vw;
 border-radius: 4.6875vw;
-border: 0.5208vw solid #FBDB6A;
-margin-top: 0.4813vw;
+border: 0.3208vw solid #FBDB6A;
+margin-top: 0.6913vw;
+margin-right: 0.2cw;
 float: right;
 }
 
@@ -211,16 +213,16 @@ margin-top:2.0833vw;
 
 .dmRgt-center-div {
   height: 4.9479vw;
-  width: 18.4479vw;
+  width: 15.4479vw;
 float:left;
-margin-left: 19.3854vw;
-margin-top: 0.7813vw;
+margin-left: 13.3854vw;
+margin-top: 1.7813vw;
 /*background: #FF6D6D;*/
 }
 
 .dmRgt-center-div-profile {
-height: 4.9479vw;
-width: 4.9479vw;
+height: 3.9479vw;
+width: 3.9479vw;
 float:left;
 /*background: url(/public/DirectMessage/enterprise1.png);*/
 background-size: cover;
@@ -236,8 +238,8 @@ background-size: cover;
   line-height: 2.5000vw;
   letter-spacing: 0em;
   text-align: center;
-  padding-left: 2vw;
-  margin-top: 1.2500vw;
+  padding-left: 0.5vw;
+  margin-top: 0.7500vw;
   }
 
 
@@ -246,7 +248,7 @@ background-size: cover;
   height: 3.3333vw;
   border-radius: 50%;
   float:left;
-  margin-left: 20.3854vw;
+  margin-left: 9.3854vw;
   background: url(/public/DirectMessage/new-information-button.png);
   background-color:#FFC700;
   background-size: cover;
@@ -260,7 +262,7 @@ background-size: cover;
   }
 
 .dmdvide-line {
-width: 66.1458vw;
+width: 46.1458vw;
 height: 0.4167vw;
 background: #FFC700;
 border-radius: 0.7813vw;
@@ -268,24 +270,24 @@ margin-top:6.5104vw;
 }
 
 .dmdetail-profile-enterprise {
-height: 18.8750vw;
-width: 18.8750vw;
+height: 12.8750vw;
+width: 12.8750vw;
 float:left;
 margin-top : 0.78125vw;
 margin-bottom : 0.78125vw;
-margin-left : 3.5833vw;
+margin-left : 2.5833vw;
 border-radius: 4.6875vw;
 background: url(/public/DirectMessage/enterprise1.png);
 background-size: cover;
 }
 
 .dmdetail-profile-freelancer {
-  height: 18.8750vw;
-  width: 18.8750vw;
+  height: 12.8750vw;
+  width: 12.8750vw;
   float:left;
   margin-top : 0.78125vw;
   margin-bottom : 0.78125vw;
-  margin-left : 3.5833vw;
+  margin-left : 2.5833vw;
   border-radius: 4.6875vw;
   background: url(/public/DirectMessage/freelancer1.png);
   background-size: cover;
@@ -300,96 +302,98 @@ background-size: cover;
 }
 
 .dmdetail-bottom {
-height: 28.6458vw;
-width: 26.0417vw;
+height: 21.8vw;
+width: 18.2vw;
 float:left;
 background-color: white;
 }
 
 .dmdetail-name {
-height: 4.4271vw;
+height: 3.4271vw;
 width: auto;
 font-family: Inter;
-font-size: 3.6458vw;
+font-size: 2.6458vw;
 font-weight: 700;
 line-height: 4.4271vw;
 letter-spacing: 0em;
 text-align: left;
-margin-top : 1.0417vw;
-margin-left: 1.7188vw;
+margin-top : 0.0417vw;
+margin-left: 0.7188vw;
 }
 
 .dmdetail-email {
 height: 1.8750vw;
 width: auto;
 font-family: Inter;
-font-size: 1.5625vw;
+font-size: 1.2625vw;
 font-weight: 400;
 line-height: 1.8750vw;
 letter-spacing: 0em;
 text-align: left;
-margin-left: 1.7188vw;
+margin-left: 0.7188vw;
 }
 
 .dmdetail-telephone{
   height: 1.8750vw;
   width: auto;
   font-family: Inter;
-  font-size: 1.5625vw;
+  font-size: 1.2625vw;
   font-weight: 400;
   line-height: 1.8750vw;
   letter-spacing: 0em;
   text-align: left;
-  margin-left: 1.7188vw;  
+  margin-left: 0.7188vw;  
 }
 
 .dmdetail-score{
   height: 3.1771vw;
   width: auto;
   font-family: Inter;
-  font-size: 2.6042vw;
+  font-size: 1.6042vw;
   font-weight: 400;
   line-height: 3.1771vw;
   letter-spacing: 0em;
   text-align: center;
-  margin-top:1.4583vw; 
+  margin-top:0.4583vw; 
 }
 
 .dmdetail-score-image {
   height: 3.3756vw;
-  width: 20.6250vw;
+  width: 18.6250vw;
   margin-top: 0.7813vw;
-  margin-left :2.7083vw;
+  /*margin-left :2.7083vw;*/
 background-size: cover;
 }
 
 .dmdetail-line {
   height: 0.0000vw;
-  width: 20.8333vw;
-  margin-top: 1.5625vw;
-  margin-left: 2.6042vw;
+  width: 18.8333vw;
+  margin-top: 0.5625vw;
+  margin-left: -0.3958vw;
 border: 0.0521vw solid #FFC700
 }
 
 .dmcorporation-img {
-height: 6.5417vw;
-width: 6.5417vw;
+height: 3.5417vw;
+width: 3.5417vw;
 background-image: url(/public/DirectMessage/pngegg.png);
 background-size: cover;
 margin-left: 3.6042vw;
+margin-top: 0.6042vw;
 float:left;
 }
 
 .dmcorporation-text {
-  height: 3.1771vw;
+  height: 3.5417vw;
 width: auto;
 font-family: Inter;
-font-size: 2.042vw;
+font-size: 1.642vw;
 font-weight: 100;
-line-height: 3.1771vw;
+line-height: 3.5417vw;
 letter-spacing: 0em;
 margin-left: 1.63vw;
-margin-top: 1.6042vw;
+margin-top: 0.6042vw;
+margin-bottom: 0.6042vw;
 color: blue;
 float:left;
 }
@@ -399,11 +403,11 @@ float:left;
 width: auto;
 text-align: center;
 font-family: Inter;
-font-size: 2.0833vw;
+font-size: 1.2833vw;
 font-weight: 400;
 line-height: 2.5000vw;
-margin-top: 1.6042vw;
-margin-bottom: 1.6042vw;
+margin-top: 0.6042vw;
+margin-bottom: 0.6042vw;
 color: gray;
 }
 
@@ -427,12 +431,12 @@ color: gray;
 
 .dminput-text {
   height: 2.5000vw;
-  width: 51.5625vw;
+  width: 33.5625vw;
 
 font-family: 'Inter';
 font-style: normal;
 font-weight: 400;
-font-size: 2.0833vw;
+font-size: 1.5833vw;
 line-height: 2.5000vw;
 margin-left: 2.0833vw;
 margin-top : 0.8333vw;
@@ -452,15 +456,15 @@ border: 0;
 
 .dminput-line {
   height: 0.0000vw;
-  width: 52.0833vw;
+  width: 34.0833vw;
 border: 0.0521vw solid #000000;
 margin-top: 4.0625vw;
 margin-left : 4.6875vw;
 }
 
 .dminput-button {
-  height: 4.6168vw;
-  width: 6.6610vw;
+  height: 3.6168vw;
+  width: 5.6610vw;
   border-radius: 1.0417vw;
 float:left;
 
@@ -469,12 +473,13 @@ border-radius: 1.0417vw;
 font-family: 'Inter';
 font-style: normal;
 font-weight: 700;
-font-size: 2.0833vw;
-line-height: 4.6168vw;
+font-size: 1.5833vw;
+line-height: 3.6168vw;
 text-align: center;
 vertical-align: middle;
 color: #FFFFFF;
 margin-left : 1.5000vw;
+margin-top: 0.4167vw;
 }
 
 .dminput-button:hover {
@@ -488,8 +493,8 @@ margin-left : 1.5000vw;
   height: 3.3333vw;
   width: 3.3333vw;
   border-radius: 50%;
-  left: 26.996vw;
-  top: 42.1750vw;
+  left: 34.496vw;
+  top: 31.1750vw;
   background-image: url(/public/DirectMessage/new-information-button1.png);
   background-color: #FFC700;
   background-size: cover;
@@ -508,8 +513,8 @@ margin-left : 1.5000vw;
   height: 3.3333vw;
   width: 3.3333vw;
   border-radius: 50%;
-  left: 31.3563vw;
-  top: 42.1750vw;
+  left: 38.6563vw;
+  top: 31.1750vw;
   background-image: url(/public/DirectMessage/new-information-button2.png);
   background-color: #FFC700;
   background-size: cover;
@@ -524,8 +529,8 @@ margin-left : 1.5000vw;
 }
 
 .dmRgt-chat-profile {
-  height: 4.9479vw;
-  width: 4.9479vw;
+  height: 2.9479vw;
+  width: 2.9479vw;
   margin-left: 2.3438vw;
   background-size: cover;  
   float: left;
@@ -535,12 +540,12 @@ margin-left : 1.5000vw;
   height: 2.3438vw;
   width: calc(100% - 10.4167vw);
 font-family: Inter;
-font-size: 2.0833vw;
+font-size: 1.2833vw;
 font-weight: 400;
 line-height: 2.5000vw;
 letter-spacing: 0em;
 margin:1.5625vw;
-margin-top:1.3021vw;
+margin-top:0.3021vw;
 text-align: left;
 float:left;
 }
@@ -549,20 +554,21 @@ float:left;
 height: auto;
 width: auto;
 border-radius: 0.7813vw;
-max-width: 41.6667vw;
+border-top-left-radius: 0;
+max-width: 28.6667vw;
 background: #FFFBEB;
 /*float:left;*/
 
 font-family: 'Inter';
 font-style: normal;
 font-weight: 100;
-font-size: 2.0833vw;
-line-height: 2.5000vw;
+font-size: 1.0833vw;
+line-height: 1.5000vw;
 text-align: left;
-padding-top : 2.3438vw;
-padding-left: 3.1250vw;
-padding-right: 3.1250vw;
-padding-bottom : 2.3438vw;
+padding-top : 0.8438vw;
+padding-left: 1.1250vw;
+padding-right: 1.1250vw;
+padding-bottom : 0.8438vw;
 color: #000000;
 word-wrap: break-word;
 /*display : table;*/
@@ -574,16 +580,16 @@ word-break: break-all;
 .dmRgt-chat-arrow {
   height: 0.0000vw;
   width: 0.0000vw;
-  border-bottom: 1.5625vw solid transparent;
-  border-top: 1.5625vw solid transparent;
-  border-right: 1.5625vw solid  #FFFBEB;
+  border-bottom: 0.9625vw solid transparent;
+  border-top: 0.9625vw solid transparent;
+  border-right: 0.9625vw solid  #FFFBEB;
 float:left;
-margin-left : 5.6250vw;
+margin-left : 4.6250vw;
 }
 
 .dmRgt-chat-time {
 font-family: Inter;
-font-size: 1.5625vw;
+font-size: 1.0625vw;
 font-weight: 400;
 line-height: 1.8750vw;
 letter-spacing: 0em;
@@ -595,12 +601,12 @@ margin-right: 1.0417vw;
 
 .dmcombine {
   display: table;
-  margin-bottom: 2.3958vw;
+  margin-bottom: 0.3958vw;
 }
 
 .dmRgt-chat-profile-me {
-  height: 4.9479vw;
-  width: 4.9479vw;
+  height: 2.9479vw;
+  width: 2.9479vw;
   margin-right: 2.3438vw;
   background-size: cover;  
   float: right;
@@ -610,12 +616,12 @@ margin-right: 1.0417vw;
   height: 2.3438vw;
   width: calc(100% - 10.4167vw);
 font-family: Inter;
-font-size: 2.0833vw;
+font-size: 1.2833vw;
 font-weight: 400;
 line-height: 2.5000vw;
 letter-spacing: 0em;
 margin:1.5625vw;
-margin-top:1.3021vw;
+margin-top:0.3021vw;
 text-align: right;
 float:right;
 }
@@ -624,19 +630,20 @@ float:right;
 height: auto;
 width: auto;
 border-radius: 0.7813vw;
-max-width: 41.6667vw;
+border-top-right-radius: 0;
+max-width: 28.6667vw;
 background: #FFFBEB;
 float: right;
 font-family: 'Inter';
 font-style: normal;
 font-weight: 100;
-font-size: 2.0833vw;
-line-height: 2.5000vw;
+font-size: 1.0833vw;
+line-height: 1.5000vw;
 text-align: left;
-padding-top : 2.3438vw;
-padding-left: 3.1250vw;
-padding-right: 3.1250vw;
-padding-bottom : 2.3438vw;
+padding-top : 0.8438vw;
+padding-left: 1.1250vw;
+padding-right: 1.1250vw;
+padding-bottom : 0.8438vw;
 color: #000000;
 /*display : table;*/
 white-space: normal;
@@ -647,16 +654,16 @@ word-break: break-all;
 .dmRgt-chat-arrow-me {
   height: 0.0000vw;
   width: 0.0000vw;
-  border-bottom: 1.5625vw solid transparent;
-  border-top: 1.5625vw solid transparent;
-  border-left: 1.5625vw solid  #FFFBEB;
+  border-bottom: 0.9625vw solid transparent;
+  border-top: 0.9625vw solid transparent;
+  border-left: 0.9625vw solid  #FFFBEB;
 float:right;
-margin-right : 5.6250vw;
+margin-right : 4.6250vw;
 }
 
 .dmRgt-chat-time-me {
 font-family: Inter;
-font-size: 1.5625vw;
+font-size: 1.0625vw;
 font-weight: 400;
 line-height: 1.8750vw;
 letter-spacing: 0em;
@@ -669,16 +676,16 @@ float: right;
 
 .dmcombine-me {
   /*display: table;*/
-  margin-bottom: 2.3958vw;
+  margin-bottom: 0.3958vw;
   float:right;
   width:calc( 100% - 7.1875vw );
 }
 
 .dmRgt-center-logo-image {
-  height: 100%;
-  width: 20.4479vw;
+  height: 60%;
+  width: 15.4479vw;
   float:left;
-  background: url(/public/DirectMessage/logo.png);
+  /*background: url(/public/DirectMessage/logo.png);*/
   background-size:cover;
 }
 
@@ -719,11 +726,11 @@ float: right;
 .dmRgt-div-bottom-image {
   -webkit-animation: tracking-in-expand 0.7s cubic-bezier(0.215, 0.610, 0.355, 1.000) both;
 	        animation: tracking-in-expand 1s cubic-bezier(0.215, 0.610, 0.355, 1.000) both;
-  margin-top: 10vw;
+  margin-top: 5vw;
   flex: 0 auto;
   text-align: center;
   font-family: 'Inter';
-  font-size: 4.2vw;
+  font-size: 3.2vw;
   font-weight: 400;
 }
 
@@ -757,24 +764,24 @@ float: right;
 	        animation: text-focus-in 1s cubic-bezier(0.550, 0.085, 0.680, 0.530) 1s backwards;
   height: 5.2083vw;
   width:31.2500vw;
-  margin-left: 19.7292vw;
+  margin-left: 8.029vw;
   background-image: url(/public/DirectMessage/logo.png);
   background-size: cover;
 }
 
 .dmchatbox-noone {
   font-family: 'Inter';
-  font-size: 1.85vw;
+  font-size: 1.15vw;
   text-align: center;
-  padding-top: 2vw;
+  padding-top: 1.4vw;
 }
 
 .dmchatbox-noone-image{
-height: 40vw;
+height: 26vw;
 width: 100%;
 background-image: url(/public/DirectMessage/noone_image.png);
 background-size: cover;
-background-position: -8.7688vw -2.6042vw;
+background-position: -5.042vw;
 }
 
 .dmImageBox {
@@ -782,14 +789,14 @@ background-position: -8.7688vw -2.6042vw;
   height: 10vw;
   width: 10vw;
   border-radius: 0.7813vw;
-  top : 31vw;
-  left: 27vw;
+  top : 20vw;
+  left: 33vw;
   background-color:rgba(251, 219, 105, 0.5);
 }
 
 .dmthumbImg {
   margin-top: 1vw;
-  margin-left: 1vw;
+  margin-left: 0vw;
   flex: 0 auto;
   height: 8vw;
   width: 8vw;
@@ -803,8 +810,8 @@ background-position: -8.7688vw -2.6042vw;
   border-radius: 90%;
   background-image: url(/public/DirectMessage/apply-button.png);
   background-size: cover;
-  top : 31vw;
-  left: 38vw;
+  top : 20vw;
+  left: 43vw;
   z-index: 1;
 }
 
@@ -821,8 +828,8 @@ background-position: -8.7688vw -2.6042vw;
   border-radius: 90%;
   background-image: url(/public/DirectMessage/deny-button.png);
   background-size: cover;
-  top : 36.5vw;
-  left: 38vw;
+  top : 25.5vw;
+  left: 43vw;
   z-index: 1;
 }
 
@@ -848,6 +855,7 @@ background-position: -8.7688vw -2.6042vw;
   height: auto;
 width: auto;
 border-radius: 0.7813vw;
+border-top-left-radius: 0;
 max-width: 41.6667vw;
 background: #FFFBEB;
 /*float:left;*/
@@ -855,13 +863,13 @@ background: #FFFBEB;
 font-family: 'Inter';
 font-style: normal;
 font-weight: 100;
-font-size: 2.0833vw;
+font-size: 1.2833vw;
 line-height: 2.5000vw;
 text-align: left;
-padding-top : 2.3438vw;
-padding-left: 3.1250vw;
-padding-right: 3.1250vw;
-padding-bottom : 2.3438vw;
+padding-top : 1.3438vw;
+padding-left: 2.1250vw;
+padding-right: 2.1250vw;
+padding-bottom:  1.3438vw;
 color: #000000;
 word-wrap: break-word;
 /*display : table;*/
@@ -880,19 +888,20 @@ word-break: break-all;
   height: auto;
 width: auto;
 border-radius: 0.7813vw;
+border-top-right-radius: 0;
 max-width: 41.6667vw;
 background: #FFFBEB;
 float: right;
 font-family: 'Inter';
 font-style: normal;
 font-weight: 100;
-font-size: 2.0833vw;
+font-size: 1.2833vw;
 line-height: 2.5000vw;
 text-align: left;
-padding-top : 2.3438vw;
-padding-left: 3.1250vw;
-padding-right: 3.1250vw;
-padding-bottom : 2.3438vw;
+padding-top : 1.3438vw;
+padding-left: 2.1250vw;
+padding-right: 2.1250vw;
+padding-bottom : 1.3438vw;
 /*display : table;*/
 white-space: normal;
 word-wrap: break-word;
@@ -907,8 +916,9 @@ font-style: italic;
 
 .dmfile-icon {
   position: relative;
-  width:3vw;
-  height:3vw;
+  margin-top: 0.2vw;
+  width:2vw;
+  height:2vw;
   background-image: url(/public/DirectMessage/file-icon.jpg);
   background-size: cover;
   float: left;
@@ -922,8 +932,8 @@ font-style: italic;
   text-align: center;
   background-color: #ffa600;
   color: white;
-  font-size: 1.8033vw;
-  margin-right: 7vw;
+  font-size: 1.2033vw;
+  margin-right: 2.5vw;
 }
 
 .dmroomquit:hover {
@@ -955,7 +965,7 @@ line-height: 4.6168vw;
 text-align: center;
 vertical-align: middle;
 color: #FFFFFF;
-margin-left : 1.8000vw;
+margin-left : 1.5000vw;
 }
 
 .dminput-something-no {
