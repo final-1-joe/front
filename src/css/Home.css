@@ -27,6 +27,12 @@
     
     
 }
+.reco_slice table{
+    width: 350px !important;
+    height: 155px !important;
+    margin: 0 auto;
+    
+}
 .reco_slice td{
     max-width: 360px;
 
