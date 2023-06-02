@@ -51,8 +51,10 @@ const Layout = ({ isLoggedIn, handleLogout, onLogin }) => {
       return "/free/mypage";
     } else if (storedUserCode === "client") {
       return "/client/mypage";
+    } else if (storedUserCode === "admin") {
+      return "/admin";
     } else {
-      return "/";
+      return '/loginform';
     }
   };
 
