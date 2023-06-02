@@ -1,4 +1,5 @@
 export const occupations = [
+  { value: "", label: "직군선택" },
   { value: "개발", label: "개발" },
   { value: "경영·비즈니스", label: "경영·비즈니스" },
   { value: "마케팅·광고", label: "마케팅·광고" },

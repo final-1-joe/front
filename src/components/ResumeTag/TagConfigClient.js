@@ -14,7 +14,7 @@ const TagConfigClient = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [redata, setRedata] = useState();
   const user_id = window.sessionStorage.getItem("user_id");
-
+  const user_code = window.sessionStorage.getItem("user_code");
   const jsRef = useRef();
   const [js, setJs] = useState("work");
   const jgRef = useRef();
@@ -99,6 +99,17 @@ const TagConfigClient = () => {
               cli_pay: pays || null,
             })
             .then((res) => {
+              axios
+                .post("http://localhost:8080/user/updatet", {
+                  user_id: user_id,
+                  user_tag: 1,
+                })
+                .then((res) => {
+                  console.error(res);
+                })
+                .catch((e) => {
+                  console.error(e);
+                });
               getTag();
               closeModal();
             })
@@ -124,6 +135,15 @@ const TagConfigClient = () => {
               cli_pay: pays || null,
             })
             .then((res) => {
+              axios
+                .post("http://localhost:8080/user/updatet", {
+                  user_id: user_id,
+                  user_tag: 1,
+                })
+                .then((res) => {})
+                .catch((e) => {
+                  console.error(e);
+                });
               closeModal();
             })
             .catch((error) => {
@@ -134,25 +154,40 @@ const TagConfigClient = () => {
       .catch((error) => {
         console.error(error);
       });
+  };
+
+  useEffect(() => {
+    if (user_id) {
+      startstep();
+    }
+  }, []);
+
+  const startstep = () => {
     axios
-      .post("http://localhost:8080/user/updatert", {
+      .post("http://localhost:8080/user/checkstart", {
         user_id: user_id,
-        user_resume: 1,
+        user_code: user_code,
       })
-      .then((res) => {})
+      .then((res) => {
+        console.log("tag", res.data);
+        const data = res.data;
+        if (data === 1) {
+          setModalOpen(true);
+        }
+      })
       .catch((e) => {
         console.error(e);
       });
   };
 
   return (
-    <div className="resume">
-      <div class="btns-area sc_an_wr_btn">
-        <a class="btn-m02 btn-color01 depth2" onClick={openModal}>
-          등록
-        </a>
-      </div>
-      <Modal open={modalOpen} close={closeModal} header="클라이언트 태그설정">
+    <div className="in-bl ig_size">
+      <img src="/images/tag-icon.png" onClick={openModal} />
+      <Modal
+        open={modalOpen}
+        close={closeModal}
+        header="추천 프리랜서 태그설정"
+      >
         <div id="basic" className="resume_section">
           <div className="resume_write">
             <div className="resume_row">

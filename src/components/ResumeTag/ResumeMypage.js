@@ -344,7 +344,7 @@ const ResumeMypage = () => {
         });
     }
     axios
-      .post("http://localhost:8080/user/updatert", {
+      .post("http://localhost:8080/user/updater", {
         user_id: user_id,
         user_resume: 1,
       })
