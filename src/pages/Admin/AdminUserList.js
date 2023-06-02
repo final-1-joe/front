@@ -122,17 +122,20 @@ const AdminUserList = () => {
                                     <>
                                         < tr >
                                             <td className="number">{data.user_id}</td>
-                                            <td className="pass">
+                                            <td className="data1">
                                                 {/* 비밀번호 */}
                                                 {edit === data.user_id ?
-                                                    <td>
+                                                    <>
                                                         <input type="text"
                                                             name="user_name"
                                                             value={editpw || ""}
                                                             onChange={pwChange} />
-                                                    </td> :
-                                                    <td className="data1">{data.user_pw}
-                                                    </td>}
+                                                    </>
+                                                    :
+                                                    <>
+                                                        {data.user_pw}
+                                                    </>
+                                                }
                                             </td>
                                             {/* 이름 */}
                                             {edit === data.user_id ?

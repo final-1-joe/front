@@ -152,6 +152,7 @@ const FreeReviewList = ({ review, fre_rv_target }) => {
                     <td
                       align="right"
                       style={{ fontSize: "12px", color: "gray" }}
+                      className="break-all"
                     >
                       {data.fre_rv_date}
                     </td>

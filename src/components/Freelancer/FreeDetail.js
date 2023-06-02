@@ -70,7 +70,7 @@ const FreeDetail = () => {
                 </span>
               </td>
               <td>
-                <Link to="/" style={{ textDecoration: "none", color: "black" }}>
+                <Link to="/direct" style={{ textDecoration: "none", color: "black" }}>
                   <span className="FreeDM">DM</span>
                 </Link>
               </td>
