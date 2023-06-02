@@ -89,7 +89,10 @@ function App() {
             <Route path="/support" element={<SupportCenter />} />
             <Route path="/direct" element={<DirectMessage />} />
             <Route path="/client/project" element={<ProjectManagement />} />
-            <Route path="/client/recruit" element={<RecruitmentManagement />} />
+            <Route
+              path="/client/recruit/:id"
+              element={<RecruitmentManagement />}
+            />
             <Route path="/support/board" element={<SupportBoard />} />
             <Route
               path="/support/board/write"

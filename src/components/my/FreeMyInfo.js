@@ -10,6 +10,7 @@ function FreeMyInfo() {
   const [newPasswordCheck, setNewPasswordCheck] = useState("");
   const [id, setId] = useState("");
   const [name, setName] = useState("");
+  const [birth, setBirth] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const navigate = useNavigate();
@@ -26,6 +27,10 @@ function FreeMyInfo() {
 
   const getNewName = (e) => {
     setName(e.target.value);
+  };
+
+  const getNewBirth = (e) => {
+    setBirth(e.target.value);
   };
 
   const getNewEmail = (e) => {
@@ -47,6 +52,7 @@ function FreeMyInfo() {
         const userData = response.data;
         setId(userData.user_id);
         setName(userData.user_name);
+        setBirth(userData.user_birth);
         setPhone(userData.user_tel);
         setEmail(userData.user_email);
       })
@@ -63,6 +69,7 @@ function FreeMyInfo() {
         user_id: user,
         user_pw: newPassword,
         user_name: name,
+        user_birth: birth,
         user_email: email,
         user_tel: phone,
       })
@@ -144,6 +151,21 @@ function FreeMyInfo() {
               placeholder="이름"
               value={name}
               onChange={getNewName}
+            />
+          </div>
+          <p className="myError"></p>
+          <div className="mylistGroup">
+            <label for="name" className="mylabel">
+              생년월일
+            </label>
+            <input
+              className="myinfoinput"
+              type="date"
+              id="birth"
+              name="birth"
+              placeholder="YYYYMMDD"
+              value={birth}
+              onChange={getNewBirth}
             />
           </div>
           <p className="myError"></p>
