@@ -126,7 +126,9 @@ const Resume = () => {
             : femaleRef.current.value,
           user_email: emailRef.current.value || null,
           user_tel: telRef.current.value || null,
-          user_jg: jgRef.current.props ? jgRef.current.props.value.value : null,
+          user_jg: jgRef.current.props.value
+            ? jgRef.current.props.value.value
+            : null,
           user_job: jobRef.current.props.value
             ? JSON.stringify(
                 jobRef.current.props.value.map((option) => option.value)
@@ -189,7 +191,21 @@ const Resume = () => {
         });
     }
     axios
-      .post("http://localhost:8080/user/updatert", {
+      .post("http://localhost:8080/user/updater", {
+        user_id: user_id,
+        user_resume: 1,
+      })
+      .then((res) => {
+        navigate("/");
+      })
+      .catch((e) => {
+        console.error(e);
+      });
+  };
+
+  const passresume = () => {
+    axios
+      .post("http://localhost:8080/user/updater", {
         user_id: user_id,
         user_resume: 1,
       })
@@ -424,7 +440,9 @@ const Resume = () => {
           <Link className="btn-m02 btn-color03 depth2" onClick={insertResume}>
             등록
           </Link>
-          <Link className="btn-m02 btn-color06 depth2">넘기기</Link>
+          <Link className="btn-m02 btn-color06 depth2" onClick={passresume}>
+            넘기기
+          </Link>
         </div>
       </div>
     </div>

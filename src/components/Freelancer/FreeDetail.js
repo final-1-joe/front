@@ -146,23 +146,11 @@ const FreeDetail = () => {
               <td width="50px"></td>
               <td>희망 근무방식</td>
               <td className="FreeBar">|</td>
-              <td>
-                {frdata.user_ws === "allok"
-                  ? "상관없음"
-                  : frdata.user_ws === "online"
-                  ? "원격(재택)"
-                  : "상주"}
-              </td>
+              <td>{frdata.user_ws}</td>
               <td width="50px"></td>
               <td>희망 근무형태</td>
               <td className="FreeBar">|</td>
-              <td>
-                {frdata.user_wt === "allok"
-                  ? "상관없음"
-                  : frdata.user_wt === "fulltime"
-                  ? "풀타임"
-                  : "파트타임"}
-              </td>
+              <td>{frdata.user_wt}</td>
               <td width="100px"></td>
               <td
                 align="center"
