@@ -168,7 +168,7 @@ const Resume = () => {
                 : femaleRef.current.value,
               user_email: emailRef.current.value || null,
               user_tel: telRef.current.value || null,
-              user_jg: jgRef.current.props
+              user_jg: jgRef.current.props.value
                 ? jgRef.current.props.value.value
                 : null,
               user_job: jobRef.current.props.value

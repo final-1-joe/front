@@ -113,7 +113,7 @@ const TagConfigFree = ({ onRendering }) => {
           axios
             .post("http://localhost:8080/fretag/insert", {
               user_id: user_id,
-              pj_job: jgRef.current.props
+              pj_job: jgRef.current.props.value
                 ? jgRef.current.props.value.value
                 : null,
               /*fre_job: jobRef.current.props.value
@@ -148,7 +148,7 @@ const TagConfigFree = ({ onRendering }) => {
           axios
             .post("http://localhost:8080/fretag/update", {
               user_id: user_id,
-              pj_job: jgRef.current.props
+              pj_job: jgRef.current.props.value
                 ? jgRef.current.props.value.value
                 : null,
               /*fre_job: jobRef.current.props.value

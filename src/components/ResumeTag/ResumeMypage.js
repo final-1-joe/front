@@ -171,7 +171,9 @@ const ResumeMypage = () => {
             : null,
           user_email: emailRef.current.value || null,
           user_tel: telRef.current.value || null,
-          user_jg: jgRef.current.props ? jgRef.current.props.value.value : null,
+          user_jg: jgRef.current.props.value
+            ? jgRef.current.props.value.value
+            : null,
           user_job: jobRef.current.props.value
             ? JSON.stringify(
                 jobRef.current.props.value.map((option) => option.value)
@@ -210,7 +212,7 @@ const ResumeMypage = () => {
                 : null,
               user_email: emailRef.current.value || null,
               user_tel: telRef.current.value || null,
-              user_jg: jgRef.current.props
+              user_jg: jgRef.current.props.value
                 ? jgRef.current.props.value.value
                 : null,
               user_job: jobRef.current.props.value
@@ -286,7 +288,9 @@ const ResumeMypage = () => {
             : femaleRef.current.value,
           user_email: emailRef.current.value || null,
           user_tel: telRef.current.value || null,
-          user_jg: jgRef.current.props ? jgRef.current.props.value.value : null,
+          user_jg: jgRef.current.props.value
+            ? jgRef.current.props.value.value
+            : null,
           user_job: jobRef.current.props.value
             ? JSON.stringify(
                 jobRef.current.props.value.map((option) => option.value)
@@ -321,7 +325,7 @@ const ResumeMypage = () => {
                 : femaleRef.current.value,
               user_email: emailRef.current.value || null,
               user_tel: telRef.current.value || null,
-              user_jg: jgRef.current.props
+              user_jg: jgRef.current.props.value
                 ? jgRef.current.props.value.value
                 : null,
               user_job: jobRef.current.props.value
