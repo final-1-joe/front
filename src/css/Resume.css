@@ -1,6 +1,7 @@
 .resume {
     width: 830px;
     text-align: left !important;
+   
 }
 .reflex{
     display: flex;
@@ -9,6 +10,7 @@
 .resume_section {
     margin: 10px 0 10px;
     font-family: "Malgun Gothic",dotum,gulim,sans-serif;
+    
 }
 .resume_section .area_title {
     position: relative;
@@ -227,7 +229,7 @@ input[type="radio" i] {
 }
 .tag_input .tag_delbtn{
     position: absolute;
-    top: 5px;
+    top: 17px;
     left:492px;
     z-index: 1;
     cursor: pointer;
@@ -258,6 +260,7 @@ input[type="radio" i] {
 }
 .tag_item_del{
     margin-left: 5px;
+    
     font-weight: 900;
     color:#ff4e75 !important;
 }

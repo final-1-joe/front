@@ -72,14 +72,15 @@ const Home = () => {
     nextArrow: <NextArrow />,
     prevArrow: <PrevArrow />,
   };
-  console.log("repjlist.length ", repjlist.length);
   useEffect(() => {
-    startstep();
+    if (user_code === "free") {
+      startstep();
+      getPjlistTag();
+    } else if (user_code === "client") {
+      getFrlistTag();
+    }
     getPjlist();
-    getPjlistTag();
-
     getFrlist();
-    getFrlistTag();
   }, []);
   useEffect(() => {
     if (user_code === "free") {
@@ -117,18 +118,22 @@ const Home = () => {
       })
       .then((res) => {
         const data = res.data;
-
+        console.log(data.user_skill);
         axios
-          .post("http://localhost:8080/resume/list", {
+          .post("http://localhost:8080/resume/tag", {
             user_jg: data.user_jg || "",
+            user_job: data.user_job || "",
             user_career: data.user_career || 0,
             user_ws: data.user_ws || "",
+            user_wt: data.user_wt || "",
             user_js: data.user_js || "",
-            user_nm: data.searchNo === "0" ? data.searchtext || "" : "",
-            user_skill: data.searchNo === "1" ? data.searchtext || "" : "",
+            user_skill: data.user_skill.replace(/\[|\]/g, "") || "",
+            user_id: user_id,
+            user_pay: data.user_pay || 0,
           })
           .then((res) => {
             const data = res.data;
+            console.log("data", data);
             setreFrlist(data);
           })
           .catch((e) => {
@@ -147,7 +152,6 @@ const Home = () => {
       })
       .then((res) => {
         const data = res.data;
-        console.log("data", res);
         axios
           .post("http://localhost:8080/pjtag", {
             pj_job: data !== "" ? data.pj_job || "" : "",
@@ -190,7 +194,6 @@ const Home = () => {
         user_code: user_code,
       })
       .then((res) => {
-        console.log("tag", res.data);
         const data = res.data;
         if (data === 1) {
           navigate("/resume");

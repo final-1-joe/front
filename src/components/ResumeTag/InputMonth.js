@@ -8,7 +8,7 @@ const InputMonth = (data) => {
     let val = data.month;
     data.onData(data.month);
     if (val !== "") {
-      val = val + "개월이하";
+      val = val + "개월";
     }
     setValue(val);
   }, []);
@@ -47,14 +47,14 @@ const InputMonth = (data) => {
         val = val.substr(1);
       }
       data.onData(val);
-      val = val + "개월이하";
+      val = val + "개월";
     }
     setValue(val);
   }
 
   function handleInputFocus() {
     let val = value;
-    val = val.replace("개월이하", "");
+    val = val.replace("개월", "");
     setValue(val);
   }
   function handleValueChange(event) {
@@ -78,7 +78,7 @@ const InputMonth = (data) => {
         onKeyDown={handleInputChange}
         className="box_input"
         data-only-word="true"
-        placeholder="1개월이하"
+        placeholder="1개월"
       />
     </span>
   );

@@ -241,6 +241,11 @@ const ResumeMypage = () => {
     }
   };
   const insertResume = () => {
+    if (introRef.current.value === "" || introRef.current.value === undefined) {
+      alert("한줄소개를 입력하세요!!!");
+      nmRef.current.focus();
+      return false;
+    }
     if (nmRef.current.value === "" || nmRef.current.value === undefined) {
       alert("이름을 입력하세요!!!");
       nmRef.current.focus();
@@ -366,6 +371,22 @@ const ResumeMypage = () => {
             </div>
 
             <div className="resume_write">
+              <div className="resume_row">
+                <div className="input_title">
+                  한줄소개 <span className="point">필수</span>
+                </div>
+                <div className="resume_input">
+                  <input
+                    type="url"
+                    id="user_url"
+                    name="user_url"
+                    className="box_input max_length"
+                    placeholder="간단한 소개문을 작성해주세요"
+                    ref={introRef}
+                    defaultValue={redata.user_intro ? redata.user_intro : null}
+                  />
+                </div>
+              </div>
               <div className="resume_row">
                 <span className="input_title">
                   이름 <span className="point">필수</span>
@@ -656,20 +677,6 @@ const ResumeMypage = () => {
                       redata.user_github ? redata.user_github : null
                     }
                     ref={githubRef}
-                  />
-                </div>
-              </div>
-              <div className="resume_row">
-                <div className="input_title">한줄소개</div>
-                <div className="resume_input">
-                  <input
-                    type="url"
-                    id="user_url"
-                    name="user_url"
-                    className="box_input max_length"
-                    placeholder="간단한 소개문을 작성해주세요"
-                    ref={introRef}
-                    defaultValue={redata.user_intro ? redata.user_intro : null}
                   />
                 </div>
               </div>

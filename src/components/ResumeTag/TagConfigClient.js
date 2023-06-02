@@ -7,6 +7,7 @@ import Modal from "../supportcenter/modal";
 import InputWon from "./InputWon";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import InputCareer from "./InputCareer";
 
 const TagConfigClient = ({ onRendering }) => {
   const [selectedoccupation, setSelectedOccupation] = useState("");
@@ -22,6 +23,10 @@ const TagConfigClient = ({ onRendering }) => {
   const [skills, setSkills] = useState([]);
   const skill = (data) => {
     setSkills(data);
+  };
+  const [careers, setCareers] = useState(0);
+  const career = (data) => {
+    setCareers(data);
   };
   const wsRef = useRef();
   const [ws, setWs] = useState("allok");
@@ -47,18 +52,20 @@ const TagConfigClient = ({ onRendering }) => {
   }, []);
   useEffect(() => {
     if (redata) {
-      setWs(redata.cli_ws);
-      setWt(redata.cli_wt);
-      setSkills(JSON.parse(redata.cli_skill));
-      setJs(redata.cli_js);
-      setSelectedOccupation(redata.cli_jg);
-      setSelectedJobs(
-        occupation[redata.cli_jg].filter((option) =>
-          redata.cli_job.includes(option.value)
-        )
-      );
-
-      setPays(redata.cli_pay);
+      setWs(redata.user_ws);
+      setWt(redata.user_wt);
+      setSkills(JSON.parse(redata.user_skill));
+      setJs(redata.user_js);
+      setSelectedOccupation(redata.user_jg);
+      if (redata.user_job) {
+        setSelectedJobs(
+          occupation[redata.user_jg].filter((option) =>
+            redata.user_job.includes(option.value)
+          )
+        );
+      }
+      setCareers(redata.user_career);
+      setPays(redata.user_pay);
     }
   }, [redata]);
   const getTag = () => {
@@ -84,19 +91,18 @@ const TagConfigClient = ({ onRendering }) => {
           axios
             .post("http://localhost:8080/clitag/insert", {
               user_id: user_id,
-              cli_jg: jgRef.current.props
+              user_jg: jgRef.current.props.value
                 ? jgRef.current.props.value.value
                 : null,
-              cli_job: jobRef.current.props.value
-                ? JSON.stringify(
-                    jobRef.current.props.value.map((option) => option.value)
-                  )
+              user_job: jobRef.current.props.value
+                ? JSON.stringify(jobRef.current.props.value.value)
                 : null,
-              cli_skill: skills ? JSON.stringify(skills) : null,
-              cli_js: jsRef.current.value || null,
-              cli_ws: wsRef.current.value || null,
-              cli_wt: wtRef.current.value || null,
-              cli_pay: pays || null,
+              user_skill: skills ? JSON.stringify(skills) : null,
+              user_career: careers || null,
+              user_js: jsRef.current.value || null,
+              user_ws: wsRef.current.value || null,
+              user_wt: wtRef.current.value || null,
+              user_pay: pays || null,
             })
             .then((res) => {
               axios
@@ -118,22 +124,22 @@ const TagConfigClient = ({ onRendering }) => {
               console.error(error);
             });
         } else {
+          console.log(jobRef.current.props.value);
           axios
             .post("http://localhost:8080/clitag/update", {
               user_id: user_id,
-              cli_jg: jgRef.current.props
+              user_jg: jgRef.current.props.value
                 ? jgRef.current.props.value.value
                 : null,
-              cli_job: jobRef.current.props.value
-                ? JSON.stringify(
-                    jobRef.current.props.value.map((option) => option.value)
-                  )
+              user_job: jobRef.current.props.value
+                ? JSON.stringify(jobRef.current.props.value.value)
                 : null,
-              cli_skill: skills ? JSON.stringify(skills) : null,
-              cli_js: jsRef.current.value || null,
-              cli_ws: wsRef.current.value || null,
-              cli_wt: wtRef.current.value || null,
-              cli_pay: pays || null,
+              user_skill: skills ? JSON.stringify(skills) : null,
+              user_career: careers || null,
+              user_js: jsRef.current.value || null,
+              user_ws: wsRef.current.value || null,
+              user_wt: wtRef.current.value || null,
+              user_pay: pays || null,
             })
             .then((res) => {
               axios
@@ -222,7 +228,6 @@ const TagConfigClient = ({ onRendering }) => {
               <div className="input_title"></div>
               <div className="resume_input">
                 <Select
-                  isMulti
                   name="jobs"
                   placeholder="직무를 선택하세요"
                   options={occupation[selectedoccupation]}
@@ -236,6 +241,10 @@ const TagConfigClient = ({ onRendering }) => {
             </div>
             <SkillTag skill={skills} onData={skill}></SkillTag>
             <div className="resume_row">
+              <span className="input_title">프리랜서 경력</span>
+              <InputCareer career={careers} onData={career}></InputCareer>
+            </div>
+            <div className="resume_row">
               <div className="input_title">구직여부</div>
               <div className="resume_input">
                 <select
@@ -243,6 +252,7 @@ const TagConfigClient = ({ onRendering }) => {
                   defaultValue={js}
                   ref={jsRef}
                 >
+                  <option value="">상관없음</option>
                   <option value="work">구직중</option>
                   <option value="notwork">비구직중</option>
                 </select>
@@ -252,9 +262,9 @@ const TagConfigClient = ({ onRendering }) => {
               <div className="input_title">근무방식</div>
               <div className="resume_input">
                 <select className="box_input" defaultValue={ws} ref={wsRef}>
-                  <option value="allok">상관없음</option>
-                  <option value="offline">상주근무</option>
-                  <option value="online">원격근무</option>
+                  <option value="상관없음">상관없음</option>
+                  <option value="상주">상주근무</option>
+                  <option value="원격">원격근무</option>
                 </select>
               </div>
             </div>
@@ -262,9 +272,9 @@ const TagConfigClient = ({ onRendering }) => {
               <div className="input_title">근무형태</div>
               <div className="resume_input">
                 <select className="box_input" defaultValue={wt} ref={wtRef}>
-                  <option value="allok">상관없음</option>
-                  <option value="fulltime">풀타임</option>
-                  <option value="parttime">파트타임</option>
+                  <option value="상관없음">상관없음</option>
+                  <option value="풀타임">풀타임</option>
+                  <option value="파트타임">파트타임</option>
                 </select>
               </div>
             </div>

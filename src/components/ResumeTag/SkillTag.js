@@ -48,7 +48,7 @@ const SkillTag = (data) => {
       setDropDownList([]);
     } else {
       const choosenTextList = TagList.filter((textItem) =>
-        textItem.includes(tagItem)
+        textItem.toLowerCase().includes(tagItem.toLowerCase())
       );
       setDropDownList(choosenTextList);
     }
@@ -107,7 +107,7 @@ const SkillTag = (data) => {
         <div className="resume_input tag_div">
           <div className="tag_input">
             <input
-              type="text"
+              type="search"
               placeholder="스킬을 입력하세요"
               className="box_input"
               autoComplete="off"
@@ -122,9 +122,6 @@ const SkillTag = (data) => {
               onKeyDown={onKeyPress}
               onFocus={() => setIsHavetagItem(true)}
             />
-            <span className="tag_delbtn" onClick={() => setTagItem("")}>
-              &times;
-            </span>
           </div>
           {isHavetagItem && (
             <ul className="listul">
