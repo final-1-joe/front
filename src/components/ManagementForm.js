@@ -102,7 +102,7 @@ const ManagementForm = ({ listData, Mode }) => {
                 <span>진행상태</span>
               </div>
             </li>
-            {activeTab === "all" && (
+             {activeTab === "all" && (
               <>
                 {allSchedules.map((schedule) => (
                   <li key={schedule.id} className="list-item-manageform">

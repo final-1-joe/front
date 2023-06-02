@@ -1,12 +1,9 @@
 import "../../css/FreeDetail.css";
+import FreeReview from "../Review/fre/FreeReview";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { AiFillGithub } from "react-icons/ai";
-import { AiFillStar } from "react-icons/ai";
-import { AiOutlineStar } from "react-icons/ai";
 import { FaHashtag } from "react-icons/fa";
 import React, { useState, useEffect } from "react";
-import ReviewModal from "../Review/ReviewModal";
-import ReviewWrite from "../Review/ReviewWrite";
 import axios from "axios";
 import FileSaver from "file-saver";
 const formData = new FormData();
@@ -149,23 +146,11 @@ const FreeDetail = () => {
               <td width="50px"></td>
               <td>희망 근무방식</td>
               <td className="FreeBar">|</td>
-              <td>
-                {frdata.user_ws === "allok"
-                  ? "상관없음"
-                  : frdata.user_ws === "online"
-                  ? "원격(재택)"
-                  : "상주"}
-              </td>
+              <td>{frdata.user_ws}</td>
               <td width="50px"></td>
               <td>희망 근무형태</td>
               <td className="FreeBar">|</td>
-              <td>
-                {frdata.user_wt === "allok"
-                  ? "상관없음"
-                  : frdata.user_wt === "fulltime"
-                  ? "풀타임"
-                  : "파트타임"}
-              </td>
+              <td>{frdata.user_wt}</td>
               <td width="100px"></td>
               <td
                 align="center"
@@ -182,60 +167,9 @@ const FreeDetail = () => {
         <div className="FreeReview">
           <details open>
             <summary>프리랜서 평가</summary>
-            <div>
-              <input
-                type="button"
-                value="작성"
-                className="FreeWriteBtn"
-                onClick={() => setEvalForm(!evalForm)}
-              />
-              {evalForm && (
-                <ReviewModal closeModal={() => setEvalForm(!evalForm)}>
-                  <ReviewWrite />
-                </ReviewModal>
-              )}
-            </div>
+
             <div className="tpt">
-              <table>
-                <tr height="50px">
-                  <td width="30px">작성자</td>
-                  <td width="100px">멀티캠퍼스</td>
-                  <td width="30px">평점</td>
-                  <td width="60px">
-                    <AiFillStar />
-                    <AiFillStar />
-                    <AiFillStar />
-                    <AiFillStar />
-                    <AiFillStar /> 5.0
-                  </td>
-                </tr>
-                <tr>
-                  <td colSpan={4} id="word">
-                    {/* 멀티캠퍼스와 함께 하는 동안 많이 배우고 성장했습니다! */}
-                  </td>
-                </tr>
-              </table>
-            </div>
-            <div className="tpt">
-              <table>
-                <tr height="50px">
-                  <td width="30px">작성자</td>
-                  <td width="100px">멀티캠퍼스</td>
-                  <td width="30px">평점</td>
-                  <td width="60px">
-                    <AiFillStar />
-                    <AiFillStar />
-                    <AiFillStar />
-                    <AiFillStar />
-                    <AiFillStar /> 5.0
-                  </td>
-                </tr>
-                <tr>
-                  <td colSpan={4}>
-                    {/* 멀티캠퍼스와 함께 하는 동안 많이 배우고 성장했습니다! */}
-                  </td>
-                </tr>
-              </table>
+              <FreeReview fre_rv_target={user_id} />
             </div>
           </details>
           <br />

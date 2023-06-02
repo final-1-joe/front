@@ -15,7 +15,6 @@ const ProjectManagement = () => {
       .then((response) => {
         const modifiedData = response.data.map((item) => {
           const { pj_num, pj_title, pj_content, pj_status } = item;
-
           const link = `/client/recruit/${pj_num}`;
           return {
             id: pj_num,

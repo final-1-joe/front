@@ -1,9 +1,16 @@
 import React from "react";
 import Slider from "react-slick";
-import { Link } from "react-router-dom";
+import { useState, useEffect, useRef } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "../css/Slideshow.css";
+import "../css/Home.css";
+import { HiHashtag } from "react-icons/hi";
+import axios from "axios";
+import TagConfigClient from "./ResumeTag/TagConfigClient";
+import TagConfigFree from "./ResumeTag/TagConfigFree";
+
 function PrevArrow(props) {
   const { className, onClick } = props;
   const handleClick = () => {
@@ -12,9 +19,13 @@ function PrevArrow(props) {
     }
   };
   return (
-    <div className={className} onClick={handleClick}>
-      <img src="/images/arrow_left.png" alt="arrow prev" id="left"></img>
-    </div>
+    <img
+      src="/images/arrow_left.png"
+      alt="arrow prev"
+      id="left"
+      className={className}
+      onClick={handleClick}
+    ></img>
   );
 }
 function NextArrow(props) {
@@ -25,184 +36,467 @@ function NextArrow(props) {
     }
   };
   return (
-    <div className={className} onClick={handleClick}>
-      <img src="/images/arrow_right.png" alt="arrow next" id="right"></img>
-    </div>
+    <img
+      src="/images/arrow_right.png"
+      alt="arrow next"
+      id="right"
+      className={className}
+      onClick={handleClick}
+    ></img>
   );
 }
 const Home = () => {
+  const navigate = useNavigate();
+  const user_id = window.sessionStorage.getItem("user_id");
+  const user_code = window.sessionStorage.getItem("user_code");
+  const [refrlist, setreFrlist] = useState([]);
+  const [repjlist, setrePjlist] = useState([]);
+  const [frlist, setFrlist] = useState([]);
+  const [pjlist, setPjlist] = useState([]);
   const settings = {
-    dots: true,
-    infinite: true,
+    infinite: refrlist.length > 3 || repjlist.length > 3,
+    VariableWidthSlide: true,
     speed: 500,
     slidesToShow: 3,
     slidesToScroll: 1,
-    draggable: true,
-    variableWidth: true,
     nextArrow: <NextArrow />,
     prevArrow: <PrevArrow />,
-    vertical: false,
-    initialSlide: 0,
   };
-  const data = [
-    {
-      img: "/images/프리랜서1.PNG",
-      url: "/",
-      // text: "프로젝트 1",
-      // description: "로고 제작",
-    },
-    {
-      img: "/images/프리랜서2.PNG",
-      url: "/",
-      // text: "프로젝트 2",
-      // description: "프로그램 제작",
-    },
-    {
-      img: "/images/프리랜서3.PNG",
-      url: "/",
-      // text: "프로젝트 3",
-      // description: "홈페이지 제작",
-    },
-    {
-      img: "/images/프리랜서1.PNG",
-      url: "/",
-      // text: "프로젝트 1",
-      // description: "로고 제작",
-    },
-  ];
-  const data2 = [
-    {
-      img: "/images/프리랜서1.PNG",
-      url: "/",
-      // text: "프로젝트 1",
-      // description: "로고 제작",
-    },
-    {
-      img: "/images/프리랜서2.PNG",
-      url: "/",
-      // text: "프로젝트 2",
-      // description: "프로그램 제작",
-    },
-    {
-      img: "/images/프리랜서3.PNG",
-      url: "/",
-      // text: "프로젝트 3",
-      // description: "홈페이지 제작",
-    },
-    {
-      img: "/images/프리랜서1.PNG",
-      url: "/",
-      // text: "프로젝트 1",
-      // description: "로고 제작",
-    },
-  ];
+
+  useEffect(() => {
+    if (user_code === "free") {
+      startstep();
+      getPjlist();
+      getPjlistTag();
+    } else if (user_code === "client") {
+      getFrlist();
+      getFrlistTag();
+    }
+  }, []);
+
+  const getFrlist = () => {
+    axios
+      .post("http://localhost:8080/resume/list", {
+        user_jg: "",
+        user_career: 0,
+        user_ws: "",
+        user_js: "",
+        user_nm: "",
+        user_skill: "",
+      })
+      .then((res) => {
+        const data = res.data;
+        setFrlist(data);
+      })
+      .catch((e) => {
+        console.error(e);
+      });
+  };
+  const getFrlistTag = () => {
+    axios
+      .post("http://localhost:8080/clitag/select", {
+        user_id: user_id,
+      })
+      .then((res) => {
+        const data = res.data;
+
+        axios
+          .post("http://localhost:8080/resume/list", {
+            user_jg: data.user_jg || "",
+            user_career: data.user_career || 0,
+            user_ws: data.user_ws || "",
+            user_js: data.user_js || "",
+            user_nm: data.searchNo === "0" ? data.searchtext || "" : "",
+            user_skill: data.searchNo === "1" ? data.searchtext || "" : "",
+          })
+          .then((res) => {
+            const data = res.data;
+            setreFrlist(data);
+          })
+          .catch((e) => {
+            console.error(e);
+          });
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+
+  const getPjlistTag = () => {
+    axios
+      .post("http://localhost:8080/fretag/select", {
+        user_id: user_id,
+      })
+      .then((res) => {
+        const data = res.data;
+        console.log("data", res);
+        axios
+          .post("http://localhost:8080/pjtag", {
+            pj_job: data !== "" ? data.pj_job || "" : "",
+            pj_work_form: data !== "" ? data.pj_work_form || "" : "",
+            pj_pay: data !== "" ? data.pj_pay || 0 : 0,
+            pj_place: data !== "" ? data.pj_place || "" : "",
+            pj_start: data !== "" ? data.pj_start || null : null,
+            pj_day: data !== "" ? data.pj_day || 0 : 0,
+          })
+          .then((res) => {
+            const data = res.data;
+            console.log("pjdata", res);
+            setrePjlist(data);
+          })
+          .catch((e) => {
+            console.error(e);
+          });
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+
+  const getPjlist = () => {
+    axios
+      .get("http://localhost:8080/pjlist", {})
+      .then((res) => {
+        const data = res.data;
+
+        setPjlist(data);
+      })
+      .catch((e) => {
+        console.error(e);
+      });
+  };
+  const startstep = () => {
+    axios
+      .post("http://localhost:8080/user/checkstartRe", {
+        user_id: user_id,
+        user_code: user_code,
+      })
+      .then((res) => {
+        console.log("tag", res.data);
+        const data = res.data;
+        if (data === 1) {
+          navigate("/resume");
+        }
+      })
+      .catch((e) => {
+        console.error(e);
+      });
+  };
+
   return (
-    <div>
-      <center>
-        <form>
-          <tr>
-            <td colSpan="2" align="center">
-              <Link to="/pjdetail/insert">
-                <input
-                  type="button"
-                  value="프로젝트 등록"
-                  style={{
-                    width: "150px",
-                    height: "50px",
-                    backgroundColor: "#FFE68B",
-                    fontSize: "20px",
-                    border: "none",
-                  }}
-                />
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <input
-                  type="button"
-                  value="프리랜서 등록"
-                  onClick={"/"}
-                  style={{
-                    width: "150px",
-                    height: "50px",
-                    backgroundColor: "#FFE68B",
-                    fontSize: "20px",
-                    border: "none",
-                  }}
-                />
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <input
-                  type="button"
-                  value="태그 검색"
-                  onClick={"/"}
-                  style={{
-                    width: "150px",
-                    height: "50px",
-                    backgroundColor: "#FFE68B",
-                    fontSize: "20px",
-                    border: "none",
-                  }}
-                />
-              </Link>
-            </td>
-            <p>&nbsp;&nbsp;</p>
-            <p>&nbsp;&nbsp;</p>
-          </tr>
-          <div>
-            <h2>
-              Peoplancer와 함께 성공적인 비즈니스를 시작해보세요!
-            </h2>
+    <div className="home">
+      <div className="home_btn_area">
+        <div className="home_btn">
+          <h4>프로젝트 등록</h4>
+        </div>
+        <div className="home_btn">
+          <h4>프리랜서 등록</h4>
+        </div>
+      </div>
+      <div className="margin2"></div>
+      <div>
+        <h2>Peoplancer와 함께 성공적인 비즈니스를 시작해보세요!</h2>
+      </div>
+      <div className="margin2"></div>
+      {user_code === "free" ? (
+        <div id="home_show">
+          <div className="in-bl-area">
+            <h2 className="in-bl">추천 프로젝트</h2>
+            <TagConfigFree></TagConfigFree>
           </div>
-          <div id="event_show">
-            <div style={{ height: "500px" }}>
-              <h3>추천 프로젝트(프리랜서) </h3>
-              <p>&nbsp;&nbsp;</p>
-              <Slider
-                {...settings}
-                className="slick-slider"
-                style={{ display: "flex", flexDirection: "row" }}
-              >
-                {data.map((d) => (
-                  <div key={d.url} style={{ padding: "0 10px" }}>
-                    <Link to={d.url}>
-                      <img src={d.img} alt={d.text} />
-                      <div className="d-info">
-                        <h2>{d.text}</h2>
-                        <p>{d.description}</p>
-                      </div>
-                    </Link>
-                  </div>
-                ))}
-              </Slider>
+          <Slider {...settings}>
+            {repjlist.map((data) => (
+              <div className="reco_slice">
+                <Link to={`/pjlist/pjdetail/${data.pj_num}`}>
+                  <table>
+                    <tbody>
+                      <tr className="wid5px">
+                        <td colSpan={2}>
+                          <span className="ListJobTag">#{data.pj_job}</span>
+                          <span className="ListPossible">
+                            모집 마감일 {data.pj_period}
+                          </span>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td className="ListIntro" colSpan={2}>
+                          <p>{data.pj_title}</p>
+                        </td>
+                      </tr>
+                      <tr style={{ fontSize: "14px" }}>
+                        <td colSpan={2}>
+                          {data.pj_pay}&nbsp;&nbsp;|&nbsp;&nbsp;
+                          {data.pj_start}&nbsp;~&nbsp;{data.pj_end}
+                          &nbsp;&nbsp;|&nbsp;&nbsp;
+                          {data.pj_work_form}&nbsp;&nbsp;|&nbsp;&nbsp;
+                          {data.pj_place}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td colSpan={2}>
+                          (주)&nbsp;{data.pj_corpname}&nbsp;&nbsp;
+                        </td>
+                      </tr>
+                      <tr>
+                        <td colSpan={2}>
+                          <p>
+                            <HiHashtag size="20" />
+                            &nbsp;
+                            {data.pj_skill}
+                          </p>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </Link>
+              </div>
+            ))}
+          </Slider>
+        </div>
+      ) : (
+        <div id="home_show">
+          <div className="in-bl-area">
+            <h2 className="in-bl">추천 프리랜서</h2>
+            <TagConfigClient></TagConfigClient>
+          </div>
+          <Slider {...settings}>
+            {refrlist.map((freelist) => (
+              <div className="reco_slice">
+                <Link to={`/freedetail?user_id=${freelist.user_id}`}>
+                  <table className="margincenter">
+                    <tbody>
+                      <tr className="wid5px">
+                        <td colSpan={2}>
+                          <span className="ListJobTag">
+                            #{freelist.user_jg}
+                          </span>
+                          <span className="ListPossible">
+                            {freelist.user_js === "work"
+                              ? "모집가능"
+                              : "모집불가능"}
+                          </span>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td className="ListIntro" colSpan={2}>
+                          <p>{freelist.user_intro}</p>
+                        </td>
+                      </tr>
+                      <tr style={{ fontSize: "14px" }}>
+                        <td colSpan={2}>
+                          월 {freelist.user_pay}만원&nbsp;&nbsp;|&nbsp;&nbsp;
+                          경력&nbsp;{freelist.user_career}년
+                          &nbsp;&nbsp;|&nbsp;&nbsp;
+                          {freelist.user_ws}&nbsp;&nbsp;|&nbsp;&nbsp;
+                          {freelist.user_wt}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td colSpan={2}>{freelist.user_nm}</td>
+                      </tr>
+                      <tr>
+                        <td colSpan={2}>
+                          <p>
+                            <HiHashtag size="20" />
+                            &nbsp;
+                            {freelist.user_skill.replace(/\[|\]|"/g, "")}
+                          </p>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </Link>
+              </div>
+            ))}
+          </Slider>
+        </div>
+      )}
+
+      <div className="margin1"></div>
+      <div>
+        <h1>peoplancer와 협업은 이렇게 시작됩니다!</h1>
+        <div
+          id="welcome"
+          style={{
+            backgroundColor: "#FFEBB4",
+            display: "flex",
+            justifyContent: "center",
+          }}
+        >
+          <div style={{ maxWidth: "950px", width: "100%" }}>
+            <div style={{ display: "flex" }}>
+              <div>
+                <img
+                  src="images/등록.png"
+                  alt="등록 "
+                  style={{ width: "200px" }}
+                />
+                <h3>프로젝트/프리랜서 등록</h3>
+              </div>
+              <span style={{ display: "block", marginTop: "75px" }}>
+                <img
+                  src="images/화살표.png"
+                  alt="화살표"
+                  style={{ width: "50px" }}
+                />
+              </span>
+              <div>
+                <img
+                  src="images/매칭.png"
+                  alt="등록"
+                  style={{ width: "200px" }}
+                />
+                <h3>클라이언트와 프리랜서 매칭</h3>
+              </div>
+              <span style={{ display: "block", marginTop: "75px" }}>
+                <img
+                  src="images/화살표.png"
+                  alt="화살표"
+                  style={{ width: "50px" }}
+                />
+              </span>
+              <div>
+                <img
+                  src="images/DMDM.png"
+                  alt="등록"
+                  style={{ width: "200px" }}
+                />
+                <h3>클라이언트와 프리랜서 DM</h3>
+              </div>
+              <span style={{ display: "block", marginTop: "75px" }}>
+                <img
+                  src="images/화살표.png"
+                  alt="화살표"
+                  style={{ width: "50px" }}
+                />
+              </span>
+              <div>
+                <img
+                  src="images/계약.png"
+                  alt="등록"
+                  style={{ width: "200px" }}
+                />
+                <h3>계약 완료</h3>
+              </div>
             </div>
           </div>
-          <p>&nbsp;&nbsp;</p>
-          <p>&nbsp;&nbsp;</p>
-          <p>&nbsp;&nbsp;</p>
-          <p>&nbsp;&nbsp;</p>
-          <p>&nbsp;&nbsp;</p>
-          <div id="event_show">
-            <div style={{ height: "500px" }}>
-              <h3>신규 프로젝트/프리랜서</h3>
-              <p>&nbsp;&nbsp;</p>
-              <Slider
-                {...settings}
-                className="slick-slider"
-                style={{ display: "flex", flexDirection: "row" }}
-              >
-                {data2.map((d) => (
-                  <div key={d.url} style={{ padding: "0 10px" }}>
-                    <Link to={d.url}>
-                      <img src={d.img} alt={d.text} />
-                      <div className="d-info">
-                        <h2>{d.text}</h2>
-                        <p>{d.description}</p>
-                      </div>
-                    </Link>
-                  </div>
-                ))}
-              </Slider>
-            </div>
+        </div>
+      </div>
+      <div className="margin1"></div>
+      {user_code === "free" ? (
+        <div id="home_show">
+          <div className="in-bl-area">
+            <h2 className="in-bl">신규 프로젝트</h2>
+            <TagConfigFree></TagConfigFree>
           </div>
-        </form>
-      </center>
+          <Slider {...settings}>
+            {pjlist.map((data) => (
+              <div className="reco_slice">
+                <Link to={`/pjlist/pjdetail/${data.pj_num}`}>
+                  <table>
+                    <tbody>
+                      <tr className="wid5px">
+                        <td colSpan={2}>
+                          <span className="ListJobTag">#{data.pj_job}</span>
+                          <span className="ListPossible">
+                            모집 마감일 {data.pj_period}
+                          </span>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td className="ListIntro" colSpan={2}>
+                          <p>{data.pj_title}</p>
+                        </td>
+                      </tr>
+                      <tr style={{ fontSize: "14px" }}>
+                        <td colSpan={2}>
+                          {data.pj_pay}&nbsp;&nbsp;|&nbsp;&nbsp;
+                          {data.pj_start}&nbsp;~&nbsp;{data.pj_end}
+                          &nbsp;&nbsp;|&nbsp;&nbsp;
+                          {data.pj_work_form}&nbsp;&nbsp;|&nbsp;&nbsp;
+                          {data.pj_place}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td colSpan={2}>
+                          (주)&nbsp;{data.pj_corpname}&nbsp;&nbsp;
+                        </td>
+                      </tr>
+                      <tr>
+                        <td colSpan={2}>
+                          <p>
+                            <HiHashtag size="20" />
+                            &nbsp;
+                            {data.pj_skill}
+                          </p>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </Link>
+              </div>
+            ))}
+          </Slider>
+        </div>
+      ) : (
+        <div id="home_show">
+          <div className="in-bl-area">
+            <h2 className="in-bl">신규 프리랜서</h2>
+            <TagConfigClient></TagConfigClient>
+          </div>
+          <Slider {...settings}>
+            {frlist.map((freelist) => (
+              <div className="reco_slice">
+                <Link to={`/freedetail?user_id=${freelist.user_id}`}>
+                  <table className="margincenter">
+                    <tbody>
+                      <tr className="wid5px">
+                        <td colSpan={2}>
+                          <span className="ListJobTag">
+                            #{freelist.user_jg}
+                          </span>
+                          <span className="ListPossible">
+                            {freelist.user_js === "work"
+                              ? "모집가능"
+                              : "모집불가능"}
+                          </span>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td className="ListIntro" colSpan={2}>
+                          <p>{freelist.user_intro}</p>
+                        </td>
+                      </tr>
+                      <tr style={{ fontSize: "14px" }}>
+                        <td colSpan={2}>
+                          월 {freelist.user_pay}만원&nbsp;&nbsp;|&nbsp;&nbsp;
+                          경력&nbsp;{freelist.user_career}년
+                          &nbsp;&nbsp;|&nbsp;&nbsp;
+                          {freelist.user_ws}&nbsp;&nbsp;|&nbsp;&nbsp;
+                          {freelist.user_wt}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td colSpan={2}>{freelist.user_nm}</td>
+                      </tr>
+                      <tr>
+                        <td colSpan={2}>
+                          <p>
+                            <HiHashtag size="20" />
+                            &nbsp;
+                            {freelist.user_skill.replace(/\[|\]|"/g, "")}
+                          </p>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </Link>
+              </div>
+            ))}
+          </Slider>
+        </div>
+      )}
+
       <div class="scrolling-image">
         <img src="/images/dm.png" alt="dm"></img>
       </div>

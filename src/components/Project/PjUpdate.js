@@ -96,7 +96,6 @@ const PjUpdate = () => {
           </tr>
           <tr>
             <td>근무 형태 / 지역</td>
-            {/* (select option으로 처리 전)임시 입력창 */}
             <td>
               <select
                 className="ListSelect"
@@ -106,19 +105,7 @@ const PjUpdate = () => {
                 <option value="원격">원격</option>
                 <option value="상주">상주</option>
               </select>
-              {/* <input
-                type="text"
-                size="30"
-                defaultValue={pjdetail.pj_work_form}
-                ref={workformRef}
-              ></input> */}
               &nbsp;&nbsp;
-              {/* <input
-                type="text"
-                size="30"
-                defaultValue={pjdetail.pj_place}
-                ref={placeRef}
-              ></input> */}
               <select
                 className="ListSelect"
                 defaultValue={pjdetail.pj_place}
@@ -159,14 +146,8 @@ const PjUpdate = () => {
             </td>
           </tr>
           <tr>
-            <td>직군</td> {/* (select option으로 처리 전)임시 입력창 */}
+            <td>직군</td>
             <td>
-              {/* <input
-                type="text"
-                size="30"
-                defaultValue={pjdetail.pj_job}
-                ref={jobRef}
-              ></input> */}
               <select
                 className="ListSelect"
                 defaultValue={pjdetail.pj_job}

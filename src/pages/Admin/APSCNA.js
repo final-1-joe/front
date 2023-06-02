@@ -52,9 +52,9 @@ const APSCNA = () => {
   return (
     <div className="admin-page">
       <AdminSideBar />
-      <div>
-        <h2>고객센터 미답변 리스트</h2>
+      <div className="main-content">
         <div id="sc">
+          <h2>고객센터 미답변 리스트</h2>
           <div className="sc_bl">
             <table>
               <thead>

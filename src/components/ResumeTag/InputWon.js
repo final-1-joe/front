@@ -8,7 +8,7 @@ const InputWon = (data) => {
     let val = data.pay;
     data.onData(data.pay);
     if (val !== "") {
-      val = val + "만원";
+      val = val + "만원이상";
     }
 
     setValue(val);
@@ -49,7 +49,7 @@ const InputWon = (data) => {
     }
     val = val.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
     if (val !== "") {
-      val = val + "만원";
+      val = val + "만원이상";
     }
     setValue(val);
   }
@@ -57,7 +57,7 @@ const InputWon = (data) => {
   function handleInputFocus() {
     let val = value;
     val = val.replace(/[^-\.0-9]/gi, "");
-    val = val.replace("만원", "");
+    val = val.replace("만원이상", "");
     setValue(val);
   }
 
@@ -76,7 +76,7 @@ const InputWon = (data) => {
         name="user_pay"
         maxLength={4}
         value={value}
-        placeholder="0만원"
+        placeholder="0만원이상"
         onChange={handleValueChange}
         onBlur={handleInputBlur}
         onFocus={handleInputFocus}

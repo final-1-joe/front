@@ -27,10 +27,11 @@ const AdminProjectList = () => {
     <div className="admin-page">
       <AdminSideBar />
       <div className="main-content">
-        <h2>등록된 프로젝트 목록</h2>
+
         <div id="sc">
+          <h2>등록된 프로젝트 목록</h2>
           <div className="sc_bl">
-            <table border={1}>
+            <table>
               <thead>
                 <tr>
                   <th className="num">번호</th>
