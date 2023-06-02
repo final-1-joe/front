@@ -3,12 +3,13 @@
 }
 
 .ListSelect {
-    width: 120px; margin: 20px 10px 20px; padding: 5px 20px 5px;
+    width: 120px; height: 40px; margin: 20px 5px; padding: 5px 20px 5px;
+    border: 1px solid rgb(211, 211, 211); color: #444;
 }
-
-#ListFilter {
-    border: none; float: right;
-}
+/* 
+.ListFilter {
+    margin: 0 0 5px 0;
+} */
 
 .ListBox {
     width: 50%; height:fit-content; margin: 20px auto; padding: 20px;
@@ -55,7 +56,6 @@
     clear:both;
 }
 .List-search-wrapper{
-    
     padding: 0 0 0 0;
     text-align: center;
     height: 69px;

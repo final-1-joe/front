@@ -13,7 +13,7 @@ const FreeDetail = () => {
   const [frdata, setFrData] = useState("");
   const params = new URLSearchParams(location.search);
   const user_id = params.get("user_id");
-  const login_id = window.sessionStorage.getItem("user_id");
+  const loginid = window.sessionStorage.getItem("user_id");
   const navigate = useNavigate();
   const openlink = (url) => {
     const open = window.open(
@@ -27,19 +27,6 @@ const FreeDetail = () => {
   };
   const onClickLike = () => {
     alert("관심 프리랜서에 등록되었습니다");
-  };
-  const dmchatcreate = () => {
-    axios
-      .post("http://localhost:8080/createChatroom", {
-        my_user_id: login_id,
-        your_user_id: frdata.user_id,
-      })
-      .then((res) => {
-        //console.log(res.data);
-      })
-      .catch((error) => {
-        console.error("/createChatroom 에러 발생" + error);
-      });
   };
   useEffect(() => {
     getResume();
@@ -88,12 +75,7 @@ const FreeDetail = () => {
                   to="/direct"
                   style={{ textDecoration: "none", color: "black" }}
                 >
-                  <span
-                    className="FreeDM"
-                    onClick={() => {
-                      dmchatcreate();
-                    }}
-                  >
+                  <span className="FreeDM" onClick={() => navigate(`/direct`)}>
                     DM
                   </span>
                 </Link>
@@ -188,18 +170,21 @@ const FreeDetail = () => {
           </table>
         </div>
         <br />
+        <div>
+          {user_id === loginid && (
+            <Link to={`/free/myresume`}>
+              <button className="PjBtn2">이력서 수정</button>
+            </Link>
+          )}
+        </div>
         <div className="FreeReview">
-          <details open>
+          <details close>
             <summary>프리랜서 평가</summary>
-
             <div className="tpt">
               <FreeReview fre_rv_target={user_id} />
             </div>
           </details>
           <br />
-          <div>
-            <input type="button" value="수정" className="FreeBtn"></input>
-          </div>
         </div>
       </div>
     </div>
