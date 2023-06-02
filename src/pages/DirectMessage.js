@@ -46,7 +46,9 @@ function DirectMessage() {
   const [chatname, setChatname] = useState("");
   const [chatRname, setChatRName] = useState("");
   const [score, setScore] = useState(0);
+  const [score2, setScore2] = useState(0);
   const [simplescore, setSimpleScore] = useState(0);
+  const [simplescore2, setSimpleScore2] = useState(0);
   const [userInfo, SetUserInfo] = useState({
     user_code: "",
     user_email: "",
@@ -272,6 +274,44 @@ function DirectMessage() {
       });
   };
 
+  const chatuserscore2 = () => {
+    axios
+      .get("http://localhost:8080/score2", {
+        params: {
+          user_id: chatname,
+        },
+      })
+      .then((res) => {
+        var scnum = res.data;
+        scnum = scnum.toFixed(1);
+        setScore2(scnum);
+        if (0 <= scnum && scnum < 1) {
+          setSimpleScore2(0.5);
+        } else if (1 <= scnum && scnum < 1.5) {
+          setSimpleScore2(1);
+        } else if (1.5 <= scnum && scnum < 2) {
+          setSimpleScore2(1.5);
+        } else if (2 <= scnum && scnum < 2.5) {
+          setSimpleScore2(2);
+        } else if (2.5 <= scnum && scnum < 3) {
+          setSimpleScore2(2.5);
+        } else if (3 <= scnum && scnum < 3.5) {
+          setSimpleScore2(3);
+        } else if (3.5 <= scnum && scnum < 4) {
+          setSimpleScore2(3.5);
+        } else if (4 <= scnum && scnum < 4.5) {
+          setSimpleScore2(4);
+        } else if (4.5 <= scnum && scnum < 5) {
+          setSimpleScore2(4.5);
+        } else {
+          setSimpleScore2(5);
+        }
+      })
+      .catch((err) => {
+        console.error("/score2 에러 발생" + err);
+      });
+  };
+
   const alarmchat = () => {
     axios
       .post("http://localhost:8080/alarm", {
@@ -329,6 +369,7 @@ function DirectMessage() {
     chatmyinfo();
     chatuserinfowork();
     chatuserscore();
+    chatuserscore2();
     alarmchat();
     connect();
   }, [채팅방num]);
@@ -533,12 +574,26 @@ function DirectMessage() {
               <div className="dmdetail-name">{chatRname}</div>
               <div className="dmdetail-email">{userInfo.user_email}</div>
               <div className="dmdetail-telephone">{userInfo.user_tel}</div>
-              <div className="dmdetail-score">평점 {score} / 5.0</div>
-              <img
-                src={"DirectMessage/" + simplescore + ".png"}
-                alt="score"
-                className="dmdetail-score-image"
-              ></img>
+              {userInfo.user_code === "free" ? (
+                <>
+                  <div className="dmdetail-score">평점 {score} / 5.0</div>
+                  <img
+                    src={"DirectMessage/" + simplescore + ".png"}
+                    alt="score"
+                    className="dmdetail-score-image"
+                  ></img>
+                </>
+              ) : (
+                <>
+                  <div className="dmdetail-score">평점 {score2} / 5.0</div>
+                  <img
+                    src={"DirectMessage/" + simplescore2 + ".png"}
+                    alt="score"
+                    className="dmdetail-score-image"
+                  ></img>
+                </>
+              )}
+
               <div className="dmdetail-line"></div>
               {cooperate ? (
                 <>
