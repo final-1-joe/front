@@ -167,7 +167,17 @@ const Adminpage = () => {
     fetchData();
     userdate();
     answerData();
+
+    if (mode == null || '') {
+      navigate('/admin?mode=default');
+      return;
+    }
   }, []);
+  useEffect(() => {
+    if (window.sessionStorage.getItem("user_id") !== 'admin') {
+      navigate("/");
+    }
+  }, [mode]);
 
   const goStart = () => {
     navigate('/admin?mode=start_end');
@@ -183,6 +193,9 @@ const Adminpage = () => {
   }
   const goSupport = () => {
     navigate('/admin?mode=support');
+  }
+  const gomain = () => {
+    navigate('/admin?mode=default')
   }
 
 
@@ -262,7 +275,7 @@ const Adminpage = () => {
       {/* 시작/마감 */}
       {
         mode === 'start_end' &&
-        <div className="main-content">
+        <div className="main-content" onClick={gomain}>
           <h1 className="chart-title">프로젝트 시작 / 마감 그래프</h1>
           <div className="chart-container">
             <LineChart width={900} height={600} data={projectresult}>
@@ -297,7 +310,7 @@ const Adminpage = () => {
       }
       {/* 진행상태 */}
       {
-        mode === 'status' && <div className="main-content">
+        mode === 'status' && <div className="main-content" onClick={gomain}>
           <div>
             <h1 className="chart-title">&nbsp;&nbsp;프로젝트 상태에 따른 그래프</h1>
             <BarChart width={900} height={600} data={bardata}>
@@ -330,7 +343,7 @@ const Adminpage = () => {
       {/* 요구기술 / 보유기술 */}
       {
         mode === 'skills' &&
-        <div className="main-content">
+        <div className="main-content" onClick={gomain}>
           <div>
             <h1>&nbsp;&nbsp;프로젝트 요구 기술 / 프리랜서 보유 기술 그래프</h1>
             <BarChart width={900} height={600} data={combinedData}>
@@ -366,7 +379,7 @@ const Adminpage = () => {
       {/* 월별 회원가입 증감 */}
       {
         mode === 'usercount' &&
-        <div className="main-content">
+        <div className="main-content" onClick={gomain}>
           <div>
             <h1>&nbsp;&nbsp;월별 회원가입 증감 그래프</h1>
             <LineChart width={900} height={600} data={userdata}>
@@ -399,7 +412,7 @@ const Adminpage = () => {
       {/* 답변 / 미답변 */}
       {
         mode === 'support' &&
-        <div className="main-content">
+        <div className="main-content" onClick={gomain}>
           <div>
             <h1>&nbsp;고객센터 게시물 답변 / 미답변 그래프</h1>
             <BarChart width={900} height={600} data={supportData}>
