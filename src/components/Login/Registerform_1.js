@@ -258,7 +258,7 @@ const Registerform_1 = () => {
                   value={password}
                   onChange={handlePasswordChange}
                   placeholder="비밀번호를 입력하세요(8~16자리, 특수문자 가능)"
-                  style={{ fontSize: "20px" }}
+                  style={{ fontSize: "20px", border: '1px solid black' }}
                 />
               </td>
             </tr>
@@ -279,7 +279,7 @@ const Registerform_1 = () => {
                   value={passwordConfirm}
                   onChange={handlePasswordConfirmChange}
                   placeholder="비밀번호를 다시 입력하세요"
-                  style={{ fontSize: "20px" }}
+                  style={{ fontSize: "20px", border: '1px solid black' }}
                 />
               </td>
             </tr>
@@ -441,7 +441,7 @@ const Registerform_1 = () => {
               <td colSpan="2" align="center">
                 <h4>
                   이미 Peoplancer 회원님이신가요? &nbsp;
-                  <Link to="/Loginform">로그인하기</Link>
+                  <Link to="/Loginform" style={{ color: 'blue' }}>로그인하기</Link>
                 </h4>
               </td>
             </tr>
