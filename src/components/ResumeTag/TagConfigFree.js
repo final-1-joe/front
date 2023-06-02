@@ -8,7 +8,7 @@ import InputWon from "./InputWon";
 import InputMonth from "./InputMonth";
 import { Link } from "react-router-dom";
 
-const TagConfigFree = () => {
+const TagConfigFree = ({ onRendering }) => {
   const [selectedoccupation, setSelectedOccupation] = useState("");
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedJobs, setSelectedJobs] = useState([]);
@@ -72,13 +72,14 @@ const TagConfigFree = () => {
       .then((res) => {
         console.log(res.data);
         setRedata(res.data);
+        onRendering();
       })
       .catch((error) => {
         console.error(error);
       });
   };
   useEffect(() => {
-    if (user_id) {
+    if (user_code === "free") {
       startstep();
     }
   }, []);
@@ -92,7 +93,9 @@ const TagConfigFree = () => {
         console.log("tag", res.data);
         const data = res.data;
         if (data === 1) {
-          setModalOpen(true);
+          if (modalOpen === false) {
+            setModalOpen(true);
+          }
         }
       })
       .catch((e) => {

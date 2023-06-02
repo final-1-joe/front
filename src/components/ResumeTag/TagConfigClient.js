@@ -8,7 +8,7 @@ import InputWon from "./InputWon";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
-const TagConfigClient = () => {
+const TagConfigClient = ({ onRendering }) => {
   const [selectedoccupation, setSelectedOccupation] = useState("");
   const [selectedJobs, setSelectedJobs] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
@@ -68,6 +68,7 @@ const TagConfigClient = () => {
       })
       .then((res) => {
         setRedata(res.data);
+        onRendering();
       })
       .catch((error) => {
         console.error(error);
@@ -157,7 +158,7 @@ const TagConfigClient = () => {
   };
 
   useEffect(() => {
-    if (user_id) {
+    if (user_code === "client") {
       startstep();
     }
   }, []);

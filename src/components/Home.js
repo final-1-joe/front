@@ -62,7 +62,14 @@ const Home = () => {
     nextArrow: <NextArrow />,
     prevArrow: <PrevArrow />,
   };
+  useEffect(() => {
+    startstep();
+    getPjlist();
+    getPjlistTag();
 
+    getFrlist();
+    getFrlistTag();
+  }, []);
   useEffect(() => {
     if (user_code === "free") {
       startstep();
@@ -72,7 +79,7 @@ const Home = () => {
       getFrlist();
       getFrlistTag();
     }
-  }, []);
+  }, [user_code]);
 
   const getFrlist = () => {
     axios
@@ -202,7 +209,7 @@ const Home = () => {
         <div id="home_show">
           <div className="in-bl-area">
             <h2 className="in-bl">추천 프로젝트</h2>
-            <TagConfigFree></TagConfigFree>
+            <TagConfigFree onRendering={getPjlistTag()}></TagConfigFree>
           </div>
           <Slider {...settings}>
             {repjlist.map((data) => (
@@ -257,7 +264,7 @@ const Home = () => {
         <div id="home_show">
           <div className="in-bl-area">
             <h2 className="in-bl">추천 프리랜서</h2>
-            <TagConfigClient></TagConfigClient>
+            <TagConfigClient onRendering={getFrlistTag()}></TagConfigClient>
           </div>
           <Slider {...settings}>
             {refrlist.map((freelist) => (
