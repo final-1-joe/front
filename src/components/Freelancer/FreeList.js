@@ -13,51 +13,55 @@ const FreeList = () => {
   const searchtextRef = useRef();
   const navigate = useNavigate();
   const location = useLocation();
+  const user_wtRef = useRef();
+  const orderbyRef = useRef();
+
   useEffect(() => {
     const searchParams = new URLSearchParams(location.search);
     const user_jg = searchParams.get("user_jg");
     const user_career = searchParams.get("user_career");
     const user_ws = searchParams.get("user_ws");
+    const user_wt = searchParams.get("user_wt");
     const user_js = searchParams.get("user_js");
     const searchNo = searchParams.get("searchNo");
     const searchtext = searchParams.get("searchtext");
+    const orderby = searchParams.get("orderby");
     user_jgRef.current.value = user_jg || "";
     user_careerRef.current.value = user_career || 0;
     user_wsRef.current.value = user_ws || "";
+    user_wtRef.current.value = user_wt || "";
     user_jsRef.current.value = user_js || "";
     searchRef.current.value = searchNo || 0;
     searchtextRef.current.value = searchtext || "";
-    getFrlistTag(user_jg, user_career, user_ws, user_js, searchNo, searchtext);
-  }, []);
-  useEffect(() => {
-    const searchParams = new URLSearchParams(location.search);
-    const user_jg = searchParams.get("user_jg");
-    const user_career = searchParams.get("user_career");
-    const user_ws = searchParams.get("user_ws");
-    const user_js = searchParams.get("user_js");
-    const searchNo = searchParams.get("searchNo");
-    const searchtext = searchParams.get("searchtext");
-    user_jgRef.current.value = user_jg || "";
-    user_careerRef.current.value = user_career || 0;
-    user_wsRef.current.value = user_ws || "";
-    user_jsRef.current.value = user_js || "";
-    searchRef.current.value = searchNo || 0;
-    searchtextRef.current.value = searchtext || "";
-    getFrlistTag(user_jg, user_career, user_ws, user_js, searchNo, searchtext);
+    orderbyRef.current.value = orderby || "new";
+    getFrlistTag(
+      user_jg,
+      user_career,
+      user_ws,
+      user_wt,
+      user_js,
+      searchNo,
+      searchtext,
+      orderby
+    );
   }, [location.search]);
   const handleKeyPress = (event) => {
     if (event.key === "Enter") {
       const user_jg = user_jgRef.current.value;
       const user_career = user_careerRef.current.value;
       const user_ws = user_wsRef.current.value;
+      const user_wt = user_wtRef.current.value;
       const user_js = user_jsRef.current.value;
+      const orderby = orderbyRef.current.value;
       const searchNo = searchRef.current.value;
       const searchtext = searchtextRef.current.value;
       const searchParams = new URLSearchParams();
       searchParams.set("user_jg", user_jg);
       searchParams.set("user_career", user_career);
       searchParams.set("user_ws", user_ws);
+      searchParams.set("user_wt", user_wt);
       searchParams.set("user_js", user_js);
+      searchParams.set("orderby", orderby);
       searchParams.set("searchNo", searchNo);
       searchParams.set("searchtext", searchtext);
       navigate(`?${searchParams.toString()}`);
@@ -65,9 +69,11 @@ const FreeList = () => {
         user_jg,
         user_career,
         user_ws,
+        user_wt,
         user_js,
         searchNo,
-        searchtext
+        searchtext,
+        orderby
       );
     }
   };
@@ -75,40 +81,62 @@ const FreeList = () => {
     const user_jg = user_jgRef.current.value;
     const user_career = user_careerRef.current.value;
     const user_ws = user_wsRef.current.value;
+    const user_wt = user_wtRef.current.value;
     const user_js = user_jsRef.current.value;
+    const orderby = orderbyRef.current.value;
     const searchNo = searchRef.current.value;
     const searchtext = searchtextRef.current.value;
     const searchParams = new URLSearchParams();
     searchParams.set("user_jg", user_jg);
     searchParams.set("user_career", user_career);
     searchParams.set("user_ws", user_ws);
+    searchParams.set("user_wt", user_wt);
     searchParams.set("user_js", user_js);
+    searchParams.set("orderby", orderby);
     searchParams.set("searchNo", searchNo);
     searchParams.set("searchtext", searchtext);
     navigate(`?${searchParams.toString()}`);
-    getFrlistTag(user_jg, user_career, user_ws, user_js, searchNo, searchtext);
+    getFrlistTag(
+      user_jg,
+      user_career,
+      user_ws,
+      user_wt,
+      user_js,
+      searchNo,
+      searchtext,
+      orderby
+    );
   };
 
   const getFrlistTag = (
     user_jg,
     user_career,
     user_ws,
+    user_wt,
     user_js,
     searchNo,
-    searchtext
+    searchtext,
+    orderby
   ) => {
     axios
       .post("http://localhost:8080/resume/list", {
         user_jg: user_jg || "",
         user_career: user_career || 0,
         user_ws: user_ws || "",
+        user_wt: user_wt || "",
         user_js: user_js || "",
         user_nm: searchNo === "0" ? searchtext || "" : "",
-        user_skill: searchNo === "1" ? searchtext || "" : "",
+        user_job: searchNo === "1" ? searchtext || "" : "",
+        user_skill: searchNo === "2" ? searchtext || "" : "",
       })
       .then((res) => {
-        const data = res.data;
-        setFrlist(data);
+        if (orderby === "old") {
+          const data = res.data;
+          setFrlist(data);
+        } else {
+          const data = res.data.slice().reverse();
+          setFrlist(data);
+        }
       })
       .catch((e) => {
         console.error(e);
@@ -157,9 +185,20 @@ const FreeList = () => {
                 ref={user_wsRef}
                 onChange={handleTagChange}
               >
+                <option value="">근무 방식</option>
+                <option value="원격">원격근무</option>
+                <option value="상주">상주근무</option>
+              </select>
+            </td>
+            <td>
+              <select
+                className="ListSelect"
+                ref={user_wtRef}
+                onChange={handleTagChange}
+              >
                 <option value="">근무 형태</option>
-                <option value="work">원격근무</option>
-                <option value="notwork">상주근무</option>
+                <option value="풀타임">풀타임</option>
+                <option value="파트타임">파트타임</option>
               </select>
             </td>
             <td>
@@ -184,7 +223,8 @@ const FreeList = () => {
               ref={searchRef}
             >
               <option value="0">이름</option>
-              <option value="1">스킬</option>
+              <option value="1">직종</option>
+              <option value="2">스킬</option>
             </select>
             <div className="List-search-box">
               <input
@@ -207,6 +247,12 @@ const FreeList = () => {
           </div>
         </div>
         <hr className="ListHr" />
+        <div className="Listnew">
+          <select id="ListFilter" ref={orderbyRef} onChange={handleTagChange}>
+            <option value="new">최신순</option>
+            <option value="old">오래된순</option>
+          </select>
+        </div>
       </div>
 
       <div>

@@ -1,6 +1,4 @@
-.ListOption {
-    width: 100%;
-}
+
 
 .ListSelect {
     width: 120px; height: 40px; margin: 20px 5px; padding: 5px 20px 5px;
@@ -49,20 +47,29 @@
 .ListIntro {
     color: black; font-weight: bold; font-size: larger;
 }
+.ListOption{
+    width: 1315px;
+    margin: 0 auto;
+}
 .ListFilter{
     float: left;
 }
 .ListHr{
     clear:both;
 }
+.Listnew{
+
+    height: 1px;
+}
 .List-search-wrapper{
+    float: right;
     padding: 0 0 0 0;
     text-align: center;
     height: 69px;
 }
 .List-search-area{
     padding: 15px 0 0 0;
-    float: right;
+    
 }
 .List-search-area select{
     float: left;

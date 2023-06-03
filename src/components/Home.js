@@ -53,6 +53,7 @@ const Home = () => {
   const [repjlist, setrePjlist] = useState([]);
   const [frlist, setFrlist] = useState([]);
   const [pjlist, setPjlist] = useState([]);
+  const [newfre, setNewfre] = useState();
   const settings = {
     infinite:
       user_code === "client" ? refrlist.length > 3 : repjlist.length > 3,
@@ -75,22 +76,14 @@ const Home = () => {
   useEffect(() => {
     if (user_code === "free") {
       startstep();
-      getPjlistTag();
-    } else if (user_code === "client") {
-      getFrlistTag();
-    }
-    getPjlist();
-    getFrlist();
-  }, []);
-  useEffect(() => {
-    if (user_code === "free") {
-      startstep();
       getPjlist();
       getPjlistTag();
     } else if (user_code === "client") {
       getFrlist();
       getFrlistTag();
     }
+    getPjlist();
+    getFrlist();
   }, [user_code]);
 
   const getFrlist = () => {
@@ -195,9 +188,7 @@ const Home = () => {
       })
       .then((res) => {
         const data = res.data;
-        if (data === 1) {
-          navigate("/resume");
-        }
+        setNewfre(data);
       })
       .catch((e) => {
         console.error(e);
@@ -222,9 +213,15 @@ const Home = () => {
         </div>
         <div className="home_btn">
           {user_code === "free" ? (
-            <Link to="/free/myresume">
-              <h4>프리랜서 등록</h4>
-            </Link>
+            newfre === 1 ? (
+              <Link to="/resume">
+                <h4>프리랜서 등록</h4>
+              </Link>
+            ) : (
+              <Link to="/free/myresume">
+                <h4>프리랜서 등록</h4>
+              </Link>
+            )
           ) : user_code === "" || user_code === null ? (
             <Link to="/loginform">
               <h4>프리랜서 등록</h4>
@@ -246,53 +243,57 @@ const Home = () => {
             <TagConfigFree onRendering={getPjlistTag}></TagConfigFree>
           </div>
           <Slider {...settings}>
-            {repjlist.map((data) => (
-              <div className="reco_slice">
-                <Link to={`/pjlist/pjdetail/${data.pj_num}`}>
-                  <table>
-                    <tbody>
-                      <tr className="wid5px">
-                        <td colSpan={2}>
-                          <span className="ListJobTag">#{data.pj_job}</span>
-                          <span className="ListPossible">
-                            모집 마감일 {data.pj_period}
-                          </span>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td className="ListIntro" colSpan={2}>
-                          <p>{data.pj_title}</p>
-                        </td>
-                      </tr>
-                      <tr style={{ fontSize: "14px" }}>
-                        <td colSpan={2}>
-                          {data.pj_pay}&nbsp;&nbsp;|&nbsp;&nbsp;
-                          {data.pj_start}&nbsp;~&nbsp;{data.pj_end}
-                          &nbsp;&nbsp;|&nbsp;&nbsp;
-                          {data.pj_work_form}&nbsp;&nbsp;|&nbsp;&nbsp;
-                          {data.pj_place}
-                        </td>
-                      </tr>
-                      <tr>
-                        <td colSpan={2}>
-                          (주)&nbsp;{data.pj_corpname}&nbsp;&nbsp;
-                        </td>
-                      </tr>
-                      <tr>
-                        <td colSpan={2}>
-                          <p>
-                            <HiHashtag size="20" />
-                            &nbsp;
-                            {data.pj_skill}
-                          </p>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </Link>
-              </div>
-            ))}
+            {repjlist
+              .slice()
+              .reverse()
+              .map((data) => (
+                <div className="reco_slice">
+                  <Link to={`/pjlist/pjdetail/${data.pj_num}`}>
+                    <table>
+                      <tbody>
+                        <tr className="wid5px">
+                          <td colSpan={2}>
+                            <span className="ListJobTag">#{data.pj_job}</span>
+                            <span className="ListPossible">
+                              모집 마감일 {data.pj_period}
+                            </span>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td className="ListIntro" colSpan={2}>
+                            <p>{data.pj_title}</p>
+                          </td>
+                        </tr>
+                        <tr style={{ fontSize: "14px" }}>
+                          <td colSpan={2}>
+                            {data.pj_pay}&nbsp;&nbsp;|&nbsp;&nbsp;
+                            {data.pj_start}&nbsp;~&nbsp;{data.pj_end}
+                            &nbsp;&nbsp;|&nbsp;&nbsp;
+                            {data.pj_work_form}&nbsp;&nbsp;|&nbsp;&nbsp;
+                            {data.pj_place}
+                          </td>
+                        </tr>
+                        <tr>
+                          <td colSpan={2}>
+                            (주)&nbsp;{data.pj_corpname}&nbsp;&nbsp;
+                          </td>
+                        </tr>
+                        <tr>
+                          <td colSpan={2}>
+                            <p>
+                              <HiHashtag size="20" />
+                              &nbsp;
+                              {data.pj_skill}
+                            </p>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </Link>
+                </div>
+              ))}
           </Slider>
+          <div className="margin1"></div>
         </div>
       ) : user_code === "client" ? (
         <div id="home_show">
@@ -301,61 +302,64 @@ const Home = () => {
             <TagConfigClient onRendering={getFrlistTag}></TagConfigClient>
           </div>
           <Slider {...settings}>
-            {refrlist.map((freelist) => (
-              <div className="reco_slice">
-                <Link to={`/freedetail?user_id=${freelist.user_id}`}>
-                  <table className="margincenter">
-                    <tbody>
-                      <tr className="wid5px">
-                        <td colSpan={2}>
-                          <span className="ListJobTag">
-                            #{freelist.user_jg}
-                          </span>
-                          <span className="ListPossible">
-                            {freelist.user_js === "work"
-                              ? "모집가능"
-                              : "모집불가능"}
-                          </span>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td className="ListIntro" colSpan={2}>
-                          <p>{freelist.user_intro}</p>
-                        </td>
-                      </tr>
-                      <tr style={{ fontSize: "14px" }}>
-                        <td colSpan={2}>
-                          월 {freelist.user_pay}만원&nbsp;&nbsp;|&nbsp;&nbsp;
-                          경력&nbsp;{freelist.user_career}년
-                          &nbsp;&nbsp;|&nbsp;&nbsp;
-                          {freelist.user_ws}&nbsp;&nbsp;|&nbsp;&nbsp;
-                          {freelist.user_wt}
-                        </td>
-                      </tr>
-                      <tr>
-                        <td colSpan={2}>{freelist.user_nm}</td>
-                      </tr>
-                      <tr>
-                        <td colSpan={2}>
-                          <p>
-                            <HiHashtag size="20" />
-                            &nbsp;
-                            {freelist.user_skill.replace(/\[|\]|"/g, "")}
-                          </p>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </Link>
-              </div>
-            ))}
+            {refrlist
+              .slice()
+              .reverse()
+              .map((freelist) => (
+                <div className="reco_slice">
+                  <Link to={`/freedetail?user_id=${freelist.user_id}`}>
+                    <table className="margincenter">
+                      <tbody>
+                        <tr className="wid5px">
+                          <td colSpan={2}>
+                            <span className="ListJobTag">
+                              #{freelist.user_jg}
+                            </span>
+                            <span className="ListPossible">
+                              {freelist.user_js === "work"
+                                ? "모집가능"
+                                : "모집불가능"}
+                            </span>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td className="ListIntro" colSpan={2}>
+                            <p>{freelist.user_intro}</p>
+                          </td>
+                        </tr>
+                        <tr style={{ fontSize: "14px" }}>
+                          <td colSpan={2}>
+                            월 {freelist.user_pay}만원&nbsp;&nbsp;|&nbsp;&nbsp;
+                            경력&nbsp;{freelist.user_career}년
+                            &nbsp;&nbsp;|&nbsp;&nbsp;
+                            {freelist.user_ws}&nbsp;&nbsp;|&nbsp;&nbsp;
+                            {freelist.user_wt}
+                          </td>
+                        </tr>
+                        <tr>
+                          <td colSpan={2}>{freelist.user_nm}</td>
+                        </tr>
+                        <tr>
+                          <td colSpan={2}>
+                            <p>
+                              <HiHashtag size="20" />
+                              &nbsp;
+                              {freelist.user_skill.replace(/\[|\]|"/g, "")}
+                            </p>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </Link>
+                </div>
+              ))}
           </Slider>
+          <div className="margin1"></div>
         </div>
       ) : (
         <></>
       )}
 
-      <div className="margin1"></div>
       <div>
         <h1>peoplancer와 협업은 이렇게 시작됩니다!</h1>
         <div
@@ -432,52 +436,55 @@ const Home = () => {
             <h2 className="in-bl">신규 프로젝트</h2>
           </div>
           <Slider {...settings2}>
-            {pjlist.map((data) => (
-              <div className="reco_slice">
-                <Link to={`/pjlist/pjdetail/${data.pj_num}`}>
-                  <table>
-                    <tbody>
-                      <tr className="wid5px">
-                        <td colSpan={2}>
-                          <span className="ListJobTag">#{data.pj_job}</span>
-                          <span className="ListPossible">
-                            모집 마감일 {data.pj_period}
-                          </span>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td className="ListIntro" colSpan={2}>
-                          <p>{data.pj_title}</p>
-                        </td>
-                      </tr>
-                      <tr style={{ fontSize: "14px" }}>
-                        <td colSpan={2}>
-                          {data.pj_pay}&nbsp;&nbsp;|&nbsp;&nbsp;
-                          {data.pj_start}&nbsp;~&nbsp;{data.pj_end}
-                          &nbsp;&nbsp;|&nbsp;&nbsp;
-                          {data.pj_work_form}&nbsp;&nbsp;|&nbsp;&nbsp;
-                          {data.pj_place}
-                        </td>
-                      </tr>
-                      <tr>
-                        <td colSpan={2}>
-                          (주)&nbsp;{data.pj_corpname}&nbsp;&nbsp;
-                        </td>
-                      </tr>
-                      <tr>
-                        <td colSpan={2}>
-                          <p>
-                            <HiHashtag size="20" />
-                            &nbsp;
-                            {data.pj_skill}
-                          </p>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </Link>
-              </div>
-            ))}
+            {pjlist
+              .slice()
+              .reverse()
+              .map((data) => (
+                <div className="reco_slice">
+                  <Link to={`/pjlist/pjdetail/${data.pj_num}`}>
+                    <table>
+                      <tbody>
+                        <tr className="wid5px">
+                          <td colSpan={2}>
+                            <span className="ListJobTag">#{data.pj_job}</span>
+                            <span className="ListPossible">
+                              모집 마감일 {data.pj_period}
+                            </span>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td className="ListIntro" colSpan={2}>
+                            <p>{data.pj_title}</p>
+                          </td>
+                        </tr>
+                        <tr style={{ fontSize: "14px" }}>
+                          <td colSpan={2}>
+                            {data.pj_pay}&nbsp;&nbsp;|&nbsp;&nbsp;
+                            {data.pj_start}&nbsp;~&nbsp;{data.pj_end}
+                            &nbsp;&nbsp;|&nbsp;&nbsp;
+                            {data.pj_work_form}&nbsp;&nbsp;|&nbsp;&nbsp;
+                            {data.pj_place}
+                          </td>
+                        </tr>
+                        <tr>
+                          <td colSpan={2}>
+                            (주)&nbsp;{data.pj_corpname}&nbsp;&nbsp;
+                          </td>
+                        </tr>
+                        <tr>
+                          <td colSpan={2}>
+                            <p>
+                              <HiHashtag size="20" />
+                              &nbsp;
+                              {data.pj_skill}
+                            </p>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </Link>
+                </div>
+              ))}
           </Slider>
         </div>
       ) : (
@@ -490,54 +497,57 @@ const Home = () => {
             <h2 className="in-bl">신규 프리랜서</h2>
           </div>
           <Slider {...settings2}>
-            {frlist.map((freelist) => (
-              <div className="reco_slice">
-                <Link to={`/freedetail?user_id=${freelist.user_id}`}>
-                  <table className="margincenter">
-                    <tbody>
-                      <tr className="wid5px">
-                        <td colSpan={2}>
-                          <span className="ListJobTag">
-                            #{freelist.user_jg}
-                          </span>
-                          <span className="ListPossible">
-                            {freelist.user_js === "work"
-                              ? "모집가능"
-                              : "모집불가능"}
-                          </span>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td className="ListIntro" colSpan={2}>
-                          <p>{freelist.user_intro}</p>
-                        </td>
-                      </tr>
-                      <tr style={{ fontSize: "14px" }}>
-                        <td colSpan={2}>
-                          월 {freelist.user_pay}만원&nbsp;&nbsp;|&nbsp;&nbsp;
-                          경력&nbsp;{freelist.user_career}년
-                          &nbsp;&nbsp;|&nbsp;&nbsp;
-                          {freelist.user_ws}&nbsp;&nbsp;|&nbsp;&nbsp;
-                          {freelist.user_wt}
-                        </td>
-                      </tr>
-                      <tr>
-                        <td colSpan={2}>{freelist.user_nm}</td>
-                      </tr>
-                      <tr>
-                        <td colSpan={2}>
-                          <p>
-                            <HiHashtag size="20" />
-                            &nbsp;
-                            {freelist.user_skill.replace(/\[|\]|"/g, "")}
-                          </p>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </Link>
-              </div>
-            ))}
+            {frlist
+              .slice()
+              .reverse()
+              .map((freelist) => (
+                <div className="reco_slice">
+                  <Link to={`/freedetail?user_id=${freelist.user_id}`}>
+                    <table className="margincenter">
+                      <tbody>
+                        <tr className="wid5px">
+                          <td colSpan={2}>
+                            <span className="ListJobTag">
+                              #{freelist.user_jg}
+                            </span>
+                            <span className="ListPossible">
+                              {freelist.user_js === "work"
+                                ? "모집가능"
+                                : "모집불가능"}
+                            </span>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td className="ListIntro" colSpan={2}>
+                            <p>{freelist.user_intro}</p>
+                          </td>
+                        </tr>
+                        <tr style={{ fontSize: "14px" }}>
+                          <td colSpan={2}>
+                            월 {freelist.user_pay}만원&nbsp;&nbsp;|&nbsp;&nbsp;
+                            경력&nbsp;{freelist.user_career}년
+                            &nbsp;&nbsp;|&nbsp;&nbsp;
+                            {freelist.user_ws}&nbsp;&nbsp;|&nbsp;&nbsp;
+                            {freelist.user_wt}
+                          </td>
+                        </tr>
+                        <tr>
+                          <td colSpan={2}>{freelist.user_nm}</td>
+                        </tr>
+                        <tr>
+                          <td colSpan={2}>
+                            <p>
+                              <HiHashtag size="20" />
+                              &nbsp;
+                              {freelist.user_skill.replace(/\[|\]|"/g, "")}
+                            </p>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </Link>
+                </div>
+              ))}
           </Slider>
         </div>
       ) : (

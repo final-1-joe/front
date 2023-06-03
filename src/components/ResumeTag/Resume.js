@@ -208,25 +208,11 @@ const Resume = () => {
       });
   };
 
-  const passresume = () => {
-    axios
-      .post("http://localhost:8080/user/updater", {
-        user_id: user_id,
-        user_resume: 1,
-      })
-      .then((res) => {
-        navigate("/");
-      })
-      .catch((e) => {
-        console.error(e);
-      });
-  };
-
   return (
     <div className="resume recenter">
       <div id="basic" className="resume_section">
         <div className="area_title">
-          <h3 className="title">이력서</h3>
+          <h3 className="title">프리랜서(이력서) 등록</h3>
         </div>
 
         <div className="resume_write">
@@ -447,7 +433,7 @@ const Resume = () => {
           <Link className="btn-m02 btn-color03 depth2" onClick={insertResume}>
             등록
           </Link>
-          <Link className="btn-m02 btn-color06 depth2" onClick={passresume}>
+          <Link to="/" className="btn-m02 btn-color06 depth2">
             넘기기
           </Link>
         </div>

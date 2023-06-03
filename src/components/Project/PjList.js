@@ -9,28 +9,14 @@ const PjList = () => {
   const [pjlist, setPjlist] = useState([]);
   const pj_jobRef = useRef();
   const pj_dayRef = useRef();
-  const pj_work_formRef = useRef(null);
+  const pj_work_formRef = useRef("");
+  const pj_placeRef = useRef("");
   const searchRef = useRef();
   const searchtextRef = useRef();
   const navigate = useNavigate();
   const location = useLocation();
+  const orderbyRef = useRef();
 
-  useEffect(() => {
-    getPjlist();
-    const searchParams = new URLSearchParams(location.search);
-    const pj_job = searchParams.get("pj_job");
-    const pj_day = searchParams.get("pj_day");
-    const pj_work_form = searchParams.get("pj_work_form");
-    const searchNo = searchParams.get("searchNo");
-    const searchtext = searchParams.get("searchtext");
-    pj_jobRef.current.value = pj_job || "";
-    pj_dayRef.current.value = pj_day || 0;
-    pj_work_formRef.current.value = pj_work_form || "";
-    searchRef.current.value = searchNo || 0;
-    searchtextRef.current.value = searchtext || "";
-
-    getPjlistTag(pj_job, pj_day, pj_work_form, searchNo, searchtext);
-  }, []);
   useEffect(() => {
     const searchParams = new URLSearchParams(location.search);
     const pj_job = searchParams.get("pj_job");
@@ -38,59 +24,91 @@ const PjList = () => {
     const pj_work_form = searchParams.get("pj_work_form");
     const searchNo = searchParams.get("searchNo");
     const searchtext = searchParams.get("searchtext");
+    const pj_place = searchParams.get("pj_place");
+    const orderby = searchParams.get("orderby");
     pj_jobRef.current.value = pj_job || "";
     pj_dayRef.current.value = pj_day || 0;
     pj_work_formRef.current.value = pj_work_form || "";
     searchRef.current.value = searchNo || 0;
     searchtextRef.current.value = searchtext || "";
-    getPjlistTag(pj_job, pj_day, pj_work_form, searchNo, searchtext);
+    pj_placeRef.current.value = pj_place || "";
+    orderbyRef.current.value = orderby || "new";
+    getPjlistTag(
+      pj_job,
+      pj_day,
+      pj_work_form,
+      searchNo,
+      searchtext,
+      pj_place,
+      orderby
+    );
   }, [location.search]);
   const handleKeyPress = (event) => {
     if (event.key === "Enter") {
       const pj_job = pj_jobRef.current.value;
       const pj_day = pj_dayRef.current.value;
       const pj_work_form = pj_work_formRef.current.value;
+      const pj_place = pj_placeRef.current.value;
+      const orderby = orderbyRef.current.value;
       const searchNo = searchRef.current.value;
       const searchtext = searchtextRef.current.value;
       const searchParams = new URLSearchParams();
       searchParams.set("pj_job", pj_job);
       searchParams.set("pj_day", pj_day);
       searchParams.set("pj_work_form", pj_work_form);
+      searchParams.set("pj_place", pj_place);
+      searchParams.set("orderby", orderby);
       searchParams.set("searchNo", searchNo);
       searchParams.set("searchtext", searchtext);
       navigate(`?${searchParams.toString()}`);
-      getPjlistTag(pj_job, pj_day, pj_work_form, searchNo, searchtext);
+      getPjlistTag(
+        pj_job,
+        pj_day,
+        pj_work_form,
+        searchNo,
+        searchtext,
+        pj_place,
+        orderby
+      );
     }
   };
   const handleTagChange = () => {
     const pj_job = pj_jobRef.current.value;
     const pj_day = pj_dayRef.current.value;
     const pj_work_form = pj_work_formRef.current.value;
+    const pj_place = pj_placeRef.current.value;
+    const orderby = orderbyRef.current.value;
     const searchNo = searchRef.current.value;
     const searchtext = searchtextRef.current.value;
     const searchParams = new URLSearchParams();
     searchParams.set("pj_job", pj_job);
     searchParams.set("pj_day", pj_day);
     searchParams.set("pj_work_form", pj_work_form);
+    searchParams.set("pj_place", pj_place);
+    searchParams.set("orderby", orderby);
     searchParams.set("searchNo", searchNo);
     searchParams.set("searchtext", searchtext);
     navigate(`?${searchParams.toString()}`);
-    getPjlistTag(pj_job, pj_day, pj_work_form, searchNo, searchtext);
+    getPjlistTag(
+      pj_job,
+      pj_day,
+      pj_work_form,
+      searchNo,
+      searchtext,
+      pj_place,
+      orderby
+    );
   };
 
-  const getPjlist = () => {
-    axios
-      .get("http://localhost:8080/pjlist", {})
-      .then((res) => {
-        const data = res.data;
-        setPjlist(data);
-      })
-      .catch((e) => {
-        console.error(e);
-      });
-  };
-
-  const getPjlistTag = (pj_job, pj_day, pj_work_form, searchNo, searchtext) => {
+  const getPjlistTag = (
+    pj_job,
+    pj_day,
+    pj_work_form,
+    searchNo,
+    searchtext,
+    pj_place,
+    orderby
+  ) => {
     axios
       .post("http://localhost:8080/pjlisttag", {
         pj_job: pj_job || "",
@@ -98,10 +116,16 @@ const PjList = () => {
         pj_work_form: pj_work_form || "",
         pj_title: searchNo === "0" ? searchtext || "" : "",
         pj_corpname: searchNo === "1" ? searchtext || "" : "",
+        pj_place: pj_place || "",
       })
       .then((res) => {
-        const data = res.data;
-        setPjlist(data);
+        if (orderby === "old") {
+          const data = res.data;
+          setPjlist(data);
+        } else {
+          const data = res.data.slice().reverse();
+          setPjlist(data);
+        }
       })
       .catch((e) => {
         console.error(e);
@@ -111,53 +135,71 @@ const PjList = () => {
   return (
     <div>
       <div className="ListOption">
+        <table className="ListFilter">
+          <tr>
+            <td width="100px">프로젝트</td>
+            <td>
+              <select
+                className="ListSelect"
+                ref={pj_jobRef}
+                onChange={handleTagChange}
+              >
+                <option value="">직군 선택</option>
+                <option value="개발">개발</option>
+                <option value="경영·비즈니스">경영·비즈니스</option>
+                <option value="마케팅·광고">마케팅·광고</option>
+                <option value="디자인">디자인</option>
+                <option value="미디어">미디어</option>
+                <option value="엔지니어링·설계">엔지니어링·설계</option>
+                <option value="법률·법집행기관">법률·법집행기관</option>
+              </select>
+            </td>
+            <td>
+              <select
+                className="ListSelect"
+                ref={pj_dayRef}
+                onChange={handleTagChange}
+              >
+                <option value={0}>근무 기간</option>
+                <option value={3}>~3개월</option>
+                <option value={6}>3~6개월</option>
+                <option value={12}>6개월~1년</option>
+                <option value={13}>1년 이상</option>
+              </select>
+            </td>
+            <td>
+              <select
+                className="ListSelect"
+                ref={pj_work_formRef}
+                onChange={handleTagChange}
+              >
+                <option value="">근무 방식</option>
+                <option value="원격">원격</option>
+                <option value="상주">상주</option>
+              </select>
+            </td>
+            <td>
+              <select
+                className="ListSelect"
+                ref={pj_placeRef}
+                onChange={handleTagChange}
+              >
+                <option value="">근무 지역</option>
+                <option value="서울">서울</option>
+                <option value="경기">경기</option>
+                <option value="인천">인천</option>
+                <option value="강원">강원</option>
+                <option value="충청">충청</option>
+                <option value="전라">전라</option>
+                <option value="경상">경상</option>
+                <option value="제주">제주</option>
+                <option value="해외">해외</option>
+                <option value="자택">자택</option>
+              </select>
+            </td>
+          </tr>
+        </table>
         <div className="List-search-wrapper">
-          <table className="ListFilter">
-            <tr>
-              <td width="100px">프로젝트</td>
-              <td>
-                <select
-                  className="ListSelect"
-                  ref={pj_jobRef}
-                  onChange={handleTagChange}
-                >
-                  <option value="">직군 선택</option>
-                  <option value="개발">개발</option>
-                  <option value="경영·비즈니스">경영·비즈니스</option>
-                  <option value="마케팅·광고">마케팅·광고</option>
-                  <option value="디자인">디자인</option>
-                  <option value="미디어">미디어</option>
-                  <option value="엔지니어링·설계">엔지니어링·설계</option>
-                  <option value="법률·법집행기관">법률·법집행기관</option>
-                  <option value="기타">기타</option>
-                </select>
-              </td>
-              <td>
-                <select
-                  className="ListSelect"
-                  ref={pj_dayRef}
-                  onChange={handleTagChange}
-                >
-                  <option value={0}>근무 기간</option>
-                  <option value={3}>~3개월</option>
-                  <option value={6}>3~6개월</option>
-                  <option value={12}>6개월~1년</option>
-                  <option value={13}>1년 이상</option>
-                </select>
-              </td>
-              <td>
-                <select
-                  className="ListSelect"
-                  ref={pj_work_formRef}
-                  onChange={handleTagChange}
-                >
-                  <option value="">근무 형태</option>
-                  <option value="원격">원격</option>
-                  <option value="상주">상주</option>
-                </select>
-              </td>
-            </tr>
-          </table>
           <div className="List-search-area">
             <select
               name="searchNo"
@@ -189,6 +231,12 @@ const PjList = () => {
           </div>
         </div>
         <hr className="ListHr" />
+        <div className="Listnew">
+          <select id="ListFilter" ref={orderbyRef} onChange={handleTagChange}>
+            <option value="new">최신순</option>
+            <option value="old">오래된순</option>
+          </select>
+        </div>
       </div>
       {pjlist.map((data) => (
         <div className="ListBox" id={data.pj_num}>
