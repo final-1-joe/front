@@ -84,7 +84,7 @@ const Home = () => {
     }
     getPjlist();
     getFrlist();
-  }, [user_code]);
+  }, [user_code, user_id]);
 
   const getFrlist = () => {
     axios
@@ -92,12 +92,15 @@ const Home = () => {
         user_jg: "",
         user_career: 0,
         user_ws: "",
+        user_wt: "",
         user_js: "",
         user_nm: "",
+        user_job: "",
         user_skill: "",
       })
       .then((res) => {
         const data = res.data;
+        console.log(res.data);
         setFrlist(data);
       })
       .catch((e) => {

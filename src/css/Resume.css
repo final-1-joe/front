@@ -52,14 +52,14 @@
     letter-spacing: -1px;
 }
 .resume_input .box_input, .resume_select .box_input {
-    padding: 0 20px 0 20px;
+    padding: 0 5px 0 20px;
     width: 357px;
     height: 50px;
     border: 1px solid #dfdfdf;
     box-sizing: border-box;
     color: #222;
     font-size: 16px;
-    line-height: 46px;
+
 }
 .recenter{
     margin: 0 auto;
@@ -270,14 +270,14 @@ input[type="radio" i] {
     width: 730px !important;
 }
 .resume_input .box_input, .resume_select .box_input {
-    padding: 0 15px 0 25px;
+    padding: 0 5px 0 20px;
     width: 357px;
     height: 50px;
     border: 1px solid #dfdfdf;
     box-sizing: border-box;
     color: #222;
     font-size: 16px;
-    line-height: 46px;
+
 }
 .resume_section .resume_bottom {
     margin-top: 12px;
@@ -370,3 +370,16 @@ input[type="radio" i] {
     text-overflow: ellipsis;
     width: 252px !important;
 }
+.custom-datalist {
+    -moz-appearance: none;
+    /* for Safari, Chrome, Opera */
+    -webkit-appearance: none;
+  }
+
+  .custom-option {
+
+  }
+
+  option:hover,  .active{
+    background-color: lightblue;
+  }
