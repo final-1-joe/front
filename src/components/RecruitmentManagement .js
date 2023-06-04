@@ -26,6 +26,7 @@ const RecruitmentManagement = () => {
             project: user_nm,
             content: pj_title,
             status: pj_status,
+            freeid: user_id,
             link,
           };
         });

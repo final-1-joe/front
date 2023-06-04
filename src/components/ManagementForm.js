@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import "../css/ManagementForm.css";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const ManagementForm = ({ listData, Mode }) => {
-  //listData와 Mode는 쓰는곳에서 설정해야 합니다.
   const [activeTab, setActiveTab] = useState("all");
   const [allSchedules, setAllSchedules] = useState([]);
   const [applySchedules, setApplySchedules] = useState([]);
@@ -39,6 +39,86 @@ const ManagementForm = ({ listData, Mode }) => {
     setActiveTab(tabName);
   };
 
+  const modifyCompleted = (pjNum) => {
+    const confirmed = window.confirm("모집 완료 상태로 변경하시겠습니까?");
+    if (confirmed) {
+      axios
+        .post("http://localhost:8080/auth/modifycompleted", { pj_num: pjNum })
+        .then((response) => {
+          console.log(response.data);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
+  };
+
+  const modifyOngoing = (pjNum) => {
+    const confirmed = window.confirm("진행 중으로 상태를 변경하시겠습니까?");
+    if (confirmed) {
+      axios
+        .post("http://localhost:8080/auth/modifyongoing", { pj_num: pjNum })
+        .then((response) => {
+          console.log(response.data);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
+  };
+
+  const modifyFinished = (pjNum) => {
+    const confirmed = window.confirm("진행 완료로 상태를 변경하시겠습니까?");
+    if (confirmed) {
+      axios
+        .post("http://localhost:8080/auth/modifyfinished", { pj_num: pjNum })
+        .then((response) => {
+          console.log(response.data);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
+  };
+
+  const handleApprove = (freeid, pjNum) => {
+    const confirmed = window.confirm("해당 프리랜서와 협업하시겠습니까?");
+    if (confirmed) {
+      axios
+        .post("http://localhost:8080/auth/modifycompletedfree", {
+          user_id: freeid,
+          pj_num: pjNum,
+        })
+        .then((response) => {
+          alert("협업이 승낙되었습니다!");
+          console.log(response.data);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
+  };
+
+  const handleReject = (freeid, pjNum) => {
+    const confirmed = window.confirm(
+      "해당 프리랜서와의 협업을 거절하시겠습니까?"
+    );
+    if (confirmed) {
+      axios
+        .post("http://localhost:8080/auth/deletedfree", {
+          user_id: freeid,
+          pj_num: pjNum,
+        })
+        .then((response) => {
+          alert("협업이 거절되었습니다!");
+          console.log(response.data);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
+  };
+
   return Mode === "Recruit" ? (
     //Recruit일 경우
     <div className="flex">
@@ -52,14 +132,14 @@ const ManagementForm = ({ listData, Mode }) => {
           >
             전체
           </button>
-          <button
+          {/* <button
             className={`button-manageform ${
               activeTab === "apply" ? "active" : ""
             }`}
             onClick={() => handleTabClick("apply")}
           >
             지원
-          </button>
+          </button> */}
           <button
             className={`button-manageform ${
               activeTab === "inprogress" ? "active" : ""
@@ -98,42 +178,48 @@ const ManagementForm = ({ listData, Mode }) => {
             <li>
               <div className="index-manageform">
                 <span>프리랜서명</span>
-                <span></span>
                 <span>진행상태</span>
+                <span>진행상태변경</span>
               </div>
             </li>
-             {activeTab === "all" && (
+            {activeTab === "all" && (
               <>
                 {allSchedules.map((schedule) => (
                   <li key={schedule.id} className="list-item-manageform">
                     <span onClick={() => navigate(schedule.link)}>
                       {schedule.project}
                     </span>
-                    <span onClick={() => navigate(schedule.dmlink)}>
-                      DM보내기 / 연락하기
+                    <span>
+                      {schedule.status === "completed"
+                        ? "모집완료"
+                        : schedule.status === "inprogress"
+                        ? "모집중"
+                        : schedule.status === "ongoing"
+                        ? "협업중"
+                        : schedule.status === "finished"
+                        ? "협업완료"
+                        : ""}
                     </span>
-                    <span>{schedule.status === "completed" ? "승낙" : ""}</span>
+                    <span></span>
                   </li>
                 ))}
               </>
             )}
-            {activeTab === "apply" && (
+            {/* {activeTab === "apply" && (
               <>
                 {applySchedules.map((schedule) => (
                   <li key={schedule.id} className="list-item-manageform">
                     <span onClick={() => navigate(schedule.link)}>
                       {schedule.project}
                     </span>
-                    <span onClick={() => navigate(schedule.dmlink)}>
-                      DM보내기 / 연락하기
-                    </span>
                     <span>
                       {schedule.status === "apply" ? "지원" : "미승낙"}
                     </span>
+                    <span></span>
                   </li>
                 ))}
               </>
-            )}
+            )} */}
 
             {activeTab === "inprogress" && (
               <>
@@ -142,11 +228,27 @@ const ManagementForm = ({ listData, Mode }) => {
                     <span onClick={() => navigate(schedule.link)}>
                       {schedule.project}
                     </span>
-                    <span onClick={() => navigate(schedule.dmlink)}>
-                      DM보내기 / 연락하기
-                    </span>
                     <span>
                       {schedule.status === "inprogress" ? "미승낙" : "승낙"}
+                    </span>
+                    <span>
+                      <button
+                        onClick={() =>
+                          handleApprove(schedule.freeid, schedule.id)
+                        }
+                        className="change-status-button"
+                      >
+                        승낙
+                      </button>
+                      /
+                      <button
+                        onClick={() =>
+                          handleReject(schedule.freeid, schedule.id)
+                        }
+                        className="change-status-button"
+                      >
+                        거절
+                      </button>
                     </span>
                   </li>
                 ))}
@@ -160,12 +262,10 @@ const ManagementForm = ({ listData, Mode }) => {
                     <span onClick={() => navigate(schedule.link)}>
                       {schedule.project}
                     </span>
-                    <span onClick={() => navigate(schedule.dmlink)}>
-                      DM보내기 / 연락하기
-                    </span>
                     <span>
-                      {schedule.status === "completed" ? "승낙" : "미승낙"}
+                      {schedule.status === "completed" ? "모집완료" : "미승낙"}
                     </span>
+                    <span></span>
                   </li>
                 ))}
               </>
@@ -177,12 +277,10 @@ const ManagementForm = ({ listData, Mode }) => {
                     <span onClick={() => navigate(schedule.link)}>
                       {schedule.project}
                     </span>
-                    <span onClick={() => navigate(schedule.dmlink)}>
-                      DM보내기 / 연락하기
-                    </span>
                     <span>
                       {schedule.status === "ongoing" ? "협업중" : "미승낙"}
                     </span>
+                    <span></span>
                   </li>
                 ))}
               </>
@@ -194,12 +292,10 @@ const ManagementForm = ({ listData, Mode }) => {
                     <span onClick={() => navigate(schedule.link)}>
                       {schedule.project}
                     </span>
-                    <span onClick={() => navigate(schedule.dmlink)}>
-                      DM보내기 / 연락하기
-                    </span>
                     <span>
                       {schedule.status === "finished" ? "협업완료" : "미승낙"}
                     </span>
+                    <span></span>
                   </li>
                 ))}
               </>
@@ -259,8 +355,8 @@ const ManagementForm = ({ listData, Mode }) => {
             <li>
               <div className="index-manageform">
                 <span>프로젝트</span>
-                <span></span>
                 <span>진행상태</span>
+                <span>진행상태변경</span>
               </div>
             </li>
             {activeTab === "all" && (
@@ -276,10 +372,18 @@ const ManagementForm = ({ listData, Mode }) => {
                     }
                   >
                     <span>{schedule.project}</span>
-                    <span>{schedule.content}</span>
                     <span>
-                      {schedule.status === "completed" ? "완료" : "진행중"}
+                      {schedule.status === "completed"
+                        ? "모집완료"
+                        : schedule.status === "inprogress"
+                        ? "모집중"
+                        : schedule.status === "ongoing"
+                        ? "진행중"
+                        : schedule.status === "finished"
+                        ? "진행완료"
+                        : ""}
                     </span>
+                    <span></span>
                   </li>
                 ))}
               </>
@@ -291,11 +395,22 @@ const ManagementForm = ({ listData, Mode }) => {
                   <li
                     key={schedule.id}
                     className="list-item-manageform"
-                    onClick={() => navigate(schedule.link)}
+                    onClick={() =>
+                      navigate(schedule.link, {
+                        state: { pj_num: schedule.id },
+                      })
+                    }
                   >
                     <span>{schedule.project}</span>
-                    <span>{schedule.content}</span>
                     <span>모집중</span>
+                    <span>
+                      <button
+                        onClick={() => modifyCompleted(schedule.id)}
+                        className="change-status-button"
+                      >
+                        모집완료로 변경
+                      </button>
+                    </span>
                   </li>
                 ))}
               </>
@@ -307,11 +422,22 @@ const ManagementForm = ({ listData, Mode }) => {
                   <li
                     key={schedule.id}
                     className="list-item-manageform"
-                    onClick={() => navigate(schedule.link)}
+                    onClick={() =>
+                      navigate(schedule.link, {
+                        state: { pj_num: schedule.id },
+                      })
+                    }
                   >
                     <span>{schedule.project}</span>
-                    <span>{schedule.content}</span>
                     <span>모집완료</span>
+                    <span>
+                      <button
+                        onClick={() => modifyOngoing(schedule.id)}
+                        className="change-status-button"
+                      >
+                        진행중으로 변경
+                      </button>
+                    </span>
                   </li>
                 ))}
               </>
@@ -323,11 +449,22 @@ const ManagementForm = ({ listData, Mode }) => {
                   <li
                     key={schedule.id}
                     className="list-item-manageform completed"
-                    onClick={() => navigate(schedule.link)}
+                    onClick={() =>
+                      navigate(schedule.link, {
+                        state: { pj_num: schedule.id },
+                      })
+                    }
                   >
                     <span>{schedule.project}</span>
-                    <span>{schedule.content}</span>
                     <span>진행중</span>
+                    <span>
+                      <button
+                        onClick={() => modifyFinished(schedule.id)}
+                        className="change-status-button"
+                      >
+                        진행완료로 변경
+                      </button>
+                    </span>
                   </li>
                 ))}
               </>
@@ -338,11 +475,15 @@ const ManagementForm = ({ listData, Mode }) => {
                   <li
                     key={schedule.id}
                     className="list-item-manageform completed"
-                    onClick={() => navigate(schedule.link)}
+                    onClick={() =>
+                      navigate(schedule.link, {
+                        state: { pj_num: schedule.id },
+                      })
+                    }
                   >
                     <span>{schedule.project}</span>
-                    <span>{schedule.content}</span>
                     <span>완료</span>
+                    <span></span>
                   </li>
                 ))}
               </>
