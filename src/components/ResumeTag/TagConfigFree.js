@@ -46,6 +46,9 @@ const TagConfigFree = ({ onRendering }) => {
 
   useEffect(() => {
     getTag();
+    if (user_code === "free") {
+      startstep();
+    }
   }, []);
 
   useEffect(() => {
@@ -77,11 +80,6 @@ const TagConfigFree = ({ onRendering }) => {
         console.error(error);
       });
   };
-  useEffect(() => {
-    if (user_code === "free") {
-      startstep();
-    }
-  }, []);
   const startstep = () => {
     axios
       .post("http://localhost:8080/user/checkstart", {

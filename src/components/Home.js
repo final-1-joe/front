@@ -76,10 +76,8 @@ const Home = () => {
   useEffect(() => {
     if (user_code === "free") {
       startstep();
-      getPjlist();
       getPjlistTag();
     } else if (user_code === "client") {
-      getFrlist();
       getFrlistTag();
     }
     getPjlist();

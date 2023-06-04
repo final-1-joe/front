@@ -48,6 +48,9 @@ const TagConfigClient = ({ onRendering }) => {
   };
   useEffect(() => {
     getTag();
+    if (user_code === "client") {
+      startstep();
+    }
   }, []);
   useEffect(() => {
     if (redata) {
@@ -165,12 +168,6 @@ const TagConfigClient = ({ onRendering }) => {
         console.error(error);
       });
   };
-
-  useEffect(() => {
-    if (user_code === "client") {
-      startstep();
-    }
-  }, []);
 
   const startstep = () => {
     axios
