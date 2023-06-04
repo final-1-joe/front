@@ -48,7 +48,7 @@
     color: black; font-weight: bold; font-size: larger;
 }
 .ListOption{
-    width: 1315px;
+    width: 60%;
     margin: 0 auto;
 }
 .ListFilter{
@@ -56,10 +56,10 @@
 }
 .ListHr{
     clear:both;
+
 }
 .Listnew{
-
-    height: 1px;
+  text-align: right;
 }
 .List-search-wrapper{
     float: right;

@@ -2,14 +2,15 @@ import "../../css/Resume.css";
 import Select from "react-select";
 import React, { useState, useRef, useEffect } from "react";
 import { occupation, occupations } from "./OccupationData";
-import SkillTag from "./SkillTag";
 import Modal from "../supportcenter/modal";
 import InputWon from "./InputWon";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import InputCareer from "./InputCareer";
+import TagList from "./TagListData";
 
 const TagConfigClient = ({ onRendering }) => {
+  const [dropDownList, setDropDownList] = useState(TagList);
   const [selectedoccupation, setSelectedOccupation] = useState("");
   const [selectedJobs, setSelectedJobs] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
@@ -20,10 +21,8 @@ const TagConfigClient = ({ onRendering }) => {
   const [js, setJs] = useState("work");
   const jgRef = useRef();
   const jobRef = useRef();
-  const [skills, setSkills] = useState([]);
-  const skill = (data) => {
-    setSkills(data);
-  };
+  const skillRef = useRef();
+  const [skill, setSkill] = useState([]);
   const [careers, setCareers] = useState(0);
   const career = (data) => {
     setCareers(data);
@@ -49,12 +48,15 @@ const TagConfigClient = ({ onRendering }) => {
   };
   useEffect(() => {
     getTag();
+    if (user_code === "client") {
+      startstep();
+    }
   }, []);
   useEffect(() => {
     if (redata) {
       setWs(redata.user_ws);
       setWt(redata.user_wt);
-      setSkills(JSON.parse(redata.user_skill));
+      setSkill(redata.user_skill.replace(/"/g, ""));
       setJs(redata.user_js);
       setSelectedOccupation(redata.user_jg);
       if (redata.user_job) {
@@ -97,7 +99,7 @@ const TagConfigClient = ({ onRendering }) => {
               user_job: jobRef.current.props.value
                 ? JSON.stringify(jobRef.current.props.value.value)
                 : null,
-              user_skill: skills ? JSON.stringify(skills) : null,
+              user_skill: `"${skillRef.current.value}"` || null,
               user_career: careers || null,
               user_js: jsRef.current.value || null,
               user_ws: wsRef.current.value || null,
@@ -134,7 +136,7 @@ const TagConfigClient = ({ onRendering }) => {
               user_job: jobRef.current.props.value
                 ? JSON.stringify(jobRef.current.props.value.value)
                 : null,
-              user_skill: skills ? JSON.stringify(skills) : null,
+              user_skill: `"${skillRef.current.value}"` || null,
               user_career: careers || null,
               user_js: jsRef.current.value || null,
               user_ws: wsRef.current.value || null,
@@ -166,12 +168,6 @@ const TagConfigClient = ({ onRendering }) => {
         console.error(error);
       });
   };
-
-  useEffect(() => {
-    if (user_code === "client") {
-      startstep();
-    }
-  }, []);
 
   const startstep = () => {
     axios
@@ -239,7 +235,27 @@ const TagConfigClient = ({ onRendering }) => {
                 />
               </div>
             </div>
-            <SkillTag skill={skills} onData={skill}></SkillTag>
+            <div className="resume_row">
+              <span className="input_title">스킬</span>
+              <div className="resume_input tag_div">
+                <div className="tag_input">
+                  <input
+                    type="search"
+                    placeholder="스킬을 입력하세요"
+                    className="box_input"
+                    id="skill"
+                    list="skills"
+                    ref={skillRef}
+                    defaultValue={skill}
+                  />
+                  <datalist id="skills" className="custom-datalist">
+                    {dropDownList.map((data) => (
+                      <option value={data} class="custom-option"></option>
+                    ))}
+                  </datalist>
+                </div>
+              </div>
+            </div>
             <div className="resume_row">
               <span className="input_title">프리랜서 경력</span>
               <InputCareer career={careers} onData={career}></InputCareer>
