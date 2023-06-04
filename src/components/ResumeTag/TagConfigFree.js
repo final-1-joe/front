@@ -286,6 +286,7 @@ const TagConfigFree = ({ onRendering }) => {
                   id="start_dt"
                   name="start_dt"
                   className="box_input"
+                  required
                   data-only-word="true"
                   defaultValue={start}
                   ref={startRef}

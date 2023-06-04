@@ -114,18 +114,18 @@ const Home = () => {
       })
       .then((res) => {
         const data = res.data;
-        console.log(data.user_skill);
+        console.log("asdas", data.user_skill);
         axios
           .post("http://localhost:8080/resume/tag", {
-            user_jg: data.user_jg || "",
-            user_job: data.user_job || "",
-            user_career: data.user_career || 0,
-            user_ws: data.user_ws || "",
-            user_wt: data.user_wt || "",
-            user_js: data.user_js || "",
-            user_skill: data.user_skill.replace(/\[|\]/g, "") || "",
+            user_jg: data ? data.user_jg || "" : "",
+            user_job: data ? data.user_job || "" : "",
+            user_career: data ? data.user_career || 0 : 0,
+            user_ws: data ? data.user_ws || "" : "",
+            user_wt: data ? data.user_wt || "" : "",
+            user_js: data ? data.user_js || "" : "",
+            user_skill: data ? data.user_skill.replace(/\[|\]/g, "") || "" : "",
             user_id: user_id,
-            user_pay: data.user_pay || 0,
+            user_pay: data ? data.user_pay || 0 : 0,
           })
           .then((res) => {
             const data = res.data;
