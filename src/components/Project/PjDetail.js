@@ -11,11 +11,18 @@ const PjDetail = () => {
   const [isSelected, setIsSelected] = useState(false);
   const [project, setProject] = useState([]);
   const [pjlist, setPjlist] = useState([]);
+  const [markPj, setMarkPj] = useState("");
+  const [register, setRegister] = useState("");
 
   const user_id = window.sessionStorage.getItem("user_id");
   const { id } = useParams();
   const pj_num = parseInt(id);
-  console.log("pj_num: ", pj_num);
+
+  const [userCode, setUserCode] = useState("");
+  const handleUserCodeChange = (code) => {
+    setUserCode(code);
+  };
+  console.log("pjdetail userCode: ", userCode);
 
   const getPjDetail = () => {
     axios
@@ -43,7 +50,6 @@ const PjDetail = () => {
   };
 
   useEffect(() => {
-    console.log("aaa");
     getPjDetail();
   }, []);
 
@@ -76,8 +82,41 @@ const PjDetail = () => {
         console.error(e);
       });
   };
+
   const onClickLike = () => {
-    alert("관심 프로젝트에 등록되었습니다");
+    axios
+      .post(`http://localhost:8080/auth/insertmarkp`, {
+        user_id: user_id,
+        mark_pj_pjnum: pj_num,
+      })
+      .then((res) => {
+        const data = res.data;
+        console.log("MarkPj data: ", data);
+        setMarkPj(data);
+        alert("관심 프로젝트에 등록되었습니다.");
+      })
+      .catch((e) => {
+        console.error(e);
+        alert("error: 관심 프로젝트 등록에 실패하였습니다.");
+      });
+  };
+
+  const onClickRegister = () => {
+    axios
+      .post(`http://localhost:8080/apply`, {
+        user_id: user_id,
+        pj_num: pj_num,
+      })
+      .then((res) => {
+        const data = res.data;
+        console.log("Register data: ", data);
+        setRegister(data);
+        alert("지원이 완료되었습니다.");
+      })
+      .catch((e) => {
+        console.error(e);
+        alert("error: 지원 실패하였습니다.");
+      });
   };
 
   return (
@@ -169,7 +208,10 @@ const PjDetail = () => {
           <details close>
             <summary>회사 평가</summary>
             <div class="tpt">
-              <PjReview pj_num={pj_num} />
+              <PjReview
+                pj_num={pj_num}
+                onUsercodeChange={handleUserCodeChange}
+              />
             </div>
           </details>
           <br />
@@ -177,25 +219,29 @@ const PjDetail = () => {
       </div>
 
       <aside id="PjAside">
-        <div className="PjContact">
-          <table>
-            <tr>
-              <td>
-                <span className="PjLikeBtn" onClick={onClickLike}>
-                  ♡&nbsp;관심 프로젝트
-                </span>
-              </td>
-              <td>
-                <span className="PjDM" onClick={() => navigate(`/direct`)}>
-                  DM
-                </span>
-              </td>
-            </tr>
-          </table>
-          <div id="PjApply">
-            <span className="PjApplyBtn">지원하기</span>
+        {userCode === "free" && (
+          <div className="PjContact">
+            <table>
+              <tr>
+                <td>
+                  <span className="PjLikeBtn" onClick={onClickLike}>
+                    ♡&nbsp;관심 프로젝트
+                  </span>
+                </td>
+                <td>
+                  <span className="PjDM" onClick={() => navigate(`/direct`)}>
+                    DM
+                  </span>
+                </td>
+              </tr>
+            </table>
+            <div id="PjApply">
+              <span className="PjApplyBtn" onClick={onClickRegister}>
+                지원하기
+              </span>
+            </div>
           </div>
-        </div>
+        )}
         <br />
         <div>
           <h3>유사 프로젝트</h3>
