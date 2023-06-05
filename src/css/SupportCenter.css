@@ -23,6 +23,7 @@ a:hover {
     width: 1080px;
 
 }
+
 #sc1 {
     margin: 0 auto;
     padding: 0px;
@@ -168,27 +169,34 @@ a:hover {
     font-size: 20px;
     line-height: 24px;
     text-align: center;
-    padding: 1% 0%;
+    padding: 10px 5px;
 }
-.id1{
-   
+
+.id1 {
+
     min-width: 200px;
 }
-.pw1{
+
+.pw1 {
     min-width: 200px;
 }
-.name1{
+
+.name1 {
     min-width: 200px;
 }
-.tel1{
+
+.tel1 {
     min-width: 130px;
 }
-.email1{
+
+.email1 {
     min-width: 300px;
 }
-.fix1{
+
+.fix1 {
     min-width: 100px;
 }
+
 .number {
     width: 80px;
 }
