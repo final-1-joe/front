@@ -6,15 +6,25 @@ import { FaHashtag } from "react-icons/fa";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import FileSaver from "file-saver";
+
 const formData = new FormData();
+
 const FreeDetail = () => {
-  const [evalForm, setEvalForm] = useState(false);
   const location = useLocation();
   const [frdata, setFrData] = useState("");
+  const [markFree, setMarkFree] = useState("");
   const params = new URLSearchParams(location.search);
   const user_id = params.get("user_id");
   const loginid = window.sessionStorage.getItem("user_id");
+  console.log("user_id/loginid: ", user_id, loginid);
   const navigate = useNavigate();
+
+  const [userCode, setUserCode] = useState("");
+  const handleUserCodeChange = (code) => {
+    setUserCode(code);
+  };
+  console.log("freepjdetail userCode: ", userCode);
+
   const openlink = (url) => {
     const open = window.open(
       url,
@@ -25,9 +35,25 @@ const FreeDetail = () => {
       open.document.documentElement.style.overflow = "hidden";
     }
   };
+
   const onClickLike = () => {
-    alert("관심 프리랜서에 등록되었습니다");
+    axios
+      .post(`http://localhost:8080/auth/register/free`, {
+        user_id: loginid,
+        mark_fre_id: user_id,
+      })
+      .then((res) => {
+        const data = res.data;
+        console.log("MarkFree data: ", data);
+        setMarkFree(data);
+        alert("관심 프리랜서에 등록되었습니다.");
+      })
+      .catch((e) => {
+        console.error(e);
+        alert("error: 관심 프리랜서 등록에 실패하였습니다.");
+      });
   };
+
   useEffect(() => {
     getResume();
   }, []);
@@ -44,6 +70,7 @@ const FreeDetail = () => {
         console.error(e);
       });
   };
+
   const getportfolio = (user_orfile, user_stfile) => {
     formData.append("originfilename", user_orfile);
     formData.append("storedfilename", user_stfile);
@@ -59,31 +86,38 @@ const FreeDetail = () => {
         console.error(e);
       });
   };
+
   return (
     <div id="FreeContainer">
       <div>
-        <div className="FreeContact">
-          <table align="right">
-            <tr>
-              <td>
-                <span className="FreeLikeBtn" onClick={onClickLike}>
-                  ♡&nbsp;관심 프리랜서
-                </span>
-              </td>
-              <td>
-                <Link
-                  to="/direct"
-                  style={{ textDecoration: "none", color: "black" }}
-                >
-                  <span className="FreeDM" onClick={() => navigate(`/direct`)}>
-                    DM
+        {userCode === "client" && (
+          <div className="FreeContact">
+            <table align="right">
+              <tr>
+                <td>
+                  <span className="FreeLikeBtn" onClick={onClickLike}>
+                    ♡&nbsp;관심 프리랜서
                   </span>
-                </Link>
-              </td>
-            </tr>
-          </table>
-          <br />
-        </div>
+                </td>
+                <td>
+                  <Link
+                    to="/direct"
+                    style={{ textDecoration: "none", color: "black" }}
+                  >
+                    <span
+                      className="FreeDM"
+                      onClick={() => navigate(`/direct`)}
+                    >
+                      DM
+                    </span>
+                  </Link>
+                </td>
+              </tr>
+            </table>
+            <br />
+          </div>
+        )}
+
         <div className="FreeDetailBox1">
           <table align="center">
             <tr height="50px">
@@ -181,7 +215,10 @@ const FreeDetail = () => {
           <details close>
             <summary>프리랜서 평가</summary>
             <div className="tpt">
-              <FreeReview fre_rv_target={user_id} />
+              <FreeReview
+                fre_rv_target={user_id}
+                onUsercodeChange={handleUserCodeChange}
+              />
             </div>
           </details>
           <br />
