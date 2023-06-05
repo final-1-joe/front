@@ -59,8 +59,12 @@
 
 }
 .Listnew{
+
   text-align: right;
 }
+.Listnew-box{
+    border: 0px;
+  }
 .List-search-wrapper{
     float: right;
     padding: 0 0 0 0;

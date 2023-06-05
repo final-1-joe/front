@@ -33,7 +33,7 @@ const AdminProjectList = () => {
             <table>
               <thead>
                 <tr>
-                  <th className="num">번호</th>
+                  <th className="number">번호</th>
                   <th className="title">프로젝트명</th>
                   <th className="name1">회사명</th>
                   <th className="name1">직군</th>

@@ -172,22 +172,22 @@ a:hover {
 }
 .id1{
    
-    width: 200px;
+    min-width: 200px;
 }
 .pw1{
-    width: 200px;
+    min-width: 200px;
 }
 .name1{
-    width: 200px;
+    min-width: 200px;
 }
 .tel1{
-    width: 130px;
+    min-width: 130px;
 }
 .email1{
-    width: 300px;
+    min-width: 300px;
 }
 .fix1{
-    width: 100px;
+    min-width: 100px;
 }
 .number {
     width: 80px;
