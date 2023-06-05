@@ -36,6 +36,20 @@ const FreeDetail = () => {
     }
   };
 
+  const dmchatcreate = () => {
+    axios
+      .post("http://localhost:8080/createChatroom", {
+        my_user_id: user_id,
+        your_user_id: loginid,
+      })
+      .then((res) => {
+        //console.log(res.data);
+      })
+      .catch((error) => {
+        console.error("/createChatroom 에러 발생" + error);
+      });
+  };
+
   const onClickLike = () => {
     axios
       .post(`http://localhost:8080/auth/insertmarkf`, {
@@ -106,7 +120,10 @@ const FreeDetail = () => {
                   >
                     <span
                       className="FreeDM"
-                      onClick={() => navigate(`/direct`)}
+                      onClick={() => {
+                        dmchatcreate();
+                        navigate(`/direct`);
+                      }}
                     >
                       DM
                     </span>
