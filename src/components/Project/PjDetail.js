@@ -99,7 +99,7 @@ const PjDetail = () => {
 
   const onClickLike = () => {
     axios
-      .post(`http://localhost:8080/auth/insertmarkp`, {
+      .post(`http://localhost:8080/auth/register/pj`, {
         user_id: user_id,
         mark_pj_pjnum: pj_num,
       })
