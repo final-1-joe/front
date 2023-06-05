@@ -39,7 +39,7 @@ const PjReviewWrite = (props) => {
     }
 
     axios
-      .post("http://localhost:8080/pjreview/write", info)
+      .post("http://localhost:8080/pjreview/insert", info)
       .then((res) => {
         const data = res.data;
         console.log(data);
