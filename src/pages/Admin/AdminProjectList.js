@@ -26,9 +26,8 @@ const AdminProjectList = () => {
   return (
     <div className="admin-page">
       <AdminSideBar />
-      <div className="main-content">
-
-        <div id="sc">
+      <div className="main-content1">
+        <div id="sc1">
           <h2>등록된 프로젝트 목록</h2>
           <div className="sc_bl">
             <table>
@@ -36,9 +35,9 @@ const AdminProjectList = () => {
                 <tr>
                   <th className="num">번호</th>
                   <th className="title">프로젝트명</th>
-                  <th className="corpname">회사명</th>
-                  <th className="job">직군</th>
-                  <th className="end">모집 마감일</th>
+                  <th className="name1">회사명</th>
+                  <th className="name1">직군</th>
+                  <th className="name1">모집 마감일</th>
                 </tr>
               </thead>
               {pjlist.map((data) => (

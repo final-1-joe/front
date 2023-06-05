@@ -19,6 +19,14 @@
     padding: 20px;
     background: #fff;
 }
+.main-content1{
+    display: inline-block;
+
+    flex-grow: 1;
+    padding: 20px;
+    background: #fff;
+}
+
 
 
 .sidebar-admin h5:hover,
