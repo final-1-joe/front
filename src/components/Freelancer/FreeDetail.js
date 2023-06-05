@@ -25,11 +25,11 @@ const FreeDetail = () => {
   const openModal = () => {
     setModal(true);
     document.body.style.overflow = "hidden";
-  }
+  };
   const closeModal = () => {
     setModal(false);
     document.body.style.overflow = "auto";
-  }
+  };
 
   const [userCode, setUserCode] = useState("");
   const handleUserCodeChange = (code) => {
@@ -210,10 +210,7 @@ const FreeDetail = () => {
               <td className="FreeBar">|</td>
               <td>{frdata.user_wt}</td>
               <td width="100px"></td>
-              <td
-                align="center"
-                onClick={openModal}
-              >
+              <td align="center" onClick={openModal}>
                 <span id="FreeSchedule">일정 보기</span>
               </td>
             </tr>
@@ -240,7 +237,9 @@ const FreeDetail = () => {
           <br />
         </div>
       </div>
-      {modal && <FreeCalendar open={modal} close={closeModal} userid={user_id} />}
+      {modal && (
+        <FreeCalendar open={modal} close={closeModal} userid={user_id} />
+      )}
     </div>
   );
 };

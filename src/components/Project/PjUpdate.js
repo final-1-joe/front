@@ -77,7 +77,7 @@ const PjUpdate = () => {
   return (
     <div>
       <div className="PjRegister">
-        <input type="hidden" id="userId" name="user_id" value="admin" />
+        <h3>프로젝트 수정하기</h3>
         <table className="PjRegisterTbl">
           <tr>
             <td>프로젝트명</td>
@@ -92,36 +92,39 @@ const PjUpdate = () => {
           </tr>
           <tr>
             <td>회사명&nbsp;&nbsp;(주)</td>
-            <td>{pjdetail.pj_corpname}</td>
+            <td>&nbsp;&nbsp;{pjdetail.pj_corpname}</td>
           </tr>
           <tr>
             <td>근무 형태 / 지역</td>
             <td>
-              <select
-                className="ListSelect"
-                defaultValue={pjdetail.pj_work_form}
-                ref={workformRef}
-              >
-                <option value="원격">원격</option>
-                <option value="상주">상주</option>
-              </select>
-              &nbsp;&nbsp;
-              <select
-                className="ListSelect"
-                defaultValue={pjdetail.pj_place}
-                ref={placeRef}
-              >
-                <option value="서울">서울</option>
-                <option value="경기">경기</option>
-                <option value="인천">인천</option>
-                <option value="강원">강원</option>
-                <option value="충청">충청</option>
-                <option value="전라">전라</option>
-                <option value="경상">경상</option>
-                <option value="제주">제주</option>
-                <option value="해외">해외</option>
-                <option value="자택">자택</option>
-              </select>
+              <div>
+                <select
+                  className="selectItem"
+                  defaultValue={pjdetail.pj_work_form}
+                  ref={workformRef}
+                >
+                  <option value="원격">원격</option>
+                  <option value="상주">상주</option>
+                </select>
+              </div>
+              <div>
+                <select
+                  className="selectItem"
+                  defaultValue={pjdetail.pj_place}
+                  ref={placeRef}
+                >
+                  <option value="서울">서울</option>
+                  <option value="경기">경기</option>
+                  <option value="인천">인천</option>
+                  <option value="강원">강원</option>
+                  <option value="충청">충청</option>
+                  <option value="전라">전라</option>
+                  <option value="경상">경상</option>
+                  <option value="제주">제주</option>
+                  <option value="해외">해외</option>
+                  <option value="자택">자택</option>
+                </select>
+              </div>
             </td>
           </tr>
           <tr>
@@ -149,7 +152,7 @@ const PjUpdate = () => {
             <td>직군</td>
             <td>
               <select
-                className="ListSelect"
+                className="selectItem"
                 defaultValue={pjdetail.pj_job}
                 ref={jobRef}
               >
@@ -193,7 +196,6 @@ const PjUpdate = () => {
                 defaultValue={pjdetail.pj_pick}
                 ref={pickRef}
               ></input>
-              &nbsp;&nbsp;명
             </td>
           </tr>
           <tr>
