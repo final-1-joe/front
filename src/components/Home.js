@@ -112,7 +112,7 @@ const Home = () => {
       })
       .then((res) => {
         const data = res.data;
-        console.log("asdas", data.user_skill);
+        console.log("asdas", res.data);
         axios
           .post("http://localhost:8080/resume/tag", {
             user_jg: data ? data.user_jg || "" : "",
@@ -121,7 +121,11 @@ const Home = () => {
             user_ws: data ? data.user_ws || "" : "",
             user_wt: data ? data.user_wt || "" : "",
             user_js: data ? data.user_js || "" : "",
-            user_skill: data ? data.user_skill.replace(/\[|\]/g, "") || "" : "",
+            user_skill: data
+              ? data.user_skill !== '""'
+                ? data.user_skill
+                : ""
+              : "",
             user_id: user_id,
             user_pay: data ? data.user_pay || 0 : 0,
           })
