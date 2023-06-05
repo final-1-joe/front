@@ -68,8 +68,8 @@ const Layout = ({ isLoggedIn, handleLogout, onLogin }) => {
             </Link>
           </div>
           <div id="bell">
-            <Link to="/">
-              <img src="/images/bell.png" width="35" alt="알림"></img>
+          <Link to="/direct">
+              <img src="/images/dm.png" width="55px" alt="알림"></img>
             </Link>
           </div>
           <div>

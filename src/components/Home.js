@@ -558,10 +558,6 @@ const Home = () => {
       ) : (
         <></>
       )}
-
-      <div class="scrolling-image">
-        <img src="/images/dm.png" alt="dm"></img>
-      </div>
     </div>
   );
 };

@@ -39,9 +39,18 @@
 
 #bell {
     position: absolute;
-    right: 250px;
+    right: 220px;
     top: 15px;
 }
+
+#bell img {
+    width: 55px;
+    transition: transform 0.3s ease;
+ }
+  
+  #bell:hover img {
+    transform: scale(1.2);
+ }
 
 #LayoutHeader .menubar {
     position: absolute;
