@@ -115,31 +115,31 @@ const AdminClientList = () => {
   return (
     <div className="admin-page">
       <AdminSideBar />
-      <div className="main-content">
-        <div id="sc">
+      <div className="main-content1">
+        <div id="sc1">
           <h2>출력물(클라이언트리스트)</h2>
           <div className="sc_bl">
             <table>
               <thead>
                 <tr>
-                  <th className="number">아이디</th>
-                  <th className="data1">비밀번호</th>
-                  <th className="title">회사명</th>
-                  <th className="data2">번호</th>
-                  <th className="data3">이메일</th>
-                  <th>사업자등록증</th>
-                  <th className="data4"></th>
-                  <th></th>
+                  <th className="id1">아이디</th>
+                  <th className="pw1">비밀번호</th>
+                  <th className="name1">회사명</th>
+                  <th className="tel1">번호</th>
+                  <th className="email1">이메일</th>
+                  <th className="email1">사업자등록증</th>
+                  <th className="fix1">수정</th>
+                  <th className="fix1">삭제</th>
                 </tr>
               </thead>
               <tbody>
                 {clientdb.map((data) => (
                   <>
                     <tr>
-                      <td className="number">{data.user_id}</td>
+                      <td className="id1">{data.user_id}</td>
                       {/* 비밀번호 */}
                       {edit === data.user_id ? (
-                        <td>
+                        <td className="pw1">
                           <input
                             type="text"
                             name="user_name"
@@ -148,11 +148,11 @@ const AdminClientList = () => {
                           />
                         </td>
                       ) : (
-                        <td className="data1">{data.user_pw}</td>
+                        <td className="pw1">{data.user_pw}</td>
                       )}
                       {/* 이름 */}
                       {edit === data.user_id ? (
-                        <td>
+                        <td className="name1">
                           <input
                             type="text"
                             name="user_name"
@@ -161,11 +161,11 @@ const AdminClientList = () => {
                           />
                         </td>
                       ) : (
-                        <td className="data1">{data.user_name}</td>
+                        <td className="name1">{data.user_name}</td>
                       )}
                       {/* 번호 */}
                       {edit === data.user_id ? (
-                        <td>
+                        <td className="tel1">
                           <input
                             type="text"
                             name="user_tel"
@@ -174,11 +174,11 @@ const AdminClientList = () => {
                           />
                         </td>
                       ) : (
-                        <td className="data2">{data.user_tel}</td>
+                        <td className="tel1">{data.user_tel}</td>
                       )}
                       {/* 이메일 */}
                       {edit === data.user_id ? (
-                        <td>
+                        <td className="email1">
                           <input
                             type="text"
                             name="user_email"
@@ -187,11 +187,11 @@ const AdminClientList = () => {
                           />
                         </td>
                       ) : (
-                        <td className="data2">{data.user_email}</td>
+                        <td className="email1">{data.user_email}</td>
                       )}
                       {/* 사업자등록증 */}
                       <td
-                        className="data2"
+                        className="email1"
                         onClick={() =>
                           getlicense(data.user_orlicense, data.user_stlicense)
                         }
@@ -200,16 +200,16 @@ const AdminClientList = () => {
                       </td>
                       {edit === data.user_id ? (
                         <td
-                          className="data3"
+                          className="fix1"
                           onClick={(e) => {
                             handleSubmit(e);
                           }}
                         >
-                          수정완료(클릭)
+                          수정완료
                         </td>
                       ) : (
                         <td
-                          className="data3"
+                          className="fix1"
                           onClick={() => {
                             setEdit(`${data.user_id}`);
                             setuser(data.user_id);
@@ -219,7 +219,7 @@ const AdminClientList = () => {
                             setEditemail(data.user_email);
                           }}
                         >
-                          수정(클릭)
+                          수정
                         </td>
                       )}
 
@@ -232,7 +232,7 @@ const AdminClientList = () => {
                       >
                         삭제&nbsp;&nbsp;&nbsp;
                       </td>
-                    </tr >
+                    </tr>
                   </>
                 ))}
               </tbody>
@@ -240,7 +240,7 @@ const AdminClientList = () => {
           </div>
         </div>
       </div>
-    </div >
+    </div>
   );
 };
 

@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
-import '../../css/admin.css';
+import "../../css/admin.css";
 import AdminSideBar from "../../components/Admin/AdminSideBar";
 
-
 const APSCA = () => {
-
   const [customerdb, setCustomerdb] = useState([]);
   const [page_num, setPage_num] = useState(1);
   const [page_maxnum, setPage_maxnum] = useState(0);
@@ -52,13 +50,11 @@ const APSCA = () => {
     getcustomerdb();
   }, [page_num]);
 
-
   return (
     <div className="admin-page">
       <AdminSideBar />
       <div className="main-content">
-
-        <div id="sc">
+        <div id="sc1">
           <h2>고객센터 답변 리스트</h2>
           <div className="sc_bl">
             <table>
@@ -84,8 +80,8 @@ const APSCA = () => {
                     <td className="date">{data.sbqcreateDate}</td>
                     <td className="answer">
                       {data.answerList === null ||
-                        data.answerList.length === 0 ||
-                        data.answerList.length === undefined ? (
+                      data.answerList.length === 0 ||
+                      data.answerList.length === undefined ? (
                         <p>미답변</p>
                       ) : (
                         <p>답변</p>
@@ -124,7 +120,7 @@ const APSCA = () => {
           </div>
         </div>
       </div>
-    </div >
+    </div>
   );
 };
 
