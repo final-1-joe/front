@@ -125,11 +125,11 @@ background-image: url(/public/DirectMessage/freelancer1.png);
 }
 
 .dmprofile-photo-tmp {
-  height: 4.9479vw;
-  width: 4.9479vw;
+  height: 3.9479vw;
+  width: 3.9479vw;
   border-radius: 4.6875vw;
   margin: 0.5208vw;
-  margin-left: 2.2396vw;
+  margin-left: 1.2396vw;
   float:left;
   background-size: cover;
   background-image: url(/public/DirectMessage/enterprise1.png);
