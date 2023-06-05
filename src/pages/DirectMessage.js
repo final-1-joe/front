@@ -42,6 +42,7 @@ function DirectMessage() {
   const [chatArray, setChatArray] = useState([]);
   const chatRef = useRef(null);
   const [채팅방몇개, set채팅방몇개] = useState([]);
+  const [채팅방코드, set채팅방코드] = useState([]);
   const [채팅방num, set채팅방num] = useState(0);
   const [chatname, setChatname] = useState("");
   const [chatRname, setChatRName] = useState("");
@@ -97,10 +98,22 @@ function DirectMessage() {
         message_date: "",
       })
       .then((res) => {
-        console.log(res.data);
+        //console.log(res);
         const jsonData2 = res.data;
         const data2array = Object.values(jsonData2);
         set채팅방몇개(data2array);
+        const userIds = data2array.map((item) => item.user_id);
+        axios // 좌측 채팅방 목록 user_id와 user_code 불러오기
+          .post("http://localhost:8080/getcodes", userIds)
+          .then((re) => {
+            //console.log(re.data);
+            const jsonData3 = re.data;
+            const data3array = Object.values(jsonData3);
+            set채팅방코드(data3array);
+          })
+          .catch((err) => {
+            console.error("/getcodes 에러 발생" + err);
+          });
       })
       .catch((error) => {
         console.error("/chatroom axios 에러 발생" + error);
@@ -515,6 +528,9 @@ function DirectMessage() {
             </div>
           ) : (
             채팅방몇개.map(function (i, num) {
+              const userCode = 채팅방코드.find(
+                (k) => k.user_id === i.user_id
+              )?.user_code;
               return (
                 <div
                   className="dmchat-room-select"
@@ -527,7 +543,12 @@ function DirectMessage() {
                     chatuserinfowork();
                   }}
                 >
-                  <div className="dmprofile-photo"></div>
+                  {userCode === "free" ? (
+                    <div className="dmprofile-photo"></div>
+                  ) : (
+                    <div className="dmprofile-photo-tmp"></div>
+                  )}
+
                   <div className="dmprofile-name">{i.user_name}</div>
                   {chatroomarray.some((item) => item[0] === i.chatroom_id) ? (
                     <div className="dmprofile-notify">
