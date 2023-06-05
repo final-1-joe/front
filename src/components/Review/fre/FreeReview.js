@@ -4,12 +4,15 @@ import { useState, useEffect } from "react";
 import FreeReviewList from "./FreeReviewList";
 import FreeReviewWrite from "./FreeReviewWrite";
 import FreeReviewAvg from "./FreeReviewAvg";
+import { useNavigate } from "react-router-dom";
 
 const FreeReview = (props) => {
   const [review, setReview] = useState({});
   const [reviewForm, setReviewForm] = useState(false);
   const [usercode, setUsercode] = useState([]);
   const [isClientUser, setIsClientUser] = useState(false);
+  const navigate = useNavigate();
+
   const fre_rv_target = props.fre_rv_target;
   const loginid = window.sessionStorage.getItem("user_id");
   console.log("props fre_rv_target: ", fre_rv_target);
@@ -62,6 +65,9 @@ const FreeReview = (props) => {
     } else {
       if (usercode.user_code === "free") {
         alert("프리랜서 리뷰는 협업한 클라이언트만 작성 가능합니다.");
+      } else if (loginid === null || loginid === "") {
+        alert("로그인 후 이용 가능한 서비스입니다.");
+        navigate("/loginform");
       }
     }
   };
@@ -70,11 +76,7 @@ const FreeReview = (props) => {
     <div id={review.fre_rv_num} className="RvContainer">
       <div className="RvWrite">
         {usercode.user_code !== "free" && (
-          <button
-            className="RvBtn2"
-            onClick={toggleReviewForm}
-            disabled={!isClientUser}
-          >
+          <button className="RvBtn2" onClick={toggleReviewForm}>
             작성하기
           </button>
         )}

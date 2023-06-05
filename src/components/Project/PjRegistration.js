@@ -92,10 +92,10 @@ const PjRegistration = () => {
   return (
     <div>
       <div className="PjRegister">
-        <input type="hidden" id="userId" name="user_id" value="admin" />
+        <h3>프로젝트 등록하기</h3>
         <table className="PjRegisterTbl">
           <tr>
-            <td>프로젝트명</td>
+            <td width="140px">프로젝트명</td>
             <td>
               <input
                 type="text"
@@ -131,41 +131,45 @@ const PjRegistration = () => {
           <tr>
             <td>근무 형태 / 지역</td>
             <td>
-              <select
-                className="ListSelect"
-                ref={workformRef}
-                onChange={() =>
-                  setInfo((prevInfo) => ({
-                    ...prevInfo,
-                    pj_work_form: workformRef.current.value,
-                  }))
-                }
-              >
-                <option value="원격">원격</option>
-                <option value="상주">상주</option>
-              </select>
-              &nbsp;&nbsp;
-              <select
-                className="ListSelect"
-                ref={placeRef}
-                onChange={() =>
-                  setInfo((prevInfo) => ({
-                    ...prevInfo,
-                    pj_place: placeRef.current.value,
-                  }))
-                }
-              >
-                <option value="서울">서울</option>
-                <option value="경기">경기</option>
-                <option value="인천">인천</option>
-                <option value="강원">강원</option>
-                <option value="충청">충청</option>
-                <option value="전라">전라</option>
-                <option value="경상">경상</option>
-                <option value="제주">제주</option>
-                <option value="해외">해외</option>
-                <option value="자택">자택</option>
-              </select>
+              <div>
+                {" "}
+                <select
+                  className="selectItem"
+                  ref={workformRef}
+                  onChange={() =>
+                    setInfo((prevInfo) => ({
+                      ...prevInfo,
+                      pj_work_form: workformRef.current.value,
+                    }))
+                  }
+                >
+                  <option value="원격">원격</option>
+                  <option value="상주">상주</option>
+                </select>
+              </div>
+              <div>
+                <select
+                  className="selectItem"
+                  ref={placeRef}
+                  onChange={() =>
+                    setInfo((prevInfo) => ({
+                      ...prevInfo,
+                      pj_place: placeRef.current.value,
+                    }))
+                  }
+                >
+                  <option value="서울">서울</option>
+                  <option value="경기">경기</option>
+                  <option value="인천">인천</option>
+                  <option value="강원">강원</option>
+                  <option value="충청">충청</option>
+                  <option value="전라">전라</option>
+                  <option value="경상">경상</option>
+                  <option value="제주">제주</option>
+                  <option value="해외">해외</option>
+                  <option value="자택">자택</option>
+                </select>
+              </div>
             </td>
           </tr>
           <tr>
@@ -203,7 +207,7 @@ const PjRegistration = () => {
             <td>직군</td>
             <td>
               <select
-                className="ListSelect"
+                className="selectItem"
                 ref={jobRef}
                 onChange={() =>
                   setInfo((prevInfo) => ({
@@ -228,7 +232,7 @@ const PjRegistration = () => {
             <td>
               <input
                 type="text"
-                placeholder="예상 급여"
+                placeholder="예상 급여(월)"
                 ref={payRef}
                 onChange={() =>
                   setInfo((prevInfo) => ({
@@ -261,6 +265,7 @@ const PjRegistration = () => {
               <input
                 type="text"
                 ref={pickRef}
+                placeholder="인원을 입력하세요(명)"
                 onChange={() =>
                   setInfo((prevInfo) => ({
                     ...prevInfo,
@@ -268,7 +273,6 @@ const PjRegistration = () => {
                   }))
                 }
               ></input>
-              &nbsp;&nbsp;명
             </td>
           </tr>
           <tr>
@@ -292,7 +296,7 @@ const PjRegistration = () => {
             <td>
               <textarea
                 className="PjContent"
-                placeholder="내용을 입력하세요"
+                placeholder="프로젝트 내용을 입력하세요"
                 ref={contentRef}
                 onChange={() =>
                   setInfo((prevInfo) => ({

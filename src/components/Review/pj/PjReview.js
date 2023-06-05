@@ -4,12 +4,14 @@ import PjReviewWrite from "./PjReviewWrite";
 import PjReviewAvg from "./PjReviewAvg";
 import PjReviewList from "./PjReviewList";
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const PjReview = (props) => {
   const [review, setReview] = useState({});
   const [reviewForm, setReviewForm] = useState(false);
   const [usercode, setUsercode] = useState([]);
   const [isFreeUser, setIsFreeUser] = useState(false);
+  const navigate = useNavigate();
 
   const loginid = window.sessionStorage.getItem("user_id");
   const pj_num = props.pj_num;
@@ -59,6 +61,9 @@ const PjReview = (props) => {
     } else {
       if (usercode.user_code === "client") {
         alert("프로젝트 리뷰는 협업한 프리랜서만 작성 가능합니다.");
+      } else if (loginid === null || loginid === "") {
+        alert("로그인 후 이용 가능한 서비스입니다.");
+        navigate("/loginform");
       }
     }
   };
@@ -67,11 +72,7 @@ const PjReview = (props) => {
     <div id={review.pj_rv_num} className="RvContainer">
       <div className="RvWrite">
         {usercode.user_code !== "client" && (
-          <button
-            className="RvBtn2"
-            onClick={toggleReviewForm}
-            disabled={!isFreeUser}
-          >
+          <button className="RvBtn2" onClick={toggleReviewForm}>
             작성하기
           </button>
         )}
