@@ -6,7 +6,6 @@ import axios from "axios";
 const ManagementForm = ({ listData, Mode }) => {
   const [activeTab, setActiveTab] = useState("all");
   const [allSchedules, setAllSchedules] = useState([]);
-  const [applySchedules, setApplySchedules] = useState([]);
   const [inProgressSchedules, setInProgressSchedules] = useState([]);
   const [ongoingSchedules, setOngoingSchedules] = useState([]);
   const [completedSchedules, setCompletedSchedules] = useState([]);
@@ -15,7 +14,6 @@ const ManagementForm = ({ listData, Mode }) => {
 
   useEffect(() => {
     setAllSchedules(listData);
-    const apply = listData.filter((schedule) => schedule.status === "apply");
     const inprogress = listData.filter(
       (schedule) => schedule.status === "inprogress"
     );
@@ -32,7 +30,6 @@ const ManagementForm = ({ listData, Mode }) => {
     setInProgressSchedules(inprogress);
     setCompletedSchedules(completed);
     setFinishedSchedules(finished);
-    setApplySchedules(apply);
   }, [listData]);
 
   const handleTabClick = (tabName) => {
@@ -90,7 +87,6 @@ const ManagementForm = ({ listData, Mode }) => {
           pj_num: pjNum,
         })
         .then((response) => {
-          alert("협업이 승낙되었습니다!");
           console.log(response.data);
         })
         .catch((error) => {
@@ -110,7 +106,6 @@ const ManagementForm = ({ listData, Mode }) => {
           pj_num: pjNum,
         })
         .then((response) => {
-          alert("협업이 거절되었습니다!");
           console.log(response.data);
         })
         .catch((error) => {
