@@ -106,18 +106,18 @@ function App() {
               path="/support/board/modify"
               element={<SupportBoardModify />}
             />
-            <Route
-              path="/free/myproject"
-              element={<FreeMyProject handleLogout={handleLogout} />}
-            />
-            <Route
-              path="/client/mypage"
-              element={<ClientMypage handleLogout={handleLogout} />}
-            />
+            <Route path="/free/myproject" element={<FreeMyProject />} />
+            <Route path="/client/mypage" element={<ClientMypage />} />
             <Route path="/free/mypage" element={<FreeMypage />} />
             <Route path="/free/myresume" element={<ResumeMypage />} />
-            <Route path="/free/myinfo" element={<FreeMyInfo />} />
-            <Route path="/client/myinfo" element={<ClientMyInfo />} />
+            <Route
+              path="/free/myinfo"
+              element={<FreeMyInfo handleLogout={handleLogout} />}
+            />
+            <Route
+              path="/client/myinfo"
+              element={<ClientMyInfo handleLogout={handleLogout} />}
+            />
           </Route>
           <Route path="/admin" element={<Adminpage />} />
           <Route path="/admin/sca" element={<APSCA />} />
