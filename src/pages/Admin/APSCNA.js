@@ -75,15 +75,13 @@ const APSCNA = () => {
                     </td>
                     <td className="date">{data.sbqwriter}</td>
                     <td className="date">{data.sbqcreateDate}</td>
-                    <td className="answer">
-                      {data.answerList === null ||
+                    {data.answerList === null ||
                       data.answerList.length === 0 ||
                       data.answerList.length === undefined ? (
-                        <p>미답변</p>
-                      ) : (
-                        <p>답변</p>
-                      )}
-                    </td>
+                      <td className="answer">미답변</td>
+                    ) : (
+                      <td className="answer">답변</td>
+                    )}
                   </tr>
                 </tbody>
               ))}

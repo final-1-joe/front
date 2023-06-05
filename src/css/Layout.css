@@ -29,7 +29,7 @@
 }
 
 #LayoutHeader {
-    height: 150px;
+    height: 160px;
 }
 
 #LayoutLogo {
@@ -46,29 +46,30 @@
 #bell img {
     width: 55px;
     transition: transform 0.3s ease;
- }
-  
-  #bell:hover img {
+}
+
+#bell:hover img {
     transform: scale(1.2);
- }
+}
 
 #LayoutHeader .menubar {
     position: absolute;
     width: 100%;
-    height: 60px;
+    height: 70px;
     top: 70px;
     left: 0px;
     background: #FBDB6A;
 }
 
 li.menu span {
-    color: rgb(63, 63, 63);
-    font-size: 17px;
+    color: rgb(0, 0, 0);
+    font-size: 21px;
     font-weight: bolder;
     display: block;
     height: 60px;
     text-align: center;
-    padding: 5px 30px 0px;
+    align-items: center;
+    padding: 5px 30px 5px;
     text-decoration: none;
 }
 
@@ -89,15 +90,20 @@ div .memberbtn {
 }
 
 li.member a {
-    color: rgb(97, 97, 97);
+    color: rgb(54, 54, 54);
     display: block;
     text-align: right;
     padding: 0px 20px 0px;
     text-decoration: none;
+    font-weight: 800;
 }
 
 li.member a:hover {
     color: black;
+}
+
+li.welcome-message {
+    list-style-type: none;
 }
 
 li.member {
@@ -127,8 +133,8 @@ li.member {
 }
 
 #LayoutFooter td {
-    font-size: bolder;
-    color: rgb(62, 62, 62);
+    font-weight: 600;
+    color: rgb(37, 36, 36);
     padding: 5px;
 }
 

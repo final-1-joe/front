@@ -23,6 +23,7 @@ a:hover {
     width: 1080px;
 
 }
+
 #sc1 {
     margin: 0 auto;
     padding: 0px;
@@ -47,7 +48,7 @@ a:hover {
     width: 100px;
     display: inline-block;
     margin: 0px 15px;
-    padding-top: 15px;
+    padding-top: 25px;
     font-size: 20px;
     font-weight: bold;
     letter-spacing: -1px;
@@ -63,19 +64,20 @@ a:hover {
 .sc_lis {
     width: 100%;
     border-top: 1px solid rgb(238, 238, 238);
+    list-style-type: none;
 }
 
 .sc_lis-0 {
     text-align: left;
     position: relative;
-    padding: 25px 34px;
+    padding: 0px 0px 0px 0px;
     cursor: pointer;
 }
 
 .sc_lis-1 {
     margin-right: 57px;
     font-size: 22px;
-    color: #FBDB6A;
+    color: #494d00;
 }
 
 .sc_lis-2 {
@@ -92,7 +94,7 @@ a:hover {
     min-height: 70px;
     top: 0px;
     right: 24px;
-    margin-top: 30px;
+    margin-top: 20px;
 }
 
 .sc_an-0 {
@@ -103,8 +105,8 @@ a:hover {
 .sc_an-1 {
     display: inline-block;
     margin-right: 57px;
-    font-size: 22px;
-    color: #FBDB6A;
+    font-size: 20px;
+    color: #0f0f0f;
 }
 
 .sc_an-2 {
@@ -115,7 +117,6 @@ a:hover {
     width: 850px;
     font-size: 20px;
     font-weight: 500;
-    float: left;
     color: rgb(17, 17, 17);
     line-height: 1.62;
     white-space: normal;
@@ -168,27 +169,34 @@ a:hover {
     font-size: 20px;
     line-height: 24px;
     text-align: center;
-    padding: 1% 0%;
+    padding: 15px 0px;
 }
-.id1{
-   
+
+.id1 {
+
     min-width: 200px;
 }
-.pw1{
+
+.pw1 {
     min-width: 200px;
 }
-.name1{
+
+.name1 {
     min-width: 200px;
 }
-.tel1{
+
+.tel1 {
     min-width: 130px;
 }
-.email1{
+
+.email1 {
     min-width: 300px;
 }
-.fix1{
+
+.fix1 {
     min-width: 100px;
 }
+
 .number {
     width: 80px;
 }

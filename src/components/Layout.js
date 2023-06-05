@@ -68,7 +68,7 @@ const Layout = ({ isLoggedIn, handleLogout, onLogin }) => {
             </Link>
           </div>
           <div id="bell">
-          <Link to="/direct">
+            <Link to="/direct">
               <img src="/images/dm.png" width="55px" alt="알림"></img>
             </Link>
           </div>
@@ -93,10 +93,10 @@ const Layout = ({ isLoggedIn, handleLogout, onLogin }) => {
                         fontSize: "16px",
                       }}
                     >
-                      &nbsp;&nbsp;로그아웃
+                      <a>&nbsp;&nbsp;로그아웃</a>
                     </button>
                   </li>
-                  <li className="welcome-message" style={{ fontSize: "17px" }}>
+                  <li className="welcome-message" style={{ fontSize: "17px", fontWeight: 600 }}>
                     {user_id} 회원님, 환영합니다!
                   </li>
                 </>
