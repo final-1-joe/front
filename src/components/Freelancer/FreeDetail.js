@@ -6,6 +6,7 @@ import { FaHashtag } from "react-icons/fa";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import FileSaver from "file-saver";
+import FreeCalendar from "../Schedule/FreeCalendar";
 
 const formData = new FormData();
 
@@ -13,28 +14,28 @@ const FreeDetail = () => {
   const location = useLocation();
   const [frdata, setFrData] = useState("");
   const [markFree, setMarkFree] = useState("");
+  const [modal, setModal] = useState(false);
   const params = new URLSearchParams(location.search);
   const user_id = params.get("user_id");
   const loginid = window.sessionStorage.getItem("user_id");
   console.log("user_id/loginid: ", user_id, loginid);
+
   const navigate = useNavigate();
+
+  const openModal = () => {
+    setModal(true);
+    document.body.style.overflow = "hidden";
+  }
+  const closeModal = () => {
+    setModal(false);
+    document.body.style.overflow = "auto";
+  }
 
   const [userCode, setUserCode] = useState("");
   const handleUserCodeChange = (code) => {
     setUserCode(code);
   };
   console.log("freepjdetail userCode: ", userCode);
-
-  const openlink = (url) => {
-    const open = window.open(
-      url,
-      "_blank",
-      "width=900px,height=910px,scrollbars=no"
-    );
-    if (open) {
-      open.document.documentElement.style.overflow = "hidden";
-    }
-  };
 
   const dmchatcreate = () => {
     axios
@@ -211,9 +212,7 @@ const FreeDetail = () => {
               <td width="100px"></td>
               <td
                 align="center"
-                onClick={() =>
-                  openlink(`http://localhost:3000/free/calendar/${user_id}`)
-                }
+                onClick={openModal}
               >
                 <span id="FreeSchedule">일정 보기</span>
               </td>
@@ -241,6 +240,7 @@ const FreeDetail = () => {
           <br />
         </div>
       </div>
+      {modal && <FreeCalendar open={modal} close={closeModal} userid={user_id} />}
     </div>
   );
 };
