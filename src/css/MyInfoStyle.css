@@ -87,9 +87,9 @@ div.mylistGroup {
 
 .myError {
   color: red;
-  margin-right: 25vh;
+  margin-left: 34vh;
   font-size: 15px;
-  text-align: right;
+  text-align: left;
 }
 
 .mybutton-group {
