@@ -103,17 +103,19 @@ function DirectMessage() {
         const data2array = Object.values(jsonData2);
         set채팅방몇개(data2array);
         const userIds = data2array.map((item) => item.user_id);
-        axios // 좌측 채팅방 목록 user_id와 user_code 불러오기
-          .post("http://localhost:8080/getcodes", userIds)
-          .then((re) => {
-            //console.log(re.data);
-            const jsonData3 = re.data;
-            const data3array = Object.values(jsonData3);
-            set채팅방코드(data3array);
-          })
-          .catch((err) => {
-            console.error("/getcodes 에러 발생" + err);
-          });
+        if (userIds !== null && userIds.length !== 0) {
+          axios // 좌측 채팅방 목록 user_id와 user_code 불러오기
+            .post("http://localhost:8080/getcodes", userIds)
+            .then((re) => {
+              //console.log(re.data);
+              const jsonData3 = re.data;
+              const data3array = Object.values(jsonData3);
+              set채팅방코드(data3array);
+            })
+            .catch((err) => {
+              console.error("/getcodes 에러 발생" + err);
+            });
+        }
       })
       .catch((error) => {
         console.error("/chatroom axios 에러 발생" + error);
