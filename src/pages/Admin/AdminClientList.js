@@ -14,7 +14,7 @@ const AdminClientList = () => {
   const [edittel, setEdittel] = useState("");
   const [render, setrender] = useState(false);
   const [user, setuser] = useState("");
-  const formData = new FormData();
+  const [formData, setFormData] = useState(new FormData());
   const nameChange = (e) => {
     setEditname(e.target.value);
   };
@@ -97,10 +97,11 @@ const AdminClientList = () => {
   }, [render]);
 
   const getlicense = (user_orlicense, user_stlicense) => {
-    formData.append("originfilename", user_orlicense);
-    formData.append("storedfilename", user_stlicense);
+    const newFormData = new FormData();
+    newFormData.append("originfilename", user_orlicense);
+    newFormData.append("storedfilename", user_stlicense);
     axios
-      .post("http://localhost:8080/resume/download", formData, {
+      .post("http://localhost:8080/resume/download", newFormData, {
         responseType: "blob",
       })
       .then((res) => {
