@@ -192,12 +192,11 @@ const Registerform_2 = () => {
     <div>
       <center>
         <h1>프리랜서 회원가입</h1>
-        <p>&nbsp;&nbsp;</p>
         <form onSubmit={handleSubmit}>
           <table border="0" width="300px" align="center">
             <hr />
             <tr>
-              <td style={{ fontSize: "20px" }}>
+              <td style={{ fontSize: "20px", paddingTop: "15px" }}>
                 아이디
                 <span style={{ color: "red", marginLeft: "5px" }}>*</span>
               </td>
@@ -214,7 +213,6 @@ const Registerform_2 = () => {
                   style={{ fontSize: "20px" }}
                   onKeyPress={handleIdKeyPress}
                 />
-                <h>&nbsp;&nbsp;</h>
                 <button
                   type="button"
                   style={{
@@ -223,6 +221,8 @@ const Registerform_2 = () => {
                     backgroundColor: "#ffe68b",
                     fontSize: "18px",
                     border: "none",
+                    marginBottom: "25px",
+                    marginLeft: "10px"
                   }}
                   onClick={handleCheck}
                 >
@@ -230,7 +230,6 @@ const Registerform_2 = () => {
                 </button>
               </td>
             </tr>
-            <p>&nbsp;&nbsp;</p>
             <tr>
               <td style={{ fontSize: "20px" }}>
                 비밀번호
@@ -249,11 +248,10 @@ const Registerform_2 = () => {
                   value={password}
                   onChange={handlePasswordChange}
                   placeholder="비밀번호를 입력하세요(8~16자리, 특수문자 가능)"
-                  style={{ fontSize: "20px", border: '1px solid black' }}
+                  style={{ fontSize: "20px", border: '1px solid black', marginBottom: "25px" }}
                 />
               </td>
             </tr>
-            <p>&nbsp;&nbsp;</p>
             <tr>
               <td style={{ fontSize: "20px" }}>
                 비밀번호 확인
@@ -276,16 +274,15 @@ const Registerform_2 = () => {
             </tr>
             <tr>
               <td
-                style={{ fontSize: "15px", color: isMatch ? "green" : "red" }}
+                style={{ fontSize: "15px", color: isMatch ? "green" : "red", paddingBottom: "15px" }}
               >
                 {isMatch
                   ? "비밀번호가 일치합니다."
                   : "비밀번호가 일치하지 않습니다."}
               </td>
             </tr>
-            <p>&nbsp;&nbsp;</p>
             <tr>
-              <td style={{ fontSize: "20px" }}>
+              <td style={{ fontSize: "20px", }}>
                 이름
                 <span style={{ color: "red", marginLeft: "5px" }}>*</span>
               </td>
@@ -298,11 +295,10 @@ const Registerform_2 = () => {
                   size="40"
                   ref={nmRef}
                   placeholder="이름을 입력하세요"
-                  style={{ fontSize: "20px" }}
+                  style={{ fontSize: "20px", marginBottom: "25px" }}
                 />
               </td>
             </tr>
-            <p>&nbsp;&nbsp;</p>
             <tr>
               <td style={{ fontSize: "20px" }}>
                 생년월일
@@ -317,11 +313,10 @@ const Registerform_2 = () => {
                   size="40"
                   ref={bthRef}
                   placeholder="YYYYMMDD"
-                  style={{ fontSize: "20px", width: "438px" }}
+                  style={{ fontSize: "20px", width: "438px", marginBottom: "25px" }}
                 />
               </td>
             </tr>
-            <p>&nbsp;&nbsp;</p>
             <tr>
               <td style={{ fontSize: "20px" }}>
                 이메일
@@ -336,15 +331,14 @@ const Registerform_2 = () => {
                   size="40"
                   ref={emailRef}
                   placeholder="ex) email@peoplancer.com"
-                  style={{ fontSize: "20px" }}
+                  style={{ fontSize: "20px", marginBottom: "25px" }}
                 />
               </td>
             </tr>
-            <p>&nbsp;&nbsp;</p>
             <tr>
               <td style={{ fontSize: "20px" }}>
                 <label htmlFor="phone-number-input">전화번호 </label>
-                <span style={{ color: "red", marginLeft: "5px" }}>*</span>
+                <span style={{ color: "red", marginLeft: "5px", }}>*</span>
               </td>
             </tr>
             <tr>
@@ -358,11 +352,10 @@ const Registerform_2 = () => {
                   onChange={handlePhoneNumberChange}
                   size="40"
                   placeholder="-빼고 숫자만 입력해주세요"
-                  style={{ fontSize: "20px" }}
+                  style={{ fontSize: "20px", marginBottom: "25px" }}
                 />
               </td>
             </tr>
-            <p>&nbsp;&nbsp;</p>
             <tr>
               <td align="left" colspan="2" style={{ fontSize: "15px" }}>
                 <label style={{ display: "inline-block" }}>
@@ -404,32 +397,28 @@ const Registerform_2 = () => {
                     type="checkbox"
                     name="agreement"
                     value="agree"
-                    style={{ width: "20px", height: "20px" }}
+                    style={{ width: "20px", height: "20px", marginBottom: "25px" }}
                   />
                   &nbsp; 마케팅 수신・홍보 목적의 개인정보 수집 및 이용에
                   동의합니다. (선택)
                 </label>
               </td>
             </tr>
-            <p>&nbsp;&nbsp;</p>
             <tr>
               <td colSpan="2" align="center" style={{ fontSize: "20px" }}>
-                <input
-                  type="button"
-                  value="버튼만 누르면 회원가입 완료!"
+                <button
                   onClick={handleUser}
                   style={{
                     width: "300px",
                     height: "60px",
                     backgroundColor: "#ffe68b",
                     border: "none",
+                    marginBottom: "25px"
                   }}
-                ></input>
+                ><h1>회원가입</h1></button>
               </td>
             </tr>
-            <p>&nbsp;&nbsp;</p>
             <hr />
-            <p>&nbsp;&nbsp;</p>
             <tr>
               <td colSpan="2" align="center">
                 <h4>
