@@ -4,14 +4,17 @@ import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import axios from "axios";
+import '../../css/schedulemodal.css'
 
 
-const MyCalendar = () => {
-    const { id } = useParams();
+const FreeCalendar = (props) => {
+    const { open, close, userid } = props;
     const [events, setEvents] = useState([]);
+
+
     const getEvent = () => {
         axios
-            .get(`http://localhost:8080/schedule/get?user_id=${id}`, {})
+            .get(`http://localhost:8080/schedule/get?user_id=${userid}`, {})
             .then((res) => {
                 const { data } = res;
                 const events = data.map((event) => {
@@ -43,20 +46,27 @@ const MyCalendar = () => {
         getEvent();
         console.log(events);
     }, [events]);
+
     return (
-        <div className="calendar-wrapper">
-            <div className="calendar-container">
-                <h2 style={{ textAlign: "center" }}>{id}님의 스케줄</h2>
-                <FullCalendar
-                    locale='ko'
-                    plugins={[dayGridPlugin, interactionPlugin]}
-                    initialView="dayGridMonth"
-                    events={events}
-                    displayEventTime={false}
-                />
-            </div>
+        <div className={`modal-schedule ${open ? "openModal" : ""}`}>
+            <section>
+                <main>
+                    <button className="close-gj" onClick={close}>
+                        &times;
+                    </button>
+                    <h2 style={{ textAlign: "center" }}>{userid}님의 스케줄</h2>
+                    <FullCalendar
+                        locale="ko"
+                        plugins={[dayGridPlugin, interactionPlugin]}
+                        initialView="dayGridMonth"
+                        events={events}
+                        displayEventTime={false}
+                    />
+
+                </main>
+            </section>
         </div>
     );
 
 }
-export default MyCalendar;
+export default FreeCalendar;
