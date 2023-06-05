@@ -158,14 +158,6 @@ const ManagementForm = ({ listData, Mode, render, setRender }) => {
           >
             전체
           </button>
-          {/* <button
-            className={`button-manageform ${
-              activeTab === "apply" ? "active" : ""
-            }`}
-            onClick={() => handleTabClick("apply")}
-          >
-            지원
-          </button> */}
           <button
             className={`button-manageform ${
               activeTab === "inprogress" ? "active" : ""
@@ -231,22 +223,6 @@ const ManagementForm = ({ listData, Mode, render, setRender }) => {
                 ))}
               </>
             )}
-            {/* {activeTab === "apply" && (
-              <>
-                {applySchedules.map((schedule) => (
-                  <li key={schedule.id} className="list-item-manageform">
-                    <span onClick={() => navigate(schedule.link)}>
-                      {schedule.project}
-                    </span>
-                    <span>
-                      {schedule.status === "apply" ? "지원" : "미승낙"}
-                    </span>
-                    <span></span>
-                  </li>
-                ))}
-              </>
-            )} */}
-
             {activeTab === "inprogress" && (
               <>
                 {inProgressSchedules.map((schedule, index) => (
