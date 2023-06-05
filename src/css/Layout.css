@@ -55,21 +55,21 @@
 #LayoutHeader .menubar {
     position: absolute;
     width: 100%;
-    height: 70px;
+    height: 65px;
     top: 70px;
     left: 0px;
     background: #FBDB6A;
 }
 
 li.menu span {
-    color: rgb(0, 0, 0);
-    font-size: 21px;
+    color: rgb(24, 24, 24);
+    font-size: 20px;
     font-weight: bolder;
     display: block;
-    height: 60px;
+    height: 55px;
     text-align: center;
     align-items: center;
-    padding: 5px 30px 5px;
+    padding: 5px 25px 5px;
     text-decoration: none;
 }
 
@@ -121,14 +121,13 @@ li.member {
     line-height: 40px;
     margin: 0 12% 0 12%;
     padding: 20px 0 20px 0; */
-    padding-bottom: 150px;
-    min-height: 60vh;
+    /* padding-bottom: 150px; */
+    min-height: 70vh;
     z-index: 1;
 }
 
 #LayoutFooter {
     width: 100%;
-    height: 150px;
     background: #FBDB6A;
     bottom: 0;
     position: relative;
@@ -136,7 +135,7 @@ li.member {
 
 #LayoutFooter td {
     font-weight: 600;
-    color: rgb(37, 36, 36);
+    color: rgb(78, 78, 78);
     padding: 5px;
 }
 
