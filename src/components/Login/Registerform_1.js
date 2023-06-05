@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 const Registerform_1 = () => {
   const [password, setPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
-  const [isMatch, setIsMatch] = useState(true);
+  const [isMatch, setIsMatch] = useState(false);
   const idRef = useRef();
   const pwRef = useRef();
   const pwConfirmRef = useRef();
@@ -63,10 +63,14 @@ const Registerform_1 = () => {
   };
 
   const handlePasswordChange = (event) => {
-    setPassword(event.target.value);
-    setIsMatch(event.target.value === passwordConfirm);
+    const inputValue = event.target.value;
+    setPassword(inputValue);
 
-    const password = event.target.value;
+    if (password === inputValue && inputValue !== null && inputValue !== '') {
+      setIsMatch(true);
+    } else {
+      setIsMatch(false);
+    }
 
     const regex =
       /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+=-]).{8,16}$/;
@@ -112,7 +116,11 @@ const Registerform_1 = () => {
 
   const handlePasswordConfirmChange = (event) => {
     setPasswordConfirm(event.target.value);
-    setIsMatch(event.target.value === password);
+    if (password === event.target.value && event.target.value !== null && event.target.value !== '') {
+      setIsMatch(true);
+    } else {
+      setIsMatch(false);
+    }
   };
 
   const handleSubmit = (event) => {
@@ -201,12 +209,11 @@ const Registerform_1 = () => {
     <div>
       <center>
         <h1>클라이언트 회원가입</h1>
-        <p>&nbsp;&nbsp;</p>
         <form onSubmit={handleSubmit}>
           <table border="0" width="300px" align="center">
             <hr />
             <tr>
-              <td style={{ fontSize: "20px" }}>
+              <td style={{ fontSize: "20px", paddingTop: "15px" }}>
                 아이디
                 <span style={{ color: "red", marginLeft: "5px" }}>*</span>
               </td>
@@ -223,7 +230,6 @@ const Registerform_1 = () => {
                   style={{ fontSize: "20px" }}
                   onKeyPress={handleIdKeyPress}
                 />
-                <h>&nbsp;&nbsp;</h>
                 <button
                   type="button"
                   style={{
@@ -232,6 +238,8 @@ const Registerform_1 = () => {
                     backgroundColor: "#ffe68b",
                     fontSize: "18px",
                     border: "none",
+                    marginBottom: "25px",
+                    marginLeft: "10px"
                   }}
                   onClick={handleCheck}
                 >
@@ -239,7 +247,7 @@ const Registerform_1 = () => {
                 </button>
               </td>
             </tr>
-            <p>&nbsp;&nbsp;</p>
+
             <tr>
               <td style={{ fontSize: "20px" }}>
                 비밀번호
@@ -258,11 +266,11 @@ const Registerform_1 = () => {
                   value={password}
                   onChange={handlePasswordChange}
                   placeholder="비밀번호를 입력하세요(8~16자리, 특수문자 가능)"
-                  style={{ fontSize: "20px", border: '1px solid black' }}
+                  style={{ fontSize: "20px", border: '1px solid black', marginBottom: "25px", }}
                 />
               </td>
             </tr>
-            <p>&nbsp;&nbsp;</p>
+
             <tr>
               <td style={{ fontSize: "20px" }}>
                 비밀번호 확인
@@ -285,14 +293,14 @@ const Registerform_1 = () => {
             </tr>
             <tr>
               <td
-                style={{ fontSize: "15px", color: isMatch ? "green" : "red" }}
+                style={{ fontSize: "15px", color: isMatch ? "green" : "red", paddingBottom: "15px" }}
               >
                 {isMatch
                   ? "비밀번호가 일치합니다."
-                  : "비밀번호가 일치하지 않습니다."}
+                  : "비밀번호를 다시 확인해 주세요."}
               </td>
             </tr>
-            <p>&nbsp;&nbsp;</p>
+
             <tr>
               <td style={{ fontSize: "20px" }}>
                 상호 명
@@ -307,11 +315,11 @@ const Registerform_1 = () => {
                   size="40"
                   ref={nmRef}
                   placeholder="상호 명을 입력하세요"
-                  style={{ fontSize: "20px" }}
+                  style={{ fontSize: "20px", marginBottom: "25px" }}
                 />
               </td>
             </tr>
-            <p>&nbsp;&nbsp;</p>
+
             <tr>
               <td style={{ fontSize: "20px" }}>
                 라이센스 파일을 업로드해주세요.
@@ -324,11 +332,11 @@ const Registerform_1 = () => {
                   type="file"
                   accept="image/*, .pdf"
                   onChange={getNewLicense}
-                  style={{ fontSize: "20px" }}
+                  style={{ fontSize: "20px", marginBottom: "25px" }}
                 />
               </td>
             </tr>
-            <p>&nbsp;&nbsp;</p>
+
             <tr>
               <td style={{ fontSize: "20px" }}>
                 이메일
@@ -343,11 +351,11 @@ const Registerform_1 = () => {
                   size="40"
                   ref={emailRef}
                   placeholder="ex) email@peoplancer.com"
-                  style={{ fontSize: "20px" }}
+                  style={{ fontSize: "20px", marginBottom: "25px" }}
                 />
               </td>
             </tr>
-            <p>&nbsp;&nbsp;</p>
+
             <tr>
               <td style={{ fontSize: "20px" }}>
                 <label htmlFor="phone-number-input">전화번호 </label>
@@ -365,11 +373,11 @@ const Registerform_1 = () => {
                   onChange={handlePhoneNumberChange}
                   size="40"
                   placeholder="-빼고 숫자만 입력해주세요"
-                  style={{ fontSize: "20px" }}
+                  style={{ fontSize: "20px", marginBottom: "25px" }}
                 />
               </td>
             </tr>
-            <p>&nbsp;&nbsp;</p>
+
             <tr>
               <td align="left" colspan="2" style={{ fontSize: "15px" }}>
                 <label style={{ display: "inline-block" }}>
@@ -411,32 +419,31 @@ const Registerform_1 = () => {
                     type="checkbox"
                     name="agreement"
                     value="agree"
-                    style={{ width: "20px", height: "20px" }}
+                    style={{ width: "20px", height: "20px", marginBottom: "25px" }}
                   />
                   &nbsp; 마케팅 수신・홍보 목적의 개인정보 수집 및 이용에
                   동의합니다. (선택)
                 </label>
               </td>
             </tr>
-            <p>&nbsp;&nbsp;</p>
+
             <tr>
               <td colSpan="2" align="center" style={{ fontSize: "20px" }}>
-                <input
-                  type="button"
-                  value="버튼만 누르면 회원가입 완료!"
+                <button
                   onClick={handleMember}
                   style={{
                     width: "300px",
                     height: "60px",
                     backgroundColor: "#ffe68b",
                     border: "none",
+                    marginBottom: "25px"
                   }}
-                ></input>
+                ><h1>회원가입</h1></button>
               </td>
             </tr>
-            <p>&nbsp;&nbsp;</p>
+
             <hr />
-            <p>&nbsp;&nbsp;</p>
+
             <tr>
               <td colSpan="2" align="center">
                 <h4>
@@ -448,7 +455,7 @@ const Registerform_1 = () => {
           </table>
         </form>
       </center>
-    </div>
+    </div >
   );
 };
 

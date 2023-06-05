@@ -1,6 +1,7 @@
 import { useRef } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import "../../css/loginform.css";
 
 const Loginform = ({ onLogin }) => {
   const idRef = useRef();
@@ -46,66 +47,52 @@ const Loginform = ({ onLogin }) => {
   };
 
   return (
-    <div>
-
-      <center>
+    <div className="login-container">
+      <div className="login-form">
         <h1>로그인</h1>
-        <p>&nbsp;&nbsp;</p>
         <form>
-          <table border="0" width="300px" align="center" hight="50px">
-            <hr />
-            <tr>
-              <td style={{ fontSize: '20px' }}> 아이디</td>
-            </tr>
-            <tr>
-              <td align="left" colspan="2">
-                <input type="text"
-                  name="id"
-                  size="40"
-                  ref={idRef}
-                  placeholder="아이디를 입력하세요"
-                  style={{ fontSize: '20px' }} />
-              </td>
-            </tr>
-            <p>&nbsp;&nbsp;</p>
-            <tr>
-              <td style={{ fontSize: '20px' }}> 패스워드</td>
-            </tr>
-            <tr>
-              <td align="left" colspan="2">
-                <input type="password"
-                  name="password"
-                  size="40"
-                  ref={pwRef}
-                  placeholder="비밀번호를 입력하세요"
-                  style={{ fontSize: '20px' }} />
-              </td>
-            </tr>
-            <p>&nbsp;&nbsp;</p>
-            <tr>
-              <td colSpan="2" align="center">
-                <input
-                  type="button"
-                  value="로그인"
-                  onClick={handleLogin}
-                  style={{ width: '150px', height: '50px', backgroundColor: '#ffe68b', fontSize: '20px', border: 'none' }}
-                />
-                &nbsp;&nbsp;
-                <input
-                  type="button"
-                  value="회원가입"
-                  onClick={Loginselect}
-                  style={{ width: '150px', height: '50px', backgroundColor: '#ffe68b', fontSize: '20px', border: 'none' }}
-                />
-                <p>&nbsp;&nbsp;</p>
-                <hr />
-              </td>
-            </tr>
-          </table>
+          <hr />
+          <div className="marginbottom">
+            <label htmlFor="id" className="form-label">아이디</label>
+            <input
+              type="text"
+              name="id"
+              id="id"
+              size="40"
+              ref={idRef}
+              placeholder="아이디를 입력하세요"
+            />
+          </div>
+          <div className="marginbottom">
+            <label htmlFor="password" className="form-label">패스워드</label>
+            <input
+              type="password"
+              name="password"
+              id="password"
+              size="40"
+              ref={pwRef}
+              placeholder="비밀번호를 입력하세요"
+            />
+          </div>
+          <div>
+            <input
+              type="button"
+              value="로그인"
+              onClick={handleLogin}
+            />
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <input
+              type="button"
+              value="회원가입"
+              onClick={Loginselect}
+            />
+          </div>
+          <hr />
         </form>
-      </center>
+      </div>
     </div>
   );
 };
+
 
 export default Loginform;
