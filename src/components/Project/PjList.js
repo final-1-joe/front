@@ -232,7 +232,12 @@ const PjList = () => {
         </div>
         <hr className="ListHr" />
         <div className="Listnew">
-          <select id="ListFilter" ref={orderbyRef} onChange={handleTagChange}>
+          <select
+            id="ListFilter"
+            ref={orderbyRef}
+            onChange={handleTagChange}
+            className="Listnew-box"
+          >
             <option value="new">최신순</option>
             <option value="old">오래된순</option>
           </select>
