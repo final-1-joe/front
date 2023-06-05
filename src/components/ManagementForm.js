@@ -10,7 +10,7 @@ const ManagementForm = ({ listData, Mode, render, setRender }) => {
   const [ongoingSchedules, setOngoingSchedules] = useState([]);
   const [completedSchedules, setCompletedSchedules] = useState([]);
   const [finishedSchedules, setFinishedSchedules] = useState([]);
-  const colors = ['red', 'blue', 'green', 'yellow', 'orange'];
+  const colors = ["red", "blue", "green", "yellow", "orange"];
   const randomColor = colors[Math.floor(Math.random() * colors.length)];
   const navigate = useNavigate();
 
@@ -42,12 +42,15 @@ const ManagementForm = ({ listData, Mode, render, setRender }) => {
   const modifyCompleted = (schedule) => {
     const confirmed = window.confirm("모집 완료 상태로 변경하시겠습니까?");
     if (confirmed) {
-      console.log()
+      console.log();
       axios
-        .post("http://localhost:8080/auth/modifycompleted", { pj_num: schedule.id })
+        .post("http://localhost:8080/auth/modifycompleted", {
+          pj_num: schedule.id,
+        })
         .then((response) => {
           console.log(response.data);
           setRender(!render);
+          navigate(`/client/project`);
         })
         .catch((error) => {
           console.error(error);
@@ -63,6 +66,7 @@ const ManagementForm = ({ listData, Mode, render, setRender }) => {
         .then((response) => {
           console.log(response.data);
           setRender(!render);
+          navigate(`/client/project`);
         })
         .catch((error) => {
           console.error(error);
@@ -78,6 +82,7 @@ const ManagementForm = ({ listData, Mode, render, setRender }) => {
         .then((response) => {
           console.log(response.data);
           setRender(!render);
+          navigate(`/client/project`);
         })
         .catch((error) => {
           console.error(error);
@@ -116,7 +121,7 @@ const ManagementForm = ({ listData, Mode, render, setRender }) => {
         })
         .catch((e) => {
           console.error(e);
-        })
+        });
     }
   };
 
@@ -146,44 +151,41 @@ const ManagementForm = ({ listData, Mode, render, setRender }) => {
       <div className="container-manageform">
         <div className="tab-manageform">
           <button
-            className={`button-manageform ${activeTab === "all" ? "active" : ""
-              }`}
+            className={`button-manageform ${
+              activeTab === "all" ? "active" : ""
+            }`}
             onClick={() => handleTabClick("all")}
           >
             전체
           </button>
-          {/* <button
-            className={`button-manageform ${
-              activeTab === "apply" ? "active" : ""
-            }`}
-            onClick={() => handleTabClick("apply")}
-          >
-            지원
-          </button> */}
           <button
-            className={`button-manageform ${activeTab === "inprogress" ? "active" : ""
-              }`}
+            className={`button-manageform ${
+              activeTab === "inprogress" ? "active" : ""
+            }`}
             onClick={() => handleTabClick("inprogress")}
           >
             모집중
           </button>
           <button
-            className={`button-manageform ${activeTab === "completed" ? "active" : ""
-              }`}
+            className={`button-manageform ${
+              activeTab === "completed" ? "active" : ""
+            }`}
             onClick={() => handleTabClick("completed")}
           >
             모집완료
           </button>
           <button
-            className={`button-manageform ${activeTab === "ongoing" ? "active" : ""
-              }`}
+            className={`button-manageform ${
+              activeTab === "ongoing" ? "active" : ""
+            }`}
             onClick={() => handleTabClick("ongoing")}
           >
             진행중
           </button>
           <button
-            className={`button-manageform ${activeTab === "finished" ? "active" : ""
-              }`}
+            className={`button-manageform ${
+              activeTab === "finished" ? "active" : ""
+            }`}
             onClick={() => handleTabClick("finished")}
           >
             진행완료
@@ -209,34 +211,18 @@ const ManagementForm = ({ listData, Mode, render, setRender }) => {
                       {schedule.status === "completed"
                         ? "모집완료"
                         : schedule.status === "inprogress"
-                          ? "모집중"
-                          : schedule.status === "ongoing"
-                            ? "협업중"
-                            : schedule.status === "finished"
-                              ? "협업완료"
-                              : ""}
+                        ? "모집중"
+                        : schedule.status === "ongoing"
+                        ? "협업중"
+                        : schedule.status === "finished"
+                        ? "협업완료"
+                        : ""}
                     </span>
                     <span></span>
                   </li>
                 ))}
               </>
             )}
-            {/* {activeTab === "apply" && (
-              <>
-                {applySchedules.map((schedule) => (
-                  <li key={schedule.id} className="list-item-manageform">
-                    <span onClick={() => navigate(schedule.link)}>
-                      {schedule.project}
-                    </span>
-                    <span>
-                      {schedule.status === "apply" ? "지원" : "미승낙"}
-                    </span>
-                    <span></span>
-                  </li>
-                ))}
-              </>
-            )} */}
-
             {activeTab === "inprogress" && (
               <>
                 {inProgressSchedules.map((schedule, index) => (
@@ -249,9 +235,7 @@ const ManagementForm = ({ listData, Mode, render, setRender }) => {
                     </span>
                     <span>
                       <button
-                        onClick={() =>
-                          handleApprove(schedule)
-                        }
+                        onClick={() => handleApprove(schedule)}
                         className="change-status-button"
                       >
                         승낙
@@ -326,36 +310,41 @@ const ManagementForm = ({ listData, Mode, render, setRender }) => {
       <div className="container-manageform">
         <div className="tab-manageform">
           <button
-            className={`button-manageform ${activeTab === "all" ? "active" : ""
-              }`}
+            className={`button-manageform ${
+              activeTab === "all" ? "active" : ""
+            }`}
             onClick={() => handleTabClick("all")}
           >
             전체
           </button>
           <button
-            className={`button-manageform ${activeTab === "inprogress" ? "active" : ""
-              }`}
+            className={`button-manageform ${
+              activeTab === "inprogress" ? "active" : ""
+            }`}
             onClick={() => handleTabClick("inprogress")}
           >
             모집중
           </button>
           <button
-            className={`button-manageform ${activeTab === "completed" ? "active" : ""
-              }`}
+            className={`button-manageform ${
+              activeTab === "completed" ? "active" : ""
+            }`}
             onClick={() => handleTabClick("completed")}
           >
             모집완료
           </button>
           <button
-            className={`button-manageform ${activeTab === "ongoing" ? "active" : ""
-              }`}
+            className={`button-manageform ${
+              activeTab === "ongoing" ? "active" : ""
+            }`}
             onClick={() => handleTabClick("ongoing")}
           >
             진행중
           </button>
           <button
-            className={`button-manageform ${activeTab === "finished" ? "active" : ""
-              }`}
+            className={`button-manageform ${
+              activeTab === "finished" ? "active" : ""
+            }`}
             onClick={() => handleTabClick("finished")}
           >
             완료
@@ -387,12 +376,12 @@ const ManagementForm = ({ listData, Mode, render, setRender }) => {
                       {schedule.status === "completed"
                         ? "모집완료"
                         : schedule.status === "inprogress"
-                          ? "모집중"
-                          : schedule.status === "ongoing"
-                            ? "진행중"
-                            : schedule.status === "finished"
-                              ? "진행완료"
-                              : ""}
+                        ? "모집중"
+                        : schedule.status === "ongoing"
+                        ? "진행중"
+                        : schedule.status === "finished"
+                        ? "진행완료"
+                        : ""}
                     </span>
                     <span></span>
                   </li>

@@ -1,25 +1,22 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import MySidebarItem from "./MySidebarItem";
 import "../../../css/MySidebarStyle.css";
-import axios from "axios";
 
 const MySidebar = () => {
   const paths = useLocation().path;
-  //const [userCode, setUserCode] = useState("");
   const pathName = useLocation().pathname.split("/")[1];
-  const user = window.sessionStorage.getItem("user_id");
 
   const freeTabs = [
-    { name: "홈", path: "/free/mypage" },
+    { name: "프로젝트목록", path: "/free/mypage" },
     { name: "일정관리", path: "/free/calendar" },
     { name: "이력서관리", path: "/free/myresume" },
-    { name: "프로젝트목록", path: "/free/myproject" },
+    // { name: "프로젝트목록", path: "/free/myproject" },
     { name: "회원정보수정", path: "/free/myinfo" },
   ];
 
   const clientTabs = [
-    { name: "홈", path: "/client/mypage" },
+    { name: "내 정보", path: "/client/mypage" },
     { name: "프로젝트관리", path: "/client/project" },
     // { name: "모집현황", path: "/client/recruit" },
     { name: "회원정보수정", path: "/client/myinfo" },
