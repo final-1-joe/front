@@ -45,6 +45,14 @@ const Layout = ({ isLoggedIn, handleLogout, onLogin }) => {
     navigate("/");
   };
 
+  const goDirect = () => {
+    if (user_id == null || '') {
+      navigate("/loginform");
+    } else {
+      navigate("/direct");
+    }
+  }
+
   const getMyPageLink = () => {
     const storedUserCode = window.sessionStorage.getItem("user_code");
     if (storedUserCode === "free") {
@@ -68,9 +76,9 @@ const Layout = ({ isLoggedIn, handleLogout, onLogin }) => {
             </Link>
           </div>
           <div id="bell">
-            <Link to="/direct">
+            <div onClick={goDirect}>
               <img src="/images/dm.png" width="55px" alt="알림"></img>
-            </Link>
+            </div>
           </div>
           <div>
             <ul className="memberbtn">

@@ -87,6 +87,8 @@ div .memberbtn {
     position: absolute;
     right: 0px;
     top: 10px;
+    margin: 15px 0px 0px 0px;
+    padding: 0px;
 }
 
 li.member a {
