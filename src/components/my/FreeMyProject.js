@@ -57,71 +57,71 @@ function MyProject() {
       });
   }, []);
 
-  const handleUpdate = (pj_num) => {
-    const confirmed = window.confirm("프로젝트를 승낙하시겠습니까?");
+  // const handleUpdate = (pj_num) => {
+  //   const confirmed = window.confirm("프로젝트를 승낙하시겠습니까?");
 
-    if (confirmed) {
-      axios
-        .put("http://localhost:8080/auth/updatecompleted", {
-          user_id: user,
-          pj_num: pj_num,
-        })
-        .then((response) => {
-          window.location.reload();
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    }
-  };
+  //   if (confirmed) {
+  //     axios
+  //       .put("http://localhost:8080/auth/updatecompleted", {
+  //         user_id: user,
+  //         pj_num: pj_num,
+  //       })
+  //       .then((response) => {
+  //         window.location.reload();
+  //       })
+  //       .catch((error) => {
+  //         console.error(error);
+  //       });
+  //   }
+  // };
 
-  const handleDelete = (pj_num) => {
-    const confirmed = window.confirm(
-      "프로젝트를 거절하시겠습니까? \n거절하시면 제안이 삭제됩니다"
-    );
+  // const handleDelete = (pj_num) => {
+  //   const confirmed = window.confirm(
+  //     "프로젝트를 거절하시겠습니까? \n거절하시면 제안이 삭제됩니다"
+  //   );
 
-    if (confirmed) {
-      axios
-        .post("http://localhost:8080/auth/deleteinprogress", {
-          user_id: user,
-          pj_num: pj_num,
-        })
-        .then((response) => {
-          window.location.reload();
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    }
-  };
+  //   if (confirmed) {
+  //     axios
+  //       .post("http://localhost:8080/auth/deleteinprogress", {
+  //         user_id: user,
+  //         pj_num: pj_num,
+  //       })
+  //       .then((response) => {
+  //         window.location.reload();
+  //       })
+  //       .catch((error) => {
+  //         console.error(error);
+  //       });
+  //   }
+  // };
 
-  const goDM = async (user_id, pj_num) => {
-    try {
-      const response = await axios.get("http://localhost:8080/auth/connectdm", {
-        params: {
-          user_id: user,
-          pj_num: pj_num,
-        },
-      });
-      const { my_user_id, your_user_id } = response.data;
-      console.log(response.data);
+  // const goDM = async (user_id, pj_num) => {
+  //   try {
+  //     const response = await axios.get("http://localhost:8080/auth/connectdm", {
+  //       params: {
+  //         user_id: user,
+  //         pj_num: pj_num,
+  //       },
+  //     });
+  //     const { my_user_id, your_user_id } = response.data;
+  //     console.log(response.data);
 
-      const chatDto2 = {
-        my_user_id: my_user_id,
-        your_user_id: your_user_id,
-      };
+  //     const chatDto2 = {
+  //       my_user_id: my_user_id,
+  //       your_user_id: your_user_id,
+  //     };
 
-      const createChatroomResponse = await axios.post(
-        "http://localhost:8080/createChatroom",
-        chatDto2
-      );
-      const chatroomId = createChatroomResponse.data;
-      console.log("Chatroom created with Id:", chatroomId);
-      navigate("/direct");
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  //     const createChatroomResponse = await axios.post(
+  //       "http://localhost:8080/createChatroom",
+  //       chatDto2
+  //     );
+  //     const chatroomId = createChatroomResponse.data;
+  //     console.log("Chatroom created with Id:", chatroomId);
+  //     navigate("/direct");
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
   return (
     <div className="mypageLayout">
@@ -153,7 +153,7 @@ function MyProject() {
             </div>
           </Link>
         ))}
-        <h4 className="myh4">제안받은 프로젝트</h4>
+        {/* <h4 className="myh4">제안받은 프로젝트</h4>
         {offeredProject.map((project) => (
           <form className="myoffered" key={project.pj_num} id={project.pj_num}>
             <Link
@@ -192,7 +192,7 @@ function MyProject() {
               거부
             </button>
           </form>
-        ))}
+        ))} */}
         <h4 className="myh4">완료된 프로젝트</h4>
         {finishedProject.map((project) => (
           <Link

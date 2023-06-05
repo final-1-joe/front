@@ -114,6 +114,9 @@
 .change-status-button {
   background: white;
   border: none;
+  border-radius: 10px;
+  font-size: 19px;
+  font-weight: bold;
 }
 
 .change-status-button:hover {
