@@ -37,6 +37,20 @@ const PjDetail = () => {
       });
   };
 
+  const dmchatcreate = () => {
+    axios
+      .post("http://localhost:8080/createChatroom", {
+        my_user_id: user_id,
+        your_user_id: project.user_id,
+      })
+      .then((res) => {
+        //console.log(res.data);
+      })
+      .catch((error) => {
+        console.error("/createChatroom 에러 발생" + error);
+      });
+  };
+
   useEffect(() => {
     if (isSelected) {
       window.location.reload(); // 페이지 새로고침
@@ -229,7 +243,13 @@ const PjDetail = () => {
                   </span>
                 </td>
                 <td>
-                  <span className="PjDM" onClick={() => navigate(`/direct`)}>
+                  <span
+                    className="PjDM"
+                    onClick={() => {
+                      dmchatcreate();
+                      navigate(`/direct`);
+                    }}
+                  >
                     DM
                   </span>
                 </td>
