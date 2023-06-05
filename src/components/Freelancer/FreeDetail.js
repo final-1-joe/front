@@ -38,7 +38,7 @@ const FreeDetail = () => {
 
   const onClickLike = () => {
     axios
-      .post(`http://localhost:8080/auth/register/free`, {
+      .post(`http://localhost:8080/auth/insertmarkf`, {
         user_id: loginid,
         mark_fre_id: user_id,
       })
