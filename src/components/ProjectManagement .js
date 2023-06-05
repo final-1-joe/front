@@ -6,6 +6,7 @@ import axios from "axios";
 const ProjectManagement = () => {
   const [scheduleData, setScheduleData] = useState([]);
   const user = window.sessionStorage.getItem("user_id");
+  const [render, setRender] = useState(false);
 
   useEffect(() => {
     axios
@@ -29,13 +30,14 @@ const ProjectManagement = () => {
       .catch((error) => {
         console.error(error);
       });
-  });
+  }, [render]);
+
 
   return (
     <div>
       <div className="flex">
         <MySidebar />
-        <ManagementForm listData={scheduleData} />
+        <ManagementForm listData={scheduleData} render={render} setRender={setRender} />
       </div>
     </div>
   );
