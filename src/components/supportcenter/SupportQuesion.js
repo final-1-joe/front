@@ -68,7 +68,7 @@ const SupportQuesion = ({ scnum, scquestion, scanswer, getFaq }) => {
 
   return (
     <div>
-      <ul>
+      <ul className="ul_list_style">
         <li className="sc_lis">
           <div className="sc_lis-0" onClick={() => setShowInfo(!showInfo)}>
             <span className="sc_lis-1">Q</span>
