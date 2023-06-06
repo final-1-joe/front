@@ -84,7 +84,7 @@ a:hover {
 
 .sc_lis-2 {
     display: inline-block;
-    width: 900px;
+    width: 970px;
     font-size: 22px;
     /* line-height: 1.64; */
     color: rgb(17, 17, 17);
@@ -434,7 +434,7 @@ a:hover {
     padding: 20px;
     border-radius: 10px;
     color: #555555;
-    font-size: 16px;
+    font-size: 20px;
     border: 1px solid #ffd43b;
 }
 
@@ -477,6 +477,7 @@ a:hover {
 .sc_an_wr_btn {
     margin-right: 30px;
     text-align: right !important;
+    margin-bottom: 10px;
 }
 
 .one-box {
@@ -536,7 +537,7 @@ a:hover {
     height: 45px;
     line-height: 45px;
     color: #555555;
-    font-size: 16px;
+    font-size: 20px;
     border: 1px solid #ebebeb;
 }
 
@@ -544,6 +545,7 @@ a:hover {
     margin-top: 10px;
     width: auto;
     text-align: center;
+    margin-bottom: 10px;
 }
 
 .mt60 {

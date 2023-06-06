@@ -134,6 +134,29 @@ const ResumeMypage = () => {
       });
   };
 
+  const deleteResume = () => {
+    axios
+      .post("http://localhost:8080/resume/delete", {
+        user_id: user_id,
+      })
+      .then((res) => {
+        axios
+          .post("http://localhost:8080/user/updater", {
+            user_id: user_id,
+            user_resume: 0,
+          })
+          .then((res) => {
+            navigate("/free/mypage");
+          })
+          .catch((e) => {
+            console.error(e);
+          });
+      })
+      .catch((e) => {
+        console.error(e);
+      });
+  };
+
   const updateResume = () => {
     if (nmRef.current.value === "" || nmRef.current.value === undefined) {
       alert("이름을 입력하세요!!!");
@@ -190,7 +213,7 @@ const ResumeMypage = () => {
           user_intro: introRef.current.value || null,
         })
         .then((res) => {
-          navigate("/free/mypage");
+          navigate(-1);
         })
         .catch((e) => {
           console.error(e);
@@ -231,7 +254,7 @@ const ResumeMypage = () => {
               user_intro: introRef.current.value || null,
             })
             .then((res) => {
-              navigate("/free/mypage");
+              navigate(-1);
             })
             .catch((e) => {
               console.error(e);
@@ -306,7 +329,19 @@ const ResumeMypage = () => {
           user_github: githubRef.current.value || null,
           user_intro: introRef.current.value || null,
         })
-        .then((res) => {})
+        .then((res) => {
+          axios
+            .post("http://localhost:8080/user/updater", {
+              user_id: user_id,
+              user_resume: 1,
+            })
+            .then((res) => {
+              navigate("/free/mypage");
+            })
+            .catch((e) => {
+              console.error(e);
+            });
+        })
         .catch((e) => {
           console.error(e);
         });
@@ -343,7 +378,19 @@ const ResumeMypage = () => {
               user_github: githubRef.current.value || null,
               user_intro: introRef.current.value || null,
             })
-            .then((res) => {})
+            .then((res) => {
+              axios
+                .post("http://localhost:8080/user/updater", {
+                  user_id: user_id,
+                  user_resume: 1,
+                })
+                .then((res) => {
+                  navigate("/free/mypage");
+                })
+                .catch((e) => {
+                  console.error(e);
+                });
+            })
             .catch((e) => {
               console.error(e);
             });
@@ -352,17 +399,6 @@ const ResumeMypage = () => {
           console.error(e);
         });
     }
-    axios
-      .post("http://localhost:8080/user/updater", {
-        user_id: user_id,
-        user_resume: 1,
-      })
-      .then((res) => {
-        navigate("/free/mypage");
-      })
-      .catch((e) => {
-        console.error(e);
-      });
   };
   return (
     <div className="reflex">
@@ -697,6 +733,9 @@ const ResumeMypage = () => {
                 onClick={() => navigate(-1)}
               >
                 취소
+              </Link>
+              <Link className="btn-m02 btn-color06 flri" onClick={deleteResume}>
+                삭제
               </Link>
             </div>
           </div>

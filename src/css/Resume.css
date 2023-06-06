@@ -383,3 +383,7 @@ input[type="radio" i] {
   option:hover,  .active{
     background-color: lightblue;
   }
+
+  .flri{
+    float: right;
+  }
