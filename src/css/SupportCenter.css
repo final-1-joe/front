@@ -84,35 +84,42 @@ a:hover {
 
 .sc_lis-2 {
     display: inline-block;
-    width: 900px;
+    width: 970px;
     font-size: 22px;
-    line-height: 1.64;
+    /* line-height: 1.64; */
     color: rgb(17, 17, 17);
+    margin: 10px 0 5px 0;
 }
 
 .sc_lis-3 {
-    position: absolute;
-    display: inline-block;
+    /*position: absolute;*/
+    /* display: flex; */
     width: 30px;
-    
     text-align: center;
     top: 0px;
     right: 24px;
     margin-top: 10px;
+    justify-content: center;
+
+}
+
+.ul_list_style {
+    list-style-type: none;
+    padding: 0px;
+    margin: 0px;
 }
 
 .sc_an-0 {
-    padding: 15px 0px;
-
+    padding: 20px 0px;
     background-color: #faf9db;
 }
 
 .sc_an-1 {
     display: inline-block;
-
-    font-size: 20px;
+    font-size: 22px;
     color: #0f0f0f;
     text-align: center;
+    width: 68px;
 }
 
 .sc_an-2 {
@@ -121,7 +128,7 @@ a:hover {
     word-break: break-all;
     text-align: left !important;
     width: 900px;
-    font-size: 20px;
+    font-size: 22px;
     font-weight: 500;
     color: rgb(17, 17, 17);
     line-height: 1.62;
@@ -134,7 +141,7 @@ a:hover {
 }
 
 .sc_an-3 {
-    
+
     font-size: 18px;
     text-align: center;
     display: inline-block;
@@ -427,7 +434,7 @@ a:hover {
     padding: 20px;
     border-radius: 10px;
     color: #555555;
-    font-size: 16px;
+    font-size: 20px;
     border: 1px solid #ffd43b;
 }
 
@@ -470,6 +477,7 @@ a:hover {
 .sc_an_wr_btn {
     margin-right: 30px;
     text-align: right !important;
+    margin-bottom: 10px;
 }
 
 .one-box {
@@ -529,7 +537,7 @@ a:hover {
     height: 45px;
     line-height: 45px;
     color: #555555;
-    font-size: 16px;
+    font-size: 20px;
     border: 1px solid #ebebeb;
 }
 
@@ -537,6 +545,7 @@ a:hover {
     margin-top: 10px;
     width: auto;
     text-align: center;
+    margin-bottom: 10px;
 }
 
 .mt60 {

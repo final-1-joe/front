@@ -149,7 +149,19 @@ const Resume = () => {
           user_github: githubRef.current.value || null,
           user_intro: introRef.current.value || null,
         })
-        .then((res) => {})
+        .then((res) => {
+          axios
+            .post("http://localhost:8080/user/updater", {
+              user_id: user_id,
+              user_resume: 1,
+            })
+            .then((res) => {
+              navigate("/");
+            })
+            .catch((e) => {
+              console.error(e);
+            });
+        })
         .catch((e) => {
           console.error(e);
         });
@@ -186,7 +198,19 @@ const Resume = () => {
               user_github: githubRef.current.value || null,
               user_intro: introRef.current.value || null,
             })
-            .then((res) => {})
+            .then((res) => {
+              axios
+                .post("http://localhost:8080/user/updater", {
+                  user_id: user_id,
+                  user_resume: 1,
+                })
+                .then((res) => {
+                  navigate("/");
+                })
+                .catch((e) => {
+                  console.error(e);
+                });
+            })
             .catch((e) => {
               console.error(e);
             });
@@ -195,17 +219,6 @@ const Resume = () => {
           console.error(e);
         });
     }
-    axios
-      .post("http://localhost:8080/user/updater", {
-        user_id: user_id,
-        user_resume: 1,
-      })
-      .then((res) => {
-        navigate("/");
-      })
-      .catch((e) => {
-        console.error(e);
-      });
   };
 
   return (

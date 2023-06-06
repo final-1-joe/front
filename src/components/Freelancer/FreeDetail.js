@@ -25,11 +25,11 @@ const FreeDetail = () => {
   const openModal = () => {
     setModal(true);
     document.body.style.overflow = "hidden";
-  }
+  };
   const closeModal = () => {
     setModal(false);
     document.body.style.overflow = "auto";
-  }
+  };
 
   const [userCode, setUserCode] = useState("");
   const handleUserCodeChange = (code) => {
@@ -86,6 +86,29 @@ const FreeDetail = () => {
       });
   };
 
+  const deleteResume = () => {
+    axios
+      .post("http://localhost:8080/resume/delete", {
+        user_id: user_id,
+      })
+      .then((res) => {
+        axios
+          .post("http://localhost:8080/user/updater", {
+            user_id: user_id,
+            user_resume: 0,
+          })
+          .then((res) => {
+            navigate("/freelist");
+          })
+          .catch((e) => {
+            console.error(e);
+          });
+      })
+      .catch((e) => {
+        console.error(e);
+      });
+  };
+
   const getportfolio = (user_orfile, user_stfile) => {
     formData.append("originfilename", user_orfile);
     formData.append("storedfilename", user_stfile);
@@ -96,6 +119,7 @@ const FreeDetail = () => {
       .then((res) => {
         console.log(res.data);
         FileSaver.saveAs(res.data, user_orfile);
+        navigate(-1);
       })
       .catch((e) => {
         console.error(e);
@@ -210,10 +234,7 @@ const FreeDetail = () => {
               <td className="FreeBar">|</td>
               <td>{frdata.user_wt}</td>
               <td width="100px"></td>
-              <td
-                align="center"
-                onClick={openModal}
-              >
+              <td align="center" onClick={openModal}>
                 <span id="FreeSchedule">일정 보기</span>
               </td>
             </tr>
@@ -222,9 +243,14 @@ const FreeDetail = () => {
         <br />
         <div>
           {user_id === loginid && (
-            <Link to={`/free/myresume`}>
-              <button className="PjBtn2">이력서 수정</button>
-            </Link>
+            <>
+              <Link to={`/free/myresume`}>
+                <button className="PjBtn2">이력서 수정</button>
+              </Link>
+              <Link onClick={deleteResume}>
+                <button className="PjBtn2">이력서 삭제</button>
+              </Link>
+            </>
           )}
         </div>
         <div className="FreeReview">
@@ -240,7 +266,9 @@ const FreeDetail = () => {
           <br />
         </div>
       </div>
-      {modal && <FreeCalendar open={modal} close={closeModal} userid={user_id} />}
+      {modal && (
+        <FreeCalendar open={modal} close={closeModal} userid={user_id} />
+      )}
     </div>
   );
 };
