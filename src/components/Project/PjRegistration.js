@@ -1,6 +1,6 @@
 import "../../css/PjRegi.css";
 import { useNavigate } from "react-router-dom";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import axios from "axios";
 
 const PjRegistration = () => {
@@ -21,6 +21,12 @@ const PjRegistration = () => {
     pj_pick: "",
     user_id: "",
   });
+  useEffect(() => {
+    setInfo((prevInfo) => ({
+      ...prevInfo,
+      user_id: window.sessionStorage.getItem("user_id"),
+    }));
+  }, []);
   const titleRef = useRef();
   const corpRef = useRef();
   const contentRef = useRef();
@@ -74,7 +80,7 @@ const PjRegistration = () => {
         pj_job: info.pj_job,
         pj_skill: info.pj_skill,
         pj_pick: info.pj_pick,
-        user_id: "admin", // 로그인 기능 합치기 전, id는 임시로 admin으로 설정.
+        user_id: info.user_id,
       })
       .then((res) => {
         const data = res.data;
@@ -132,7 +138,6 @@ const PjRegistration = () => {
             <td>근무 형태 / 지역</td>
             <td>
               <div>
-                {" "}
                 <select
                   className="selectItem"
                   ref={workformRef}
@@ -143,6 +148,7 @@ const PjRegistration = () => {
                     }))
                   }
                 >
+                  <option value="">근무 형태</option>
                   <option value="원격">원격</option>
                   <option value="상주">상주</option>
                 </select>
@@ -158,6 +164,7 @@ const PjRegistration = () => {
                     }))
                   }
                 >
+                  <option value="">근무 지역</option>
                   <option value="서울">서울</option>
                   <option value="경기">경기</option>
                   <option value="인천">인천</option>
@@ -216,6 +223,7 @@ const PjRegistration = () => {
                   }))
                 }
               >
+                <option value="">직군 선택</option>
                 <option value="개발">개발</option>
                 <option value="경영·비즈니스">경영·비즈니스</option>
                 <option value="마케팅·광고">마케팅·광고</option>

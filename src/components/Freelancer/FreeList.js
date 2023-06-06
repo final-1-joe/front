@@ -146,9 +146,9 @@ const FreeList = () => {
   return (
     <div>
       <div className="ListOption">
+        <h2>프리랜서 목록</h2>
         <table className="ListFilter">
           <tr>
-            <td width="100px">프리랜서</td>
             <td>
               <select
                 className="ListSelect"
@@ -212,40 +212,45 @@ const FreeList = () => {
                 <option value="notwork">모집불가능</option>
               </select>
             </td>
+            <td width="30px"></td>
+            <td>
+              <div className="List-search-area">
+                <select
+                  name="searchNo"
+                  id="id_searchNo"
+                  title="검색선택창"
+                  ref={searchRef}
+                >
+                  <option value="0">이름</option>
+                  <option value="1">직종</option>
+                  <option value="2">스킬</option>
+                </select>
+              </div>
+            </td>
+            <td>
+              <div className="List-search-area">
+                <div className="List-search-box">
+                  <input
+                    type="search"
+                    className="List-txt"
+                    name="searchtext"
+                    id="id_searchtext"
+                    ref={searchtextRef}
+                    placeholder="검색어를 입력하세요."
+                    title="검색어를 입력하세요."
+                    onKeyDown={handleKeyPress}
+                  />
+                  <input
+                    type="submit"
+                    className="List-btn-search"
+                    value="검색"
+                    onClick={handleTagChange}
+                  />
+                </div>
+              </div>
+            </td>
           </tr>
         </table>
-        <div className="List-search-wrapper">
-          <div className="List-search-area">
-            <select
-              name="searchNo"
-              id="id_searchNo"
-              title="검색선택창"
-              ref={searchRef}
-            >
-              <option value="0">이름</option>
-              <option value="1">직종</option>
-              <option value="2">스킬</option>
-            </select>
-            <div className="List-search-box">
-              <input
-                type="search"
-                className="List-txt"
-                name="searchtext"
-                id="id_searchtext"
-                ref={searchtextRef}
-                placeholder="검색어를 입력하세요."
-                title="검색어를 입력하세요."
-                onKeyDown={handleKeyPress}
-              />
-              <input
-                type="submit"
-                className="List-btn-search"
-                value="검색"
-                onClick={handleTagChange}
-              />
-            </div>
-          </div>
-        </div>
         <hr className="ListHr" />
         <div className="Listnew">
           <select
