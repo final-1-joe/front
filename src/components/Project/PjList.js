@@ -135,9 +135,9 @@ const PjList = () => {
   return (
     <div>
       <div className="ListOption">
+        <h2>프로젝트 목록</h2>
         <table className="ListFilter">
           <tr>
-            <td width="100px">프로젝트</td>
             <td>
               <select
                 className="ListSelect"
@@ -197,39 +197,44 @@ const PjList = () => {
                 <option value="자택">자택</option>
               </select>
             </td>
+            <td width="60px"></td>
+            <td>
+              <div className="List-search-area">
+                <select
+                  name="searchNo"
+                  id="id_searchNo"
+                  title="검색선택창"
+                  ref={searchRef}
+                >
+                  <option value="0">제목</option>
+                  <option value="1">회사명</option>
+                </select>
+              </div>
+            </td>
+            <td>
+              <div className="List-search-area">
+                <div className="List-search-box">
+                  <input
+                    type="search"
+                    className="List-txt"
+                    name="searchtext"
+                    id="id_searchtext"
+                    ref={searchtextRef}
+                    placeholder="검색어를 입력하세요."
+                    title="검색어를 입력하세요."
+                    onKeyDown={handleKeyPress}
+                  />
+                  <input
+                    type="submit"
+                    className="List-btn-search"
+                    value="검색"
+                    onClick={handleTagChange}
+                  />
+                </div>
+              </div>
+            </td>
           </tr>
         </table>
-        <div className="List-search-wrapper">
-          <div className="List-search-area">
-            <select
-              name="searchNo"
-              id="id_searchNo"
-              title="검색선택창"
-              ref={searchRef}
-            >
-              <option value="0">제목</option>
-              <option value="1">회사명</option>
-            </select>
-            <div className="List-search-box">
-              <input
-                type="search"
-                className="List-txt"
-                name="searchtext"
-                id="id_searchtext"
-                ref={searchtextRef}
-                placeholder="검색어를 입력하세요."
-                title="검색어를 입력하세요."
-                onKeyDown={handleKeyPress}
-              />
-              <input
-                type="submit"
-                className="List-btn-search"
-                value="검색"
-                onClick={handleTagChange}
-              />
-            </div>
-          </div>
-        </div>
         <hr className="ListHr" />
         <div className="Listnew">
           <select

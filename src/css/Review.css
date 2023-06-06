@@ -2,13 +2,19 @@
     padding: 30px;
 }
 
-.RvForm table {
+.RvForm table, .RvList table {
+    width: 100%;
     margin: 0 auto;
 }
 
 .RvForm select {
     padding: 5px;
     width: 150px;
+}
+
+.RvForm textarea {
+    width: 100%;
+    margin: 0 auto;
 }
 
 .RvWrite {
@@ -20,9 +26,6 @@
     padding: 5px;
     white-space: normal !important;
 }
-
-
-
 
 .RvBtn {
     padding: 3px 12px;

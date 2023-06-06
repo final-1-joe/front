@@ -53,7 +53,11 @@ const FreeReviewUpdate = ({ fre_rv_num, fre_rv_target, review }) => {
               <option value={1}>★☆☆☆☆ 1</option>
             </select>
           </td>
-          <td width="30px" style={{ color: "#444" }} align="right">
+          <td
+            width="150px"
+            style={{ color: "#444", fontSize: "12px" }}
+            align="right"
+          >
             작성자&nbsp;&nbsp;&nbsp;{user_id}
           </td>
         </tr>
