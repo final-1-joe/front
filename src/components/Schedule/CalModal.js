@@ -135,24 +135,24 @@ const CalModal = (props) => {
                                 <p>
                                     시작 :&nbsp;&nbsp;
                                     <input
-                                        type='datetime-local'
+                                        type='date'
                                         id='start-time'
                                         value={start}
                                         onChange={(e) => setStart(e.target.value)}
-                                        min='2023-01-01T00:00'
-                                        max='2100-12-31T23:59'
+                                        min='2023-01-01'
+                                        max='2100-12-31'
                                     />
                                 </p>
                                 {end && moment(end).isValid ? (
                                     <p>
                                         끝 :&nbsp;&nbsp;&nbsp; &nbsp;
                                         <input
-                                            type='datetime-local'
+                                            type='date'
                                             id='end-time'
                                             value={end}
                                             onChange={(e) => setEnd(e.target.value)}
-                                            min='2023-01-01T00:00'
-                                            max='2100-12-31T23:59'
+                                            min='2023-01-01'
+                                            max='2100-12-31'
                                         />
                                     </p>
                                 ) : null}
@@ -190,9 +190,9 @@ const CalModal = (props) => {
                                 </button>
                             </header>
                             <main>
-                                <p>시작 : {moment(event.start).format('YYYY-MM-DD HH:mm')}</p>
+                                <p>시작 : {moment(event.start).format('YYYY-MM-DD')}</p>
                                 {event.end && moment(event.end).isValid ? (
-                                    <p>끝 : {moment(event.end).format('YYYY-MM-DD HH:mm')}</p>
+                                    <p>끝 : {moment(event.end).format('YYYY-MM-DD')}</p>
                                 ) : null}
                                 <p>{event.extendedProps.memo}</p>
                                 <hr />

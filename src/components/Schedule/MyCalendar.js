@@ -48,7 +48,7 @@ const MyCalendar = () => {
             setIsStartDateSelected(true);
             alert('시작 날짜가 저장되었습니다.');
         } else {
-            const selectedEndDate = arg.dateStr;
+            const selectedEndDate = `${arg.dateStr}T00:01`;
             if (selectedEndDate <= start) {
                 alert('종료 날짜가 시작 날짜보다 이전입니다.');
             } else {
@@ -138,6 +138,8 @@ const MyCalendar = () => {
             alert('종료 날짜가 시작 날짜보다 이전입니다.');
             return;
         }
+        const endDate = `${end}T23:59:59`;
+        console.log(endDate);
         axios
             .post(`http://localhost:8080/schedule/insert`, {
                 // user_id: 'admin',
@@ -145,7 +147,7 @@ const MyCalendar = () => {
                 schedule_title: title,
                 schedule_content: content,
                 schedule_start: start,
-                schedule_end: end,
+                schedule_end: endDate,
                 schedule_color: color,
             })
             .then(() => {

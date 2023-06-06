@@ -131,6 +131,7 @@ li.member {
     background: #FBDB6A;
     bottom: 0;
     position: relative;
+    margin-top: 20px;
 }
 
 #LayoutFooter td {
