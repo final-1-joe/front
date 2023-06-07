@@ -11,19 +11,12 @@
 }
 
 #Layout {
-    /* min-height: 100%;
-    position: relative; */
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
 }
 
 #LayoutWrapper {
-    /* min-height: 100%;
-    position: relative;
-    padding-bottom: 150px; */
-    /* border: 1px solid black; */
-    /* background-color: rgb(255, 188, 101); */
     min-height: calc(100vh - 150px);
     position: relative;
 }
@@ -37,18 +30,17 @@
     margin: 15px 30px 0px 20px;
 }
 
-#bell {
+#dm {
     position: absolute;
     right: 220px;
     top: 15px;
 }
 
-#bell img {
+#dm img {
     width: 55px;
     transition: transform 0.3s ease;
-}
 
-#bell:hover img {
+#dm:hover img {
     transform: scale(1.2);
 }
 

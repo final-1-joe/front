@@ -62,7 +62,7 @@ const Layout = ({ isLoggedIn, handleLogout, onLogin }) => {
     } else if (storedUserCode === "admin") {
       return "/admin";
     } else {
-      return '/loginform';
+      return "/loginform";
     }
   };
 
@@ -75,8 +75,10 @@ const Layout = ({ isLoggedIn, handleLogout, onLogin }) => {
               <img src="/images/logo.png" width="200" alt="메인" />
             </Link>
           </div>
-          <div id="bell">
+
+          <div id="dm">
             <div onClick={goDirect}>
+
               <img src="/images/dm.png" width="55px" alt="알림"></img>
             </div>
           </div>
@@ -161,7 +163,7 @@ const Layout = ({ isLoggedIn, handleLogout, onLogin }) => {
               <td rowSpan={4}>
                 <div class="logo">
                   <Link to="/">
-                    <img src="/images/logo2.PNG" width="200" alt="프리랜서" />
+                    <img src="/images/logo3.png" width="200" alt="프리랜서" />
                   </Link>
                 </div>
               </td>
