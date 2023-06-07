@@ -15,7 +15,9 @@ function MyProject() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/auth/applypj", { params: { user_id: user } })
+      .get("http://localhost:8080/auth/inprogresspj", {
+        params: { user_id: user },
+      })
       .then((response) => {
         setApplyProject(response.data);
       })
