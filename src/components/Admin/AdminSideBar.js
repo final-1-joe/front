@@ -4,7 +4,7 @@ import "../../css/admin.css";
 
 const AdminSideBar = () => {
     const navigate = useNavigate();
-    const userid = window.sessionStorage.getItem("user_id");
+    const userid = window.sessionStorage.getItem("user_code");
     const admincheck = () => {
         if (userid !== 'admin') {
             navigate("/");

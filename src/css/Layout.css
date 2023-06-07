@@ -22,7 +22,7 @@
 }
 
 #LayoutHeader {
-    height: 150px;
+    height: 160px;
 }
 
 #LayoutLogo {
@@ -39,29 +39,29 @@
 #dm img {
     width: 55px;
     transition: transform 0.3s ease;
- }
-  
-  #dm:hover img {
+
+#dm:hover img {
     transform: scale(1.2);
- }
+}
 
 #LayoutHeader .menubar {
     position: absolute;
     width: 100%;
-    height: 60px;
+    height: 65px;
     top: 70px;
     left: 0px;
     background: #FBDB6A;
 }
 
 li.menu span {
-    color: rgb(63, 63, 63);
-    font-size: 17px;
+    color: rgb(24, 24, 24);
+    font-size: 20px;
     font-weight: bolder;
     display: block;
-    height: 60px;
+    height: 55px;
     text-align: center;
-    padding: 5px 30px 0px;
+    align-items: center;
+    padding: 5px 25px 5px;
     text-decoration: none;
 }
 
@@ -79,18 +79,25 @@ div .memberbtn {
     position: absolute;
     right: 0px;
     top: 10px;
+    margin: 15px 0px 0px 0px;
+    padding: 0px;
 }
 
 li.member a {
-    color: rgb(97, 97, 97);
+    color: rgb(54, 54, 54);
     display: block;
     text-align: right;
     padding: 0px 20px 0px;
     text-decoration: none;
+    font-weight: 800;
 }
 
 li.member a:hover {
     color: black;
+}
+
+li.welcome-message {
+    list-style-type: none;
 }
 
 li.member {
@@ -106,22 +113,22 @@ li.member {
     line-height: 40px;
     margin: 0 12% 0 12%;
     padding: 20px 0 20px 0; */
-    padding-bottom: 150px;
-    min-height: 60vh;
+    /* padding-bottom: 150px; */
+    min-height: 70vh;
     z-index: 1;
 }
 
 #LayoutFooter {
     width: 100%;
-    height: 150px;
     background: #FBDB6A;
     bottom: 0;
     position: relative;
+    margin-top: 20px;
 }
 
 #LayoutFooter td {
-    font-size: bolder;
-    color: rgb(62, 62, 62);
+    font-weight: 600;
+    color: rgb(78, 78, 78);
     padding: 5px;
 }
 

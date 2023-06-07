@@ -45,6 +45,14 @@ const Layout = ({ isLoggedIn, handleLogout, onLogin }) => {
     navigate("/");
   };
 
+  const goDirect = () => {
+    if (user_id == null || '') {
+      navigate("/loginform");
+    } else {
+      navigate("/direct");
+    }
+  }
+
   const getMyPageLink = () => {
     const storedUserCode = window.sessionStorage.getItem("user_code");
     if (storedUserCode === "free") {
@@ -67,10 +75,12 @@ const Layout = ({ isLoggedIn, handleLogout, onLogin }) => {
               <img src="/images/logo.png" width="200" alt="메인" />
             </Link>
           </div>
+
           <div id="dm">
-            <Link to="/direct">
+            <div onClick={goDirect}>
+
               <img src="/images/dm.png" width="55px" alt="알림"></img>
-            </Link>
+            </div>
           </div>
           <div>
             <ul className="memberbtn">
@@ -93,10 +103,10 @@ const Layout = ({ isLoggedIn, handleLogout, onLogin }) => {
                         fontSize: "16px",
                       }}
                     >
-                      &nbsp;&nbsp;로그아웃
+                      <a>&nbsp;&nbsp;로그아웃</a>
                     </button>
                   </li>
-                  <li className="welcome-message" style={{ fontSize: "17px" }}>
+                  <li className="welcome-message" style={{ fontSize: "17px", fontWeight: 600 }}>
                     {user_id} 회원님, 환영합니다!
                   </li>
                 </>

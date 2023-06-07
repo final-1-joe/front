@@ -174,7 +174,7 @@ const Adminpage = () => {
     }
   }, []);
   useEffect(() => {
-    if (window.sessionStorage.getItem("user_id") !== 'admin') {
+    if (window.sessionStorage.getItem("user_code") !== 'admin') {
       navigate("/");
     }
   }, [mode]);

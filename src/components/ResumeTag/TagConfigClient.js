@@ -18,7 +18,7 @@ const TagConfigClient = ({ onRendering }) => {
   const user_id = window.sessionStorage.getItem("user_id");
   const user_code = window.sessionStorage.getItem("user_code");
   const jsRef = useRef();
-  const [js, setJs] = useState("work");
+  const [js, setJs] = useState("");
   const jgRef = useRef();
   const jobRef = useRef();
   const skillRef = useRef();

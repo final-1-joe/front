@@ -23,6 +23,7 @@ a:hover {
     width: 1080px;
 
 }
+
 #sc1 {
     margin: 0 auto;
     padding: 0px;
@@ -47,7 +48,7 @@ a:hover {
     width: 100px;
     display: inline-block;
     margin: 0px 15px;
-    padding-top: 15px;
+    padding-top: 25px;
     font-size: 20px;
     font-weight: bold;
     letter-spacing: -1px;
@@ -63,48 +64,62 @@ a:hover {
 .sc_lis {
     width: 100%;
     border-top: 1px solid rgb(238, 238, 238);
+    list-style-type: none;
 }
 
 .sc_lis-0 {
     text-align: left;
     position: relative;
-    padding: 25px 34px;
+    padding: 0px 0px 0px 0px;
     cursor: pointer;
 }
 
 .sc_lis-1 {
-    margin-right: 57px;
+    display: inline-block;
+    text-align: center;
+    width: 70px;
     font-size: 22px;
-    color: #FBDB6A;
+    color: #494d00;
 }
 
 .sc_lis-2 {
-    max-width: 797px;
+    display: inline-block;
+    width: 970px;
     font-size: 22px;
-    line-height: 1.64;
+    /* line-height: 1.64; */
     color: rgb(17, 17, 17);
+    margin: 10px 0 5px 0;
 }
 
 .sc_lis-3 {
-    position: absolute;
-    display: inline-block;
+    /*position: absolute;*/
+    /* display: flex; */
     width: 30px;
-    min-height: 70px;
+    text-align: center;
     top: 0px;
     right: 24px;
-    margin-top: 30px;
+    margin-top: 10px;
+    justify-content: center;
+
+}
+
+.ul_list_style {
+    list-style-type: none;
+    padding: 0px;
+    margin: 0px;
 }
 
 .sc_an-0 {
-    padding: 25px 34px;
+    padding: 20px 0px;
     background-color: #faf9db;
 }
 
 .sc_an-1 {
     display: inline-block;
-    margin-right: 57px;
     font-size: 22px;
-    color: #FBDB6A;
+    color: #0f0f0f;
+    text-align: center;
+    width: 68px;
 }
 
 .sc_an-2 {
@@ -112,25 +127,25 @@ a:hover {
     display: inline-block;
     word-break: break-all;
     text-align: left !important;
-    width: 850px;
-    font-size: 20px;
+    width: 900px;
+    font-size: 22px;
     font-weight: 500;
-    float: left;
     color: rgb(17, 17, 17);
     line-height: 1.62;
     white-space: normal;
 }
 
-.sc_an-2 p {
-
+.sc_an-2 pre {
+    margin: 0;
     white-space: normal;
 }
 
 .sc_an-3 {
-    margin-left: 10px;
-    float: right !important;
-    display: flex;
-    min-width: 70px;
+
+    font-size: 18px;
+    text-align: center;
+    display: inline-block;
+    min-width: 110px;
     height: auto;
 
 }
@@ -168,27 +183,34 @@ a:hover {
     font-size: 20px;
     line-height: 24px;
     text-align: center;
-    padding: 1% 0%;
+    padding: 15px 0px;
 }
-.id1{
-   
+
+.id1 {
+
     min-width: 200px;
 }
-.pw1{
+
+.pw1 {
     min-width: 200px;
 }
-.name1{
+
+.name1 {
     min-width: 200px;
 }
-.tel1{
+
+.tel1 {
     min-width: 130px;
 }
-.email1{
+
+.email1 {
     min-width: 300px;
 }
-.fix1{
+
+.fix1 {
     min-width: 100px;
 }
+
 .number {
     width: 80px;
 }
@@ -412,7 +434,7 @@ a:hover {
     padding: 20px;
     border-radius: 10px;
     color: #555555;
-    font-size: 16px;
+    font-size: 20px;
     border: 1px solid #ffd43b;
 }
 
@@ -455,6 +477,7 @@ a:hover {
 .sc_an_wr_btn {
     margin-right: 30px;
     text-align: right !important;
+    margin-bottom: 10px;
 }
 
 .one-box {
@@ -514,7 +537,7 @@ a:hover {
     height: 45px;
     line-height: 45px;
     color: #555555;
-    font-size: 16px;
+    font-size: 20px;
     border: 1px solid #ebebeb;
 }
 
@@ -522,6 +545,7 @@ a:hover {
     margin-top: 10px;
     width: auto;
     text-align: center;
+    margin-bottom: 10px;
 }
 
 .mt60 {

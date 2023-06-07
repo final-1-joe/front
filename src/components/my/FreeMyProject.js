@@ -7,24 +7,12 @@ import axios from "axios";
 
 function MyProject() {
   const navigate = useNavigate();
-  const [applyProject, setApplyProject] = useState([]);
   const [ongoingProject, setOngoingProject] = useState([]);
   const [offeredProject, setOfferedProject] = useState([]);
   const [finishedProject, setFinishedProject] = useState([]);
   const user = window.sessionStorage.getItem("user_id");
 
   useEffect(() => {
-    axios
-      .get("http://localhost:8080/auth/inprogresspj", {
-        params: { user_id: user },
-      })
-      .then((response) => {
-        setApplyProject(response.data);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-
     axios
       .get("http://localhost:8080/auth/freeongoingpj", {
         params: { user_id: user },
@@ -143,7 +131,7 @@ function MyProject() {
           </Link>
         ))}
         <h4 className="myh4">지원한 프로젝트</h4>
-        {applyProject.map((project) => (
+        {offeredProject.map((project) => (
           <Link
             to={`/pjlist/pjdetail/${project.pj_num}`}
             style={{ textDecoration: "none" }}
