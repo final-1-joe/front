@@ -117,7 +117,6 @@ const FreeDetail = () => {
         responseType: "blob",
       })
       .then((res) => {
-        console.log(res.data);
         FileSaver.saveAs(res.data, user_orfile);
         navigate(-1);
       })

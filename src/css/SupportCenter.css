@@ -112,6 +112,7 @@ a:hover {
 .sc_an-0 {
     padding: 20px 0px;
     background-color: #faf9db;
+    width: 1080px;
 }
 
 .sc_an-1 {
@@ -145,7 +146,7 @@ a:hover {
     font-size: 18px;
     text-align: center;
     display: inline-block;
-    min-width: 110px;
+    width: 110px;
     height: auto;
 
 }
