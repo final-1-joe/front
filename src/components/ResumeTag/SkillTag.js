@@ -63,7 +63,7 @@ const SkillTag = (data) => {
     let updatedTagList = [...tagList];
     updatedTagList.push(clickedItem);
     setTagList(updatedTagList);
-
+    setTagItem("");
     setIsHavetagItem(false);
   };
 
