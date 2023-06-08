@@ -16,17 +16,18 @@ const CalModal = (props) => {
     const [color, setColor] = useState('');
 
 
+
     useEffect(() => {
         if (event) {
             setId(event.id);
             setTitle(event.title);
-            setStart(event.start);
-            setEnd(event.end);
+            setStart(moment(event.start).format('YYYY-MM-DD'));
+            setEnd(moment(event.end).format('YYYY-MM-DD'));
             setMemo(event.extendedProps.memo);
             setColor(event.color);
             setEdit(false);
         }
-    }, [open]);
+    }, [open, event]);
 
     const colorList = [
         { label: 'Red', value: 'red' },
@@ -64,12 +65,13 @@ const CalModal = (props) => {
     }
 
     const modalSubmit = () => {
+        const endDate = `${end}T23:59:59`;
         axios
             .patch(`http://localhost:8080/schedule/update`, {
                 schedule_title: title,
                 schedule_content: memo,
                 schedule_start: start,
-                schedule_end: end,
+                schedule_end: endDate,
                 schedule_key: parseInt(id),
                 schedule_color: color
             })
