@@ -18,6 +18,7 @@ const PjUpdate = () => {
   const workformRef = useRef();
   const placeRef = useRef();
   const jobRef = useRef();
+  const levelRef = useRef();
   const skillRef = useRef();
   const pickRef = useRef();
 
@@ -56,6 +57,7 @@ const PjUpdate = () => {
         pj_work_form: workformRef.current.value,
         pj_place: placeRef.current.value,
         pj_job: jobRef.current.value,
+        pj_level: levelRef.current.value,
         pj_skill: skillRef.current.value,
         pj_pick: pickRef.current.value,
         user_id: "admin",
@@ -170,8 +172,21 @@ const PjUpdate = () => {
           <tr>
             <td>예상 급여</td>
             <td>
+              <select
+                type="text"
+                className="selectItem2"
+                defaultValue={pjdetail.pj_level}
+                ref={levelRef}
+              >
+                <option value="">초급/중급/고급</option>
+                <option value="초급">초급</option>
+                <option value="중급">중급</option>
+                <option value="고급">고급</option>
+              </select>
+              &nbsp;
               <input
                 type="text"
+                className="inputPay"
                 defaultValue={pjdetail.pj_pay}
                 ref={payRef}
               ></input>
