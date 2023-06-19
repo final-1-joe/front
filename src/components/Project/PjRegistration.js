@@ -17,6 +17,7 @@ const PjRegistration = () => {
     pj_work_form: "",
     pj_place: "",
     pj_job: "",
+    pj_level: "",
     pj_skill: "",
     pj_pick: "",
     user_id: "",
@@ -37,6 +38,7 @@ const PjRegistration = () => {
   const workformRef = useRef();
   const placeRef = useRef();
   const jobRef = useRef();
+  const levelRef = useRef();
   const skillRef = useRef();
   const pickRef = useRef();
 
@@ -78,6 +80,7 @@ const PjRegistration = () => {
         pj_work_form: info.pj_work_form,
         pj_place: info.pj_place,
         pj_job: info.pj_job,
+        pj_level: info.pj_level,
         pj_skill: info.pj_skill,
         pj_pick: info.pj_pick,
         user_id: info.user_id,
@@ -238,9 +241,27 @@ const PjRegistration = () => {
           <tr>
             <td>예상 급여</td>
             <td>
+              <select
+                type="text"
+                className="selectItem2"
+                ref={levelRef}
+                onChange={() =>
+                  setInfo((prevInfo) => ({
+                    ...prevInfo,
+                    pj_level: levelRef.current.value,
+                  }))
+                }
+              >
+                <option value="">초급/중급/고급</option>
+                <option value="초급">초급</option>
+                <option value="중급">중급</option>
+                <option value="고급">고급</option>
+              </select>
+              &nbsp;
               <input
                 type="text"
                 placeholder="예상 급여(월)"
+                className="inputPay"
                 ref={payRef}
                 onChange={() =>
                   setInfo((prevInfo) => ({

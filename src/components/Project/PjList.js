@@ -264,11 +264,13 @@ const PjList = () => {
                   </tr>
                   <tr>
                     <td>(주)&nbsp;{data.pj_corpname}&nbsp;&nbsp;|</td>
-                    <td className="ListIntro">{data.pj_title}</td>
+                    <td className="ListIntro">
+                      [{data.pj_level}]&nbsp;{data.pj_title}
+                    </td>
                   </tr>
                   <tr style={{ fontSize: "14px" }}>
                     <td colSpan={2}>
-                      {data.pj_pay}&nbsp;&nbsp;|&nbsp;&nbsp;
+                      월&nbsp;{data.pj_pay}&nbsp;&nbsp;|&nbsp;&nbsp;
                       {data.pj_start}&nbsp;~&nbsp;{data.pj_end}
                       &nbsp;&nbsp;|&nbsp;&nbsp;
                       {data.pj_work_form}&nbsp;&nbsp;|&nbsp;&nbsp;

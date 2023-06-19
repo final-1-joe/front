@@ -145,7 +145,7 @@ const PjDetail = () => {
                   align="center"
                   style={{ fontSize: "22px", fontWeight: "bold" }}
                 >
-                  {project.pj_title}
+                  [{project.pj_level}]&nbsp;{project.pj_title}
                 </td>
               </tr>
               <tr>
@@ -219,7 +219,7 @@ const PjDetail = () => {
         </div>
 
         <div className="PjReview">
-          <details close>
+          <details open>
             <summary>회사 평가</summary>
             <div class="tpt">
               <PjReview
