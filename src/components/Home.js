@@ -1,6 +1,17 @@
 import React from "react";
 import Slider from "react-slick";
 import { useState, useEffect, useRef } from "react";
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  BarChart,
+  Bar,
+} from "recharts";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -46,6 +57,7 @@ function NextArrow(props) {
   );
 }
 const Home = () => {
+  const [combinedData, setCombinedData] = useState([]);
   const navigate = useNavigate();
   const user_id = window.sessionStorage.getItem("user_id");
   const user_code = window.sessionStorage.getItem("user_code");
@@ -54,6 +66,40 @@ const Home = () => {
   const [frlist, setFrlist] = useState([]);
   const [pjlist, setPjlist] = useState([]);
   const [newfre, setNewfre] = useState();
+  const jgdata = [
+    "개발",
+    "경영·비즈니스",
+    "마케팅·광고",
+    "디자인",
+    "미디어",
+    "엔지니어링·설계",
+    "법률·법집행기관",
+  ];
+  //프리랜서 직군 데이터 배열과, 클라이언트 프로젝트 요구직군 데이터 배열을 합침
+  const fetchData = async () => {
+    try {
+      const pjjgResponses = await Promise.all(
+        jgdata.map((jg) =>
+          axios.post("http://localhost:8080/pjjgcount", { pj_job: jg })
+        )
+      );
+
+      const jgResponses = await Promise.all(
+        jgdata.map((jg) =>
+          axios.post("http://localhost:8080/resume/usjgcount", { user_jg: jg })
+        )
+      );
+
+      const combinedData = jgdata.map((jg, index) => ({
+        name: jg,
+        resumedata: jgResponses[index]?.data || 0,
+        projectdata: pjjgResponses[index]?.data || 0,
+      }));
+      setCombinedData(combinedData);
+    } catch (error) {
+      console.error(error);
+    }
+  };
   const settings = {
     infinite:
       user_code === "client" ? refrlist.length > 3 : repjlist.length > 3,
@@ -80,6 +126,7 @@ const Home = () => {
     } else if (user_code === "client") {
       getFrlistTag();
     }
+    fetchData();
     getPjlist();
     getFrlist();
   }, [user_code, user_id]);
@@ -558,6 +605,20 @@ const Home = () => {
       ) : (
         <></>
       )}
+      <div className="flex">
+        <div>
+          <h3>&nbsp;&nbsp;프로젝트 요구 기술 / 프리랜서 보유 기술 그래프</h3>
+          <BarChart width={1080} height={250} data={combinedData}>
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis dataKey="name" />
+            <YAxis />
+            <Tooltip />
+            <Legend />
+            <Bar dataKey="resumedata" fill="#FFC300" name="프리랜서" />
+            <Bar dataKey="projectdata" fill="#FF6347" name="프로젝트" />
+          </BarChart>
+        </div>
+      </div>
     </div>
   );
 };
